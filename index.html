@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/><meta name="apple-mobile-web-app-title" content="Urg Pocket"/>
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0f0f12" media="(prefers-color-scheme: dark)"/><meta name="theme-color" content="#f0f4f8" media="(prefers-color-scheme: light)"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><title>Urg Pocket</title><style>
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/><meta name="apple-mobile-web-app-title" content="Urg Pocket"/><meta name="theme-color" content="#0f0f12" media="(prefers-color-scheme: dark)"/><meta name="theme-color" content="#f0f4f8" media="(prefers-color-scheme: light)"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><title>Urg Pocket</title><style>
 
 /* === THEME === */
 :root{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f7f9fb;--surface3:#edf1f5;--text:#1a2332;--text2:#5c6b7a;--line:#dce3eb;--primary:#1a73e8;--primary2:#1558b8;--secondary:#0d9488;--danger:#d32f2f;--shadow:0 2px 8px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.04);--header:60px;--bottom:72px}
@@ -312,21 +307,27 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 <button class="home-compact" data-target="score-braden"><span class="hc-icon">🛏️</span><span class="hc-label">Braden</span></button>
 </div></div></section>
 <section class="screen" id="screen-score-imc"><div class="content-card"><div class="page-head"><div><h2>IMC</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Estime la corpulence. < 18,5 = insuffisance pondérale, 18,5-25 = normal, 25-30 = surpoids, > 30 = obésité.</div>
 <div class="score-panel" id="score-imc" ><div class="section-title"><h3>Indice de masse corporelle (IMC)</h3></div><div class="note" style="margin-top:0">Sert à estimer la corpulence à partir de la taille et du poids, et à repérer une insuffisance pondérale, un surpoids ou une obésité.</div><div class="inline-form"><div class="field"><div class="label">Taille</div><input class="num-input" id="imcTaille" aria-label="Taille en centimètres" min="0" placeholder="cm" step="0.1" type="number"/></div><div class="field"><div class="label">Poids</div><input class="num-input" id="imcPoids" aria-label="Poids en kilogrammes" min="0" placeholder="kg" step="0.1" type="number"/></div><div><button class="btn primary" id="imcCalcBtn">Résultats</button></div></div><div class="result-list"><div class="result"><div class="result-name">IMC</div><div class="result-num" id="imcValue">—</div></div><div class="result"><div class="result-name">Interprétation</div><div class="result-num" id="imcLabel">—</div></div></div></div>
 </div></section>
 <section class="screen" id="screen-score-glasgow"><div class="content-card"><div class="page-head"><div><h2>Glasgow</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Évalue le niveau de conscience. 3 composantes : ouverture des yeux (E), réponse verbale (V), réponse motrice (M). Total de 3 (coma profond) à 15 (conscience normale).</div>
 <div class="score-panel" id="score-glasgow" ><div class="section-title"><h3>Score de Glasgow</h3></div><div class="note" style="margin-top:0">Sert à évaluer rapidement le niveau de conscience, notamment en contexte neurologique, traumatique ou de surveillance critique.</div><div class="score-list" id="glasgowWrap"></div><div class="score-result" id="glasgowResult" aria-live="polite">15 · Conscience normale</div></div>
 </div></section>
 <section class="screen" id="screen-score-braden"><div class="content-card"><div class="page-head"><div><h2>Braden</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Évalue le risque d'escarre. Score ≤ 18 = risque, ≤ 12 = risque élevé. 6 critères : perception, humidité, activité, mobilité, nutrition, friction.</div>
 <div class="score-panel" id="score-braden" ><div class="section-title"><h3>Échelle de Braden</h3><span class="muted">Évaluation du risque d’escarre</span></div><div class="note" style="margin-top:0">Sert à estimer le risque de développer une escarre afin d’adapter la prévention et la surveillance.</div><div class="braden-grid" id="bradenWrap"></div><div class="score-result" id="bradenResult" aria-live="polite">Braden · score total : 23 · risque très faible</div></div>
 </div></section>
 <section class="screen" id="screen-score-news2"><div class="content-card"><div class="page-head"><div><h2>NEWS2</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Détecte la dégradation clinique aiguë. Score ≥ 5 ou item à 3 → alerte médicale. Scale 2 pour patients BPCO (cible SpO₂ 88-92 %).</div>
 <div class="score-panel" id="score-news2" ><div class="section-title"><h3>NEWS2</h3><span class="muted">National Early Warning Score 2</span></div><div class="note" style="margin-top:0">Scale 1 = standard. Scale 2 = patients BPCO ou insuffisants respiratoires chroniques avec cible SpO₂ 88-92 %.</div><div class="field" style="margin-top:14px;margin-bottom:8px"><div class="label">Échelle SpO₂</div><div class="duration-toggle"><button class="unit-btn news2-scale-btn active" data-scale="1" type="button">Scale 1 (standard)</button><button class="unit-btn news2-scale-btn" data-scale="2" type="button">Scale 2 — BPCO</button></div></div><div class="score-list" id="news2Wrap"></div><div class="score-result" id="news2Result" aria-live="polite">0 · risque faible</div></div>
 </div></section>
 <section class="screen" id="screen-score-qsofa"><div class="content-card"><div class="page-head"><div><h2>qSOFA</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Dépistage rapide au lit du patient. ≥ 2 critères = risque élevé d'évolution défavorable en cas d'infection suspectée.</div>
 <div class="score-panel" id="score-qsofa" ><div class="section-title"><h3>qSOFA</h3><span class="muted">Sepsis quick score</span></div><div class="note" style="margin-top:0">Sert à identifier rapidement un patient adulte avec suspicion d’infection présentant un risque plus élevé d’évolution défavorable.</div><div class="score-list" id="qsofaWrap"></div><div class="score-result" id="qsofaResult" aria-live="polite">0 / 3 · risque faible</div></div>
 </div></section>
 <section class="screen" id="screen-score-apgar"><div class="content-card"><div class="page-head"><div><h2>APGAR</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Évalue l'adaptation du nouveau-né à 1, 5 et 10 min de vie. Ne prédit pas seul le devenir neurologique.</div>
 <div class="score-panel" id="score-apgar" ><div class="section-title"><h3>APGAR</h3><span class="muted">Évaluation néonatale</span></div><div class="note" style="margin-top:0">Sert à évaluer l’adaptation immédiate du nouveau-né à la naissance à 1, 5 et parfois 10 minutes de vie.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;margin-bottom:8px">
 <div class="field" style="text-align:center">
 <div class="label">Temps de mesure</div>
@@ -346,6 +347,7 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 
 </div></section>
 <section class="screen" id="screen-score-cushman"><div class="content-card"><div class="page-head"><div><h2>Cushman</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Évalue la sévérité du syndrome de sevrage alcoolique pour guider la prise en charge (benzodiazépines).</div>
 <div class="score-panel" id="score-cushman" >
 <div class="section-title"><h3>Score de Cushman</h3><span class="muted">Sevrage alcoolique</span></div>
 <div class="note" style="margin-top:0">Sert à évaluer la sévérité du syndrome de sevrage alcoolique et à guider la prise en charge.</div>
@@ -369,6 +371,7 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 
 </div></section>
 <section class="screen" id="screen-score-chadsvasc"><div class="content-card"><div class="page-head"><div><h2>CHA₂DS₂-VASc</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Évalue le risque thromboembolique en FA pour guider l'anticoagulation. Score ≥ 2 (homme) ou ≥ 3 (femme) → anticoagulation recommandée.</div>
 <div class="score-panel" id="score-chadsvasc" >
 <div class="section-title"><h3>CHA₂DS₂-VASc</h3><span class="muted">Risque thromboembolique (FA)</span></div>
 <div class="note" style="margin-top:0">Évalue le risque d'AVC chez un patient en fibrillation atriale pour guider l'anticoagulation.</div>
@@ -379,6 +382,7 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 
 </div></section>
 <section class="screen" id="screen-score-cockcroft"><div class="content-card"><div class="page-head"><div><h2>Cockcroft-Gault</h2></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Estime la clairance de la créatinine pour adapter les posologies. Non fiable si IMC extrême, âge > 75 ans ou IRA.</div>
 <div class="score-panel" id="score-cockcroft" >
 <div class="section-title"><h3>Clairance créatinine</h3><span class="muted">Cockcroft-Gault</span></div>
 <div class="note" style="margin-top:0">Estime la clairance de la créatinine pour l'adaptation posologique. Non fiable si IMC extrême, âge > 75 ans ou insuffisance rénale aiguë.</div>
@@ -443,12 +447,12 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 </div></section>
 
 <section class="screen" id="screen-proto-acr"><div class="content-card"><div class="page-head"><div><h2>ACR adulte</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
-<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : RFE SFMU/SFAR 2015, ERC 2021</div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : RFE SFMU/SFAR 2015, ERC 2025</div>
 <div id="protoContent-acr"></div>
 </div></section>
 
 <section class="screen" id="screen-proto-acr_ped"><div class="content-card"><div class="page-head"><div><h2>ACR pédiatrique</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
-<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : RFE SFMU/SFAR 2015, ERC 2021</div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : RFE SFMU/SFAR 2015, ERC 2025</div>
 <div id="protoContent-acr_ped"></div>
 </div></section>
 
@@ -505,6 +509,33 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 </div>
 
 <div class="note" style="margin-top:14px">Les paramètres sont sauvegardés sur cet appareil.</div>
+
+<div class="section-title"><h3>À propos</h3></div>
+<div class="field" style="margin-bottom:14px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<span style="font-weight:700">Version</span>
+<span style="color:var(--primary);font-weight:800">1.0.0</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<span style="font-weight:700">Développement</span>
+<span style="color:var(--text2)">Max</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span style="font-weight:700">Contexte</span>
+<span style="color:var(--text2)">SAMU / SMUR</span>
+</div>
+</div>
+
+<div class="section-title"><h3>Contact</h3></div>
+<div class="field" style="margin-bottom:14px">
+<p style="margin:0 0 12px;font-size:14px;color:var(--text2);line-height:1.5">Une erreur médicale, une suggestion, un bug ? N'hésite pas à nous contacter.</p>
+<a href="mailto:urgpocket@proton.me" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:var(--primary);color:#fff;border-radius:10px;text-decoration:none;font-size:14px;font-weight:700">✉️ urgpocket@proton.me</a>
+</div>
+
+<div class="section-title"><h3>Mentions</h3></div>
+<div class="field" style="margin-bottom:14px">
+<p style="margin:0;font-size:13px;color:var(--text2);line-height:1.6">Urg Pocket est un outil d'aide à la décision destiné aux professionnels de santé en situation d'urgence. Il ne remplace en aucun cas un avis médical, les protocoles de service ni la formation initiale et continue (AFGSU, ACLS).<br/><br/>Les données médicales sont issues de sources référencées (ERC 2025, SFMU, SFAR, HAS, ESC, SFMU/Toxin). Consulter l'onglet Sources pour le détail des références.<br/><br/><a href="https://max54130.github.io/urg-pocket/privacy.html" target="_blank" style="color:var(--primary)">Politique de confidentialité</a></p>
+</div>
 </div></section>
 <section class="screen" id="screen-sources"><div class="content-card"><div class="page-head"><div><h2>Sources et limites</h2><p>Références, méthodologie et précautions</p></div></div>
 
@@ -534,13 +565,13 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 <div class="note">Facteurs de conversion issus des recommandations SI. Glycémie : × 5,551 (g/L → mmol/L). Créatinine : × 0,01131 (µmol/L → mg/dL). Cholestérol : × 2,586. Triglycérides : × 1,129. Bilirubine : × 0,05847.<br/><br/><a href="https://unitslab.com/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 UnitsLab — Référence des conversions</a></div>
 
 <div class="section-title"><h3>Doses pondérales</h3></div>
-<div class="note">Les posologies de référence proviennent du Vidal, des recommandations SFAR/SFMU et des protocoles courants en médecine d'urgence adulte. Les concentrations indiquées sont celles des présentations les plus courantes en France. <strong>Toujours vérifier la posologie avec le protocole de service et le Vidal.</strong><br/><br/><a href="https://www.vidal.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Vidal</a> <a href="https://sfar.org/publications-et-recommandations/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAR — Recommandations</a> <a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Référentiels</a></div>
+<div class="note">Les posologies de référence proviennent du Vidal, des recommandations SFAR/SFMU et des protocoles courants en médecine d'urgence adulte. Les concentrations indiquées sont celles des présentations les plus courantes en France. <strong>Toujours vérifier la posologie avec le protocole de service et le Vidal.</strong><br/><br/><a href="https://www.vidal.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Vidal</a> <a href="https://sfar.org/publications-et-recommandations/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAR — Recommandations</a> <a href="https://www.sfmu.org/upload/consensus/rfe_anaphylaxie_sfmu2016.pdf" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Référentiels</a></div>
 
 <div class="section-title"><h3>Constantes vitales</h3></div>
 <div class="note">Constantes adultes : repères issus des recommandations générales (OMS, ESC, SFMU). Constantes : repères issus de la littérature pédiatrique (PALS/AHA, Nelson Textbook of Pediatrics). Les valeurs varient selon les sources ; elles sont données à titre indicatif.<br/><br/><a href="https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-advanced-life-support" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 AHA — PALS Guidelines</a> <a href="https://www.sfmu.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div>
 
 <div class="section-title"><h3>Protocoles rapides</h3></div>
-<div class="note">Les check-lists sont des aide-mémoires synthétiques basés sur les recommandations françaises : RFE SFMU/SFAR 2015 et ERC 2021 (ACR adulte et pédiatrique), HAS 2009 et SFNV (AVC), RFE SFMU 2016 et SFA (anaphylaxie), ESC 2023 et SFC/SFMU (SCA). Elles ne remplacent pas les protocoles de service ni la formation AFGSU/ACLS. Les posologies peuvent évoluer ; vérifier avec les référentiels en vigueur.<br/><br/><a href="https://www.erc.edu/guidelines-2021" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2021 — Guidelines ACR</a> <a href="https://sfar.org/recommandations-sur-la-reanimation-du-arret-cardiaque/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 RFE SFMU/SFAR — ACR</a> <a href="https://www.erc.edu/guidelines-2021/paediatric-life-support" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2021 — Réanimation pédiatrique</a> <a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — AVC</a> <a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Anaphylaxie</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — SCA / STEMI</a></div>
+<div class="note">Les check-lists sont des aide-mémoires synthétiques basés sur les recommandations françaises : RFE SFMU/SFAR 2015 et ERC 2025 (ACR adulte et pédiatrique), HAS 2009 et RPP SFMU/SFNV 2024 (AVC), RFE SFMU 2016 et SFA (anaphylaxie), ESC 2023 et SFC/SFMU (SCA). Elles ne remplacent pas les protocoles de service ni la formation AFGSU/ACLS. Les posologies peuvent évoluer ; vérifier avec les référentiels en vigueur.<br/><br/><a href="https://www.erc.edu/science-research/guidelines/guidelines-2025/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025 — Guidelines ACR</a> <a href="https://sfar.org/recommandations/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 RFE SFMU/SFAR — ACR</a> <a href="https://www.erc.edu/science-research/guidelines/guidelines-2025/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025 — Réanimation pédiatrique</a> <a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS 2009 — AVC</a> <a href="https://www.sfmu.org/fr/publications/recommandations-de-la-sfmu" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 RPP SFMU/SFNV 2024 — Transferts AVC</a> <a href="https://www.sfmu.org/upload/consensus/rfe_anaphylaxie_sfmu2016.pdf" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 RFE SFMU 2016 — Anaphylaxie</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes-ACS-Guidelines" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — SCA / STEMI</a></div>
 
 <div class="section-title"><h3>Toxicologie (antidotes + doses toxiques)</h3></div>
 <div class="note">Table des correspondances intoxication/antidote, conforme au tableau de référence SFMU/Toxin (Pr Vincent Danel, Université Grenoble Alpes, rév. déc. 2019).<br/><br/><a href="https://www.sfmu.org/toxin/ANTIDOTE/TOXANTTB.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Intoxications et antidotes</a> <a href="https://www.sfmu.org/toxin/DOSETOXI/DOSETOX.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Doses toxiques</a> <a href="https://www.centres-antipoison.net/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Centres antipoison — France</a> <a href="https://www.vidal.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Vidal</a></div>
@@ -549,7 +580,7 @@ body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecac
 <div class="note">Ordre de remplissage selon les recommandations du CLSI (Clinical and Laboratory Standards Institute). L'ordre peut varier selon le laboratoire et le dispositif de prélèvement ; toujours vérifier le protocole local.<br/><br/><a href="https://clsi.org/standards/products/general-laboratory/documents/gp41/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 CLSI GP41 — Ordre de prélèvement</a></div>
 
 <div class="note" style="margin-top:18px">
-   ⚠️ Les informations contenues dans cette application ne remplacent EN AUCUN CAS ni un avis médical, ni les référentiels locaux de service, ni les bornes du laboratoire.
+   ⚠️ Les informations contenues dans cette application ne remplacent EN AUCUN CAS ni un avis médical, ni les référentiels locaux de service, ni les bornes du laboratoire.<br/><br/>Urg Pocket v1.0.0 — Contact : <a href="mailto:urgpocket@proton.me" style="color:var(--primary)">urgpocket@proton.me</a>
 </div></div></section>
 <section class="screen" id="screen-tubes"><div class="content-card"><div class="page-head"><div><h2>Ordre prélèvement tubes</h2><p>Séquence de remplissage et contenu</p></div></div>
 
@@ -1473,7 +1504,7 @@ renderAntidotes();
 const doseRefs = [
   {produit:"Adrénaline (ACR)",posologie:"1 mg IVD (fixe)",concentration:"1 mg/mL"},
   {produit:"Adrénaline (anaphylaxie)",posologie:"0,01 mg/kg IM",concentration:"1 mg/mL"},
-  {produit:"Amiodarone (ACR)",posologie:"5 mg/kg IVL",concentration:"50 mg/mL"},
+  {produit:"Amiodarone (ACR)",posologie:"300 mg IV rapide (dans 20 mL G5 %)",concentration:"50 mg/mL"},
   {produit:"Atropine",posologie:"0,5 mg IVD (fixe, min)",concentration:"0,25 mg/mL"},
   {produit:"Kétamine (analgésie)",posologie:"0,2 – 0,3 mg/kg IVL",concentration:"50 mg/mL"},
   {produit:"Morphine (titration)",posologie:"0,1 mg/kg IVL puis bolus 2-3 mg",concentration:"10 mg/mL"},
@@ -1601,7 +1632,7 @@ const protocoles = {
       "Débuter la RCP sans délai : 30 compressions / 2 insufflations. Rythme 100-120/min, profondeur 5-6 cm, relâchement complet du thorax entre chaque compression.",
       "DSA/scope dès disponible : analyser le rythme. Rythme chocable (FV/TV sans pouls) → choc 150-200 J biphasique, reprendre MCE immédiatement pendant 2 min.",
       "Adrénaline 1 mg IVD toutes les 3-5 min : si rythme non chocable → dès l'abord veineux. Si chocable → après le 3ème choc.",
-      "Amiodarone 300 mg IVL (bolus dans 20 mL G5 %) : si FV/TV réfractaire après le 3ème choc. 2ème dose 150 mg après le 5ème choc.",
+      "Amiodarone 300 mg IV dans 20 mL de G5 %, injection rapide : si FV/TV réfractaire après le 3ème choc. 2ème dose 150 mg après le 5ème choc.",
       "Rechercher les causes réversibles : 4H (Hypoxie, Hypovolémie, Hypo/Hyperkaliémie, Hypothermie) et 4T (Thrombose coronaire ou pulmonaire, Tamponnade, Tension pneumothorax, Toxiques).",
       "Réévaluer le rythme toutes les 2 min. Minimiser toute interruption du MCE (< 10 s). Alterner les masseurs toutes les 2 min."
     ]
@@ -1640,7 +1671,7 @@ const protocoles = {
       "Reconnaître : signes cutanéo-muqueux (urticaire, angiœdème) + ≥ 1 signe de gravité (dyspnée, hypotension, tachycardie, troubles de conscience). ",
       "Arrêter immédiatement l'allergène si identifié (perfusion, médicament, aliment, piqûre).",
       "Renfort équipe si nécessaire. Préparer adrénaline et matériel de remplissage.",
-      "ADRÉNALINE IM face antéro-latérale de cuisse : adulte 0,5 mg (seringue pré-remplie ou 0,5 mL d'adrénaline 1 mg/mL). Enfant : 0,01 mg/kg IM. Renouveler à 5 min si persistance des symptômes.",
+      "ADRÉNALINE IM face antéro-latérale de cuisse : adulte 0,3 à 0,5 mg IM (0,5 mg en contexte SMUR). Enfant : 0,01 mg/kg (max 0,3 mg). Renouveler à 5 min si persistance des symptômes.",
       "Position : décubitus dorsal, jambes surélevées. Si dyspnée prédominante : position demi-assise. Si vomissements ou inconscience : PLS.",
       "Remplissage vasculaire : NaCl 0,9 % 500-1000 mL en débit libre chez l'adulte (20 mL/kg chez l'enfant). Répéter si besoin.",
       "O₂ haut débit : masque haute concentration 15 L/min.",
@@ -2310,13 +2341,24 @@ const dosesToxiques = [
   renderDosesTox();
 })();
 
+
+/* ========== NAVIGATION HISTORY (for back button) ========== */
+const navHistory = ['home'];
+const origSetActive = setActive;
+setActive = function(target) {
+  if (navHistory[navHistory.length - 1] !== target) {
+    navHistory.push(target);
+  }
+  origSetActive(target);
+};
+window.addEventListener('popstate', () => {
+  navHistory.pop();
+  const prev = navHistory[navHistory.length - 1] || 'home';
+  origSetActive(prev);
+});
+
 setActive('home');
 
 /* Dark mode handled by settings IIFE */
 
-
-/* ========== SERVICE WORKER (PWA) ========== */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
 </script></body></html>
