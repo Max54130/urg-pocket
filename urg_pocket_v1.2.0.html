@@ -309,6 +309,29 @@ body.dark .trauma-crit-item:has(input:checked){background:color-mix(in srgb,var(
 
 .profile-toggle-btn{flex:1;padding:10px 8px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s}
 .profile-toggle-btn.active{border-color:var(--primary);background:color-mix(in srgb,var(--primary) 10%,var(--surface));color:var(--primary)}
+/* === SCORE RING === */
+.score-result.ring-result{background:var(--surface3);border-color:var(--line);padding:14px 16px;color:var(--text);border-radius:16px}
+.score-result.ring-result.green{background:#0d1f14;border-color:#22c55e;border-radius:16px}
+.score-result.ring-result.yellow{background:#1c1506;border-color:#eab308;border-radius:16px}
+.score-result.ring-result.red{background:#1f0d0d;border-color:#f87171;border-radius:16px}
+body:not(.dark) .score-result.ring-result.green{background:#052e16;border-color:#22c55e;border-radius:16px}
+body:not(.dark) .score-result.ring-result.yellow{background:#1c1a03;border-color:#ca8a04;border-radius:16px}
+body:not(.dark) .score-result.ring-result.red{background:#1f0d0d;border-color:#ef4444;border-radius:16px}
+.sr-wrap{display:flex;align-items:center;gap:16px}
+.sr-circle{width:68px;height:68px;min-width:68px;border-radius:50%;border:3.5px solid #22c55e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:transparent}
+.sr-circle.yellow{border-color:#eab308}
+.sr-circle.red{border-color:#f87171}
+.sr-circle.green{border-color:#22c55e}
+.sr-circle-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;line-height:1;color:rgba(255,255,255,.45);margin-bottom:1px}
+.sr-circle-num{font-size:26px;font-weight:900;line-height:1;color:#fff}
+.sr-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.sr-badge{display:inline-flex;align-self:flex-start;padding:3px 10px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:1.5px solid currentColor}
+.sr-badge.green{color:#22c55e;border-color:#22c55e}
+.sr-badge.yellow{color:#eab308;border-color:#eab308}
+.sr-badge.red{color:#f87171;border-color:#f87171}
+.sr-interp{font-size:13px;font-weight:700;color:#fff;line-height:1.3}
+.sr-conduct{font-size:12px;line-height:1.4;color:rgba(255,255,255,.55)}
+
 /* === ANDROID SAFE AREA === */
 </style><script>/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
 <script>
@@ -358,7 +381,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
   </div>
 </div>
 
-<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;overflow:hidden;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="#1A73E8"/><rect x="13" y="7" width="12" height="24" rx="2.5" fill="#e8edf5"/><rect x="7" y="13" width="24" height="12" rx="2.5" fill="#e8edf5"/><polyline points="2,19 8,19 10,14 12,24 14,17 16,21 19,14 21,23 23,19 29,19 36,19" fill="none" stroke="#1a3a6b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="debit">💧 Débit perf</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
+<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;overflow:hidden;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="var(--primary)"/><rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/><rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/><polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="debit">💧 Débit perf</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
 <main role="main">
   <section class="screen active" id="screen-home">
 <div class="search-global search-home-only" style="margin-bottom:14px"><input type="text" id="globalSearchMobile" aria-label="Recherche globale" placeholder="🔍 Rechercher : Glasgow, potassium, adrénaline..." style="min-height:44px"/><div class="search-results" id="searchResultsMobile"></div></div>
@@ -782,7 +805,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="small" id="doseToxCount" style="margin-bottom:14px"></div>
 <div class="table-scroll" style="margin-top:0"><table id="doseToxTable"><thead><tr><th>DCI</th><th>DT Adulte</th><th>DT Enfant</th><th>Pic plasmatique</th></tr></thead><tbody id="doseToxBody"></tbody></table></div>
 <div class="note" style="margin-top:14px">DT = Dose Toxique. Source : SFMU/Toxin — Pr Vincent Danel, Université Grenoble Alpes (rév. déc. 2019).</div>
-</section>
+</div></section>
 </main>
 <nav class="bottom-nav" role="navigation" aria-label="Navigation principale"><button class="nav-btn active" data-target="home" aria-label="Accueil"><span class="nav-icon">🏠</span><span>Accueil</span></button><button class="nav-btn" data-target="debit" aria-label="Débit perfusion"><span class="nav-icon">💧</span><span>Débit</span></button><button class="nav-btn" data-target="normes" aria-label="Normes biologiques"><span class="nav-icon">🧪</span><span>Normes</span></button><button class="nav-btn" data-target="scores" aria-label="Scores cliniques"><span class="nav-icon">📋</span><span>Scores</span></button><button class="nav-btn" data-target="tubes" aria-label="Ordre prélèvement tubes"><span class="nav-icon">🩸</span><span>Prélèvt.</span></button><button class="nav-btn" data-target="antidotes" aria-label="Antidotes"><span class="nav-icon">💊</span><span>Antidotes</span></button><button class="nav-btn" data-target="doses" aria-label="Doses pondérales"><span class="nav-icon">💉</span><span>Doses</span></button><button class="nav-btn" data-target="protocoles" aria-label="Protocoles rapides"><span class="nav-icon">🚨</span><span>Protocoles</span></button></nav></div><script>
 const antidoteCategories = [
@@ -1318,8 +1341,11 @@ function glasgowInterpret(t) {
 function renderGlasgowResult() {
   if (!glasgowResult) return;
   const total = Object.values(glasgowState).reduce((a, b) => a + b, 0);
-  glasgowResult.textContent = `${total} · ${glasgowInterpret(total)}`;
-  updateColorResult(glasgowResult, severityClassFromRange('glasgow', total));
+  const cls = severityClassFromRange('glasgow', total);
+  const badge = total>=13?'Conscience normale':total>=9?'Atteinte modérée':'Atteinte sévère';
+  const conduct = total>=13?'Surveillance standard':total>=9?'Imagerie cérébrale, surveillance rapprochée':'Protection VAS, IOT si GCS ≤ 8, TDM en urgence';
+  updateColorResult(glasgowResult, cls);
+  renderRingResult(glasgowResult, {score:total, badge, interp:'E + V + M — Total 3 à 15', conduct});
 }
 renderGlasgowResult();
 
@@ -1376,6 +1402,30 @@ if (scoreSelect) {
   setScorePanel(scoreSelect.value);
 }
 
+
+
+/* ===== SCORE RING ===== */
+function renderRingResult(el, opts) {
+  if (!el) return;
+  var score   = opts.score   !== undefined ? opts.score : '—';
+  var badge   = opts.badge   || '';
+  var interp  = opts.interp  || '';
+  var conduct = opts.conduct || '';
+  var cls = ['green','yellow','red'].find(function(k){ return el.classList.contains(k); }) || 'green';
+  el.classList.add('ring-result');
+  el.innerHTML =
+    '<div class="sr-wrap">' +
+      '<div class="sr-circle ' + cls + '">' +
+        '<span class="sr-circle-label">SCORE</span>' +
+        '<span class="sr-circle-num">' + score + '</span>' +
+      '</div>' +
+      '<div class="sr-body">' +
+        (badge   ? '<span class="sr-badge ' + cls + '">' + badge   + '</span>' : '') +
+        (interp  ? '<div class="sr-interp">'               + interp  + '</div>' : '') +
+        (conduct ? '<div class="sr-conduct">'              + conduct + '</div>' : '') +
+      '</div>' +
+    '</div>';
+}
 /* Generic score builders */
 function severityClassFromRange(kind, total) {
   if (kind === 'glasgow') {
@@ -1485,15 +1535,21 @@ function renderNews2() {
   if (!el) return;
   const total = Object.values(news2State).reduce((a, b) => a + b, 0);
   const scaleLabel = news2CurrentScale === 2 ? ' (Scale 2)' : '';
-  el.textContent = `${total} · ${labelFromRange('news2', total)}${scaleLabel}`;
-  updateColorResult(el, severityClassFromRange('news2', total));
+  const clsN = severityClassFromRange('news2', total);
+  const badgeN = total<=4?'Risque faible':total<=6?'Risque modéré':'Risque élevé';
+  const conductN = total>=7?'Alerte médicale urgente — intervention immédiate':total>=5?'Surveillance rapprochée, évaluation médicale':total>=1?'Monitoring continu':'Monitoring standard';
+  updateColorResult(el, clsN);
+  renderRingResult(el, {score:total, badge:badgeN, interp:labelFromRange('news2',total)+scaleLabel, conduct:conductN});
 }
 function renderQsofa() {
   const el = document.getElementById('qsofaResult');
   if (!el) return;
   const total = Object.values(qsofaState).reduce((a, b) => a + b, 0);
-  el.textContent = `${total} / 3 · ${labelFromRange('qsofa', total)}`;
-  updateColorResult(el, severityClassFromRange('qsofa', total));
+    const clsQ = severityClassFromRange('qsofa', total);
+  const badgeQ = total===0?'Risque faible':total===1?'Risque modéré':'Risque élevé';
+  const conductQ = total>=2?'Sepsis probable — bilan urgent, lactates, hémocultures':total===1?'Réévaluation clinique rapide':'Risque septique faible';
+  updateColorResult(el, clsQ);
+  renderRingResult(el, {score:total + ' / 3', badge:badgeQ, interp:labelFromRange('qsofa',total), conduct:conductQ});
 }
 let apgarTime = 1;
 document.querySelectorAll('.apgar-time-btn').forEach(btn => btn.addEventListener('click', () => {
