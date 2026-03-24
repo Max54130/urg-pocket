@@ -18,20 +18,21 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ## Contenu v1.2.0
 
 ### Scores cliniques
-| Score | Domaine |
-|-------|---------|
-| Glasgow | Neuro / Conscience |
-| NIHSS | Neuro / AVC |
-| NEWS2 | Cardio / Dégradation |
-| HEART | Cardio / SCA |
-| Shock Index | Cardio / Hémodynamique |
-| Wells EP | Thrombose / EP |
-| Vittel | Trauma |
-| qSOFA | Infectio / Sepsis |
-| APGAR | Néonatal |
-| Malinas | Obstétrique |
-| Cushman | Thrombose |
-| Braden | Escarre |
+
+| Score | Domaine | Affichage |
+|-------|---------|-----------|
+| Glasgow | Neuro / Conscience | Anneau coloré |
+| NIHSS | Neuro / AVC | Standard |
+| NEWS2 | Cardio / Dégradation | Anneau coloré |
+| HEART | Cardio / SCA | Standard |
+| Shock Index | Cardio / Hémodynamique | Standard |
+| Wells EP | Thrombose / EP | Standard |
+| Vittel | Trauma | Standard |
+| qSOFA | Infectio / Sepsis | Anneau coloré |
+| APGAR | Néonatal | Standard |
+| Malinas | Obstétrique | Standard |
+| Cushman | Thrombose | Standard |
+| Braden | Escarre | Standard |
 
 ### Protocoles d'urgence
 - ACR adulte (ERC 2025)
@@ -39,7 +40,6 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 - Choc anaphylactique
 - AVC — Alerte et orientation
 - Douleur thoracique / SCA (ESC 2023)
-- **Trauma grave** — Critères Vittel + ABC + orientation centre trauma *(nouveau v1.2.0)*
 
 ### Autres modules
 - Débit de perfusion
@@ -56,18 +56,27 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ## Changelog
 
 ### v1.2.0 (mars 2026)
-- ✅ Nouveau protocole **Trauma grave** (Vittel + ABC + orientation)
-- ✅ CSS scores amélioré : bordure gauche colorée sur items sélectionnés, badges résultat vert/orange/rouge
-- ✅ Splash screen animé
-- ✅ Système de profils médecin / paramédical
-- ✅ Fix bug espace vide sur écrans scores (navigation)
+
+**Fonctionnalités**
+- ✅ Anneaux de score animés sur Glasgow, NEWS2, qSOFA (fond sombre, cercle coloré, pill niveau de risque)
+- ✅ Splash screen animé au démarrage
+- ✅ Système de profils médecin / paramédical (overlay premier lancement + toggle Paramètres)
+- ✅ Navigation retour Android — bouton retour remonte dans la hiérarchie des pages jusqu'à l'accueil, dialogue de confirmation pour quitter
+- ✅ Logo cliquable dans la topbar → retour accueil
+- ✅ CSS scores amélioré : items sélectionnés avec bordure gauche colorée + fond teinté
+- ✅ PWA : manifest + Service Worker (offline, actif uniquement sur GitHub Pages)
+
+**Corrections**
+- ✅ Fix bug espace blanc sur toutes les pages (cause : `</div>` en trop dans `screen-scores` et manquant dans `screen-toxico-doses` — le navigateur sortait les sections du flux)
 - ✅ Fix status bar Android 15 (edge-to-edge, targetSdk 35)
-- ✅ PWA : manifest + Service Worker offline
-- ✅ Email Cloudflare obfuscation supprimé
+- ✅ Logo topbar corrigé — SVG fidèle à l'icône (cercle `var(--primary)`, croix blanche, ECG bleu foncé pixel-perfect)
+- ✅ Email Cloudflare obfuscation supprimé (CGU + privacy)
+- ✅ CGU et privacy complétées (articles 11-12, droit applicable, RGPD/CNIL)
+- ✅ Service Worker conditionnel au domaine GitHub Pages (supprime l'erreur 404 en local)
 
 ### v1.1.0 (mars 2026)
 - 6 nouveaux scores : Wells EP, NIHSS, HEART, Vittel, Shock Index, Malinas
-- Menu scores réorganisé par catégories
+- Menu scores réorganisé par catégories (Neuro, Cardio, Trauma, Infectio, Spécialisés)
 - Section Paramètres enrichie (À propos, Contact, Disclaimer, CGU, Privacy)
 - Sources mises à jour ERC 2025
 
@@ -80,12 +89,12 @@ urg-pocket/
 ├── index.html              ← entrée GitHub Pages (redirect)
 ├── urg_pocket_v1.2.0.html  ← application principale (single-file)
 ├── manifest.json           ← PWA manifest
-├── sw.js                   ← Service Worker (offline)
-├── cgu.html                ← Conditions Générales d'Utilisation
-├── privacy.html            ← Politique de confidentialité
+├── sw.js                   ← Service Worker (offline, GitHub Pages uniquement)
+├── cgu.html                ← Conditions Générales d'Utilisation (12 articles)
+├── privacy.html            ← Politique de confidentialité (RGPD)
 ├── icons/
-│   ├── icon-192.png
-│   └── icon-512.png
+│   ├── icon-192.png        ← icône PWA
+│   └── icon-512.png        ← icône Play Store
 └── README.md
 ```
 
@@ -95,14 +104,38 @@ urg-pocket/
 
 1. Pousser tous les fichiers sur la branche `main`
 2. Dans Settings → Pages → Source : `main` / `/ (root)`
-3. L'application sera disponible sur `https://<username>.github.io/urg-pocket/`
+3. L'application sera disponible sur `https://max54130.github.io/urg-pocket/`
 
 ## APK Android
 
-Le projet Android Studio (`urg-pocket-android/`) utilise :
-- `WebViewAssetLoader` pour servir le fichier local
-- `OnBackPressedDispatcher` pour la navigation retour
-- `targetSdk 35` avec gestion edge-to-edge (status bar via `env(safe-area-inset-top)`)
+Le projet Android Studio utilise :
+- `WebViewAssetLoader` — sert le HTML via `https://urgpocket.app/` (pas `file://`)
+- `OnBackPressedDispatcher` + `AndroidBridge` — délègue la navigation retour au JS (`handleBackPress()`)
+- `targetSdk 35` — edge-to-edge Android 15, status bar gérée via `env(safe-area-inset-top)`
+- `compileSdk 35`, `minSdk 26` (Android 8.0+)
+
+---
+
+## Hiérarchie de navigation (bouton retour Android)
+
+```
+home
+├── scores
+│   ├── score-glasgow
+│   ├── score-news2
+│   ├── score-qsofa
+│   ├── score-braden / apgar / cushman / heart / nihss / ...
+│   └── score-wells-ep / vittel / shockindex / malinas
+├── normes
+│   └── norme-detail
+├── protocoles
+│   ├── proto-acr / proto-acr_ped
+│   ├── proto-anaphylaxie / proto-avc / proto-douleur_tho
+├── antidotes
+│   ├── toxico-antidotes
+│   └── toxico-doses
+└── debit / tubes / doses / convertisseur / constped / sources / settings
+```
 
 ---
 
