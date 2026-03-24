@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.0
+## Contenu v1.2.3
 
 ### Scores cliniques
 
@@ -55,7 +55,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ## Changelog
 
-### v1.2.0 (mars 2026)
+### v1.2.3 (mars 2026)
 
 **Fonctionnalités**
 - ✅ Anneaux de score animés sur Glasgow, NEWS2, qSOFA (fond sombre, cercle coloré, pill niveau de risque)
@@ -74,7 +74,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 - ✅ CGU et privacy complétées (articles 11-12, droit applicable, RGPD/CNIL)
 - ✅ Service Worker conditionnel au domaine GitHub Pages (supprime l'erreur 404 en local)
 
-### v1.1.0 (mars 2026)
+### v1.2.0 (mars 2026)
 - 6 nouveaux scores : Wells EP, NIHSS, HEART, Vittel, Shock Index, Malinas
 - Menu scores réorganisé par catégories (Neuro, Cardio, Trauma, Infectio, Spécialisés)
 - Section Paramètres enrichie (À propos, Contact, Disclaimer, CGU, Privacy)
