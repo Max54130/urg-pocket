@@ -326,7 +326,83 @@ body:not(.dark) .score-result.ring-result.red{background:#1f0d0d;border-color:#e
 .sr-conduct{font-size:12px;line-height:1.4;color:rgba(255,255,255,.55)}
 
 /* === ANDROID SAFE AREA === */
-</style><script>/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
+
+/* ========== MODE DALTONIEN (body.colorblind) ========== */
+/* Palette Wong 2011 — Nature Methods — safe deuteranopie/protanopie/tritanopie */
+body.colorblind{
+  --primary:#0072B2;--primary2:#005A8E;
+  --secondary:#E69F00;--danger:#9B27AF;
+}
+body.colorblind.dark{
+  --primary:#56B4E9;--primary2:#0072B2;
+  --secondary:#F0C040;--danger:#CC79A7;
+}
+
+/* Score results */
+body.colorblind .score-result.green{background:#e6f2ff;border-color:#0072B2;color:#004f8c}
+body.colorblind .score-result.yellow{background:#fff7e6;border-color:#E69F00;color:#7a4f00}
+body.colorblind .score-result.red{background:#f5e6ff;border-color:#9B27AF;color:#5c1470}
+
+body.colorblind.dark .score-result.green{background:#003a5c;border-color:#56B4E9;color:#b3d9f5}
+body.colorblind.dark .score-result.yellow{background:#3d2e00;border-color:#F0C040;color:#ffedb3}
+body.colorblind.dark .score-result.red{background:#2e0040;border-color:#CC79A7;color:#f0c8e0}
+
+/* Anneaux */
+body.colorblind .score-result.ring-result.green{background:#003a5c;border-color:#0072B2;border-radius:16px}
+body.colorblind .score-result.ring-result.yellow{background:#3d2e00;border-color:#E69F00;border-radius:16px}
+body.colorblind .score-result.ring-result.red{background:#2e0040;border-color:#9B27AF;border-radius:16px}
+body.colorblind:not(.dark) .score-result.ring-result.green{background:#003a5c;border-color:#0072B2;border-radius:16px}
+body.colorblind:not(.dark) .score-result.ring-result.yellow{background:#3d2e00;border-color:#E69F00;border-radius:16px}
+body.colorblind:not(.dark) .score-result.ring-result.red{background:#2e0040;border-color:#9B27AF;border-radius:16px}
+
+/* Cercles anneaux */
+body.colorblind .sr-circle.green{border-color:#0072B2}
+body.colorblind .sr-circle.yellow{border-color:#E69F00}
+body.colorblind .sr-circle.red{border-color:#9B27AF}
+
+/* Badges anneaux */
+body.colorblind .sr-badge.green{color:#0072B2;border-color:#0072B2}
+body.colorblind .sr-badge.yellow{color:#E69F00;border-color:#E69F00}
+body.colorblind .sr-badge.red{color:#9B27AF;border-color:#9B27AF}
+
+/* Bouton retour / primary buttons */
+body.colorblind .btn-back{background:#0072B2}
+body.colorblind .nav-btn.active{color:#0072B2}
+body.colorblind .nav-btn.active .nav-icon{filter:none}
+
+/* Alertes et notes */
+body.colorblind .alert{border-left-color:#9B27AF;background:#f5e6ff}
+body.colorblind.dark .alert{border-left-color:#CC79A7;background:#2e0040}
+
+/* Avertissement dans settings */
+body.colorblind .field[style*="border-left"]{border-left-color:#9B27AF !important}
+
+/* Icônes de niveau ajoutées via ::before pour renforcer sans couleur */
+/* Symboles daltonisme — score-result classique (non ring) */
+body.colorblind .score-result:not(.ring-result)::before{
+  display:block;font-size:11px;font-weight:800;letter-spacing:.04em;
+  margin-bottom:4px;padding:3px 8px;border-radius:6px;width:fit-content;
+}
+body.colorblind .score-result.green:not(.ring-result)::before{
+  content:'✓  NORMAL / FAVORABLE';background:#0072B2;color:#fff;
+}
+body.colorblind .score-result.yellow:not(.ring-result)::before{
+  content:'⚠  ATTENTION / MODÉRÉ';background:#E69F00;color:#fff;
+}
+body.colorblind .score-result.red:not(.ring-result)::before{
+  content:'✕  CRITIQUE / SÉVÈRE';background:#9B27AF;color:#fff;
+}
+/* Bandeau symbole dans les anneaux — géré via .sr-symbol injecté par JS */
+body.colorblind .sr-symbol{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:800;letter-spacing:.04em;
+  padding:3px 10px;border-radius:6px;margin-bottom:6px;color:#fff;
+}
+body.colorblind .sr-symbol.green{background:#0072B2}
+body.colorblind .sr-symbol.yellow{background:#E69F00}
+body.colorblind .sr-symbol.red{background:#9B27AF}
+</style><script>/* Prevent flash colorblind */(function(){if(localStorage.getItem('urg-colorblind')==='on'){document.documentElement.classList.add('colorblind');document.body&&document.body.classList.add('colorblind');}})()
+/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
 <script>
 /* Service Worker — uniquement sur GitHub Pages */
 if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
@@ -631,6 +707,16 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 
 <section class="screen" id="screen-settings"><div class="content-card"><div class="page-head"><div><h2>Paramètres</h2><p>Personnaliser l'interface</p></div></div>
 
+<div class="section-title"><h3>Accessibilité</h3></div>
+<div class="field" style="margin-bottom:14px">
+<div class="label">Mode daltonien</div>
+<p style="font-size:13px;color:var(--text2);margin:4px 0 10px">Remplace vert/jaune/rouge par une palette lisible en cas de daltonisme (deutéranopie, protanopie, tritanopie). Palette Wong 2011.</p>
+<div class="duration-toggle">
+<button class="unit-btn cb-toggle-btn" data-cb="off" type="button">Désactivé</button>
+<button class="unit-btn cb-toggle-btn" data-cb="on" type="button">🔵🟠🟣 Activé</button>
+</div>
+</div>
+
 <div class="section-title"><h3>Thème</h3></div>
 <div class="field" style="margin-bottom:14px">
 <div class="label">Mode d'affichage</div>
@@ -675,7 +761,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.6</span>
+<span style="color:var(--primary);font-weight:800">1.2.8</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -1070,7 +1156,7 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.6';
+const APP_VERSION = '1.2.8';
 const appState = { activeScreen: 'home' };
 
 const screens = {
@@ -1437,6 +1523,9 @@ function renderRingResult(el, opts) {
   var conduct = opts.conduct || '';
   var cls = ['green','yellow','red'].find(function(k){ return el.classList.contains(k); }) || 'green';
   el.classList.add('ring-result');
+  var cbSymbols = {green:'✓  NORMAL / FAVORABLE', yellow:'⚠  ATTENTION / MODÉRÉ', red:'✕  CRITIQUE / SÉVÈRE'};
+  var isCB = document.body.classList.contains('colorblind');
+  var symbolHTML = isCB ? '<span class="sr-symbol ' + cls + '">' + (cbSymbols[cls]||'') + '</span>' : '';
   el.innerHTML =
     '<div class="sr-wrap">' +
       '<div class="sr-circle ' + cls + '">' +
@@ -1444,6 +1533,7 @@ function renderRingResult(el, opts) {
         '<span class="sr-circle-num">' + score + '</span>' +
       '</div>' +
       '<div class="sr-body">' +
+        symbolHTML +
         (badge   ? '<span class="sr-badge ' + cls + '">' + badge   + '</span>' : '') +
         (interp  ? '<div class="sr-interp">'               + interp  + '</div>' : '') +
         (conduct ? '<div class="sr-conduct">'              + conduct + '</div>' : '') +
@@ -2261,6 +2351,19 @@ document.querySelectorAll('.score-result').forEach(el => {
     d.addEventListener('click', () => applyAccent(d.dataset.accent));
   });
 
+  // --- Daltonisme ---
+  const CB_KEY = 'urg-colorblind';
+  function applyColorblind(mode){
+    const on = mode === 'on';
+    document.body.classList.toggle('colorblind', on);
+    document.documentElement.classList.toggle('colorblind', on);
+    localStorage.setItem(CB_KEY, mode);
+    document.querySelectorAll('.cb-toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.cb === mode));
+  }
+  document.querySelectorAll('.cb-toggle-btn').forEach(b => {
+    b.addEventListener('click', () => applyColorblind(b.dataset.cb));
+  });
+
 
 
   // --- Nav toggles ---
@@ -2413,6 +2516,7 @@ document.querySelectorAll('.score-result').forEach(el => {
     const savedTheme = localStorage.getItem(KEYS.theme) || 'auto';
     applyTheme(savedTheme);
     applyAccent(localStorage.getItem(KEYS.accent) || 'blue');
+    applyColorblind(localStorage.getItem(CB_KEY) || 'off');
     renderNavToggles();
     rebuildBottomNav();
   }, 60);

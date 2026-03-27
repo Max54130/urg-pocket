@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.6
+## Contenu v1.2.8
 
 ### Scores cliniques (15)
 
@@ -61,6 +61,7 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 ## Changelog
 
 ### v1.2.6 (mars 2026)
+- ✅ Mode daltonien complet (Paramètres → Accessibilité) — palette Wong 2011, bandeaux ✓/⚠/✕
 - ✅ 3 nouveaux calculs : DFG/CKD-EPI 2021, IMC/Surface corporelle (Mosteller), Killip
 - ✅ Tous les scores vierges au chargement — option "— Sélectionner —" + guards null
 - ✅ Couleur d'accent Or (#D79A10) — palette ordonnée selon spectre lumineux
@@ -68,14 +69,14 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 - ✅ Reset profil depuis les Paramètres (↺ Réafficher le choix de profil)
 - ✅ Nom de fichier GitHub fixe : `urg_pocket.html` (indépendant de la version)
 - ✅ Nettoyage code JS orphelin (CHA₂DS₂-VASc, Cockcroft-Gault sans screen)
-- ✅ versionCode 23
+- ✅ versionCode 25
 
 ### v1.2.5 (mars 2026)
 - ✅ Dialog native Android pour confirmation quitter l'app (AlertDialog)
 - ✅ Bouton retour Android fonctionnel sur toutes les pages
 - ✅ Descriptions courtes sur les 12 pages de score
 - ✅ Correction version affichée dans "À propos"
-- ✅ versionCode 22
+- ✅ versionCode 25
 
 ### v1.2.0 (mars 2026)
 - ✅ Anneaux de score (Glasgow, NEWS2, qSOFA) — fond sombre, cercle coloré, pill risque
@@ -150,11 +151,13 @@ home
 
 | versionCode | versionName | Statut |
 |-------------|-------------|--------|
-| 23 | 1.2.6 | **Build actuel** |
+| 25 | 1.2.8 | **Build actuel** |
+| 24 | 1.2.7 | Publié Play Store |
+| 23 | 1.2.6 | Publié Play Store |
 | 22 | 1.2.5 | Publié Play Store |
 | 21 | 1.2.4 | Publié Play Store |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 24**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 26**.
 
 ---
 
