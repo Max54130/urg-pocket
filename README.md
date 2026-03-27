@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.8
+## Contenu v1.2.9
 
 ### Scores cliniques (15)
 
@@ -60,6 +60,17 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 
 ## Changelog
 
+### v1.2.9 (mars 2026)
+- ✅ Photo de profil et prénom/pseudo (Paramètres → Identité)
+- ✅ Avatar circulaire dans la topbar avec clic vers Paramètres
+- ✅ Stockage 100% local (localStorage, aucune donnée transmise)
+- ✅ versionCode 26
+
+### v1.2.8 (mars 2026)
+- ✅ Mode daltonien complet (Paramètres → Accessibilité) — palette Wong 2011
+- ✅ Bandeaux explicites ✓ NORMAL / ⚠ ATTENTION / ✕ CRITIQUE sur tous les résultats
+- ✅ versionCode 25
+
 ### v1.2.6 (mars 2026)
 - ✅ Mode daltonien complet (Paramètres → Accessibilité) — palette Wong 2011, bandeaux ✓/⚠/✕
 - ✅ 3 nouveaux calculs : DFG/CKD-EPI 2021, IMC/Surface corporelle (Mosteller), Killip
@@ -69,14 +80,14 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 - ✅ Reset profil depuis les Paramètres (↺ Réafficher le choix de profil)
 - ✅ Nom de fichier GitHub fixe : `urg_pocket.html` (indépendant de la version)
 - ✅ Nettoyage code JS orphelin (CHA₂DS₂-VASc, Cockcroft-Gault sans screen)
-- ✅ versionCode 25
+- ✅ versionCode 26
 
 ### v1.2.5 (mars 2026)
 - ✅ Dialog native Android pour confirmation quitter l'app (AlertDialog)
 - ✅ Bouton retour Android fonctionnel sur toutes les pages
 - ✅ Descriptions courtes sur les 12 pages de score
 - ✅ Correction version affichée dans "À propos"
-- ✅ versionCode 25
+- ✅ versionCode 26
 
 ### v1.2.0 (mars 2026)
 - ✅ Anneaux de score (Glasgow, NEWS2, qSOFA) — fond sombre, cercle coloré, pill risque
@@ -151,13 +162,13 @@ home
 
 | versionCode | versionName | Statut |
 |-------------|-------------|--------|
-| 25 | 1.2.8 | **Build actuel** |
+| 26 | 1.2.9 | **Build actuel** |
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store |
 | 22 | 1.2.5 | Publié Play Store |
 | 21 | 1.2.4 | Publié Play Store |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 26**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 27**.
 
 ---
 

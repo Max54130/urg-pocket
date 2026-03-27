@@ -401,6 +401,24 @@ body.colorblind .sr-symbol{
 body.colorblind .sr-symbol.green{background:#0072B2}
 body.colorblind .sr-symbol.yellow{background:#E69F00}
 body.colorblind .sr-symbol.red{background:#9B27AF}
+
+/* ========== AVATAR PROFIL ========== */
+.avatar-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0}
+.avatar{width:34px;height:34px;border-radius:50%;border:2px solid var(--primary);
+  background:var(--surface2);display:flex;align-items:center;justify-content:center;
+  font-size:18px;overflow:hidden;flex-shrink:0;transition:border-color .2s}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.avatar-name{font-size:13px;font-weight:700;color:var(--text);max-width:80px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.avatar-settings-wrap{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.avatar-settings{width:72px;height:72px;border-radius:50%;border:3px solid var(--primary);
+  background:var(--surface2);display:flex;align-items:center;justify-content:center;
+  font-size:36px;overflow:hidden;cursor:pointer;flex-shrink:0}
+.avatar-settings img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.avatar-settings-info{flex:1}
+.avatar-settings-name{font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
+.avatar-settings-hint{font-size:12px;color:var(--text2)}
+#avatarFileInput{display:none}
 </style><script>/* Prevent flash colorblind */(function(){if(localStorage.getItem('urg-colorblind')==='on'){document.documentElement.classList.add('colorblind');document.body&&document.body.classList.add('colorblind');}})()
 /* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
 <script>
@@ -450,7 +468,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
   </div>
 </div>
 
-<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;overflow:hidden;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="var(--primary)"/><rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/><rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/><polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="debit">💧 Débit perf</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
+<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;overflow:hidden;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="var(--primary)"/><rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/><rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/><polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="debit">💧 Débit perf</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="avatar-wrap" id="topbarAvatar" title="Profil"><div class="avatar" id="topbarAvatarImg"><span id="topbarAvatarIcon">👤</span></div><span class="avatar-name" id="topbarAvatarName"></span></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
 <main role="main">
   <section class="screen active" id="screen-home">
 <div class="search-global search-home-only" style="margin-bottom:14px"><input type="text" id="globalSearchMobile" aria-label="Recherche globale" placeholder="🔍 Rechercher : Glasgow, potassium, adrénaline..." style="min-height:44px"/><div class="search-results" id="searchResultsMobile"></div></div>
@@ -739,6 +757,26 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 </div></div>
 
 
+<div class="section-title"><h3>Identité</h3></div>
+<div class="field" style="margin-bottom:14px">
+<div class="label">Photo et prénom / pseudo</div>
+<div class="avatar-settings-wrap">
+  <div class="avatar-settings" id="settingsAvatarImg" onclick="document.getElementById('avatarFileInput').click()" title="Changer la photo">
+    <span id="settingsAvatarIcon">👤</span>
+  </div>
+  <div class="avatar-settings-info">
+    <div class="avatar-settings-name" id="settingsAvatarName">Aucun nom</div>
+    <div class="avatar-settings-hint">Appuyer sur la photo pour en choisir une depuis la galerie</div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <input type="text" id="avatarNameInput" class="num-input" placeholder="Prénom ou pseudo" maxlength="20" style="font-size:14px;padding:6px 10px;flex:1"/>
+      <button type="button" onclick="saveAvatarName()" style="padding:6px 14px;border-radius:8px;border:none;background:var(--primary);color:#fff;font-size:13px;font-weight:700;cursor:pointer">OK</button>
+    </div>
+    <button type="button" onclick="clearAvatar()" style="margin-top:8px;font-size:12px;color:var(--text2);background:none;border:none;cursor:pointer;text-decoration:underline">Supprimer la photo et le nom</button>
+  </div>
+</div>
+<input type="file" id="avatarFileInput" accept="image/*"/>
+</div>
+
 <div class="section-title"><h3>Profil</h3></div>
 <div class="field" style="margin-bottom:14px">
 <div class="label">Adapter l'interface à votre métier</div>
@@ -761,7 +799,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.8</span>
+<span style="color:var(--primary);font-weight:800">1.2.9</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -1156,7 +1194,7 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.8';
+const APP_VERSION = '1.2.9';
 const appState = { activeScreen: 'home' };
 
 const screens = {
@@ -2985,6 +3023,120 @@ document.addEventListener('change',function(e){
     renderRingResult(res,{score:'K'+strate.k,badge:'Mortalité ~'+strate.mort,interp:'Killip '+strate.k+' — '+strate.interp,conduct:strate.conduct});
   }
   w.addEventListener('change',calcKillip);
+})();
+
+
+/* ========== AVATAR PROFIL ========== */
+(function(){
+  var AVATAR_KEY = 'urg-avatar';
+  var NAME_KEY   = 'urg-avatar-name';
+
+  function loadAvatar(){
+    var img  = localStorage.getItem(AVATAR_KEY);
+    var name = localStorage.getItem(NAME_KEY) || '';
+
+    // Topbar
+    var topImg  = document.getElementById('topbarAvatarImg');
+    var topIcon = document.getElementById('topbarAvatarIcon');
+    var topName = document.getElementById('topbarAvatarName');
+    if(topImg && topIcon){
+      if(img){
+        topIcon.style.display='none';
+        var existing = topImg.querySelector('img');
+        if(!existing){ existing = document.createElement('img'); topImg.appendChild(existing); }
+        existing.src = img;
+        existing.style.display='block';
+      } else {
+        topIcon.style.display='';
+        var ei = topImg.querySelector('img');
+        if(ei) ei.style.display='none';
+      }
+    }
+    if(topName) topName.textContent = name;
+
+    // Settings
+    var setImg  = document.getElementById('settingsAvatarImg');
+    var setIcon = document.getElementById('settingsAvatarIcon');
+    var setName = document.getElementById('settingsAvatarName');
+    var nameInput = document.getElementById('avatarNameInput');
+    if(setImg && setIcon){
+      if(img){
+        setIcon.style.display='none';
+        var exi = setImg.querySelector('img');
+        if(!exi){ exi = document.createElement('img'); setImg.appendChild(exi); }
+        exi.src = img;
+        exi.style.display='block';
+      } else {
+        setIcon.style.display='';
+        var ei2 = setImg.querySelector('img');
+        if(ei2) ei2.style.display='none';
+      }
+    }
+    if(setName) setName.textContent = name || 'Aucun nom';
+    if(nameInput) nameInput.value = name;
+  }
+
+  // Clic sur topbar → va dans settings
+  var topWrap = document.getElementById('topbarAvatar');
+  if(topWrap) topWrap.addEventListener('click', function(){
+    if(typeof setActive === 'function') setActive('settings');
+  });
+
+  // Sélection fichier
+  var fileInput = document.getElementById('avatarFileInput');
+  if(fileInput){
+    fileInput.addEventListener('change', function(){
+      var file = fileInput.files[0];
+      if(!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e){
+        // Redimensionner via canvas pour limiter la taille stockée
+        var img = new Image();
+        img.onload = function(){
+          var canvas = document.createElement('canvas');
+          var size = 120;
+          canvas.width = size; canvas.height = size;
+          var ctx = canvas.getContext('2d');
+          // Crop carré centré
+          var s = Math.min(img.width, img.height);
+          var sx = (img.width - s) / 2, sy = (img.height - s) / 2;
+          ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+          var data = canvas.toDataURL('image/jpeg', 0.7);
+          localStorage.setItem(AVATAR_KEY, data);
+          loadAvatar();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      fileInput.value = '';
+    });
+  }
+
+  // Sauvegarder le nom
+  window.saveAvatarName = function(){
+    var input = document.getElementById('avatarNameInput');
+    if(!input) return;
+    var name = input.value.trim().slice(0, 20);
+    localStorage.setItem(NAME_KEY, name);
+    loadAvatar();
+  };
+
+  // Entrée clavier sur le champ nom
+  var nameInput = document.getElementById('avatarNameInput');
+  if(nameInput) nameInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') window.saveAvatarName();
+  });
+
+  // Supprimer
+  window.clearAvatar = function(){
+    localStorage.removeItem(AVATAR_KEY);
+    localStorage.removeItem(NAME_KEY);
+    var nameInput = document.getElementById('avatarNameInput');
+    if(nameInput) nameInput.value = '';
+    loadAvatar();
+  };
+
+  loadAvatar();
 })();
 
 /* ========== NAVIGATION RETOUR + LOGO ========== */
