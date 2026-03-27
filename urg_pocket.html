@@ -23,14 +23,6 @@ body.dark{--bg:#0f0f12;--surface:#17181c;--surface2:#1f2028;--surface3:#2a2c33;-
 .nav-toggle-row:last-child{border-bottom:none}
 .nav-toggle-row label{flex:1;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px}
 .nav-toggle-row input[type="checkbox"]{width:20px;height:20px;accent-color:var(--primary);cursor:pointer}
-body.font-large{font-size:17px}
-body.font-large .hc-label{font-size:15px}
-body.font-large .result-name{font-size:16px}
-body.font-large .result-num{font-size:24px}
-body.font-large .score-result{font-size:26px}
-body.font-large .note,body.font-large .alert{font-size:15px}
-body.font-large .num-input{font-size:26px}
-body.font-large th,body.font-large td{font-size:15px}
 
 /* === RESET === */
 *{box-sizing:border-box}
@@ -660,13 +652,6 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <button class="accent-dot" data-accent="purple" style="background:#7C3AED" aria-label="Violet"></button>
 </div></div>
 
-<div class="section-title"><h3>Taille du texte</h3></div>
-<div class="field" style="margin-bottom:14px">
-<div class="label">Ajuster la lisibilité</div>
-<div class="duration-toggle">
-<button class="unit-btn settings-fontsize-btn" data-size="normal" type="button">Normal</button>
-<button class="unit-btn settings-fontsize-btn" data-size="large" type="button">Grand</button>
-</div></div>
 
 <div class="section-title"><h3>Profil</h3></div>
 <div class="field" style="margin-bottom:14px">
@@ -1421,8 +1406,11 @@ function renderBradenResult() {
   if (!bradenResult) return;
   if (Object.values(bradenState).some(v => v === null)) { bradenResult.textContent = '—'; bradenResult.className = 'score-result'; return; }
   const total = Object.values(bradenState).reduce((a, b) => a + b, 0);
-  bradenResult.textContent = `Braden · score total : ${total} · ${bradenInterpret(total)}`;
-  updateColorResult(bradenResult, severityClassFromRange('braden', total));
+  const clsB = severityClassFromRange('braden', total);
+  const badgeB = total<=9?'Risque très élevé':total<=12?'Risque élevé':total<=14?'Risque modéré':'Risque faible';
+  const conductB = total<=9?'Prévention maximale — protocole escarre immédiat':total<=12?'Prévention renforcée':total<=14?'Surveillance standard':'Surveiller et réévaluer';
+  updateColorResult(bradenResult, clsB);
+  renderRingResult(bradenResult, {score:total, badge:badgeB, interp:'Total /23 — plus le score est bas, plus le risque est élevé', conduct:conductB});
 }
 buildBraden();
 
@@ -1605,8 +1593,11 @@ function renderApgar() {
   if (!el) return;
   if (Object.values(apgarState).some(v => v === null)) { el.textContent = '—'; el.className = 'score-result'; return; }
   const total = Object.values(apgarState).reduce((a, b) => a + b, 0);
-  el.textContent = `${total} / 10 à ${apgarTime} min · ${labelFromRange('apgar', total)}`;
-  updateColorResult(el, severityClassFromRange('apgar', total));
+  const clsA = severityClassFromRange('apgar', total);
+  const badgeA = total>=7?'Normal':total>=4?'Dépression modérée':'Dépression sévère';
+  const conductA = total>=7?'Surveillance standard':'Réanimation néonatale selon protocole';
+  updateColorResult(el, clsA);
+  renderRingResult(el, {score:total, badge:badgeA, interp:`/10 à ${apgarTime} min — ${labelFromRange('apgar', total)}`, conduct:conductA});
 }
 
 /* Cushman */
@@ -1635,11 +1626,12 @@ function renderCushman(){
   if(!el || !paSel) return;
   if (Object.values(cushmanState).some(v => v === null)) { el.textContent = '—'; el.className = 'score-result'; return; }
   const total = Object.values(cushmanState).reduce((a,b)=>a+b,0) + Number(paSel.value || 0);
-  let label = 'état contrôlé';
-  if(total >= 7 && total <= 14) label = 'sevrage modéré';
-  if(total > 14) label = 'sevrage sévère';
-  el.textContent = `${total} / 21 · ${label}`;
-  updateColorResult(el, total < 7 ? 'green' : (total <= 14 ? 'yellow' : 'red'));
+  let label='État contrôlé'; let clsC='green';
+  if(total>=7&&total<=14){label='Sevrage modéré';clsC='yellow';}
+  if(total>14){label='Sevrage sévère';clsC='red';}
+  const conductC=total<7?'Surveillance standard':total<=14?'Surveillance rapprochée — BZD si nécessaire':'Benzodiazépines IV — surveillance continue';
+  updateColorResult(el,clsC);
+  renderRingResult(el,{score:total,badge:label,interp:'/21 — Score de Cushman',conduct:conductC});
 }
 
 /* Reset buttons */
@@ -2222,7 +2214,7 @@ document.querySelectorAll('.score-result').forEach(el => {
 
 /* ========== PARAMÈTRES ========== */
 (function(){
-  const KEYS = {theme:'urg-theme',accent:'urg-accent',fontsize:'urg-fontsize',navtabs:'urg-navtabs'};
+  const KEYS = {theme:'urg-theme',accent:'urg-accent',navtabs:'urg-navtabs'};
 
   const accents = {
     red:    {light:'#DC2626',light2:'#B91C1C',dark:'#F87171',dark2:'#EF4444'},
@@ -2269,15 +2261,7 @@ document.querySelectorAll('.score-result').forEach(el => {
     d.addEventListener('click', () => applyAccent(d.dataset.accent));
   });
 
-  // --- Font size ---
-  function applyFontSize(size){
-    document.body.classList.toggle('font-large', size === 'large');
-    localStorage.setItem(KEYS.fontsize, size);
-    document.querySelectorAll('.settings-fontsize-btn').forEach(b => b.classList.toggle('active', b.dataset.size === size));
-  }
-  document.querySelectorAll('.settings-fontsize-btn').forEach(b => {
-    b.addEventListener('click', () => applyFontSize(b.dataset.size));
-  });
+
 
   // --- Nav toggles ---
   const allNavItems = [
@@ -2429,7 +2413,6 @@ document.querySelectorAll('.score-result').forEach(el => {
     const savedTheme = localStorage.getItem(KEYS.theme) || 'auto';
     applyTheme(savedTheme);
     applyAccent(localStorage.getItem(KEYS.accent) || 'blue');
-    applyFontSize(localStorage.getItem(KEYS.fontsize) || 'normal');
     renderNavToggles();
     rebuildBottomNav();
   }, 60);
@@ -2603,7 +2586,7 @@ const dosesToxiques = [
   var w=document.getElementById('wellsEpWrap'),r=document.getElementById('wellsEpResult');
   if(!w)return;
   items.forEach(function(it,i){w.innerHTML+='<div class="score-item"><label><input type="checkbox" value="'+it.pts+'"/> '+it.label+' <span class="muted">('+it.pts+' pt'+(it.pts>1?'s':'')+')</span></label></div>';});
-  w.addEventListener('change',function(){var t=0;w.querySelectorAll('input:checked').forEach(function(cb){t+=parseFloat(cb.value);});r.textContent=t+(t<=4?' · EP improbable → D-dimères':' · EP probable → Angio-TDM');r.style.color=t<=4?'var(--success)':'var(--danger)';});
+  w.addEventListener('change',function(){var t=0;w.querySelectorAll('input:checked').forEach(function(cb){t+=parseFloat(cb.value);});var clsW=t<=4?'green':'red';r.classList.remove('green','yellow','red');r.classList.add(clsW);updateColorResult(r,clsW);renderRingResult(r,{score:t.toFixed(1),badge:t<=4?'EP improbable':'EP probable',interp:t<=4?'Score ≤4 — D-dimères':'Score >4 — Angio-TDM',conduct:t<=4?'Dosage D-dimères':'Angio-TDM thoracique en urgence'});});
 })();
 
 /* ========== NIHSS ========== */
@@ -2612,7 +2595,7 @@ const dosesToxiques = [
   var w=document.getElementById('nihssWrap'),r=document.getElementById('nihssResult');
   if(!w)return;
   items.forEach(function(it,i){var oh=it.o.map(function(o,j){return '<label class="score-option"><input type="radio" name="nihss'+i+'" value="'+j+'"/> '+o+'</label>';}).join('');w.innerHTML+='<div class="score-item"><div class="label">'+it.l+'</div><div class="score-options">'+oh+'</div></div>';});
-  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="nihss'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t===0?'Normal':t<=4?'Mineur':t<=15?'Modéré':t<=20?'Sévère':'Très sévère';r.textContent=t+' · '+int;});
+  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="nihss'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t===0?'Normal':t<=4?'Mineur':t<=15?'Modéré':t<=20?'Sévère':'Très sévère';var clsN=t===0?'green':t<=4?'green':t<=15?'yellow':'red';r.classList.remove('green','yellow','red');r.classList.add(clsN);updateColorResult(r,clsN);renderRingResult(r,{score:t,badge:int,interp:'/42 — Score NIHSS AVC',conduct:t>=16?'AVC sévère — thrombolyse/thrombectomie urgente':t>=5?'AVC modéré — bilan neurovasculaire urgent':'AVC mineur — surveillance neurologique'});});
 })();
 
 /* ========== HEART ========== */
@@ -2621,7 +2604,7 @@ const dosesToxiques = [
   var w=document.getElementById('heartWrap'),r=document.getElementById('heartResult');
   if(!w)return;
   items.forEach(function(it,i){var oh=it.o.map(function(o,j){return '<label class="score-option"><input type="radio" name="heart'+i+'" value="'+j+'"/> '+o+'</label>';}).join('');w.innerHTML+='<div class="score-item"><div class="label">'+it.l+'</div><div class="score-options">'+oh+'</div></div>';});
-  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="heart'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t<=3?'Risque faible (~2% MACE)':t<=6?'Risque intermédiaire (~15%)':'Risque élevé (~50%)';r.textContent=t+' · '+int;r.style.color=t<=3?'var(--success)':t<=6?'#FF9800':'var(--danger)';});
+  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="heart'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t<=3?'Risque faible (~2% MACE)':t<=6?'Risque intermédiaire (~15%)':'Risque élevé (~50%)';var clsH=t<=3?'green':t<=6?'yellow':'red';r.classList.remove('green','yellow','red');r.classList.add(clsH);updateColorResult(r,clsH);renderRingResult(r,{score:t,badge:int,interp:'/10 — Score HEART (SCA)',conduct:t<=3?'Sortie possible — troponines à 3h':'Hospitalisation — surveillance troponines + cardio'});});
 })();
 
 /* ========== VITTEL ========== */
@@ -2630,14 +2613,14 @@ const dosesToxiques = [
   var w=document.getElementById('vittelWrap'),r=document.getElementById('vittelResult');
   if(!w)return;
   cats.forEach(function(c){w.innerHTML+='<div class="section-title" style="margin-top:12px"><h3>'+c.c+'</h3></div>';c.i.forEach(function(it){w.innerHTML+='<div class="score-item"><label><input type="checkbox" class="vit-cb"/> '+it+'</label></div>';});});
-  w.addEventListener('change',function(){var n=w.querySelectorAll('.vit-cb:checked').length;r.textContent=n+' critère'+(n>1?'s':'')+' · '+(n===0?'Non grave':'TRAUMA GRAVE → Centre trauma');r.style.color=n===0?'var(--success)':'var(--danger)';});
+  w.addEventListener('change',function(){var n=w.querySelectorAll('.vit-cb:checked').length;var clsV=n===0?'green':'red';r.classList.remove('green','yellow','red');r.classList.add(clsV);updateColorResult(r,clsV);renderRingResult(r,{score:n,badge:n===0?'Non grave':'TRAUMA GRAVE',interp:n===0?'Aucun critère Vittel':''+n+' critère'+(n>1?'s':'')+' Vittel',conduct:n===0?'Surveillance clinique':'Orientation centre trauma — damage control'});});
 })();
 
 /* ========== SHOCK INDEX ========== */
 (function(){
   var b=document.getElementById('siCalcBtn'),r=document.getElementById('siResult');
   if(!b)return;
-  b.addEventListener('click',function(){var fc=parseFloat(document.getElementById('siFc').value),pas=parseFloat(document.getElementById('siPas').value);if(!fc||!pas||pas===0){r.textContent='—';return;}var si=(fc/pas).toFixed(2);var int,col;if(si<0.7){int='Normal';col='var(--success)';}else if(si<=1.0){int='Borderline';col='#FF9800';}else if(si<=1.4){int='Choc probable';col='var(--danger)';}else{int='Choc sévère';col='var(--danger)';}r.textContent=si+' · '+int;r.style.color=col;});
+  b.addEventListener('click',function(){var fc=parseFloat(document.getElementById('siFc').value),pas=parseFloat(document.getElementById('siPas').value);if(!fc||!pas||pas===0){r.textContent='—';return;}var si=(fc/pas).toFixed(2);var int,col;if(si<0.7){int='Normal';col='var(--success)';}else if(si<=1.0){int='Borderline';col='#FF9800';}else if(si<=1.4){int='Choc probable';col='var(--danger)';}else{int='Choc sévère';col='var(--danger)';}var clsS=col==='var(--success)'?'green':col==='#FF9800'?'yellow':'red';r.classList.remove('green','yellow','red');r.classList.add(clsS);updateColorResult(r,clsS);renderRingResult(r,{score:si,badge:int,interp:'FC / PAS — Shock Index',conduct:si<0.7?'Hémodynamique stable':'Évaluation hémodynamique urgente'});});
 })();
 
 /* ========== MALINAS ========== */
@@ -2661,8 +2644,7 @@ const dosesToxiques = [
       opt.classList.toggle('checked',!!opt.querySelector('input:checked'));
     });
     var interp=t<5?'Transport possible (VPN 94 %)':t<=7?'Réévaluation nécessaire':'Accouchement imminent \u2014 préparer sur place';
-    r.textContent=t+' \u00b7 '+interp;
-    r.className='score-result '+(t<5?'green':t<=7?'yellow':'red');
+    var clsM=t<5?'green':t<=7?'yellow':'red';r.className='score-result';updateColorResult(r,clsM);renderRingResult(r,{score:t,badge:t<5?'Transport possible':t<=7?'Réévaluer':'Accouchement imminent',interp:'/10 — Score de Malinas',conduct:interp});
   });
 })();
 
@@ -2950,9 +2932,10 @@ var screenParents = {
 function handleBackPress() {
   var current = appState.activeScreen;
   if (current === 'home') {
-    /* Sur l'accueil : dialogue de confirmation */
-    if (confirm('Quitter Urg Pocket ?')) {
-      Android.confirmExit();
+    if (window.Android && typeof Android.showExitDialog === 'function') {
+      Android.showExitDialog();
+    } else {
+      if (confirm('Quitter Urg Pocket ?')) { window.close(); }
     }
     return;
   }
