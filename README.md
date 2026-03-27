@@ -15,30 +15,35 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.4
+## Contenu v1.2.6
 
-### Scores cliniques
+### Scores cliniques (15)
 
 | Score | Domaine | Affichage |
-|-------|---------|-----------|
+|-------|---------|-----------| 
 | Glasgow | Neuro / Conscience | Anneau coloré |
-| NIHSS | Neuro / AVC | Standard |
-| NEWS2 | Cardio / Dégradation | Anneau coloré |
-| HEART | Cardio / SCA | Standard |
-| Shock Index | Cardio / Hémodynamique | Standard |
-| Wells EP | Thrombose / EP | Standard |
-| Vittel | Trauma | Standard |
+| NIHSS | Neuro / AVC | Anneau coloré |
+| NEWS2 | Dégradation clinique | Anneau coloré |
+| HEART | Cardio / SCA | Anneau coloré |
+| Shock Index | Cardio / Hémodynamique | Anneau coloré |
+| Wells EP | Thrombose / EP | Anneau coloré |
+| Vittel | Trauma grave | Anneau coloré |
 | qSOFA | Infectio / Sepsis | Anneau coloré |
-| APGAR | Néonatal | Standard |
-| Malinas | Obstétrique | Standard |
-| Cushman | Thrombose | Standard |
-| Braden | Escarre | Standard |
+| APGAR | Néonatal | Anneau coloré |
+| Malinas | Obstétrique | Anneau coloré |
+| Cushman | Sevrage alcoolique | Anneau coloré |
+| Braden | Risque escarre | Anneau coloré |
+| **DFG / CKD-EPI 2021** | Fonction rénale | Anneau coloré |
+| **IMC / Surface (Mosteller)** | Anthropométrie | Anneau coloré |
+| **Killip** | IC post-SCA | Anneau coloré |
+
+Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 
 ### Protocoles d'urgence
 - ACR adulte (ERC 2025)
 - ACR pédiatrique (AFGSU/ERC 2025)
-- Choc anaphylactique
-- AVC — Alerte et orientation
+- Choc anaphylactique (RFE SFMU 2016)
+- AVC — Alerte et orientation (HAS + SFMU/SFNV 2024)
 - Douleur thoracique / SCA (ESC 2023)
 
 ### Autres modules
@@ -46,51 +51,46 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 - Normes biologiques (adulte + pédiatrique)
 - Toxicologie : 52 antidotes + 112 doses toxiques
 - Doses pondérales
-- Convertisseur biologique
+- Convertisseur biologique (6 molécules, bouton ⇄)
 - Constantes vitales par population
 - Ordre de prélèvement des tubes
-- Sources (ERC 2025, SFMU, SFAR, HAS, ESC 2023)
+- Sources médicales complètes (15 scores avec liens officiels)
 
 ---
 
 ## Changelog
 
-### v1.2.4 (mars 2026)
-- ✅ Sources complètes pour les 15 scores (8 sources manquantes ajoutées)
-- ✅ Code JS orphelin supprimé (CHA₂DS₂-VASc, Cockcroft-Gault)
-- ✅ Scores vierges au chargement — option "— Sélectionner —" + guards null
-- ✅ Reset profil depuis les Paramètres
-- ✅ Couleur d'accent Or (#D79A10) — palette spectre lumineux
-- ✅ Dialog native de confirmation pour quitter l'app
+### v1.2.6 (mars 2026)
+- ✅ 3 nouveaux calculs : DFG/CKD-EPI 2021, IMC/Surface corporelle (Mosteller), Killip
+- ✅ Tous les scores vierges au chargement — option "— Sélectionner —" + guards null
+- ✅ Couleur d'accent Or (#D79A10) — palette ordonnée selon spectre lumineux
+- ✅ Sources médicales complètes pour les 15 scores (liens vers références officielles)
+- ✅ Reset profil depuis les Paramètres (↺ Réafficher le choix de profil)
+- ✅ Nom de fichier GitHub fixe : `urg_pocket.html` (indépendant de la version)
+- ✅ Nettoyage code JS orphelin (CHA₂DS₂-VASc, Cockcroft-Gault sans screen)
+- ✅ versionCode 23
+
+### v1.2.5 (mars 2026)
+- ✅ Dialog native Android pour confirmation quitter l'app (AlertDialog)
 - ✅ Bouton retour Android fonctionnel sur toutes les pages
 - ✅ Descriptions courtes sur les 12 pages de score
 - ✅ Correction version affichée dans "À propos"
-- ✅ versionCode 20
+- ✅ versionCode 22
 
 ### v1.2.0 (mars 2026)
-
-**Fonctionnalités**
-- ✅ Anneaux de score animés sur Glasgow, NEWS2, qSOFA (fond sombre, cercle coloré, pill niveau de risque)
+- ✅ Anneaux de score (Glasgow, NEWS2, qSOFA) — fond sombre, cercle coloré, pill risque
 - ✅ Splash screen animé au démarrage
-- ✅ Système de profils médecin / paramédical (overlay premier lancement + toggle Paramètres)
-- ✅ Navigation retour Android — bouton retour remonte dans la hiérarchie des pages jusqu'à l'accueil, dialogue de confirmation pour quitter
-- ✅ Logo cliquable dans la topbar → retour accueil
-- ✅ CSS scores amélioré : items sélectionnés avec bordure gauche colorée + fond teinté
-- ✅ PWA : manifest + Service Worker (offline, actif uniquement sur GitHub Pages)
-
-**Corrections**
-- ✅ Fix bug espace blanc sur toutes les pages (cause : `</div>` en trop dans `screen-scores` et manquant dans `screen-toxico-doses` — le navigateur sortait les sections du flux)
-- ✅ Fix status bar Android 15 (edge-to-edge, targetSdk 35)
-- ✅ Logo topbar corrigé — SVG fidèle à l'icône (cercle `var(--primary)`, croix blanche, ECG bleu foncé pixel-perfect)
-- ✅ Email Cloudflare obfuscation supprimé (CGU + privacy)
-- ✅ CGU et privacy complétées (articles 11-12, droit applicable, RGPD/CNIL)
-- ✅ Service Worker conditionnel au domaine GitHub Pages (supprime l'erreur 404 en local)
+- ✅ Système de profils médecin / paramédical
+- ✅ Navigation retour Android hiérarchique
+- ✅ Logo topbar cliquable → accueil
+- ✅ PWA : manifest + Service Worker offline (GitHub Pages uniquement)
+- ✅ Fix bug espace blanc (div déséquilibrés dans screen-scores)
+- ✅ Fix status bar Android 15 edge-to-edge
 
 ### v1.1.0 (mars 2026)
 - 6 nouveaux scores : Wells EP, NIHSS, HEART, Vittel, Shock Index, Malinas
-- Menu scores réorganisé par catégories (Neuro, Cardio, Trauma, Infectio, Spécialisés)
-- Section Paramètres enrichie (À propos, Contact, Disclaimer, CGU, Privacy)
-- Sources mises à jour ERC 2025
+- Menu scores réorganisé par catégories
+- Section Paramètres enrichie
 
 ---
 
@@ -98,33 +98,35 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ```
 urg-pocket/
-├── index.html              ← entrée GitHub Pages (redirect)
-├── urg_pocket.html  ← application principale (single-file)
-├── manifest.json           ← PWA manifest
-├── sw.js                   ← Service Worker (offline, GitHub Pages uniquement)
-├── cgu.html                ← Conditions Générales d'Utilisation (12 articles)
-├── privacy.html            ← Politique de confidentialité (RGPD)
+├── index.html           ← entrée GitHub Pages (redirect vers urg_pocket.html)
+├── urg_pocket.html      ← application principale (single-file, nom fixe)
+├── manifest.json        ← PWA manifest
+├── sw.js                ← Service Worker offline (GitHub Pages uniquement)
+├── cgu.html             ← CGU (12 articles)
+├── privacy.html         ← Politique de confidentialité (RGPD/CNIL)
 ├── icons/
-│   ├── icon-192.png        ← icône PWA
-│   └── icon-512.png        ← icône Play Store
+│   ├── icon-192.png     ← icône PWA
+│   └── icon-512.png     ← icône Play Store
 └── README.md
 ```
+
+> ⚠️ Le fichier principal s'appelle toujours `urg_pocket.html` — ne jamais le renommer avec un numéro de version.
 
 ---
 
 ## Déploiement GitHub Pages
 
 1. Pousser tous les fichiers sur la branche `main`
-2. Dans Settings → Pages → Source : `main` / `/ (root)`
-3. L'application sera disponible sur `https://max54130.github.io/urg-pocket/`
+2. Settings → Pages → Source : `main` / `/ (root)`
+3. URL : `https://max54130.github.io/urg-pocket/`
 
-## APK Android
+## Android Studio
 
-Le projet Android Studio utilise :
-- `WebViewAssetLoader` — sert le HTML via `https://urgpocket.app/` (pas `file://`)
-- `OnBackPressedDispatcher` + `AndroidBridge` — délègue la navigation retour au JS (`handleBackPress()`)
-- `targetSdk 35` — edge-to-edge Android 15, status bar gérée via `env(safe-area-inset-top)`
-- `compileSdk 35`, `minSdk 26` (Android 8.0+)
+- `WebViewAssetLoader` — sert le HTML via `https://urgpocket.app/`
+- `AndroidBridge` — `showExitDialog()` + `confirmExit()` exposés via `window.Android`
+- Bouton retour → `evaluateJavascript("handleBackPress()")` → JS gère la navigation
+- `targetSdk 35`, `compileSdk 35`, `minSdk 26` (Android 8.0+)
+- Edge-to-edge : `env(safe-area-inset-top)` en CSS
 
 ---
 
@@ -133,32 +135,45 @@ Le projet Android Studio utilise :
 ```
 home
 ├── scores
-│   ├── score-glasgow
-│   ├── score-news2
-│   ├── score-qsofa
-│   ├── score-braden / apgar / cushman / heart / nihss / ...
-│   └── score-wells-ep / vittel / shockindex / malinas
-├── normes
-│   └── norme-detail
-├── protocoles
-│   ├── proto-acr / proto-acr_ped
-│   ├── proto-anaphylaxie / proto-avc / proto-douleur_tho
-├── antidotes
-│   ├── toxico-antidotes
-│   └── toxico-doses
+│   ├── score-glasgow / news2 / qsofa / braden / apgar / cushman
+│   ├── score-wells-ep / nihss / heart / vittel / shockindex / malinas
+│   └── dfg / imc / killip
+├── normes → norme-detail
+├── protocoles → proto-acr / proto-acr_ped / proto-anaphylaxie / proto-avc / proto-douleur_tho
+├── antidotes → toxico-antidotes / toxico-doses
 └── debit / tubes / doses / convertisseur / constped / sources / settings
 ```
 
 ---
 
+## Versions
+
+| versionCode | versionName | Statut |
+|-------------|-------------|--------|
+| 23 | 1.2.6 | **Build actuel** |
+| 22 | 1.2.5 | Publié Play Store |
+| 21 | 1.2.4 | Publié Play Store |
+
+> La prochaine release Play Store doit utiliser versionCode **≥ 24**.
+
+---
+
 ## Sources médicales
 
-- **ERC 2025** — European Resuscitation Council Guidelines
-- **SFMU** — Société Française de Médecine d'Urgence
-- **SFAR** — Société Française d'Anesthésie-Réanimation
-- **HAS** — Haute Autorité de Santé
-- **ESC 2023** — European Society of Cardiology
-- **AFGSU** — Attestation de Formation aux Gestes et Soins d'Urgence
+| Source | Utilisation |
+|--------|-------------|
+| **ERC 2025** | ACR adulte et pédiatrique |
+| **SFMU / Toxin** | Protocoles, antidotes, doses toxiques (Pr Danel, Grenoble, 2019) |
+| **SFAR** | Anesthésie-réanimation, doses pondérales |
+| **HAS** | AVC, DFG, recommandations nationales |
+| **ESC 2023** | SCA, HEART, Wells EP, Killip |
+| **RCP** | NEWS2 |
+| **JAMA / Sepsis-3** | qSOFA (2016) |
+| **ACOG** | Score APGAR |
+| **KDIGO / NKF** | DFG CKD-EPI 2021 |
+| **OMS** | IMC |
+| **SFA / SFMU** | Cushman (sevrage alcoolique) |
+| **CLSI GP41** | Ordre de prélèvement des tubes |
 
 ---
 
