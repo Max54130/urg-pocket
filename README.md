@@ -56,7 +56,12 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ## Changelog
 
 ### v1.2.4 (mars 2026)
-- ✅ Dialog native de confirmation pour quitter l'app (bouton retour depuis l'accueil)
+- ✅ Sources complètes pour les 15 scores (8 sources manquantes ajoutées)
+- ✅ Code JS orphelin supprimé (CHA₂DS₂-VASc, Cockcroft-Gault)
+- ✅ Scores vierges au chargement — option "— Sélectionner —" + guards null
+- ✅ Reset profil depuis les Paramètres
+- ✅ Couleur d'accent Or (#D79A10) — palette spectre lumineux
+- ✅ Dialog native de confirmation pour quitter l'app
 - ✅ Bouton retour Android fonctionnel sur toutes les pages
 - ✅ Descriptions courtes sur les 12 pages de score
 - ✅ Correction version affichée dans "À propos"
@@ -94,7 +99,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ```
 urg-pocket/
 ├── index.html              ← entrée GitHub Pages (redirect)
-├── urg_pocket_v1.2.4.html  ← application principale (single-file)
+├── urg_pocket.html  ← application principale (single-file)
 ├── manifest.json           ← PWA manifest
 ├── sw.js                   ← Service Worker (offline, GitHub Pages uniquement)
 ├── cgu.html                ← Conditions Générales d'Utilisation (12 articles)
