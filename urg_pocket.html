@@ -23,6 +23,14 @@ body.dark{--bg:#0f0f12;--surface:#17181c;--surface2:#1f2028;--surface3:#2a2c33;-
 .nav-toggle-row:last-child{border-bottom:none}
 .nav-toggle-row label{flex:1;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px}
 .nav-toggle-row input[type="checkbox"]{width:20px;height:20px;accent-color:var(--primary);cursor:pointer}
+body.font-large{font-size:17px}
+body.font-large .hc-label{font-size:15px}
+body.font-large .result-name{font-size:16px}
+body.font-large .result-num{font-size:24px}
+body.font-large .score-result{font-size:26px}
+body.font-large .note,body.font-large .alert{font-size:15px}
+body.font-large .num-input{font-size:26px}
+body.font-large th,body.font-large td{font-size:15px}
 
 /* === RESET === */
 *{box-sizing:border-box}
@@ -259,12 +267,12 @@ body.dark .score-option:has(input:checked),body.dark .score-option.checked{backg
 body.dark .score-badge.green{background:#064e3b;color:#6ee7b7;border-color:#065f46}
 body.dark .score-badge.yellow{background:#78350f;color:#fde68a;border-color:#92400e}
 body.dark .score-badge.red{background:#7f1d1d;color:#fca5a5;border-color:#991b1b}
-
+.score-result-sticky{position:sticky;top:calc(var(--header) + env(safe-area-inset-top));z-index:10;padding:14px 16px;background:var(--surface);border-bottom:1px solid var(--line);border-radius:0;margin-top:14px}
 .sr-ring{width:72px;height:72px;min-width:72px;border-radius:50%;border:3px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:border-color .3s,box-shadow .3s}
 .sr-ring-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.7;line-height:1}
 .sr-ring-val{font-size:24px;font-weight:900;line-height:1.1}
-
-
+.sr-interp{font-size:14px;line-height:1.45;margin-bottom:4px;font-weight:600}
+.sr-conduct{font-size:13px;line-height:1.4;color:var(--text2)}
 /* === TRAUMA CRITÈRES === */
 .trauma-criteria{display:grid;gap:6px;margin-top:8px}
 .trauma-crit-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:var(--surface);border:1.5px solid var(--line);cursor:pointer;font-size:13.5px;transition:all .18s}
@@ -275,7 +283,8 @@ body.dark .trauma-crit-item:has(input:checked){background:color-mix(in srgb,var(
 .trauma-crit-item input[type="checkbox"]:checked::after{content:'';position:absolute;top:3px;left:6px;width:5px;height:9px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
 /* === SPLASH SCREEN === */
 .splash{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s ease,transform .4s ease}
-.splash.splash-logo{width:88px;height:88px;border-radius:28px;display:grid;place-items:center;overflow:hidden}
+.splash.hide{opacity:0;transform:scale(1.04);pointer-events:none}
+.splash-logo{width:88px;height:88px;border-radius:28px;display:grid;place-items:center;overflow:hidden}
 .splash-title{font-size:28px;font-weight:900;letter-spacing:-.02em}
 .splash-title span{color:var(--primary)}
 .splash-sub{font-size:14px;color:var(--text2);font-weight:500}
@@ -292,6 +301,7 @@ body.dark .trauma-crit-item:has(input:checked){background:color-mix(in srgb,var(
 .profile-box p{margin:0 0 20px;font-size:14px;color:var(--text2);line-height:1.5}
 .profile-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .profile-card{border:2px solid var(--line);border-radius:16px;padding:18px 12px;cursor:pointer;text-align:center;transition:all .18s ease;background:var(--surface2)}
+.profile-skip{margin-top:14px;text-align:center;font-size:13px;color:var(--text2);cursor:pointer;text-decoration:underline}
 .profile-skip{margin-top:14px;text-align:center;font-size:13px;color:var(--text2);cursor:pointer;text-decoration:underline}
 .profile-card:hover,.profile-card:focus{border-color:var(--primary);background:color-mix(in srgb,var(--primary) 8%,var(--surface));outline:none}
 .profile-card-icon{font-size:32px;margin-bottom:8px}
@@ -324,8 +334,7 @@ body:not(.dark) .score-result.ring-result.red{background:#1f0d0d;border-color:#e
 .sr-conduct{font-size:12px;line-height:1.4;color:rgba(255,255,255,.55)}
 
 /* === ANDROID SAFE AREA === */
-</style><script>
-/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');document.body&&document.body.classList.add('dark');}})()</script>
+</style><script>/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
 <script>
 /* Service Worker — uniquement sur GitHub Pages */
 if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
@@ -347,10 +356,6 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
   if(a){
     var p = isDark ? a.d : a.l;
     document.documentElement.style.setProperty('--primary', p);
-    document.documentElement.style.setProperty('--primary2', isDark ? (accents[accent+'2']||p) : p);
-    if(document.body){
-      document.body.style.setProperty('--primary', p);
-    }
   }
 })();
 </script>
@@ -464,16 +469,16 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 </div>
 </div></div></section>
 <section class="screen" id="screen-score-glasgow"><div class="content-card"><div class="page-head"><div><h2>Glasgow</h2></div><p>Évalue le niveau de conscience (yeux, verbal, moteur). Référence en neurologie et réanimation préhospitalière.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
-<div class="score-panel" id="score-glasgow" ><div class="section-title"><h3>Score de Glasgow</h3></div><div class="score-list" id="glasgowWrap"></div><div class="score-result" id="glasgowResult" aria-live="polite">—</div></div>
+<div class="score-panel" id="score-glasgow" ><div class="section-title"><h3>Score de Glasgow</h3></div><div class="score-list" id="glasgowWrap"></div><div class="score-result" id="glasgowResult" aria-live="polite">15 · Conscience normale</div></div>
 </div></section>
 <section class="screen" id="screen-score-braden"><div class="content-card"><div class="page-head"><div><h2>Braden</h2></div><p>Évalue le risque d'escarre selon 6 critères. Plus le score est bas, plus le risque est élevé.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
-<div class="score-panel" id="score-braden" ><div class="section-title"><h3>Échelle de Braden</h3><span class="muted">Évaluation du risque d’escarre</span></div><div class="braden-grid" id="bradenWrap"></div><div class="score-result" id="bradenResult" aria-live="polite">—</div></div>
+<div class="score-panel" id="score-braden" ><div class="section-title"><h3>Échelle de Braden</h3><span class="muted">Évaluation du risque d’escarre</span></div><div class="braden-grid" id="bradenWrap"></div><div class="score-result" id="bradenResult" aria-live="polite">Braden · score total : 23 · risque très faible</div></div>
 </div></section>
 <section class="screen" id="screen-score-news2"><div class="content-card"><div class="page-head"><div><h2>NEWS2</h2></div><p>Détecte la dégradation clinique précoce à partir des constantes vitales. Déclenche l'alerte médicale.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
-<div class="score-panel" id="score-news2" ><div class="section-title"><h3>NEWS2</h3><span class="muted">National Early Warning Score 2</span></div><div class="field" style="margin-top:14px;margin-bottom:8px"><div class="label">Échelle SpO₂</div><div class="duration-toggle"><button class="unit-btn news2-scale-btn active" data-scale="1" type="button">Scale 1 (standard)</button><button class="unit-btn news2-scale-btn" data-scale="2" type="button">Scale 2 — BPCO</button></div></div><div class="score-list" id="news2Wrap"></div><div class="score-result" id="news2Result" aria-live="polite">—</div></div>
+<div class="score-panel" id="score-news2" ><div class="section-title"><h3>NEWS2</h3><span class="muted">National Early Warning Score 2</span></div><div class="field" style="margin-top:14px;margin-bottom:8px"><div class="label">Échelle SpO₂</div><div class="duration-toggle"><button class="unit-btn news2-scale-btn active" data-scale="1" type="button">Scale 1 (standard)</button><button class="unit-btn news2-scale-btn" data-scale="2" type="button">Scale 2 — BPCO</button></div></div><div class="score-list" id="news2Wrap"></div><div class="score-result" id="news2Result" aria-live="polite">0 · risque faible</div></div>
 </div></section>
 <section class="screen" id="screen-score-qsofa"><div class="content-card"><div class="page-head"><div><h2>qSOFA</h2></div><p>Dépistage rapide du sepsis en 3 critères. Un score ≥ 2 évoque un sepsis — bilan urgent.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
-<div class="score-panel" id="score-qsofa" ><div class="section-title"><h3>qSOFA</h3><span class="muted">Sepsis quick score</span></div><div class="score-list" id="qsofaWrap"></div><div class="score-result" id="qsofaResult" aria-live="polite">—</div></div>
+<div class="score-panel" id="score-qsofa" ><div class="section-title"><h3>qSOFA</h3><span class="muted">Sepsis quick score</span></div><div class="score-list" id="qsofaWrap"></div><div class="score-result" id="qsofaResult" aria-live="polite">0 / 3 · risque faible</div></div>
 </div></section>
 <section class="screen" id="screen-score-apgar"><div class="content-card"><div class="page-head"><div><h2>APGAR</h2></div><p>Évalue l'état du nouveau-né à 1 et 5 minutes de vie. Guide la réanimation néonatale.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="score-panel" id="score-apgar" ><div class="section-title"><h3>APGAR</h3><span class="muted">Évaluation néonatale</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;margin-bottom:8px">
@@ -491,7 +496,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 </div>
 <div class="small" style="margin-top:4px">Bip à 1, 5 et 10 min</div>
 </div>
-</div><div class="score-list" id="apgarWrap"></div><div class="score-result" id="apgarResult" aria-live="polite">—</div></div>
+</div><div class="score-list" id="apgarWrap"></div><div class="score-result" id="apgarResult" aria-live="polite">10 / 10 · adaptation excellente</div></div>
 
 </div></section>
 <section class="screen" id="screen-score-cushman"><div class="content-card"><div class="page-head"><div><h2>Cushman</h2></div><p>Quantifie la sévérité du sevrage alcoolique. Oriente la prise en charge médicamenteuse.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
@@ -513,7 +518,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 </div>
 </div>
 <div class="score-list" id="cushmanWrap"></div>
-<div class="score-result" id="cushmanResult" aria-live="polite">—</div>
+<div class="score-result" id="cushmanResult" aria-live="polite">0 / 21 · état contrôlé</div>
 </div>
 
 </div></section>
@@ -536,10 +541,9 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 
 <section class="screen" id="screen-convertisseur"><div class="content-card"><div class="page-head"><div><h2>Convertisseur bio</h2><p>Conversions d'unités biologiques</p></div></div>
 <select class="select" id="convSelect" aria-label="Choix de la conversion"></select>
-<div style="display:flex;align-items:center;gap:10px;margin-top:14px">
-  <div class="field" style="flex:1"><div class="label" id="convLabelA">Valeur</div><input class="num-input" id="convInputA" aria-label="Valeur à convertir" min="0" step="0.01" type="number" placeholder="valeur"/></div>
-  <button id="convSwapBtn" type="button" style="min-height:46px;min-width:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface2);color:var(--primary);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:0" aria-label="Inverser">⇄</button>
-  <div class="field" style="flex:1"><div class="label" id="convLabelB">Résultat</div><div class="result-num" id="convOutputB" style="min-height:46px;display:flex;align-items:center">—</div></div>
+<div class="inline-form" style="margin-top:14px">
+<div class="field"><div class="label" id="convLabelA">Valeur</div><input class="num-input" id="convInputA" aria-label="Valeur à convertir" min="0" step="0.01" type="number" placeholder="valeur"/></div>
+<div class="field"><div class="label" id="convLabelB">Résultat</div><div class="result-num" id="convOutputB" style="min-height:46px;display:flex;align-items:center">—</div></div>
 </div>
 <div class="note" id="convNote"></div>
 </div></section>
@@ -593,28 +597,28 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="note" style="margin-top:0;margin-bottom:14px">Probabilité clinique d'embolie pulmonaire. ≤4 = improbable → D-dimères. >4 = probable → angio-TDM d'emblée.</div>
 <div class="score-panel" id="score-wells-ep"><div class="section-title"><h3>Score de Wells — EP</h3></div>
 <div class="score-list" id="wellsEpWrap"></div>
-<div class="score-result" id="wellsEpResult" aria-live="polite">—</div>
+<div class="score-result" id="wellsEpResult" aria-live="polite">0</div>
 </div></div></section>
 
 <section class="screen" id="screen-score-nihss"><div class="content-card"><div class="page-head"><div><h2>NIHSS</h2></div><p>Quantifie le déficit neurologique lors d'un AVC. Guide l'indication de thrombolyse et thrombectomie.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="note" style="margin-top:0;margin-bottom:14px">Déficit neurologique AVC. 0 normal, 1-4 mineur, 5-15 modéré, 16-20 sévère, 21-42 très sévère. Indispensable filière thrombolyse.</div>
 <div class="score-panel" id="score-nihss"><div class="section-title"><h3>NIHSS</h3><span class="muted">National Institutes of Health Stroke Scale</span></div>
 <div class="score-list" id="nihssWrap"></div>
-<div class="score-result" id="nihssResult" aria-live="polite">—</div>
+<div class="score-result" id="nihssResult" aria-live="polite">0 · Normal</div>
 </div></div></section>
 
 <section class="screen" id="screen-score-heart"><div class="content-card"><div class="page-head"><div><h2>HEART</h2></div><p>Stratifie le risque de syndrome coronarien aigu. Oriente vers la sortie ou l'hospitalisation.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="note" style="margin-top:0;margin-bottom:14px">Risque d'événement cardiaque majeur (MACE) à 6 semaines. 0-3 faible (~2%), 4-6 intermédiaire (~15%), 7-10 élevé (~50%).</div>
 <div class="score-panel" id="score-heart"><div class="section-title"><h3>HEART Score</h3></div>
 <div class="score-list" id="heartWrap"></div>
-<div class="score-result" id="heartResult" aria-live="polite">—</div>
+<div class="score-result" id="heartResult" aria-live="polite">0 · Risque faible</div>
 </div></div></section>
 
 <section class="screen" id="screen-score-vittel"><div class="content-card"><div class="page-head"><div><h2>Vittel</h2></div><p>Identifie les critères de trauma grave pour l'orientation vers un centre de trauma.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="note" style="margin-top:0;margin-bottom:14px">Trauma grave : ≥1 critère = orientation centre de traumatologie.</div>
 <div class="score-panel" id="score-vittel"><div class="section-title"><h3>Critères de Vittel</h3></div>
 <div class="score-list" id="vittelWrap"></div>
-<div class="score-result" id="vittelResult" aria-live="polite">—</div>
+<div class="score-result" id="vittelResult" aria-live="polite">0 critère · Non grave</div>
 </div></div></section>
 
 <section class="screen" id="screen-score-shockindex"><div class="content-card"><div class="page-head"><div><h2>Shock Index</h2></div><p>Rapport FC/PAS. Détecte rapidement un état de choc hémodynamique.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
@@ -630,7 +634,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="note" style="margin-top:0;margin-bottom:14px">&lt;5 = transport possible. ≥5 = accouchement imminent, préparer sur place.</div>
 <div class="score-panel" id="score-malinas"><div class="section-title"><h3>Score de Malinas</h3></div>
 <div class="score-list" id="malinasWrap"></div>
-<div class="score-result" id="malinasResult" aria-live="polite">—</div>
+<div class="score-result" id="malinasResult" aria-live="polite">0 · Transport possible</div>
 </div></div></section>
 
 <section class="screen" id="screen-settings"><div class="content-card"><div class="page-head"><div><h2>Paramètres</h2><p>Personnaliser l'interface</p></div></div>
@@ -656,6 +660,13 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <button class="accent-dot" data-accent="purple" style="background:#7C3AED" aria-label="Violet"></button>
 </div></div>
 
+<div class="section-title"><h3>Taille du texte</h3></div>
+<div class="field" style="margin-bottom:14px">
+<div class="label">Ajuster la lisibilité</div>
+<div class="duration-toggle">
+<button class="unit-btn settings-fontsize-btn" data-size="normal" type="button">Normal</button>
+<button class="unit-btn settings-fontsize-btn" data-size="large" type="button">Grand</button>
+</div></div>
 
 <div class="section-title"><h3>Profil</h3></div>
 <div class="field" style="margin-bottom:14px">
@@ -679,7 +690,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.4</span>
+<span style="color:var(--primary);font-weight:800">1.2.6</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -711,51 +722,46 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 
 <div class="section-title"><h3>Scores cliniques</h3></div>
 <div class="result-list">
-<div class="result"><div class="result-name"><strong>Glasgow</strong><br/>Évalue le niveau de conscience (E+V+M). Référence en neurologie préhospitalière et réanimation.<br/><br/><a href="https://www.msdmanuals.com/fr/professional/multimedia/table/%C3%A9chelle-de-coma-de-glasgow-glasgow-coma-scale" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 MSD — Glasgow Coma Scale</a></div><div class="result-num">MSD</div></div>
-<div class="result"><div class="result-name"><strong>NIHSS</strong><br/>Quantifie le déficit neurologique lors d'un AVC. Guide l'indication de thrombolyse et thrombectomie.<br/><br/><a href="https://www.ninds.nih.gov/health-information/stroke" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 NIH — NINDS Stroke Scale</a> <a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — AVC</a></div><div class="result-num">NIH / HAS</div></div>
-<div class="result"><div class="result-name"><strong>NEWS2</strong><br/>Dépistage précoce de la dégradation clinique. Scale 1 standard / Scale 2 pour BPCO (cible SpO₂ 88–92 %).<br/><br/><a href="https://www.rcp.ac.uk/improving-care/resources/national-early-warning-score-news-2/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 RCP — NEWS2</a></div><div class="result-num">RCP</div></div>
-<div class="result"><div class="result-name"><strong>HEART</strong><br/>Stratifie le risque de syndrome coronarien aigu (SCA).<br/><br/><a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — SCA Guidelines</a></div><div class="result-num">ESC</div></div>
-<div class="result"><div class="result-name"><strong>Shock Index</strong><br/>Rapport FC/PAS. Dépistage rapide d'un état de choc hémodynamique.<br/><br/><a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Référentiels</a></div><div class="result-num">Littérature / SFMU</div></div>
-<div class="result"><div class="result-name"><strong>Wells EP</strong><br/>Probabilité clinique d'embolie pulmonaire. Score ≤ 4 → D-dimères ; score > 4 → Angio-TDM.<br/><br/><a href="https://www.has-sante.fr/jcms/c_1741170/fr/embolie-pulmonaire" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — Embolie pulmonaire</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Pulmonary-Embolism" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — EP Guidelines</a></div><div class="result-num">HAS / ESC</div></div>
-<div class="result"><div class="result-name"><strong>Vittel</strong><br/>Critères de triage du trauma grave préhospitalier pour orientation vers centre de trauma.<br/><br/><a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Critères Vittel</a></div><div class="result-num">SFMU</div></div>
-<div class="result"><div class="result-name"><strong>qSOFA</strong><br/>Dépistage rapide d'un risque d'évolution défavorable en cas d'infection suspectée. Score ≥ 2 → sepsis probable.<br/><br/><a href="https://jamanetwork.com/journals/jama/fullarticle/2492881" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 JAMA — Sepsis-3 2016</a> <a href="https://www.srlf.org/article/prise-en-charge-du-choc-septique" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SRLF — Choc septique</a></div><div class="result-num">JAMA / SRLF</div></div>
-<div class="result"><div class="result-name"><strong>APGAR</strong><br/>Adaptation néonatale à 1, 5 et 10 minutes. Ne prédit pas seul le devenir neurologique.<br/><br/><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2015/10/the-apgar-score" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ACOG — The Apgar Score</a></div><div class="result-num">ACOG</div></div>
-<div class="result"><div class="result-name"><strong>Malinas</strong><br/>Évalue le risque d'accouchement imminent en préhospitalier. Score ≥ 8 → préparer sur place.<br/><br/><a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Obstétrique</a></div><div class="result-num">Littérature / SFMU</div></div>
-<div class="result"><div class="result-name"><strong>Cushman</strong><br/>Sévérité du syndrome de sevrage alcoolique. Score > 14 → benzodiazépines IV.<br/><br/><a href="https://www.sfalcoologie.asso.fr/download/RBP2015-SFA-Sevrage.pdf" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFA — Sevrage alcoolique</a> <a href="https://www.sfmu.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div><div class="result-num">SFA / SFMU</div></div>
-<div class="result"><div class="result-name"><strong>Braden</strong><br/>Risque d'escarre selon 6 critères. Plus le score est bas, plus le risque est élevé.<br/><br/><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8363405/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 NIH/PMC — Braden Scale</a></div><div class="result-num">NIH/PMC</div></div>
-<div class="result"><div class="result-name"><strong>Killip</strong><br/>Stratification de l'insuffisance cardiaque aiguë post-SCA (K I → K IV). Corrélé à la mortalité hospitalière.<br/><br/><a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — SCA Guidelines</a> <a href="https://jamanetwork.com/journals/jama/fullarticle/339477" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 JAMA — Killip 1967</a></div><div class="result-num">ESC / JAMA</div></div>
-<div class="result"><div class="result-name"><strong>DFG / CKD-EPI 2021</strong><br/>Estimation du débit de filtration glomérulaire. Remplace Cockcroft-Gault pour l'adaptation posologique.<br/><br/><a href="https://www.kidney.org/professionals/kdoqi/gfr_calculator" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 KDIGO/NKF — CKD-EPI 2021</a> <a href="https://www.has-sante.fr/jcms/c_878871/fr/evaluation-du-debit-de-filtration-glomerulaire" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — Évaluation DFG</a></div><div class="result-num">KDIGO / HAS</div></div>
-<div class="result"><div class="result-name"><strong>IMC / Surface corporelle</strong><br/>IMC selon l'OMS. Surface corporelle (Mosteller) utilisée pour les posologies oncologiques et pédiatriques.<br/><br/><a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 OMS — IMC</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1757537/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Mosteller 1987 — N Engl J Med</a></div><div class="result-num">OMS / NEJM</div></div>
+<div class="result"><div class="result-name"><strong>Glasgow</strong><br/>Évalue le niveau de conscience (E+V+M).<br/><br/><a href="https://www.msdmanuals.com/fr/professional/multimedia/table/%C3%A9chelle-de-coma-de-glasgow-glasgow-coma-scale" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 MSD — Glasgow</a></div><div class="result-num">MSD</div></div>
+<div class="result"><div class="result-name"><strong>NIHSS</strong><br/>Quantifie le déficit neurologique lors d'un AVC.<br/><br/><a href="https://www.ninds.nih.gov/health-information/stroke" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 NIH — NINDS</a> <a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — AVC</a></div><div class="result-num">NIH / HAS</div></div>
+<div class="result"><div class="result-name"><strong>NEWS2</strong><br/>Dépistage précoce de la dégradation clinique. Scale 1/2 (BPCO).<br/><br/><a href="https://www.rcp.ac.uk/improving-care/resources/national-early-warning-score-news-2/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 RCP — NEWS2</a></div><div class="result-num">RCP</div></div>
+<div class="result"><div class="result-name"><strong>HEART</strong><br/>Stratifie le risque de SCA.<br/><br/><a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — SCA</a></div><div class="result-num">ESC</div></div>
+<div class="result"><div class="result-name"><strong>Shock Index</strong><br/>Rapport FC/PAS. Dépistage d'un choc hémodynamique.<br/><br/><a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div><div class="result-num">SFMU</div></div>
+<div class="result"><div class="result-name"><strong>Wells EP</strong><br/>Probabilité clinique d'embolie pulmonaire.<br/><br/><a href="https://www.has-sante.fr/jcms/c_1741170/fr/embolie-pulmonaire" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — EP</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Pulmonary-Embolism" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — EP</a></div><div class="result-num">HAS / ESC</div></div>
+<div class="result"><div class="result-name"><strong>Vittel</strong><br/>Critères de triage du trauma grave.<br/><br/><a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Vittel</a></div><div class="result-num">SFMU</div></div>
+<div class="result"><div class="result-name"><strong>qSOFA</strong><br/>Dépistage rapide du sepsis. Score ≥ 2 → bilan urgent.<br/><br/><a href="https://jamanetwork.com/journals/jama/fullarticle/2492881" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 JAMA — Sepsis-3 2016</a> <a href="https://www.srlf.org/article/prise-en-charge-du-choc-septique" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SRLF</a></div><div class="result-num">JAMA / SRLF</div></div>
+<div class="result"><div class="result-name"><strong>APGAR</strong><br/>Adaptation néonatale à 1 et 5 min.<br/><br/><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2015/10/the-apgar-score" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ACOG</a></div><div class="result-num">ACOG</div></div>
+<div class="result"><div class="result-name"><strong>Malinas</strong><br/>Risque d'accouchement imminent en préhospitalier.<br/><br/><a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div><div class="result-num">SFMU</div></div>
+<div class="result"><div class="result-name"><strong>Cushman</strong><br/>Sévérité du sevrage alcoolique.<br/><br/><a href="https://www.sfalcoologie.asso.fr/download/RBP2015-SFA-Sevrage.pdf" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFA — Sevrage</a> <a href="https://www.sfmu.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div><div class="result-num">SFA / SFMU</div></div>
+<div class="result"><div class="result-name"><strong>Braden</strong><br/>Risque d'escarre. Plus le score est bas, plus le risque est élevé.<br/><br/><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8363405/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 NIH/PMC</a></div><div class="result-num">NIH/PMC</div></div>
+<div class="result"><div class="result-name"><strong>Killip</strong><br/>Stratification de l'IC aiguë post-SCA. Corrélé à la mortalité hospitalière.<br/><br/><a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — SCA</a> <a href="https://jamanetwork.com/journals/jama/fullarticle/339477" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 JAMA — Killip 1967</a></div><div class="result-num">ESC / JAMA</div></div>
+<div class="result"><div class="result-name"><strong>DFG / CKD-EPI 2021</strong><br/>Estimation du DFG. Remplace Cockcroft-Gault.<br/><br/><a href="https://www.kidney.org/professionals/kdoqi/gfr_calculator" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 KDIGO/NKF</a> <a href="https://www.has-sante.fr/jcms/c_878871/fr/evaluation-du-debit-de-filtration-glomerulaire" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS</a></div><div class="result-num">KDIGO / HAS</div></div>
+<div class="result"><div class="result-name"><strong>IMC / Surface (Mosteller)</strong><br/>IMC OMS + surface corporelle pour posologies.<br/><br/><a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 OMS</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1757537/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Mosteller NEJM 1987</a></div><div class="result-num">OMS / NEJM</div></div>
 </div>
 
 <div class="section-title"><h3>Repères biologiques</h3></div>
-<div class="note">
-  Les intervalles biologiques ne sont pas universels. Ils varient selon la méthode analytique, l'automate, la population de référence, le sexe, l'âge et le laboratoire. Les tableaux sont des <strong>repères indicatifs</strong> et ne doivent pas remplacer les bornes du laboratoire qui a produit le résultat.
-</div>
-<div class="result-list">
-<div class="result"><div class="result-name">Correction des synonymes transaminases : <strong>ALAT = SGPT</strong> et <strong>ASAT = SGOT</strong>.</div><div class="result-num">✔</div></div>
-<div class="result"><div class="result-name">Séparation conceptuelle entre <strong>bilan hépatique</strong>, <strong>bilan lipidique</strong> et <strong>enzymes musculaires/cardiaques</strong>.</div><div class="result-num">✔</div></div>
-</div>
+<div class="note">Les intervalles biologiques ne sont pas universels. Ils varient selon la méthode analytique, l'automate, la population de référence, le sexe, l'âge et le laboratoire. Les tableaux sont des <strong>repères indicatifs</strong>.</div>
+<div class="result-list"><div class="result"><div class="result-name">Correction des synonymes transaminases : <strong>ALAT = SGPT</strong> et <strong>ASAT = SGOT</strong>.</div><div class="result-num">✔</div></div></div>
 
 <div class="section-title"><h3>Convertisseur d'unités</h3></div>
-<div class="note">Facteurs de conversion SI. Glycémie : × 5,551 (g/L → mmol/L). Créatinine : × 0,01131 (µmol/L → mg/dL). Cholestérol : × 2,586. Triglycérides : × 1,129. Bilirubine : × 0,05847.<br/><br/><a href="https://unitslab.com/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 UnitsLab — Référence conversions</a></div>
+<div class="note">Facteurs de conversion SI. Glycémie ×5,551 | Créatinine ×0,01131 | Cholestérol ×2,586 | Triglycérides ×1,129 | Bilirubine ×0,05847.<br/><br/><a href="https://unitslab.com/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 UnitsLab</a></div>
 
 <div class="section-title"><h3>Doses pondérales</h3></div>
-<div class="note">Posologies de référence issues du Vidal, des recommandations SFAR/SFMU et des protocoles courants en médecine d'urgence adulte. <strong>Toujours vérifier avec le protocole de service et le Vidal.</strong><br/><br/><a href="https://www.vidal.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Vidal</a> <a href="https://sfar.org/publications-et-recommandations/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAR — Recommandations</a> <a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Référentiels</a></div>
+<div class="note">Posologies issues du Vidal, SFAR/SFMU. <strong>Toujours vérifier avec le protocole de service et le Vidal.</strong><br/><br/><a href="https://www.vidal.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Vidal</a> <a href="https://sfar.org/publications-et-recommandations/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAR</a> <a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div>
 
 <div class="section-title"><h3>Constantes vitales</h3></div>
-<div class="note">Adulte : repères OMS/ESC/SFMU. Pédiatrie : PALS/AHA et Nelson Textbook of Pediatrics. Valeurs indicatives.<br/><br/><a href="https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-advanced-life-support" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 AHA — PALS Guidelines</a> <a href="https://www.sfmu.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div>
+<div class="note">Adulte : OMS/ESC/SFMU. Pédiatrie : PALS/AHA + Nelson.<br/><br/><a href="https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-advanced-life-support" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 AHA — PALS</a> <a href="https://www.sfmu.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div>
 
 <div class="section-title"><h3>Protocoles rapides</h3></div>
-<div class="note">Check-lists basées sur : ERC 2025 (ACR adulte/pédiatrique), HAS + RPP SFMU/SFNV 2024 (AVC), RFE SFMU 2016 (anaphylaxie), ESC 2023 + SFC/SFMU (SCA). Ne remplacent pas les protocoles de service ni la formation AFGSU.<br/><br/><a href="https://www.erc.edu/science-research/guidelines/guidelines-2025/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025 — ACR adulte</a> <a href="https://www.erc.edu/science-research/guidelines/guidelines-2025/paediatric-life-support" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025 — Pédiatrique</a> <a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — AVC</a> <a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Anaphylaxie</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC 2023 — SCA</a></div>
+<div class="note">ERC 2025 (ACR adulte/pédiatrique), HAS+SFMU/SFNV 2024 (AVC), RFE SFMU 2016 (anaphylaxie), ESC 2023+SFC/SFMU (SCA).<br/><br/><a href="https://www.erc.edu/science-research/guidelines/guidelines-2025/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025 — ACR</a> <a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — AVC</a> <a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Anaphylaxie</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC 2023 — SCA</a></div>
 
 <div class="section-title"><h3>Toxicologie</h3></div>
-<div class="note">Antidotes et doses toxiques conformes au tableau SFMU/Toxin (Pr Vincent Danel, Université Grenoble Alpes, rév. déc. 2019).<br/><br/><a href="https://www.sfmu.org/toxin/ANTIDOTE/TOXANTTB.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Antidotes</a> <a href="https://www.sfmu.org/toxin/DOSETOXI/DOSETOX.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Doses toxiques</a> <a href="https://www.centres-antipoison.net/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Centres antipoison France</a></div>
+<div class="note">SFMU/Toxin — Pr Vincent Danel, Grenoble (rév. déc. 2019).<br/><br/><a href="https://www.sfmu.org/toxin/ANTIDOTE/TOXANTTB.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Antidotes</a> <a href="https://www.sfmu.org/toxin/DOSETOXI/DOSETOX.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Doses toxiques</a> <a href="https://www.centres-antipoison.net/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Centres antipoison</a></div>
 
 <div class="section-title"><h3>Ordre des tubes</h3></div>
-<div class="note">Ordre de remplissage selon les recommandations CLSI. Vérifier le protocole local.<br/><br/><a href="https://clsi.org/standards/products/general-laboratory/documents/gp41/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 CLSI GP41 — Ordre de prélèvement</a></div>
+<div class="note">Recommandations CLSI. Vérifier le protocole local.<br/><br/><a href="https://clsi.org/standards/products/general-laboratory/documents/gp41/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 CLSI GP41</a></div>
 
-<div class="note" style="margin-top:18px">⚠️ Les informations contenues dans cette application ne remplacent EN AUCUN CAS ni un avis médical, ni les référentiels locaux de service, ni les bornes du laboratoire.</div></div></section>
+<div class="note" style="margin-top:18px">⚠️ Les informations contenues dans cette application ne remplacent EN AUCUN CAS ni un avis médical, ni les référentiels locaux, ni les bornes du laboratoire.</div></div></section>
 <section class="screen" id="screen-tubes"><div class="content-card"><div class="page-head"><div><h2>Ordre prélèvement tubes</h2><p>Séquence de remplissage et contenu</p></div></div>
 
 <div class="note" style="margin-top:0"><strong>Pourquoi l'ordre compte ?</strong> Chaque tube contient un additif différent. Un ordre incorrect risque de contaminer le tube suivant via l'aiguille (ex : EDTA du violet qui fausse le ionogramme du vert).</div>
@@ -834,23 +840,6 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 </div></section>
 </main>
 <nav class="bottom-nav" role="navigation" aria-label="Navigation principale"><button class="nav-btn active" data-target="home" aria-label="Accueil"><span class="nav-icon">🏠</span><span>Accueil</span></button><button class="nav-btn" data-target="debit" aria-label="Débit perfusion"><span class="nav-icon">💧</span><span>Débit</span></button><button class="nav-btn" data-target="normes" aria-label="Normes biologiques"><span class="nav-icon">🧪</span><span>Normes</span></button><button class="nav-btn" data-target="scores" aria-label="Scores cliniques"><span class="nav-icon">📋</span><span>Scores</span></button><button class="nav-btn" data-target="tubes" aria-label="Ordre prélèvement tubes"><span class="nav-icon">🩸</span><span>Prélèvt.</span></button><button class="nav-btn" data-target="antidotes" aria-label="Antidotes"><span class="nav-icon">💊</span><span>Antidotes</span></button><button class="nav-btn" data-target="doses" aria-label="Doses pondérales"><span class="nav-icon">💉</span><span>Doses</span></button><button class="nav-btn" data-target="protocoles" aria-label="Protocoles rapides"><span class="nav-icon">🚨</span><span>Protocoles</span></button></nav></div><script>
-/* ========== SPLASH SCREEN ========== */
-(function(){
-  var splash = document.getElementById('splashScreen');
-  if(!splash) return;
-  // Appliquer le thème avant que le splash disparaisse (évite le flash)
-  var savedTheme = localStorage.getItem('urg-theme');
-  if(savedTheme === 'dark' || (savedTheme === null && window.matchMedia('(prefers-color-scheme:dark)').matches)){
-    document.body.classList.add('dark');
-    document.documentElement.classList.add('dark');
-  }
-  setTimeout(function(){
-    splash.classList.add('hide');
-    setTimeout(function(){ splash.remove(); }, 450);
-  }, 1200);
-})();
-
-
 const antidoteCategories = [
   {title:"⚡ Urgences fréquentes",items:[
     {intoxication:"Benzodiazépines",antidote:"Flumazénil (Anexate®)"},
@@ -1096,7 +1085,7 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.4';
+const APP_VERSION = '1.2.6';
 const appState = { activeScreen: 'home' };
 
 const screens = {
@@ -1403,12 +1392,11 @@ const bradenState = {};
 function buildBraden() {
   if (!bradenWrap) return;
   bradenWrap.innerHTML = Object.entries(braden).map(([title, items]) => {
-    bradenState[title] = null;
+    bradenState[title] = items[0].score;
     return `<div class="braden-card">
       <div class="braden-head">${title}</div>
       <div class="braden-body">
         <select class="select braden-select" data-name="${title}" aria-label="${title}">
-          <option value="" disabled selected>— Sélectionner —</option>
           ${items.map(i => `<option value="${i.score}">${i.label} · ${i.score}</option>`).join('')}
         </select>
       </div>
@@ -1433,11 +1421,8 @@ function renderBradenResult() {
   if (!bradenResult) return;
   if (Object.values(bradenState).some(v => v === null)) { bradenResult.textContent = '—'; bradenResult.className = 'score-result'; return; }
   const total = Object.values(bradenState).reduce((a, b) => a + b, 0);
-  const cls = severityClassFromRange('braden', total);
-  const badge = total<=9?'Risque très élevé':total<=12?'Risque élevé':total<=14?'Risque modéré':'Risque faible';
-  const conduct = total<=9?'Prévention maximale — protocole escarre immédiat':total<=12?'Protocole prévention renforcé':total<=14?'Surveillance et prévention standard':'Surveiller et réévaluer';
-  updateColorResult(bradenResult, cls);
-  renderRingResult(bradenResult, {score:total, badge, interp:'Total /23 — plus le score est bas, plus le risque est élevé', conduct});
+  bradenResult.textContent = `Braden · score total : ${total} · ${bradenInterpret(total)}`;
+  updateColorResult(bradenResult, severityClassFromRange('braden', total));
 }
 buildBraden();
 
@@ -1620,11 +1605,8 @@ function renderApgar() {
   if (!el) return;
   if (Object.values(apgarState).some(v => v === null)) { el.textContent = '—'; el.className = 'score-result'; return; }
   const total = Object.values(apgarState).reduce((a, b) => a + b, 0);
-  const cls = severityClassFromRange('apgar', total);
-  const badge = total>=7?'Normal':total>=4?'Dépression modérée':'Dépression sévère';
-  const conduct = total>=7?'Surveillance standard':'Réanimation néonatale selon protocole';
-  updateColorResult(el, cls);
-  renderRingResult(el, {score:total, badge, interp:`/10 à ${apgarTime} min — ${labelFromRange('apgar', total)}`, conduct});
+  el.textContent = `${total} / 10 à ${apgarTime} min · ${labelFromRange('apgar', total)}`;
+  updateColorResult(el, severityClassFromRange('apgar', total));
 }
 
 /* Cushman */
@@ -1653,12 +1635,11 @@ function renderCushman(){
   if(!el || !paSel) return;
   if (Object.values(cushmanState).some(v => v === null)) { el.textContent = '—'; el.className = 'score-result'; return; }
   const total = Object.values(cushmanState).reduce((a,b)=>a+b,0) + Number(paSel.value || 0);
-  let label = 'État contrôlé'; let cls = 'green';
-  if(total >= 7 && total <= 14){ label = 'Sevrage modéré'; cls = 'yellow'; }
-  if(total > 14){ label = 'Sevrage sévère'; cls = 'red'; }
-  const conduct = total<7?'Surveillance standard':total<=14?'Surveillance rapprochée — BZD si nécessaire':'Benzodiazépines IV — surveillance continue';
-  updateColorResult(el, cls);
-  renderRingResult(el, {score:total, badge:label, interp:'/21 — Score de Cushman (sevrage alcoolique)', conduct});
+  let label = 'état contrôlé';
+  if(total >= 7 && total <= 14) label = 'sevrage modéré';
+  if(total > 14) label = 'sevrage sévère';
+  el.textContent = `${total} / 21 · ${label}`;
+  updateColorResult(el, total < 7 ? 'green' : (total <= 14 ? 'yellow' : 'red'));
 }
 
 /* Reset buttons */
@@ -1690,6 +1671,7 @@ const scoreResetMap = {
       const name = sel.dataset.name;
       bradenState[name] = null;
     });
+    renderBradenResult();
   },
   news2: () => buildNews2(news2CurrentScale),
   qsofa: () => resetSelectsIn('qsofaWrap', 'qsofa-select', qsofaState, renderQsofa, qsofa),
@@ -1712,7 +1694,201 @@ const scoreResetMap = {
     fillCushmanPA();
     renderCushman();
   },
+  chadsvasc: () => document.getElementById('chadsvascWrap')&&resetSelectsIn('chadsvascWrap', 'chadsvasc-select', chadsvascState, renderChadsvasc, chadsvasc),
+  cockcroft: () => {
+    ['cockAge','cockPoids','cockCreat'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+    cockSex = 'homme';
+    document.querySelectorAll('.cock-sex-btn').forEach(b => b.classList.toggle('active', b.dataset.sex === 'homme'));
+    const elRes = document.getElementById('cockResult');
+    const elLabel = document.getElementById('cockLabel');
+    if(elRes) elRes.textContent = '—';
+    if(elLabel){ elLabel.textContent = '—'; elLabel.classList.remove('green','yellow','red'); }
+  }
+};
+document.getElementById('scoreResetBtn')?.addEventListener('click', () => {
+  // Avec la nouvelle nav, réinitialiser tous les scores de l'écran actif
+  const activePanel = document.querySelector('.screen.active .score-panel');
+  if(activePanel){
+    const panelId = activePanel.id; // e.g. "score-glasgow"
+    const scoreKey = panelId.replace('score-','');
+    if(scoreResetMap[scoreKey]) scoreResetMap[scoreKey]();
+  }
+});
 
+/* Antidotes */
+const antidoteSearch = document.getElementById('antidoteSearch');
+/* Antidote vars removed — new render uses getElementById directly */
+
+function renderAntidotes() {
+  const content = document.getElementById('antidoteContent');
+  const count = document.getElementById('antidoteCount');
+  if (!content || !count) return;
+  const q = (antidoteSearch?.value || '').trim().toLowerCase();
+  let totalShown = 0;
+
+  if(q.length > 0) {
+    // Search mode: flat list of matching results
+    const filtered = antidotes.filter(r => r.intoxication.toLowerCase().includes(q) || r.antidote.toLowerCase().includes(q));
+    totalShown = filtered.length;
+    content.innerHTML = filtered.map(r => `<div class="antidote-card"><div class="antidote-intox">${r.intoxication}</div><div class="antidote-remedy">→ ${r.antidote}</div></div>`).join('') || '<div style="padding:14px;color:var(--text2)">Aucun résultat</div>';
+  } else {
+    // Category mode
+    content.innerHTML = antidoteCategories.map(cat => {
+      totalShown += cat.items.length;
+      return `<div class="antidote-cat collapsed"><div class="antidote-cat-title">${cat.title} <span class="small">(${cat.items.length})</span></div><div class="antidote-cat-body">${cat.items.map(r => `<div class="antidote-card"><div class="antidote-intox">${r.intoxication}</div><div class="antidote-remedy">→ ${r.antidote}</div></div>`).join('')}</div></div>`;
+    }).join('');
+    // Collapse toggle
+    content.querySelectorAll('.antidote-cat-title').forEach(title => {
+      title.addEventListener('click', () => title.parentElement.classList.toggle('collapsed'));
+    });
+    // Open first category (Urgences) by default
+    const firstCat = content.querySelector('.antidote-cat');
+    if(firstCat) firstCat.classList.remove('collapsed');
+  }
+  count.textContent = `${totalShown} entrée${totalShown > 1 ? 's' : ''}`;
+}
+antidoteSearch?.addEventListener('input', renderAntidotes);
+renderAntidotes();
+
+/* Start on home */
+
+/* ========== DOSES PONDÉRALES ========== */
+const doseRefs = [
+  {produit:"Adrénaline (ACR)",posologie:"1 mg IVD (fixe)",concentration:"1 mg/mL"},
+  {produit:"Adrénaline (anaphylaxie)",posologie:"0,01 mg/kg IM",concentration:"1 mg/mL"},
+  {produit:"Amiodarone (ACR)",posologie:"5 mg/kg IVL",concentration:"50 mg/mL"},
+  {produit:"Atropine",posologie:"0,5 mg IVD (fixe, min)",concentration:"0,25 mg/mL"},
+  {produit:"Kétamine (analgésie)",posologie:"0,2 – 0,3 mg/kg IVL",concentration:"50 mg/mL"},
+  {produit:"Morphine (titration)",posologie:"0,1 mg/kg IVL puis bolus 2-3 mg",concentration:"10 mg/mL"},
+  {produit:"Naloxone",posologie:"0,04 mg/kg IV titré",concentration:"0,4 mg/mL"},
+  {produit:"Paracétamol IV",posologie:"15 mg/kg (max 1 g)",concentration:"10 mg/mL"},
+  {produit:"Midazolam (sédation)",posologie:"0,05 mg/kg IVL",concentration:"5 mg/mL"},
+  {produit:"N-acétylcystéine (dose charge)",posologie:"150 mg/kg en 1 h",concentration:"200 mg/mL"},
+];
+(function(){
+  const body = document.getElementById('doseRefBody');
+  if(body) body.innerHTML = doseRefs.map(r => `<tr><td>${r.produit}</td><td>${r.posologie}</td><td>${r.concentration}</td></tr>`).join('');
+})();
+function calcDose(){
+  const p = parseFloat(document.getElementById('dosePoids')?.value);
+  const mgkg = parseFloat(document.getElementById('doseMgKg')?.value);
+  const conc = parseFloat(document.getElementById('doseConc')?.value);
+  const elMg = document.getElementById('doseTotalMg');
+  const elMl = document.getElementById('doseTotalMl');
+  if(!(p>0) || !(mgkg>0)){
+    if(elMg) elMg.textContent = '—';
+    if(elMl) elMl.textContent = '—';
+    return;
+  }
+  const totalMg = p * mgkg;
+  if(elMg) elMg.textContent = fmt(totalMg) + ' mg';
+  if(conc > 0 && elMl) elMl.textContent = fmt(totalMg / conc) + ' mL';
+  else if(elMl) elMl.textContent = '—';
+}
+['dosePoids','doseMgKg','doseConc'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', calcDose);
+});
+document.getElementById('doseCalcBtn')?.addEventListener('click', calcDose);
+document.getElementById('doseResetBtn')?.addEventListener('click', () => {
+  ['dosePoids','doseMgKg','doseConc'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  const elMg = document.getElementById('doseTotalMg');
+  const elMl = document.getElementById('doseTotalMl');
+  if(elMg) elMg.textContent = '—';
+  if(elMl) elMl.textContent = '—';
+});
+
+/* ========== CONVERTISSEUR BIO ========== */
+const conversions = [
+  {name:"Glycémie : g/L → mmol/L", labelA:"g/L", labelB:"mmol/L", fn: v => v * 5.551, note:"Facteur : × 5,551"},
+  {name:"Glycémie : mmol/L → g/L", labelA:"mmol/L", labelB:"g/L", fn: v => v / 5.551, note:"Facteur : ÷ 5,551"},
+  {name:"Créatinine : µmol/L → mg/dL", labelA:"µmol/L", labelB:"mg/dL", fn: v => v * 0.01131, note:"Facteur : × 0,01131"},
+  {name:"Créatinine : mg/dL → µmol/L", labelA:"mg/dL", labelB:"µmol/L", fn: v => v / 0.01131, note:"Facteur : ÷ 0,01131"},
+  {name:"Cholestérol : g/L → mmol/L", labelA:"g/L", labelB:"mmol/L", fn: v => v * 2.586, note:"Facteur : × 2,586"},
+  {name:"Cholestérol : mmol/L → g/L", labelA:"mmol/L", labelB:"g/L", fn: v => v / 2.586, note:"Facteur : ÷ 2,586"},
+  {name:"Triglycérides : g/L → mmol/L", labelA:"g/L", labelB:"mmol/L", fn: v => v * 1.129, note:"Facteur : × 1,129"},
+  {name:"Triglycérides : mmol/L → g/L", labelA:"mmol/L", labelB:"g/L", fn: v => v / 1.129, note:"Facteur : ÷ 1,129"},
+  {name:"Bilirubine : µmol/L → mg/dL", labelA:"µmol/L", labelB:"mg/dL", fn: v => v * 0.05847, note:"Facteur : × 0,05847"},
+  {name:"Bilirubine : mg/dL → µmol/L", labelA:"mg/dL", labelB:"µmol/L", fn: v => v / 0.05847, note:"Facteur : ÷ 0,05847"},
+  {name:"Température : °C → °F", labelA:"°C", labelB:"°F", fn: v => v * 9/5 + 32, note:"(°C × 9/5) + 32"},
+  {name:"Température : °F → °C", labelA:"°F", labelB:"°C", fn: v => (v - 32) * 5/9, note:"(°F - 32) × 5/9"},
+];
+(function(){
+  const sel = document.getElementById('convSelect');
+  if(!sel) return;
+  conversions.forEach((c,i) => {
+    const opt = document.createElement('option');
+    opt.value = i; opt.textContent = c.name;
+    sel.appendChild(opt);
+  });
+  function updateConv(){
+    const c = conversions[sel.value];
+    if(!c) return;
+    document.getElementById('convLabelA').textContent = c.labelA;
+    document.getElementById('convLabelB').textContent = c.labelB;
+    document.getElementById('convNote').textContent = c.note;
+    const v = parseFloat(document.getElementById('convInputA')?.value);
+    const out = document.getElementById('convOutputB');
+    if(out) out.textContent = (v > 0 || v === 0) && isFinite(v) ? fmt(c.fn(v)) + ' ' + c.labelB : '—';
+  }
+  sel.addEventListener('change', updateConv);
+  document.getElementById('convInputA')?.addEventListener('input', updateConv);
+  updateConv();
+})();
+
+/* ========== CONSTANTES VITALES ========== */
+const constAdulte = [
+  {param:"Fréquence cardiaque", valeur:"60 - 100 bpm", remarque:"Bradycardie < 60, tachycardie > 100"},
+  {param:"Pression artérielle systolique", valeur:"100 - 140 mmHg", remarque:"HTA si ≥ 140/90 au repos"},
+  {param:"Pression artérielle diastolique", valeur:"60 - 90 mmHg", remarque:"Hypotension si PAS < 90"},
+  {param:"Fréquence respiratoire", valeur:"12 - 20 /min", remarque:"Bradypnée < 12, polypnée > 20"},
+  {param:"SpO₂", valeur:"95 - 100 %", remarque:"Cible 88-92 % si BPCO"},
+  {param:"Température", valeur:"36,1 - 37,8 °C", remarque:"Hypothermie < 35 °C, fièvre > 38 °C"},
+  {param:"Glycémie à jeun", valeur:"0,70 - 1,10 g/L", remarque:"Hypoglycémie < 0,60 g/L"},
+  {param:"Diurèse", valeur:"0,5 - 1 mL/kg/h", remarque:"Oligurie si < 0,5 mL/kg/h"},
+  {param:"Échelle de douleur (EVA/EN)", valeur:"0 / 10", remarque:"Seuil de traitement généralement ≥ 3"},
+  {param:"Glasgow (conscience)", valeur:"15 / 15", remarque:"Intubation à discuter si ≤ 8"},
+];
+const constPed = [
+  {age:"Nouveau-né (0-1 mois)", fc:"120 - 160", fr:"30 - 60", pas:"60 - 80", spo2:"≥ 95"},
+  {age:"Nourrisson (1-12 mois)", fc:"100 - 150", fr:"25 - 40", pas:"70 - 90", spo2:"≥ 95"},
+  {age:"Petit enfant (1-3 ans)", fc:"90 - 140", fr:"20 - 30", pas:"80 - 100", spo2:"≥ 95"},
+  {age:"Enfant (3-6 ans)", fc:"80 - 120", fr:"18 - 25", pas:"85 - 110", spo2:"≥ 95"},
+  {age:"Enfant (6-12 ans)", fc:"70 - 110", fr:"16 - 22", pas:"90 - 120", spo2:"≥ 95"},
+  {age:"Adolescent (12-18 ans)", fc:"60 - 100", fr:"12 - 20", pas:"100 - 130", spo2:"≥ 95"},
+];
+(function(){
+  // Render adulte
+  const adBody = document.getElementById('constAdulteBody');
+  if(adBody) adBody.innerHTML = constAdulte.map(r => `<tr><td>${r.param}</td><td><strong>${r.valeur}</strong></td><td>${r.remarque}</td></tr>`).join('');
+  // Render pédiatrie
+  const pedBody = document.querySelector('#constPedTable tbody');
+  if(pedBody) pedBody.innerHTML = constPed.map(r => `<tr><td>${r.age}</td><td>${r.fc}</td><td>${r.fr}</td><td>${r.pas}</td><td>${r.spo2}</td></tr>`).join('');
+  // Toggle
+  const adWrap = document.getElementById('constAdulteWrap');
+  const pedWrap = document.getElementById('constPedWrap');
+  document.querySelectorAll('.const-pop-btn').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.const-pop-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const pop = btn.dataset.pop;
+    if(adWrap) adWrap.style.display = pop === 'adulte' ? '' : 'none';
+    if(pedWrap) pedWrap.style.display = pop === 'pediatrie' ? '' : 'none';
+  }));
+})();
+
+/* ========== PROTOCOLES RAPIDES ========== */
+const protocoles = {
+  "acr":{
+    title:"🫀 ACR adulte",
+    steps:[
+      "Confirmer l'ACR en équipe : inconscience + absence de ventilation normale + absence de pouls carotidien (recherche < 10 s). Demander DSA/scope et matériel d'intubation.",
+      "Débuter la RCP sans délai : 30 compressions / 2 insufflations. Rythme 100-120/min, profondeur 5-6 cm, relâchement complet du thorax entre chaque compression.",
+      "DSA/scope dès disponible : analyser le rythme. Rythme chocable (FV/TV sans pouls) → choc 150-200 J biphasique, reprendre MCE immédiatement pendant 2 min.",
+      "Adrénaline 1 mg IVD toutes les 3-5 min : si rythme non chocable → dès l'abord veineux. Si chocable → après le 3ème choc.",
+      "Amiodarone 300 mg IV (dans 20 mL G5 %, injection rapide) (bolus dans 20 mL G5 %) : si FV/TV réfractaire après le 3ème choc. 2ème dose 150 mg après le 5ème choc.",
+      "Rechercher les causes réversibles : 4H (Hypoxie, Hypovolémie, Hypo/Hyperkaliémie, Hypothermie) et 4T (Thrombose coronaire ou pulmonaire, Tamponnade, Tension pneumothorax, Toxiques).",
+      "Réévaluer le rythme toutes les 2 min. Minimiser toute interruption du MCE (< 10 s). Alterner les masseurs toutes les 2 min."
+    ]
+  },
   "acr_ped":{
     title:"👶 ACR pédiatrique",
     steps:[
@@ -1848,6 +2024,75 @@ const scoreResetMap = {
 })();
 
 
+/* ========== CHA₂DS₂-VASc ========== */
+const chadsvasc = {
+  "Insuffisance cardiaque / FEVG ≤ 40 %":[{"score":0,"label":"Non"},{"score":1,"label":"Oui"}],
+  "Hypertension artérielle":[{"score":0,"label":"Non"},{"score":1,"label":"Oui"}],
+  "Âge ≥ 75 ans":[{"score":0,"label":"Non"},{"score":2,"label":"Oui (+2)"}],
+  "Diabète":[{"score":0,"label":"Non"},{"score":1,"label":"Oui"}],
+  "AVC / AIT / embolie":[{"score":0,"label":"Non"},{"score":2,"label":"Oui (+2)"}],
+  "Maladie vasculaire (IDM, AOMI, plaque aortique)":[{"score":0,"label":"Non"},{"score":1,"label":"Oui"}],
+  "Âge 65-74 ans":[{"score":0,"label":"Non"},{"score":1,"label":"Oui"}],
+  "Sexe féminin":[{"score":0,"label":"Non"},{"score":1,"label":"Oui"}]
+};
+const chadsvascState = document.getElementById('chadsvascWrap')&&buildGenericScore('chadsvascWrap', chadsvasc, 'chadsvasc-select') || {};
+(document.querySelectorAll('.chadsvasc-select')||[]).forEach(sel => sel.addEventListener('change', () => {
+  chadsvascState[sel.dataset.name] = Number(sel.value);
+  renderChadsvasc();
+}));
+function renderChadsvasc(){
+  const el = document.getElementById('chadsvascResult');
+  if(!el) return;
+  const total = Object.values(chadsvascState).reduce((a,b) => a+b, 0);
+  let label = 'risque faible — pas d\'anticoagulation';
+  let cls = 'green';
+  if(total === 1){ label = 'risque modéré — anticoagulation à discuter'; cls = 'yellow'; }
+  if(total >= 2){ label = 'risque élevé — anticoagulation recommandée'; cls = 'red'; }
+  el.textContent = `${total} / 9 · ${label}`;
+  updateColorResult(el, cls);
+}
+renderChadsvasc();
+/* chadsvasc reset now in scoreResetMap */
+
+/* ========== COCKCROFT-GAULT ========== */
+let cockSex = 'homme';
+document.querySelectorAll('.cock-sex-btn').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.cock-sex-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  cockSex = btn.dataset.sex;
+  calcCockcroft();
+}));
+function calcCockcroft(){
+  const age = parseFloat(document.getElementById('cockAge')?.value);
+  const poids = parseFloat(document.getElementById('cockPoids')?.value);
+  const creat = parseFloat(document.getElementById('cockCreat')?.value);
+  const elRes = document.getElementById('cockResult');
+  const elLabel = document.getElementById('cockLabel');
+  if(!(age > 0) || !(poids > 0) || !(creat > 0)){
+    if(elRes) elRes.textContent = '—';
+    if(elLabel){ elLabel.textContent = '—'; elLabel.classList.remove('green','yellow','red'); }
+    return;
+  }
+  const k = cockSex === 'femme' ? 1.04 : 1.23;
+  const cl = ((140 - age) * poids * k) / creat;
+  if(elRes) elRes.textContent = fmt(cl) + ' mL/min';
+  if(elLabel){
+    let label = 'Fonction rénale normale';
+    let cls = 'green';
+    if(cl < 90){ label = 'Insuffisance rénale légère'; cls = 'green'; }
+    if(cl < 60){ label = 'Insuffisance rénale modérée'; cls = 'yellow'; }
+    if(cl < 30){ label = 'Insuffisance rénale sévère'; cls = 'red'; }
+    if(cl < 15){ label = 'Insuffisance rénale terminale'; cls = 'red'; }
+    elLabel.textContent = label;
+    elLabel.classList.remove('green','yellow','red');
+    elLabel.classList.add(cls);
+  }
+}
+['cockAge','cockPoids','cockCreat'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', calcCockcroft);
+});
+/* cockcroft reset now in scoreResetMap */
+
 /* ========== RECHERCHE GLOBALE ========== */
 (function(){
   const input = document.getElementById('globalSearch') || document.getElementById('globalSearchMobile');
@@ -1977,7 +2222,7 @@ document.querySelectorAll('.score-result').forEach(el => {
 
 /* ========== PARAMÈTRES ========== */
 (function(){
-  const KEYS = {theme:'urg-theme',accent:'urg-accent',navtabs:'urg-navtabs'};
+  const KEYS = {theme:'urg-theme',accent:'urg-accent',fontsize:'urg-fontsize',navtabs:'urg-navtabs'};
 
   const accents = {
     red:    {light:'#DC2626',light2:'#B91C1C',dark:'#F87171',dark2:'#EF4444'},
@@ -2024,6 +2269,15 @@ document.querySelectorAll('.score-result').forEach(el => {
     d.addEventListener('click', () => applyAccent(d.dataset.accent));
   });
 
+  // --- Font size ---
+  function applyFontSize(size){
+    document.body.classList.toggle('font-large', size === 'large');
+    localStorage.setItem(KEYS.fontsize, size);
+    document.querySelectorAll('.settings-fontsize-btn').forEach(b => b.classList.toggle('active', b.dataset.size === size));
+  }
+  document.querySelectorAll('.settings-fontsize-btn').forEach(b => {
+    b.addEventListener('click', () => applyFontSize(b.dataset.size));
+  });
 
   // --- Nav toggles ---
   const allNavItems = [
@@ -2175,6 +2429,7 @@ document.querySelectorAll('.score-result').forEach(el => {
     const savedTheme = localStorage.getItem(KEYS.theme) || 'auto';
     applyTheme(savedTheme);
     applyAccent(localStorage.getItem(KEYS.accent) || 'blue');
+    applyFontSize(localStorage.getItem(KEYS.fontsize) || 'normal');
     renderNavToggles();
     rebuildBottomNav();
   }, 60);
@@ -2348,10 +2603,7 @@ const dosesToxiques = [
   var w=document.getElementById('wellsEpWrap'),r=document.getElementById('wellsEpResult');
   if(!w)return;
   items.forEach(function(it,i){w.innerHTML+='<div class="score-item"><label><input type="checkbox" value="'+it.pts+'"/> '+it.label+' <span class="muted">('+it.pts+' pt'+(it.pts>1?'s':'')+')</span></label></div>';});
-  w.addEventListener('change',function(){var t=0;w.querySelectorAll('input:checked').forEach(function(cb){t+=parseFloat(cb.value);});var clsW=t<=4?'green':'red';
-r.classList.remove('green','yellow','red');r.classList.add(clsW);
-updateColorResult(r,clsW);
-renderRingResult(r,{score:t.toFixed(1),badge:t<=4?'EP improbable':'EP probable',interp:t<=4?'Score ≤4 — D-dimères recommandés':'Score >4 — Angio-TDM recommandée',conduct:t<=4?'Dosage D-dimères si pas de contre-indication':'Angio-TDM thoracique en urgence'});});
+  w.addEventListener('change',function(){var t=0;w.querySelectorAll('input:checked').forEach(function(cb){t+=parseFloat(cb.value);});r.textContent=t+(t<=4?' · EP improbable → D-dimères':' · EP probable → Angio-TDM');r.style.color=t<=4?'var(--success)':'var(--danger)';});
 })();
 
 /* ========== NIHSS ========== */
@@ -2360,11 +2612,7 @@ renderRingResult(r,{score:t.toFixed(1),badge:t<=4?'EP improbable':'EP probable',
   var w=document.getElementById('nihssWrap'),r=document.getElementById('nihssResult');
   if(!w)return;
   items.forEach(function(it,i){var oh=it.o.map(function(o,j){return '<label class="score-option"><input type="radio" name="nihss'+i+'" value="'+j+'"/> '+o+'</label>';}).join('');w.innerHTML+='<div class="score-item"><div class="label">'+it.l+'</div><div class="score-options">'+oh+'</div></div>';});
-  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="nihss'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t===0?'Normal':t<=4?'Mineur':t<=15?'Modéré':t<=20?'Sévère':'Très sévère';
-var clsN=t===0?'green':t<=4?'green':t<=15?'yellow':'red';
-r.classList.remove('green','yellow','red');r.classList.add(clsN);
-updateColorResult(r,clsN);
-renderRingResult(r,{score:t,badge:int,interp:'/42 — Score NIHSS AVC',conduct:t>=16?'AVC sévère — thrombolyse/thrombectomie urgente':t>=5?'AVC modéré — bilan neurovasculaire urgent':'AVC mineur — surveillance neurologique'});});
+  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="nihss'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t===0?'Normal':t<=4?'Mineur':t<=15?'Modéré':t<=20?'Sévère':'Très sévère';r.textContent=t+' · '+int;});
 })();
 
 /* ========== HEART ========== */
@@ -2373,11 +2621,7 @@ renderRingResult(r,{score:t,badge:int,interp:'/42 — Score NIHSS AVC',conduct:t
   var w=document.getElementById('heartWrap'),r=document.getElementById('heartResult');
   if(!w)return;
   items.forEach(function(it,i){var oh=it.o.map(function(o,j){return '<label class="score-option"><input type="radio" name="heart'+i+'" value="'+j+'"/> '+o+'</label>';}).join('');w.innerHTML+='<div class="score-item"><div class="label">'+it.l+'</div><div class="score-options">'+oh+'</div></div>';});
-  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="heart'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t<=3?'Risque faible (~2% MACE)':t<=6?'Risque intermédiaire (~15%)':'Risque élevé (~50%)';
-var clsH=t<=3?'green':t<=6?'yellow':'red';
-r.classList.remove('green','yellow','red');r.classList.add(clsH);
-updateColorResult(r,clsH);
-renderRingResult(r,{score:t,badge:int,interp:'/10 — Score HEART (SCA)',conduct:t<=3?'Sortie possible avec suivi — troponines à 3h':'Hospitalisation — surveillance troponines + cardio'});});
+  w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="heart'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t<=3?'Risque faible (~2% MACE)':t<=6?'Risque intermédiaire (~15%)':'Risque élevé (~50%)';r.textContent=t+' · '+int;r.style.color=t<=3?'var(--success)':t<=6?'#FF9800':'var(--danger)';});
 })();
 
 /* ========== VITTEL ========== */
@@ -2386,21 +2630,14 @@ renderRingResult(r,{score:t,badge:int,interp:'/10 — Score HEART (SCA)',conduct
   var w=document.getElementById('vittelWrap'),r=document.getElementById('vittelResult');
   if(!w)return;
   cats.forEach(function(c){w.innerHTML+='<div class="section-title" style="margin-top:12px"><h3>'+c.c+'</h3></div>';c.i.forEach(function(it){w.innerHTML+='<div class="score-item"><label><input type="checkbox" class="vit-cb"/> '+it+'</label></div>';});});
-  w.addEventListener('change',function(){var n=w.querySelectorAll('.vit-cb:checked').length;
-var clsV=n===0?'green':'red';
-r.classList.remove('green','yellow','red');r.classList.add(clsV);
-updateColorResult(r,clsV);
-renderRingResult(r,{score:n,badge:n===0?'Non grave':'TRAUMA GRAVE',interp:n===0?'Aucun critère Vittel coché':''+n+' critère'+(n>1?'s':'')+' Vittel coché'+(n>1?'s':''),conduct:n===0?'Surveillance clinique standard':'Orientation centre trauma — massages, transfusion, bloc'});});
+  w.addEventListener('change',function(){var n=w.querySelectorAll('.vit-cb:checked').length;r.textContent=n+' critère'+(n>1?'s':'')+' · '+(n===0?'Non grave':'TRAUMA GRAVE → Centre trauma');r.style.color=n===0?'var(--success)':'var(--danger)';});
 })();
 
 /* ========== SHOCK INDEX ========== */
 (function(){
   var b=document.getElementById('siCalcBtn'),r=document.getElementById('siResult');
   if(!b)return;
-  b.addEventListener('click',function(){var fc=parseFloat(document.getElementById('siFc').value),pas=parseFloat(document.getElementById('siPas').value);if(!fc||!pas||pas===0){r.textContent='—';return;}var si=(fc/pas).toFixed(2);var int,col;if(si<0.7){int='Normal';col='var(--success)';}else if(si<=1.0){int='Borderline';col='#FF9800';}else if(si<=1.4){int='Choc probable';col='var(--danger)';}else{int='Choc sévère';col='var(--danger)';}var clsS=col==='var(--success)'?'green':col==='#FF9800'?'yellow':'red';
-r.classList.remove('green','yellow','red');r.classList.add(clsS);
-updateColorResult(r,clsS);
-renderRingResult(r,{score:si,badge:int,interp:'FC / PAS — Shock Index',conduct:si<0.7?'Hémodynamique stable':'Évaluation hémodynamique urgente — remplissage vasculaire'});});
+  b.addEventListener('click',function(){var fc=parseFloat(document.getElementById('siFc').value),pas=parseFloat(document.getElementById('siPas').value);if(!fc||!pas||pas===0){r.textContent='—';return;}var si=(fc/pas).toFixed(2);var int,col;if(si<0.7){int='Normal';col='var(--success)';}else if(si<=1.0){int='Borderline';col='#FF9800';}else if(si<=1.4){int='Choc probable';col='var(--danger)';}else{int='Choc sévère';col='var(--danger)';}r.textContent=si+' · '+int;r.style.color=col;});
 })();
 
 /* ========== MALINAS ========== */
@@ -2424,10 +2661,8 @@ renderRingResult(r,{score:si,badge:int,interp:'FC / PAS — Shock Index',conduct
       opt.classList.toggle('checked',!!opt.querySelector('input:checked'));
     });
     var interp=t<5?'Transport possible (VPN 94 %)':t<=7?'Réévaluation nécessaire':'Accouchement imminent \u2014 préparer sur place';
-    var clsM=t<5?'green':t<=7?'yellow':'red';
-    r.className='score-result';
-    updateColorResult(r,clsM);
-    renderRingResult(r,{score:t,badge:t<5?'Transport possible':t<=7?'Réévaluer':'Accouchement imminent',interp:'/10 — Score de Malinas',conduct:interp});
+    r.textContent=t+' \u00b7 '+interp;
+    r.className='score-result '+(t<5?'green':t<=7?'yellow':'red');
   });
 })();
 
@@ -2444,6 +2679,22 @@ document.addEventListener('change',function(e){
   });
 });
 
+
+/* ========== SPLASH SCREEN ========== */
+(function(){
+  var splash = document.getElementById('splashScreen');
+  if(!splash) return;
+  // Appliquer le thème avant que le splash disparaisse (évite le flash)
+  var savedTheme = localStorage.getItem('urg-theme');
+  if(savedTheme === 'dark' || (savedTheme === null && window.matchMedia('(prefers-color-scheme:dark)').matches)){
+    document.body.classList.add('dark');
+    document.documentElement.classList.add('dark');
+  }
+  setTimeout(function(){
+    splash.classList.add('hide');
+    setTimeout(function(){ splash.remove(); }, 450);
+  }, 1200);
+})();
 
 /* ========== SYSTÈME DE PROFILS ========== */
 (function(){
@@ -2519,7 +2770,6 @@ document.addEventListener('change',function(e){
   } else {
     if(choiceEl) choiceEl.remove();
     if(saved && saved !== 'none') applyProfile(saved);
-    // Initialiser les boutons toggle dans paramètres
     if(saved){
       setTimeout(function(){
         document.querySelectorAll('.profile-toggle-btn').forEach(function(b){
@@ -2529,11 +2779,9 @@ document.addEventListener('change',function(e){
     }
   }
 
-  // Bouton reset profil dans Paramètres
   document.addEventListener('click', function(e){
     if(e.target && e.target.id === 'resetProfileBtn'){
       localStorage.removeItem(PROFILE_KEY);
-      // Recréer l'overlay s'il a été supprimé
       var existing = document.getElementById('profileChoice');
       if(!existing){
         var overlay = document.createElement('div');
@@ -2541,14 +2789,12 @@ document.addEventListener('change',function(e){
         overlay.id = 'profileChoice';
         overlay.setAttribute('role','dialog');
         overlay.setAttribute('aria-modal','true');
-        overlay.innerHTML = '<div class="profile-box"><h2>Votre profil</h2><p>Urg Pocket adapte l\'interface \u00e0 votre m\u00e9tier. Modifiable dans les Param\u00e8tres.</p><div class="profile-cards"><div class="profile-card" data-profile="medical" role="button" tabindex="0"><div class="profile-card-icon">🩺</div><div class="profile-card-title">Médecin</div><div class="profile-card-desc">Urgentiste, SMUR, interne</div></div><div class="profile-card" data-profile="paramedical" role="button" tabindex="0"><div class="profile-card-icon">💊</div><div class="profile-card-title">Paramédical</div><div class="profile-card-desc">IDE, IADE, ambulancier</div></div></div><div class="profile-skip" id="profileSkip">Passer cette étape</div></div>';
+        overlay.innerHTML = '<div class="profile-box"><h2>Votre profil</h2><p>Urg Pocket adapte l\'interface à votre métier.</p><div class="profile-cards"><div class="profile-card" data-profile="medical" role="button" tabindex="0"><div class="profile-card-icon">🩺</div><div class="profile-card-title">Médecin</div><div class="profile-card-desc">Urgentiste, SMUR, interne</div></div><div class="profile-card" data-profile="paramedical" role="button" tabindex="0"><div class="profile-card-icon">💊</div><div class="profile-card-title">Paramédical</div><div class="profile-card-desc">IDE, IADE, ambulancier</div></div></div><div class="profile-skip" id="profileSkip">Passer cette étape</div></div>';
         document.querySelector('.app').appendChild(overlay);
         existing = overlay;
-        // Rebinder les events
         existing.querySelectorAll('.profile-card').forEach(function(card){
           card.addEventListener('click', function(){
-            var profile = card.dataset.profile;
-            applyProfile(profile);
+            applyProfile(card.dataset.profile);
             existing.classList.add('hide');
             setTimeout(function(){ existing.remove(); }, 350);
           });
@@ -2583,7 +2829,7 @@ document.addEventListener('change',function(e){
     if(!res) return;
     var creat=parseFloat(creatEl&&creatEl.value), age=parseFloat(ageEl&&ageEl.value);
     if(!creat||!age||creat<=0||age<=0){ res.textContent='—'; res.className='score-result'; return; }
-    var creatMg=creat*0.01131; // µmol/L → mg/dL
+    var creatMg=creat*0.01131;
     var kappa=sex==='F'?0.7:0.9, alpha=sex==='F'?-0.241:-0.302, mult=sex==='F'?1.012:1;
     var ratio=creatMg/kappa;
     var dfg=142*Math.pow(Math.min(ratio,1),alpha)*Math.pow(Math.max(ratio,1),-1.200)*Math.pow(0.9938,age)*mult;
@@ -2609,11 +2855,9 @@ document.addEventListener('change',function(e){
     if(!p||!t||p<=0||t<=0){ res.textContent='—'; res.className='score-result'; return; }
     var tM=t/100;
     var imc=p/(tM*tM);
-    var sc=Math.sqrt((p*t)/3600); // Mosteller
+    var sc=Math.sqrt((p*t)/3600);
     var cls=imc<18.5?'yellow':(imc<25?'green':(imc<30?'yellow':'red'));
     var badge=imc<18.5?'Insuffisance pondérale':imc<25?'Poids normal':imc<30?'Surpoids':imc<35?'Obésité modérée':imc<40?'Obésité sévère':'Obésité morbide';
-    var conduct='Surface corporelle (Mosteller) : '+sc.toFixed(2)+' m²  |  Poids idéal (Lorentz) : '+(t-100-((t-150)/(sex_imc())))+' kg';
-    function sex_imc(){ return 4; } // simplifié
     updateColorResult(res,cls);
     renderRingResult(res,{score:imc.toFixed(1),badge:badge,interp:'IMC = '+imc.toFixed(1)+' kg/m²  |  SC = '+sc.toFixed(2)+' m²',conduct:'Surface corporelle (Mosteller) : '+sc.toFixed(2)+' m²'});
   }
@@ -2623,62 +2867,38 @@ document.addEventListener('change',function(e){
 
 /* ========== KILLIP ========== */
 (function(){
-  /* Questions simples — chaque checkbox correspond à un signe clinique */
-  var questions = [
+  var questions=[
     {id:'kq1', label:"Des bruits anormaux sont audibles à l'auscultation pulmonaire (râles)"},
     {id:'kq2', label:'Ces bruits couvrent plus de la moitié des poumons (ou gêne respiratoire franche)'},
     {id:'kq3', label:'La tension artérielle systolique est inférieure à 90 mmHg'},
     {id:'kq4', label:'Le patient présente des marbrures, une peau froide ou une confusion (signes de choc)'},
   ];
-  var strates = [
-    {k:'I',  mort:'5-6%',  cls:'green',  interp:'Pas de signe évident',          conduct:'Surveillance standard — reperfusion selon protocole'},
-    {k:'II', mort:'17%',   cls:'yellow', interp:'Signes discrets',               conduct:'Surveillance rapprochée — avis médical'},
-    {k:'III',mort:'38%',   cls:'red',    interp:'Détresse respiratoire franche',  conduct:'Assistance respiratoire urgente — appeler le médecin'},
-    {k:'IV', mort:'~81%',  cls:'red',    interp:'État de choc cardiogénique',     conduct:'Urgence absolue — catécholamines, assistance circulatoire'},
+  var strates=[
+    {k:'I',  mort:'5-6%', cls:'green', interp:'Pas de signe évident',         conduct:'Surveillance standard — reperfusion selon protocole'},
+    {k:'II', mort:'17%',  cls:'yellow',interp:'Signes discrets',              conduct:'Surveillance rapprochée — avis médical'},
+    {k:'III',mort:'38%',  cls:'red',   interp:'Détresse respiratoire franche', conduct:'Assistance respiratoire urgente — appeler le médecin'},
+    {k:'IV', mort:'~81%', cls:'red',   interp:'État de choc cardiogénique',    conduct:'Urgence absolue — catécholamines, assistance circulatoire'},
   ];
-
-  var w = document.getElementById('killipWrap');
-  var res = document.getElementById('killipResult');
+  var w=document.getElementById('killipWrap'), res=document.getElementById('killipResult');
   if(!w) return;
-
-  w.innerHTML = questions.map(function(q){
+  w.innerHTML=questions.map(function(q){
     return '<div class="score-item"><label><input type="checkbox" id="'+q.id+'" class="killip-cb"/> '+q.label+'</label></div>';
   }).join('');
-
   function calcKillip(){
-    var q1 = document.getElementById('kq1').checked;
-    var q2 = document.getElementById('kq2').checked;
-    var q3 = document.getElementById('kq3').checked;
-    var q4 = document.getElementById('kq4').checked;
-
-    /* Si rien coché → pas de résultat */
-    if(!q1 && !q2 && !q3 && !q4){
-      res.textContent = '—';
-      res.className = 'score-result';
-      return;
-    }
-
+    var q1=document.getElementById('kq1').checked;
+    var q2=document.getElementById('kq2').checked;
+    var q3=document.getElementById('kq3').checked;
+    var q4=document.getElementById('kq4').checked;
+    if(!q1&&!q2&&!q3&&!q4){ res.textContent='—'; res.className='score-result'; return; }
     var strate;
-    if(q3 || q4){
-      strate = strates[3]; /* Killip IV */
-    } else if(q2){
-      strate = strates[2]; /* Killip III */
-    } else if(q1){
-      strate = strates[1]; /* Killip II */
-    } else {
-      strate = strates[0]; /* Killip I */
-    }
-
-    updateColorResult(res, strate.cls);
-    renderRingResult(res, {
-      score: 'K' + strate.k,
-      badge: 'Mortalité ~' + strate.mort,
-      interp: 'Killip ' + strate.k + ' — ' + strate.interp,
-      conduct: strate.conduct
-    });
+    if(q3||q4){ strate=strates[3]; }
+    else if(q2){ strate=strates[2]; }
+    else if(q1){ strate=strates[1]; }
+    else { strate=strates[0]; }
+    updateColorResult(res,strate.cls);
+    renderRingResult(res,{score:'K'+strate.k,badge:'Mortalité ~'+strate.mort,interp:'Killip '+strate.k+' — '+strate.interp,conduct:strate.conduct});
   }
-
-  w.addEventListener('change', calcKillip);
+  w.addEventListener('change',calcKillip);
 })();
 
 /* ========== NAVIGATION RETOUR + LOGO ========== */
@@ -2730,12 +2950,9 @@ var screenParents = {
 function handleBackPress() {
   var current = appState.activeScreen;
   if (current === 'home') {
-    /* Sur l'accueil : demander confirmation via dialog native Android */
-    if (window.Android && typeof Android.showExitDialog === 'function') {
-      Android.showExitDialog();
-    } else {
-      /* Fallback PWA / desktop */
-      if (confirm('Quitter Urg Pocket ?')) { window.close(); }
+    /* Sur l'accueil : dialogue de confirmation */
+    if (confirm('Quitter Urg Pocket ?')) {
+      Android.confirmExit();
     }
     return;
   }
