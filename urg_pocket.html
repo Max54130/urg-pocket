@@ -325,7 +325,7 @@ body:not(.dark) .score-result.ring-result.red{background:#1f0d0d;border-color:#e
 
 /* === ANDROID SAFE AREA === */
 </style><script>
-/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
+/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');document.body&&document.body.classList.add('dark');}})()</script>
 <script>
 /* Service Worker — uniquement sur GitHub Pages */
 if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
@@ -347,6 +347,10 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
   if(a){
     var p = isDark ? a.d : a.l;
     document.documentElement.style.setProperty('--primary', p);
+    document.documentElement.style.setProperty('--primary2', isDark ? (accents[accent+'2']||p) : p);
+    if(document.body){
+      document.body.style.setProperty('--primary', p);
+    }
   }
 })();
 </script>
