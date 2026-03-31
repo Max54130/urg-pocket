@@ -587,7 +587,17 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 </div>
 </div></div></section>
 <section class="screen" id="screen-score-glasgow"><div class="content-card"><div class="page-head"><div><h2>Glasgow</h2></div><p>Évalue le niveau de conscience (yeux, verbal, moteur). Référence en neurologie et réanimation préhospitalière.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
-<div class="score-panel" id="score-glasgow" ><div class="section-title"><h3>Score de Glasgow</h3></div><div class="score-list" id="glasgowWrap"></div><div class="score-result" id="glasgowResult" aria-live="polite">15 · Conscience normale</div></div>
+<div class="score-panel" id="score-glasgow">
+<div class="section-title"><h3>Score de Glasgow</h3></div>
+<div class="score-item" style="margin-bottom:10px">
+  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:600">
+    <input type="checkbox" id="glasgowNonComm" style="width:18px;height:18px;accent-color:var(--primary);cursor:pointer;flex-shrink:0"/>
+    Patient non communiquant (intubé, aphasique…) — score verbal exclu, calcul sur 10 pts
+  </label>
+</div>
+<div class="score-list" id="glasgowWrap"></div>
+<div class="score-result" id="glasgowResult" aria-live="polite">—</div>
+</div>
 </div></section>
 <section class="screen" id="screen-score-braden"><div class="content-card"><div class="page-head"><div><h2>Braden</h2></div><p>Évalue le risque d'escarre selon 6 critères. Plus le score est bas, plus le risque est élevé.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="score-panel" id="score-braden" ><div class="section-title"><h3>Échelle de Braden</h3><span class="muted">Évaluation du risque d’escarre</span></div><div class="braden-grid" id="bradenWrap"></div><div class="score-result" id="bradenResult" aria-live="polite">Braden · score total : 23 · risque très faible</div></div>
@@ -831,7 +841,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.12</span>
+<span style="color:var(--primary);font-weight:800">1.2.13</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -1226,7 +1236,7 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.12';
+const APP_VERSION = '1.2.13';
 const appState = { activeScreen: 'home' };
 
 const screens = {
@@ -1507,6 +1517,26 @@ document.querySelectorAll('.glasgow-select').forEach(sel => {
     glasgowState[sel.dataset.name] = sel.value === '' ? null : Number(sel.value);
     renderGlasgowResult();
   });
+
+  // Case non communiquant — masquer/afficher la ligne verbale
+  var ncCb = document.getElementById('glasgowNonComm');
+  if (ncCb) {
+    ncCb.addEventListener('change', function() {
+      var wrap = document.getElementById('glasgowWrap');
+      if (!wrap) return;
+      // Masquer la carte "Réponse verbale" si non communiquant
+      wrap.querySelectorAll('.score-card').forEach(function(card) {
+        var head = card.querySelector('.score-card-head');
+        if (head && head.textContent.trim() === 'Réponse verbale') {
+          card.style.opacity   = ncCb.checked ? '0.35' : '1';
+          card.style.pointerEvents = ncCb.checked ? 'none' : '';
+          card.querySelector('select').value = '';
+          glasgowState['Réponse verbale'] = ncCb.checked ? 0 : null;
+        }
+      });
+      renderGlasgowResult();
+    });
+  }
 });
 function glasgowInterpret(t) {
   if (t >= 15) return 'Conscience normale';
@@ -1516,13 +1546,30 @@ function glasgowInterpret(t) {
 }
 function renderGlasgowResult() {
   if (!glasgowResult) return;
-  if (Object.values(glasgowState).some(v => v === null)) { glasgowResult.textContent = '—'; glasgowResult.className = 'score-result'; return; }
-  const total = Object.values(glasgowState).reduce((a, b) => a + b, 0);
-  const cls = severityClassFromRange('glasgow', total);
-  const badge = total>=13?'Conscience normale':total>=9?'Atteinte modérée':'Atteinte sévère';
-  const conduct = total>=13?'Surveillance standard':total>=9?'Imagerie cérébrale, surveillance rapprochée':'Protection VAS, IOT si GCS ≤ 8, TDM en urgence';
-  updateColorResult(glasgowResult, cls);
-  renderRingResult(glasgowResult, {score:total, badge, interp:'E + V + M — Total 3 à 15', conduct});
+  var nonComm = document.getElementById('glasgowNonComm') && document.getElementById('glasgowNonComm').checked;
+
+  if (nonComm) {
+    // Mode non communiquant : exclure la Réponse verbale du calcul
+    // Score sur 10 (E:4 + M:6), min 2
+    var eyes   = glasgowState['Ouverture des yeux'];
+    var motor  = glasgowState['Réponse motrice'];
+    if (eyes === null || motor === null) { glasgowResult.textContent = '—'; glasgowResult.className = 'score-result'; return; }
+    var total = eyes + motor;
+    var cls    = total >= 8 ? 'green' : total >= 6 ? 'yellow' : 'red';
+    var badge  = total >= 8 ? 'Conscience normale' : total >= 6 ? 'Atteinte modérée' : 'Atteinte sévère';
+    var conduct = total >= 8 ? 'Surveillance standard' : total >= 6 ? 'Imagerie cérébrale, surveillance rapprochée' : 'Protection VAS, IOT si GCS ≤ 8, TDM en urgence';
+    updateColorResult(glasgowResult, cls);
+    renderRingResult(glasgowResult, {score: total, badge, interp: 'E + M — Score /10 (verbal exclu — patient non communiquant)', conduct});
+  } else {
+    // Mode standard — 3 composantes, score sur 15
+    if (Object.values(glasgowState).some(v => v === null)) { glasgowResult.textContent = '—'; glasgowResult.className = 'score-result'; return; }
+    const total = Object.values(glasgowState).reduce((a, b) => a + b, 0);
+    const cls = severityClassFromRange('glasgow', total);
+    const badge = total>=13?'Conscience normale':total>=9?'Atteinte modérée':'Atteinte sévère';
+    const conduct = total>=13?'Surveillance standard':total>=9?'Imagerie cérébrale, surveillance rapprochée':'Protection VAS, IOT si GCS ≤ 8, TDM en urgence';
+    updateColorResult(glasgowResult, cls);
+    renderRingResult(glasgowResult, {score:total, badge, interp:'E + V + M — Total 3 à 15', conduct});
+  }
 }
 
 /* Braden */

@@ -1,5 +1,5 @@
 # Urg Pocket — Documentation technique exhaustive
-**Version actuelle : 1.2.12 — versionCode 29**  
+**Version actuelle : 1.2.13 — versionCode 30**  
 **Dernière mise à jour : mars 2026**
 
 ---
@@ -231,6 +231,12 @@ Résultat en mL/min/1,73m² avec stade G1–G5.
 ### IMC / Surface corporelle
 IMC = poids / taille² | Surface (Mosteller) = √(poids × taille / 3600).
 
+### Glasgow — mode non communiquant
+Case à cocher "Patient non communiquant (intubé, aphasique…)" disponible en haut du score. Quand activée : la ligne "Réponse verbale" est grisée et exclue du calcul. Score sur **E + M = /10** (min 2). Seuils adaptés : ≥ 8 normal, ≥ 6 modéré, < 6 sévère.
+
+### Protocoles — termes médicaux explicités
+Tous les acronymes sont définis dans le texte : FV (Fibrillation Ventriculaire), TV (Tachycardie Ventriculaire), BAVU (masque de ventilation avec ballon), IO (voie intra-osseuse), UNV (Unité Neuro-Vasculaire), PCI / angioplastie (réouverture mécanique de l'artère), HNF / HBPM, TP/TCA.
+
 ### Tous les scores sont vierges au chargement
 Aucun score n'affiche de résultat avant que l'utilisateur interagisse.
 
@@ -346,6 +352,7 @@ Photo de profil + prénom/pseudo configurables dans **Paramètres → Identité*
 | `urg-colorblind` | `'on'` / `'off'` | Mode daltonien |
 | `urg-avatar` | base64 JPEG 120×120px | Photo de profil |
 | `urg-avatar-name` | texte (max 20 chars) | Prénom / pseudo |
+| `urg-privacy-seen` | versionName | Version où les CGU ont été acceptées |
 
 > `urg-fontsize` a été **supprimé** (fonctionnalité retirée — Android gère la taille du texte au niveau système).
 
@@ -380,6 +387,15 @@ settings.builtInZoomControls = false
 
 ---
 
+### v1.2.13 (mars 2026)
+- ✅ Glasgow — mode patient non communiquant (intubé, aphasique) : verbal exclu, score /10
+- ✅ versionCode 30
+
+### v1.2.12 (mars 2026)
+- ✅ Alcoolémie ajoutée dans le tube gris
+- ✅ Protocoles : termes abrégés explicités (FV, TV, BAVU, IO, PCI, UNV, HNF, HBPM…)
+- ✅ versionCode 29
+
 ### v1.2.11 (mars 2026)
 - ✅ Acceptation CGU obligatoire au lancement et à chaque MàJ
 - ✅ Encart confidentialité sur l'accueil
@@ -392,13 +408,13 @@ settings.builtInZoomControls = false
 
 | versionCode | versionName | Notes |
 |-------------|-------------|-------|
-| 29 | 1.2.12 | **Build actuel** — protocoles explicités, tube gris alcoolémie
+| 30 | 1.2.13 | **Build actuel** — Glasgow non communiquant
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store — DFG/IMC/Killip, scores vierges, or, sources, daltonisme |
 | 22 | 1.2.5 | Publié Play Store — dialog quitter, descriptions scores |
 | 21 | 1.2.4 | Publié Play Store — anneaux tous scores, profil, navigation |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 30**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 31**.
 
 > ⚠️ Le versionCode doit toujours être **supérieur à 21** pour une nouvelle soumission Play Store.
 
