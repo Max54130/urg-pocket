@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.11
+## Contenu v1.2.12
 
 ### Scores cliniques (15)
 
@@ -59,6 +59,13 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 ---
 
 ## Changelog
+
+### v1.2.12 (mars 2026)
+- ✅ Alcoolémie ajoutée dans le tube gris
+- ✅ Protocoles : termes médicaux abrégés explicités (FV, TV, BAVU, IO, PCI, UNV, HNF, HBPM…)
+- ✅ Ballonnet → angioplastie (PCI) dans le protocole SCA
+- ✅ versionCode 29
+
 
 ### v1.2.11 (mars 2026)
 - ✅ Acceptation des CGU obligatoire au lancement et à chaque mise à jour
@@ -170,13 +177,13 @@ home
 
 | versionCode | versionName | Statut |
 |-------------|-------------|--------|
-| 28 | 1.2.11 | **Build actuel** |
+| 29 | 1.2.12 | **Build actuel** |
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store |
 | 22 | 1.2.5 | Publié Play Store |
 | 21 | 1.2.4 | Publié Play Store |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 29**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 30**.
 
 ---
 

@@ -1,5 +1,5 @@
 # Urg Pocket — Documentation technique exhaustive
-**Version actuelle : 1.2.9 — versionCode 26**  
+**Version actuelle : 1.2.12 — versionCode 29**  
 **Dernière mise à jour : mars 2026**
 
 ---
@@ -380,19 +380,25 @@ settings.builtInZoomControls = false
 
 ---
 
+### v1.2.11 (mars 2026)
+- ✅ Acceptation CGU obligatoire au lancement et à chaque MàJ
+- ✅ Encart confidentialité sur l'accueil
+- ✅ Bouton retour CGU/Privacy sticky + safe-area
+- ✅ Vouvoiement Contact — versionCode 28
+
 ## 13. Versions et déploiement
 
 ### Historique des versions
 
 | versionCode | versionName | Notes |
 |-------------|-------------|-------|
-| 26 | 1.2.9 | **Build actuel** — photo de profil, prénom/pseudo, avatar topbar |
+| 29 | 1.2.12 | **Build actuel** — protocoles explicités, tube gris alcoolémie
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store — DFG/IMC/Killip, scores vierges, or, sources, daltonisme |
 | 22 | 1.2.5 | Publié Play Store — dialog quitter, descriptions scores |
 | 21 | 1.2.4 | Publié Play Store — anneaux tous scores, profil, navigation |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 27**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 30**.
 
 > ⚠️ Le versionCode doit toujours être **supérieur à 21** pour une nouvelle soumission Play Store.
 

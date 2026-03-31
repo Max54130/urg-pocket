@@ -831,7 +831,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.11</span>
+<span style="color:var(--primary);font-weight:800">1.2.12</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -928,7 +928,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <tr><td><span style="font-weight:700;white-space:nowrap">🔴 Rouge</span></td><td>Sans additif (sec)</td><td>Sérologies spécifiques, groupage sanguin, RAI</td></tr>
 <tr><td><span style="font-weight:700;white-space:nowrap">🟢 Vert</span></td><td>Héparinate de lithium</td><td>Ionogramme, CRP, bilan hépatique, troponine, lactates</td></tr>
 <tr><td><span style="font-weight:700;white-space:nowrap">🟣 Violet</span></td><td>EDTA</td><td>NFS, plaquettes, HbA1c, groupe sanguin</td></tr>
-<tr><td><span style="font-weight:700;white-space:nowrap">⚪ Gris</span></td><td>Fluorure de sodium + oxalate</td><td>Glycémie veineuse, lactates (selon labo)</td></tr>
+<tr><td><span style="font-weight:700;white-space:nowrap">⚪ Gris</span></td><td>Fluorure de sodium + oxalate</td><td>Glycémie veineuse, lactates (selon labo), alcoolémie</td></tr>
 </tbody></table></div>
 
 <div class="alert" style="margin-top:14px">L'ordre et les examens associés peuvent varier selon le laboratoire. Vérifie toujours le protocole local.</div>
@@ -1226,7 +1226,7 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.11';
+const APP_VERSION = '1.2.12';
 const appState = { activeScreen: 'home' };
 
 const screens = {
@@ -2034,24 +2034,24 @@ const protocoles = {
     steps:[
       "Confirmer l'ACR en équipe : inconscience + absence de ventilation normale + absence de pouls carotidien (recherche < 10 s). Demander DSA/scope et matériel d'intubation.",
       "Débuter la RCP sans délai : 30 compressions / 2 insufflations. Rythme 100-120/min, profondeur 5-6 cm, relâchement complet du thorax entre chaque compression.",
-      "DSA/scope dès disponible : analyser le rythme. Rythme chocable (FV/TV sans pouls) → choc 150-200 J biphasique, reprendre MCE immédiatement pendant 2 min.",
+      "DSA/scope dès disponible : analyser le rythme. Rythme chocable (FV = Fibrillation Ventriculaire / TV = Tachycardie Ventriculaire sans pouls) → choc électrique externe 150-200 J biphasique, reprendre MCE immédiatement pendant 2 min.",
       "Adrénaline 1 mg IVD toutes les 3-5 min : si rythme non chocable → dès l'abord veineux. Si chocable → après le 3ème choc.",
-      "Amiodarone 300 mg IV (dans 20 mL G5 %, injection rapide) (bolus dans 20 mL G5 %) : si FV/TV réfractaire après le 3ème choc. 2ème dose 150 mg après le 5ème choc.",
-      "Rechercher les causes réversibles : 4H (Hypoxie, Hypovolémie, Hypo/Hyperkaliémie, Hypothermie) et 4T (Thrombose coronaire ou pulmonaire, Tamponnade, Tension pneumothorax, Toxiques).",
+      "Amiodarone 300 mg IV (diluer dans 20 mL G5 %, injection rapide en bolus) : si fibrillation ou tachycardie ventriculaire rebelle après le 3ème choc. 2ème dose 150 mg après le 5ème choc.",
+      "Rechercher les causes réversibles — 4H : Hypoxie, Hypovolémie, Hypo/Hyperkaliémie, Hypothermie — 4T : Thrombose coronaire ou pulmonaire, Tamponnade cardiaque (épanchement compressif), Pneumothorax sous tension, Toxiques.",
       "Réévaluer le rythme toutes les 2 min. Minimiser toute interruption du MCE (< 10 s). Alterner les masseurs toutes les 2 min."
     ]
   },
   "acr_ped":{
     title:"👶 ACR pédiatrique",
     steps:[
-      "Confirmer l'ACR en équipe : inconscience + absence de ventilation normale + absence de pouls (brachial < 1 an, carotidien ou fémoral > 1 an). Recherche < 10 s. Préparer matériel adapté à l'âge (BAVU pédiatrique, lame adaptée, IO).",
+      "Confirmer l'ACR en équipe : inconscience + absence de ventilation normale + absence de pouls (brachial < 1 an, carotidien ou fémoral > 1 an). Recherche < 10 s. Préparer matériel adapté à l'âge (BAVU = masque de ventilation avec ballon, lame de laryngoscope adaptée, matériel IO = voie intra-osseuse).",
       "5 insufflations initiales (ventilation prioritaire). Vérifier la libération des voies aériennes (bascule de tête modérée chez le nourrisson).",
       "MCE : nourrisson < 1 an → technique des 2 pouces englobant le thorax (ou 2 doigts), profondeur ⅓ du thorax (~4 cm). Enfant > 1 an → talon d'une main (ou 2 mains si grand enfant), profondeur ⅓ du thorax (~5 cm).",
-      "Ratio 15 compressions / 2 insufflations (professionnel de santé). Rythme 100-120/min.",
+      "Ratio 15 compressions / 2 insufflations (pour professionnels de santé en binôme). Rythme 100-120/min.",
       "DSA dès disponible : électrodes pédiatriques si < 8 ans ou < 25 kg (atténuateur de dose). Rythme chocable → choc 4 J/kg, reprendre MCE 2 min.",
       "Adrénaline 10 µg/kg (0,01 mg/kg) IV ou IO : rythme non chocable → dès que possible. Rythme chocable → après le 3ème choc. Renouveler toutes les 3-5 min.",
       "Amiodarone 5 mg/kg IV/IO si FV/TV réfractaire après le 3ème choc.",
-      "Voie IO (intra-osseuse tibiale proximale) si abord IV impossible en < 1 min.",
+      "Voie IO (intra-osseuse = injection directe dans l'os, tibia proximal) si voie veineuse impossible en < 1 min.",
       "Causes réversibles 4H/4T : l'HYPOXIE est la première cause chez l'enfant. Penser aussi à l'hypovolémie (déshydratation, hémorragie).",
       "Réévaluer le rythme toutes les 2 min. Minimiser les interruptions de MCE."
     ]
@@ -2061,10 +2061,10 @@ const protocoles = {
     steps:[
       "Repérer les signes FAST : Face (asymétrie faciale), Arm (déficit moteur MS), Speech (troubles de parole), Time (heure de début). ",
       "Noter l'heure exacte de début des symptômes ou le dernier moment « normal connu ».",
-      "Régulation : orienter vers l'UNV la plus proche. Pré-alerte UNV avec heure de début et score NIHSS si possible.",
+      "Orienter vers l'UNV (Unité Neuro-Vasculaire) la plus proche. Pré-alerter l'UNV avec : heure de début des symptômes et score NIHSS si disponible.",
       "Position : décubitus dorsal strict, tête surélevée à 30° si troubles de conscience.",
       "Glycémie capillaire systématique : corriger si < 0,6 g/L (G30 % IVD).",
-      "PA : ne pas traiter sauf si > 220/120 mmHg (AVC ischémique) ou > 185/110 mmHg si thrombolyse envisagée. Pas d'antihypertenseur en phase aiguë.",
+      "PA (tension artérielle) : ne pas traiter sauf si > 220/120 mmHg (AVC ischémique) ou > 185/110 mmHg si thrombolyse (traitement fibrinolytique) envisagée. Pas d'antihypertenseur en phase aiguë sans avis médical.",
       "Scope, SpO₂ : O₂ si SpO₂ < 95 %. Voie veineuse (côté non déficitaire), NaCl 0,9 %. Pas de glucosé.",
       "NE PAS donner d'aspirine avant imagerie cérébrale (risque hémorragique). NE PAS faire baisser la PA brutalement."
     ]
@@ -2079,7 +2079,7 @@ const protocoles = {
       "Position : décubitus dorsal, jambes surélevées. Si dyspnée prédominante : position demi-assise. Si vomissements ou inconscience : PLS.",
       "Remplissage vasculaire : NaCl 0,9 % 500-1000 mL en débit libre chez l'adulte (20 mL/kg chez l'enfant). Répéter si besoin.",
       "O₂ haut débit : masque haute concentration 15 L/min.",
-      "Surveillance continue : PA, FC, SpO₂, conscience, diurèse. Préparer une 2ème dose d'adrénaline. Transfert en réanimation si grade ≥ III."
+      "Surveillance continue : PA, FC, SpO₂, conscience, diurèse. Préparer une 2ème dose d'adrénaline. Transfert en réanimation si grade ≥ III (choc cardiovasculaire ou détresse respiratoire sévère)."
     ]
   },
   "douleur_tho":{
@@ -2087,9 +2087,9 @@ const protocoles = {
     steps:[
       "ECG 12 dérivations dans les 10 min suivant le premier contact médical. Rechercher un sus-décalage ST (STEMI). ",
       "Scope continu : PA, FC, SpO₂, FR. Évaluer la douleur (EVA/EN).",
-      "Voie veineuse, bilan sanguin : troponine Hs, NFS, ionogramme, créatinine, TP/TCA, glycémie.",
-      "Si STEMI : contacter directement le cardiologue interventionnel pour coronarographie en urgence. Objectif : délai premier contact médical — ballonnet < 90 min. Orienter vers le centre de cardiologie interventionnelle le plus proche.",
-      "Aspirine 250 mg PO (ou 75-250 mg IV) sauf allergie documentée. Anticoagulation selon protocole de service (HNF ou HBPM).",
+      "Voie veineuse, bilan sanguin : troponine Hs (marqueur de souffrance cardiaque), NFS, ionogramme, créatinine, TP/TCA (bilan de coagulation), glycémie.",
+      "Si STEMI (sus-décalage ST = occlusion coronaire aiguë) : contacter directement le cardiologue interventionnel pour coronarographie (imagerie des artères coronaires) + angioplastie (PCI = réouverture mécanique de l'artère bouchée) en urgence. Objectif : délai premier contact médical → angioplastie (ouverture de l'artère) < 90 min. Orienter vers le centre de cardiologie interventionnelle le plus proche.",
+      "Aspirine 250 mg PO (ou 75-250 mg IV) sauf allergie documentée. Anticoagulation selon protocole de service (HNF = Héparine Non Fractionnée IV, ou HBPM = Héparine de Bas Poids Moléculaire SC).",
       "Morphine IV titrée si douleur intense (EVA > 6) non soulagée par les dérivés nitrés. Titration par bolus de 2-3 mg toutes les 5 min.",
       "Dérivés nitrés sublinguaux (Natispray® 0,30 mg) si PAS > 100 mmHg et absence de prise d'IPDE5 dans les 24-48 h.",
       "O₂ uniquement si SpO₂ < 90 %. Ne pas systématiser l'oxygénothérapie."
