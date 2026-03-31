@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.9
+## Contenu v1.2.11
 
 ### Scores cliniques (15)
 
@@ -59,6 +59,14 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 ---
 
 ## Changelog
+
+### v1.2.11 (mars 2026)
+- ✅ Acceptation des CGU obligatoire au lancement et à chaque mise à jour
+- ✅ Encart confidentialité permanent sur l'accueil
+- ✅ Bouton retour CGU/Privacy corrigé (sticky + safe-area)
+- ✅ Vouvoiement dans la section Contact
+- ✅ versionCode 28
+
 
 ### v1.2.9 (mars 2026)
 - ✅ Photo de profil et prénom/pseudo (Paramètres → Identité)
@@ -162,13 +170,13 @@ home
 
 | versionCode | versionName | Statut |
 |-------------|-------------|--------|
-| 26 | 1.2.9 | **Build actuel** |
+| 28 | 1.2.11 | **Build actuel** |
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store |
 | 22 | 1.2.5 | Publié Play Store |
 | 21 | 1.2.4 | Publié Play Store |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 27**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 29**.
 
 ---
 
