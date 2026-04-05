@@ -1,5 +1,5 @@
 # Urg Pocket — Documentation technique exhaustive
-**Version actuelle : 1.2.13 — versionCode 30**  
+**Version actuelle : 1.2.34 — versionCode 51**  
 **Dernière mise à jour : mars 2026**
 
 ---
@@ -387,6 +387,12 @@ settings.builtInZoomControls = false
 
 ---
 
+### v1.2.14 (avril 2026)
+- ✅ Menu Doses : navigation en 3 entrées (Adulte, Pédiatrique, Équivalence des voies)
+- ✅ Équivalence des voies IV/IM/SC/PO — 6 molécules avec ratios et notes cliniques
+- ✅ Doses pédiatriques — 18 molécules, calcul auto selon poids, alertes dose max
+- ✅ versionCode 31
+
 ### v1.2.13 (mars 2026)
 - ✅ Glasgow — mode patient non communiquant (intubé, aphasique) : verbal exclu, score /10
 - ✅ versionCode 30
@@ -408,13 +414,13 @@ settings.builtInZoomControls = false
 
 | versionCode | versionName | Notes |
 |-------------|-------------|-------|
-| 30 | 1.2.13 | **Build actuel** — Glasgow non communiquant
+| 39 | 1.2.22 | **Build actuel** — sources complètes, onglets fiches corrigés
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store — DFG/IMC/Killip, scores vierges, or, sources, daltonisme |
 | 22 | 1.2.5 | Publié Play Store — dialog quitter, descriptions scores |
 | 21 | 1.2.4 | Publié Play Store — anneaux tous scores, profil, navigation |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 31**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 52**.
 
 > ⚠️ Le versionCode doit toujours être **supérieur à 21** pour une nouvelle soumission Play Store.
 

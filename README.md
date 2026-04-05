@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.33
+## Contenu v1.2.34
 
 ### Scores cliniques (15)
 
@@ -60,7 +60,7 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 
 ## Changelog
 
-### v1.2.33 (avril 2026)
+### v1.2.34 (avril 2026)
 - ✅ Recherche insensible aux accents (antidotes, fiches médicaments, doses toxiques)
 - ✅ DEP/Peak Flow — cercle et couleur AAG corrigés (violet < 33%)
 - ✅ Anticoagulants — Préviscan®, Sintrom®, AVK ajoutés dans catégorie dédiée
@@ -212,13 +212,13 @@ home
 
 | versionCode | versionName | Statut |
 |-------------|-------------|--------|
-| 50 | 1.2.33 | **Build actuel** |
+| 51 | 1.2.34 | **Build actuel** |
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store |
 | 22 | 1.2.5 | Publié Play Store |
 | 21 | 1.2.4 | Publié Play Store |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 51**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 52**.
 
 ---
 
