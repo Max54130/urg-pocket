@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.12
+## Contenu v1.2.33
 
 ### Scores cliniques (15)
 
@@ -59,6 +59,41 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 ---
 
 ## Changelog
+
+### v1.2.33 (avril 2026)
+- ✅ Recherche insensible aux accents (antidotes, fiches médicaments, doses toxiques)
+- ✅ DEP/Peak Flow — cercle et couleur AAG corrigés (violet < 33%)
+- ✅ Anticoagulants — Préviscan®, Sintrom®, AVK ajoutés dans catégorie dédiée
+- ✅ versionCode 50
+
+
+### v1.2.22 (avril 2026)
+- ✅ Fiches médicaments — onglets fonctionnels (Indication / Prescription / Préparation / Surveillance)
+- ✅ Onglet Sources mis à jour — fiches médicaments, équivalence des voies, ANSM/Vidal/SFAR
+- ✅ versionCode 39
+
+
+### v1.2.20 (avril 2026)
+- ✅ Correction définitive boucle infinie sur l'accueil (corruption JS doseRefs)
+- ✅ Reconstruction complète depuis base stable v1.2.13
+- ✅ Module Fiches médicaments — 73 molécules SAMU/SMUR (4 onglets)
+- ✅ Doses adulte — sélecteur molécule + calcul automatique selon poids
+- ✅ Doses pédiatriques — interface unifiée, 17 molécules, alertes dose max
+- ✅ Équivalence des voies IV/IM/SC/PO — 6 molécules
+- ✅ Menu Doses restructuré en 3 entrées
+- ✅ versionCode 37
+
+
+### v1.2.14 (avril 2026)
+- ✅ Doses reorganisé en menu de navigation (Adulte / Pédiatrique / Équivalence)
+- ✅ Nouveau : Équivalence des voies IV/IM/SC/PO (6 molécules)
+- ✅ Nouveau : Doses pédiatriques avec calcul auto selon poids (18 molécules)
+- ✅ versionCode 31
+
+### v1.2.13 (mars 2026)
+- ✅ Glasgow — mode patient non communiquant (verbal exclu, score /10)
+- ✅ versionCode 30
+
 
 ### v1.2.12 (mars 2026)
 - ✅ Alcoolémie ajoutée dans le tube gris
@@ -177,13 +212,13 @@ home
 
 | versionCode | versionName | Statut |
 |-------------|-------------|--------|
-| 29 | 1.2.12 | **Build actuel** |
+| 50 | 1.2.33 | **Build actuel** |
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store |
 | 22 | 1.2.5 | Publié Play Store |
 | 21 | 1.2.4 | Publié Play Store |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 30**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 51**.
 
 ---
 
