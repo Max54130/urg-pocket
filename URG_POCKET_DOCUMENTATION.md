@@ -1,5 +1,5 @@
 # Urg Pocket — Documentation technique exhaustive
-**Version actuelle : 1.2.34 — versionCode 51**  
+**Version actuelle : 1.2.35 — versionCode 52**  
 **Dernière mise à jour : mars 2026**
 
 ---
@@ -420,7 +420,7 @@ settings.builtInZoomControls = false
 | 22 | 1.2.5 | Publié Play Store — dialog quitter, descriptions scores |
 | 21 | 1.2.4 | Publié Play Store — anneaux tous scores, profil, navigation |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 52**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 53**.
 
 > ⚠️ Le versionCode doit toujours être **supérieur à 21** pour une nouvelle soumission Play Store.
 
