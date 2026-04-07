@@ -15,7 +15,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ---
 
-## Contenu v1.2.35
+## Contenu v1.2.36
 
 ### Scores cliniques (15)
 
@@ -60,7 +60,18 @@ Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
 
 ## Changelog
 
-### v1.2.35 (avril 2026)
+### v1.2.44 (avril 2026)
+- ✅ Révision complète des ~100 fiches non-urgence — corrections sourcées RCP ANSM / ESC 2023 / GIHP 2024
+- ✅ Corrections : Gentamicine (3–8 mg/kg RCP), Clopidogrel/Plavix (ESC 2023 dose charge 300–600 mg), Kardegic/Aspirin (150–300 mg ESC 2023), Efient (CI absolue AVC/AIT), Ciflox (IVL 60 min strict), Clamoxyl (méningite 200 mg/kg/j), Lovenox (STEMI protocole), Fraxiparine (95 UI/kg curatif), Diazepam (IM éviter), Salbutamol (nébulisation continue AAG), Augmentin (posologies détaillées)
+- ✅ versionCode 60
+
+
+### v1.2.40 (avril 2026)
+- ✅ Fiches médicaments — 129 fiches (73 → 129) : Amiodarone, Bridion, Buscopan, Cortancyl, Dectancyl, Doliprane, Droleptan, Flagyl, Haldol, Intralipide, Ixprim, Kardegic, Largactil, Lovenox, Mannitol, Metiblo, Nesdonal, Nipride, Nozinan, Ondansétron, Pantoprazole, Plavix, Pradaxa, Praxbind, Rocéphine, Solupred, Tavanic, Tazocilline, Ticagrélor, Tienam, Vogalène, Voltarène, Xarelto, Xylocard, Eliquis, Préviscan + fiches minimales (à compléter)
+- ✅ versionCode 56
+
+
+### v1.2.36 (avril 2026)
 - ✅ Recherche insensible aux accents (antidotes, fiches médicaments, doses toxiques)
 - ✅ DEP/Peak Flow — cercle et couleur AAG corrigés (violet < 33%)
 - ✅ Anticoagulants — Préviscan®, Sintrom®, AVK ajoutés dans catégorie dédiée
@@ -212,13 +223,13 @@ home
 
 | versionCode | versionName | Statut |
 |-------------|-------------|--------|
-| 52 | 1.2.35 | **Build actuel** |
+| 56 | 1.2.40 | **Build actuel** |
 | 24 | 1.2.7 | Publié Play Store |
 | 23 | 1.2.6 | Publié Play Store |
 | 22 | 1.2.5 | Publié Play Store |
 | 21 | 1.2.4 | Publié Play Store |
 
-> La prochaine release Play Store doit utiliser versionCode **≥ 53**.
+> La prochaine release Play Store doit utiliser versionCode **≥ 62**.
 
 ---
 

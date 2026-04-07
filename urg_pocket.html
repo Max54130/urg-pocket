@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/><meta name="apple-mobile-web-app-title" content="Urg Pocket"/><meta name="theme-color" content="#0f0f12" media="(prefers-color-scheme: dark)"/><meta name="theme-color" content="#f0f4f8" media="(prefers-color-scheme: light)"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><title>Urg Pocket</title>
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/><meta name="apple-mobile-web-app-title" content="Urg Pocket"/><meta name="theme-color" content="#0e1a25" media="(prefers-color-scheme: dark)"/><meta name="theme-color" content="#edf1f7" media="(prefers-color-scheme: light)"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><title>Urg Pocket</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
@@ -462,6 +462,10 @@ body.colorblind .sr-symbol.red{background:#9B27AF}
 .sr-circle.purple{border-color:#a855f7}
 .sr-badge.purple{background:#7e22ce;color:#f3e8ff;border-color:#a855f7}
 .score-result.purple:not(.ring-result)::before{content:'✕  CRITIQUE / SÉVÈRE';background:#7e22ce;color:#fff}
+
+.med-main-tabs{display:flex;gap:8px;margin-bottom:14px}
+.med-main-tab{flex:1;padding:10px 8px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--text2);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
+.med-main-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
 </style><script>/* Prevent flash colorblind */(function(){if(localStorage.getItem('urg-colorblind')==='on'){document.documentElement.classList.add('colorblind');document.body&&document.body.classList.add('colorblind');}})()
 /* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
 <script>
@@ -476,9 +480,9 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 (function(){
   var accent = localStorage.getItem('urg-accent') || 'blue';
   var accents = {
-    red:{l:'#DC2626',d:'#F87171'},orange:{l:'#EA580C',d:'#FB923C'},
-    gold:{l:'#D79A10',d:'#F0C040'},teal:{l:'#0D9488',d:'#5EEAD4'},
-    blue:{l:'#1A73E8',d:'#5B9EF4'},purple:{l:'#7C3AED',d:'#A78BFA'}
+    red:{l:'#C0392B',d:'#E8605A'},orange:{l:'#EA580C',d:'#FB923C'},
+    gold:{l:'#D79A10',d:'#F0C040'},teal:{l:'#1A9B6C',d:'#2EC090'},
+    blue:{l:'#1A73C8',d:'#5BA8E8'},purple:{l:'#7C3AED',d:'#A78BFA'}
   };
   var isDark = document.documentElement.classList.contains('dark');
   var a = accents[accent];
@@ -680,13 +684,70 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 
 </div></section>
 
-<section class="screen" id="screen-doses"><div class="content-card"><div class="page-head"><div><h2>Doses</h2><p>Calculs de doses et equivalences</p></div></div>
+<section class="screen" id="screen-doses"><div class="content-card"><div class="page-head"><div><h2>Doses</h2><p>Calculs de doses pondérales</p></div></div>
 <div class="section-title"><h3>Calculs de doses</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="doses-adulte"><span class="hc-icon">💉</span><span class="hc-label">Doses adulte</span></button>
 <button class="home-compact" data-target="doses-ped"><span class="hc-icon">👶</span><span class="hc-label">Doses pédiatriques</span></button>
-<button class="home-compact" data-target="equiv-voies"><span class="hc-icon">🔄</span><span class="hc-label">Equivalence des voies</span></button>
+<button class="home-compact" data-target="equiv-voies"><span class="hc-icon">🔄</span><span class="hc-label">Équivalence des voies</span></button>
 </div>
+</div></section>
+
+<section class="screen" id="screen-equiv-corticoides"><div class="content-card"><div class="page-head"><div><h2>Équivalences corticoïdes</h2><p>Doses équipotentes par voie systémique</p></div><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div>
+<div class="note" style="margin-top:0">Équipotence anti-inflammatoire (référence : hydrocortisone). <strong>Ces équivalences sont indicatives</strong> : variabilité interindividuelle, biodisponibilité et demi-vie propres à chaque molécule.<br/><br/>Sources : RecoMédicales 2024, GPnotebook juin 2024, RCP ANSM, Blanloeil Y. — SFAR 1996.</div>
+<div class="section-title" style="margin-top:14px"><h3>Tableau d'équipotence</h3></div>
+<div class="table-scroll">
+<table><thead><tr><th>Molécule</th><th>Spécialité</th><th>Dose éq. (mg)</th><th>Coeff. AAI</th><th>Coeff. AMC</th><th>Demi-vie</th></tr></thead>
+<tbody>
+<tr><td><strong>Hydrocortisone</strong></td><td>Hydrocortisone®</td><td>20</td><td>1</td><td>1</td><td>8–12 h</td></tr>
+<tr><td><strong>Prednisone</strong></td><td>Cortancyl®</td><td>5</td><td>4</td><td>0,8</td><td>12–36 h</td></tr>
+<tr><td><strong>Prednisolone</strong></td><td>Solupred®</td><td>5</td><td>4</td><td>0,8</td><td>12–36 h</td></tr>
+<tr><td><strong>Méthylprednisolone</strong></td><td>Solumedrol®</td><td>4</td><td>5</td><td>0,5</td><td>12–36 h</td></tr>
+<tr><td><strong>Triamcinolone</strong></td><td>Kenacort®</td><td>4</td><td>5</td><td>0</td><td>12–36 h</td></tr>
+<tr><td><strong>Bétaméthasone</strong></td><td>Célestène®</td><td>0,75</td><td>25–30</td><td>0</td><td>36–54 h</td></tr>
+<tr><td><strong>Dexaméthasone</strong></td><td>Dectancyl®</td><td>0,75</td><td>25–30</td><td>0</td><td>36–54 h</td></tr>
+</tbody></table></div>
+<div class="note" style="margin-top:14px"><strong>Dose physiologique :</strong> 5 mg/j prednisone = 20 mg/j hydrocortisone.<br/><strong>Coeff. AAI</strong> = activité anti-inflammatoire · <strong>Coeff. AMC</strong> = activité minéralocorticoïde (rétention hydrosodée)</div>
+<div class="section-title"><h3>Exemples de conversion</h3></div>
+<div class="result-list">
+<div class="result"><div class="result-name">Solumedrol® 40 mg IV</div><div class="result-num" style="font-size:14px;font-weight:700">= Solupred® 50 mg PO</div></div>
+<div class="result"><div class="result-name">Célestène® 4 mg IV</div><div class="result-num" style="font-size:14px;font-weight:700">≈ Solupred® 27 mg PO</div></div>
+<div class="result"><div class="result-name">Hydrocortisone 100 mg IV</div><div class="result-num" style="font-size:14px;font-weight:700">= Prednisone 25 mg PO</div></div>
+<div class="result"><div class="result-name">Dexaméthasone 4 mg IV</div><div class="result-num" style="font-size:14px;font-weight:700">= Solupred® 27 mg PO</div></div>
+</div>
+<div class="alert" style="margin-top:14px">⚠️ Ne pas substituer sans avis médical. Biodisponibilité et durée d'action variables selon la molécule et la voie d'administration.</div>
+</div></section>
+
+<section class="screen" id="screen-equiv-hbpm"><div class="content-card"><div class="page-head"><div><h2>Équivalences HBPM</h2><p>Doses préventives et curatives</p></div><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div>
+<div class="note" style="margin-top:0">Héparines de Bas Poids Moléculaire — toutes en <strong>sous-cutané</strong>. Adapter selon le poids, la fonction rénale (CI si DFG &lt; 30 mL/min pour la plupart) et l'indication.<br/><br/>Sources : RFE GIHP mai 2024, SFAR, COMEDIMS APHP 2014, RCP ANSM.</div>
+<div class="section-title" style="margin-top:14px"><h3>Doses préventives</h3></div>
+<div class="table-scroll">
+<table><thead><tr><th>Molécule</th><th>Spécialité</th><th>Risque modéré</th><th>Risque élevé</th></tr></thead>
+<tbody>
+<tr><td><strong>Énoxaparine</strong></td><td>Lovenox®</td><td>20 mg/j (0,2 mL)</td><td>40 mg/j (0,4 mL)</td></tr>
+<tr><td><strong>Nadroparine</strong></td><td>Fraxiparine®</td><td>2 850 UI/j (0,3 mL)</td><td>38 UI/kg/j J1–J3 → 57 UI/kg/j J4+</td></tr>
+<tr><td><strong>Daltéparine</strong></td><td>Fragmine®</td><td>2 500 UI/j</td><td>5 000 UI/j</td></tr>
+<tr><td><strong>Tinzaparine</strong></td><td>Innohep®</td><td>2 500 UI/j</td><td>4 500 UI/j (ortho) · 3 500 UI/j (cancer)</td></tr>
+<tr><td><strong>Fondaparinux</strong></td><td>Arixtra®</td><td>—</td><td>2,5 mg/j (CI si DFG &lt; 50)</td></tr>
+</tbody></table></div>
+<div class="section-title"><h3>Doses curatives</h3></div>
+<div class="table-scroll">
+<table><thead><tr><th>Molécule</th><th>Spécialité</th><th>2 inj/j SC</th><th>1 inj/j SC</th></tr></thead>
+<tbody>
+<tr><td><strong>Énoxaparine</strong></td><td>Lovenox®</td><td>100 UI/kg × 2/j</td><td>150 UI/kg × 1/j</td></tr>
+<tr><td><strong>Nadroparine</strong></td><td>Fraxiparine®</td><td>95 UI/kg × 2/j</td><td>171 UI/kg × 1/j (Fraxodi®)</td></tr>
+<tr><td><strong>Daltéparine</strong></td><td>Fragmine®</td><td>100 UI/kg × 2/j</td><td>200 UI/kg × 1/j</td></tr>
+<tr><td><strong>Tinzaparine</strong></td><td>Innohep®</td><td>—</td><td>175 UI/kg × 1/j</td></tr>
+</tbody></table></div>
+<div class="note" style="margin-top:14px"><strong>Surveillance anti-Xa</strong> (pic 4h après injection) :<br/>2 inj/j : cible 0,6–1,2 UI/mL · 1 inj/j : cible 1,0–2,0 UI/mL<br/><br/><strong>Antidote :</strong> sulfate de protamine — neutralisation partielle (~60–80%).<br/><strong>⚠️ Non substituables entre elles à équidose.</strong></div>
+<div class="alert" style="margin-top:14px">⚠️ CI si DFG &lt; 30 mL/min pour la plupart des HBPM. Vérifier la fonction rénale avant toute prescription.</div>
+</div></section>
+
+<section class="screen" id="screen-equiv-princeps"><div class="content-card"><div class="page-head"><div><h2>Princeps → DCI</h2><p>Noms commerciaux · Urgence SAMU/SMUR</p></div><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div>
+<div class="search-global" style="margin-bottom:14px"><input class="search" id="princepsSearch" aria-label="Recherche princeps ou DCI" placeholder="🔍 Cordarone, morphine, Hypnovel..." type="text"/></div>
+<div class="small" id="princepsCount" style="margin-bottom:10px"></div>
+<div id="princepsContent"></div>
+<div class="note" style="margin-top:14px">Liste centrée sur les médicaments d'urgence SAMU/SMUR.<br/>Source : SRLF 2024 — Commission des Urgences Vitales · v2.</div>
 </div></section>
 
 <section class="screen" id="screen-convertisseur"><div class="content-card"><div class="page-head"><div><h2>Convertisseur bio</h2><p>Conversions d'unités biologiques</p></div></div>
@@ -812,11 +873,11 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div class="label">Couleur principale de l'interface</div>
 <div style="display:flex;gap:10px;flex-wrap:wrap" id="accentPicker">
-<button class="accent-dot" data-accent="red" style="background:#DC2626" aria-label="Rouge"></button>
+<button class="accent-dot" data-accent="red" style="background:#C0392B" aria-label="Rouge"></button>
 <button class="accent-dot" data-accent="orange" style="background:#EA580C" aria-label="Orange"></button>
 <button class="accent-dot" data-accent="gold" style="background:#D79A10" aria-label="Or"></button>
-<button class="accent-dot" data-accent="teal" style="background:#0D9488" aria-label="Turquoise"></button>
-<button class="accent-dot" data-accent="blue" style="background:#1A73E8" aria-label="Bleu"></button>
+<button class="accent-dot" data-accent="teal" style="background:#1A9B6C" aria-label="Turquoise"></button>
+<button class="accent-dot" data-accent="blue" style="background:#1A73C8" aria-label="Bleu"></button>
 <button class="accent-dot" data-accent="purple" style="background:#7C3AED" aria-label="Violet"></button>
 </div></div>
 
@@ -863,7 +924,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.35</span>
+<span style="color:var(--primary);font-weight:800">1.2.44</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -1053,7 +1114,7 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <div class="score-result" id="killipResult" aria-live="polite" style="margin-top:14px">—</div>
 </div></section>
 
-<section class="screen" id="screen-doses-adulte"><div class="content-card"><div class="page-head"><div><h2>Doses adulte</h2><p>Calcul de dose selon le poids</p></div><div style="display:flex;gap:8px"><button class="btn reset-inline" id="doseResetBtn" type="button" aria-label="Réinitialiser">↺ RAZ</button><button class="btn-back" data-target="doses">◀ Doses</button></div></div>
+<section class="screen" id="screen-doses-adulte"><div class="content-card"><div class="page-head"><div><h2>Doses adulte</h2><p>Calcul de dose selon le poids</p></div><div style="display:flex;gap:8px"><button class="btn reset-inline" id="doseResetBtn" type="button" aria-label="Réinitialiser">↺ RAZ</button><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div></div>
 <div class="inline-form" style="margin-top:14px">
 <div class="field"><div class="label">Poids du patient (kg)</div><input class="num-input" id="dosePoids" aria-label="Poids en kg" min="0" step="0.1" type="number" placeholder="kg"/></div>
 <div class="field" style="display:none"><div class="label">Posologie (mg/kg)</div><input class="num-input" id="doseMgKg" aria-label="Posologie mg/kg" min="0" step="0.01" type="number" placeholder="mg/kg"/></div>
@@ -1077,7 +1138,7 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <div class="result-list" id="equivResults"></div>
 <div class="note" id="equivNote" style="margin-top:10px"></div>
 </div></section>
-<section class="screen" id="screen-doses-ped"><div class="content-card"><div class="page-head"><div><h2>Doses pédiatriques</h2><p>Calcul de dose selon le poids</p></div><button class="btn-back" data-target="doses">◀ Doses</button></div>
+<section class="screen" id="screen-doses-ped"><div class="content-card"><div class="page-head"><div><h2>Doses pédiatriques</h2><p>Calcul de dose selon le poids</p></div><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div>
 <div class="inline-form" style="margin-top:14px">
 <div class="field"><div class="label">Poids de l'enfant (kg)</div><input class="num-input" id="pedPoids" type="number" min="0.5" max="100" step="0.1" placeholder="kg"/></div>
 </div>
@@ -1097,26 +1158,42 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <div class="note" style="margin-top:14px">Rouge = dose calculée dépasse le max → plafonner. Toujours vérifier avec le Vidal.</div>
 </div></section>
 <section class="screen" id="screen-medicaments"><div class="content-card">
-<div class="page-head"><div><h2>Fiches médicaments</h2><p>73 molécules — SAMU/SMUR</p></div></div>
-<input type="text" class="med-search" id="medSearch" placeholder="🔍 Rechercher par nom ou DCI..." aria-label="Recherche médicament"/>
-<div id="medListWrap">
-  <div id="medList"></div>
+<div class="page-head"><div><h2>Médicaments</h2><p>Fiches et équivalences — SAMU/SMUR</p></div></div>
+
+<div class="med-main-tabs">
+  <button class="med-main-tab active" id="medTabFiches" onclick="switchMedMainTab('fiches')">💊 Fiches</button>
+  <button class="med-main-tab" id="medTabEquiv" onclick="switchMedMainTab('equiv')">🔄 Équivalences</button>
 </div>
-<div id="medDetail" style="display:none">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-    <button id="medBackBtn" class="btn-back" style="flex-shrink:0">◀ Liste</button>
-    <div>
-      <div id="medDetailNom" style="font-weight:900;font-size:17px"></div>
-      <div id="medDetailDci" style="font-size:13px;color:var(--text2)"></div>
+
+<div id="medPanelFiches">
+  <input type="text" class="med-search" id="medSearch" placeholder="🔍 Rechercher par nom ou DCI..." aria-label="Recherche médicament"/>
+  <div id="medListWrap">
+    <div id="medList"></div>
+  </div>
+  <div id="medDetail" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <button id="medBackBtn" class="btn-back" style="flex-shrink:0">◀ Liste</button>
+      <div>
+        <div id="medDetailNom" style="font-weight:900;font-size:17px"></div>
+        <div id="medDetailDci" style="font-size:13px;color:var(--text2)"></div>
+      </div>
     </div>
+    <div class="med-tabs">
+      <button class="med-tab-btn active" data-tab="indication">Indication</button>
+      <button class="med-tab-btn" data-tab="prescription">Prescription</button>
+      <button class="med-tab-btn" data-tab="preparation">Préparation</button>
+      <button class="med-tab-btn" data-tab="surveillance">Surveillance</button>
+    </div>
+    <div class="med-tab-content" id="medTabContent"></div>
   </div>
-  <div class="med-tabs">
-    <button class="med-tab-btn active" data-tab="indication">Indication</button>
-    <button class="med-tab-btn" data-tab="prescription">Prescription</button>
-    <button class="med-tab-btn" data-tab="preparation">Préparation</button>
-    <button class="med-tab-btn" data-tab="surveillance">Surveillance</button>
+</div>
+
+<div id="medPanelEquiv" style="display:none">
+  <div class="home-compact-grid" style="margin-top:8px">
+    <button class="home-compact" data-target="equiv-corticoides"><span class="hc-icon">💊</span><span class="hc-label">Corticoïdes</span></button>
+    <button class="home-compact" data-target="equiv-hbpm"><span class="hc-icon">💉</span><span class="hc-label">HBPM</span></button>
+    <button class="home-compact" data-target="equiv-princeps"><span class="hc-icon">🔍</span><span class="hc-label">Princeps → DCI</span></button>
   </div>
-  <div class="med-tab-content" id="medTabContent"></div>
 </div>
 </div></section>
 
@@ -1401,7 +1478,7 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.35';
+const APP_VERSION = '1.2.44';
 /* Normalisation accents pour recherche */
 function normSearch(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 
@@ -1449,7 +1526,10 @@ const screens = {
   'doses-ref': document.getElementById('screen-doses-ref'),
   'doses-ped-ref': document.getElementById('screen-doses-ped-ref'),
   'medicaments': document.getElementById('screen-medicaments'),
-  'score-dep': document.getElementById('screen-score-dep')
+  'score-dep': document.getElementById('screen-score-dep'),
+  'equiv-corticoides': document.getElementById('screen-equiv-corticoides'),
+  'equiv-hbpm': document.getElementById('screen-equiv-hbpm'),
+  'equiv-princeps': document.getElementById('screen-equiv-princeps')
 };
 
 /* Titles removed — topbar always shows Urg Pocket */
@@ -2663,11 +2743,11 @@ document.querySelectorAll('.score-result').forEach(el => {
   const KEYS = {theme:'urg-theme',accent:'urg-accent',navtabs:'urg-navtabs'};
 
   const accents = {
-    red:    {light:'#DC2626',light2:'#B91C1C',dark:'#F87171',dark2:'#EF4444'},
+    red:    {light:'#C0392B',light2:'#9B2E22',dark:'#E8605A',dark2:'#D94F49'},
     orange: {light:'#EA580C',light2:'#C2410C',dark:'#FB923C',dark2:'#F97316'},
     gold:   {light:'#D79A10',light2:'#B8820D',dark:'#F0C040',dark2:'#D4A820'},
-    teal:   {light:'#0D9488',light2:'#0F766E',dark:'#5EEAD4',dark2:'#2DD4BF'},
-    blue:   {light:'#1A73E8',light2:'#1558B8',dark:'#5B9EF4',dark2:'#3D8BE8'},
+    teal:   {light:'#1A9B6C',light2:'#157A56',dark:'#2EC090',dark2:'#25A07A'},
+    blue:   {light:'#1A73C8',light2:'#155FA8',dark:'#5BA8E8',dark2:'#3D94E0'},
     purple: {light:'#7C3AED',light2:'#6D28D9',dark:'#A78BFA',dark2:'#8B5CF6'}
   };
 
@@ -4204,44 +4284,15 @@ Effets :
 • Actif contre les bactéries anaérobies.
 • Diffusion dans le liquide pleural, tissu cutané, oreille moyenne, liquide péritonéal, bile et expectorations.
 • Mauvaise diffusion dans LCR`,
-  presc:`ATTENTION en cas d’insuffisance rénale sévère (si Insuffisant Rénal dose initiale à 1g)
-ATTENTION les doses dépendent de l'indication et peuvent aller de 2 à 12g/jour
+  presc:`Adulte standard : 1 g IV/8h ou PO × 3/j (comprimés 1 g = amoxicilline 875 mg + acide clavulanique 125 mg).
+Infections sévères : 2 g IV/8h IVL 30 min.
+Infections urinaires/ORL légères : 625 mg PO × 3/j (comprimés 500/125 mg).
+Enfant : 30–50 mg/kg/j d'amoxicilline en 3 prises.
+⚠️ IVL 30 min minimum pour forme IV.
+⚠️ Risque hépatotoxicité si traitement prolongé — surveiller bilan hépatique.
+⚠️ Ajustement doses si DFG < 30 mL/min (augmenter l'intervalle entre les injections).
 
-ADULTES :
-
-A) Chez les sujets aux fonctions rénales normales :
-> Traitement d’une infection :
-- Posologie usuelle : 1 g, 2 à 4 fois par jour en I.V
-- Dans les septicémies et les infections sévères, la posologie peut être portée à 6g/jour voir 12 g/jour
-- NE JAMAIS DÉPASSER POUR L'ADULTE : 200 mg d'acide clavulanique par injection et 1 200 mg d'acide clavulanique par jour soit :
-è jusqu'à 6 g/jour, utiliser le dosage 1g/200mg.
-è de 6g à 12 g/jour, utiliser le dosage 2g/200mg
-
-> Prophylaxie des infections post-opératoires en chirurgie : elles varient selon les recommandations, le plus courant est :
-- une dose de 2g/200mg (ou 1g/200mg + 1 g amoxicilline) à l’induction anesthésique
-- suivie d’une réinjection d’une dose de 1g/200 mg 2 heures après
-
-B) Chez les insuffisants rénaux (selon clairance) :
-
-• Supérieure à 30 ml/mn Pas d'adaptation nécessaire
-• Entre 10 et 30 ml/mn : Dose initiale 1 g, puis 500 mg toutes les 12h
-(soit 1/2 flacon de 1g/200mg)
-• Inférieure à 10 ml/mn : Dose initiale : 1g puis 500mg/jour
-
-C) Hémodialyse :
-- dose initiale 1 g, puis 500 mg/jour avec une dose supplémentaire de 500 mg après la dialyse.
-- Ne pas administrer plus de 1g/200 mg en IV directe.
-- Pour administrer 2g/200 mg par perfusion, utiliser le dosage 2g/200 mg
-
-ENFANTS <40kg : 80mg/kg/j repartis en 3 fois (per os)
-> 3 mois à 12 ans : 25 à 50mg/kg IV , réparti 3 fois par jour
-Prématuré et enfant < 3 mois : 25 à 50mg/kg IV, réparti 2 fois par jour
-
- Préparations possibles :
-Voie IVL sur 3 à 5min (1g/20ml)
-Voie IVL perfusion 50ml NaCl 0,9% ou Ringer sur 30min (1g/200mg)
-Voie IVL perfusion 100ml NaCl 0,9% ou Ringer sur 30min (2g/200mg)
-IVSE chez l’enfant : 500mg dans 25ml`,
+Source : RCP ANSM, BDPM.`,
   prep:`Pour voie IVL :
 • 1g/200mg dans un soluté de 50ml NaCl 0,9% sur 30 min
 • 2g/200mg dans un soluté de 100ml NaCl 0,9% sur 30 min
@@ -6310,7 +6361,9 @@ Effets :
 Affections douloureuses :
 
 • Bolus initial :
-0,1mg/kg sur 1min possible , puis si besoin : Bolus de 3mg toutes les 5-10min jusqu'à objectif EVA/EN satisfaisant
+0,1 mg/kg sur 1 min, puis si besoin : Bolus de 3 mg (2 mg si < 60 kg ou > 75 ans) toutes les 5-10 min jusqu'à EVA/EN ≤ 3.
+Réévaluation médicale au-delà de 10 mg cumulés.
+⚠️ Réduire les doses chez le sujet âgé, insuffisant rénal ou respiratoire.
 
 OU
 • Titration :
@@ -6399,36 +6452,17 @@ Effets :
 Stimulation brutale du système sympathique, antagonise le coma, la dépression respiratoire, la douleur, le myosis, la bradycardie...`,
   presc:`ADULTES :
 
-Anesthésie : 1 à 2 μg/kg (Avis médical)
+Intoxication aux opioïdes — titration IV :
+Diluer 1 amp 0,4 mg dans 9 mL NaCl → 0,04 mg/mL.
+Bolus de 0,04 mg IV toutes les 2–3 min jusqu'à FR > 12/min.
+Objectif : réverser la dépression respiratoire SANS déclencher sevrage brutal.
+Dose cumulée max : 10 mg (si pas de réponse → diagnostic à remettre en cause).
+Entretien IVSE si nécessaire : 2 mg dans 500 mL NaCl, adapter le débit.
 
-Préparation possible : 1 ampoule 0,4mg dans 10ml EPPI soit 0,04mg/ml (soit 40 μg/ml)
+Post-opératoire (lever sédation) : 1–2 µg/kg IVD.
 
-Possibilité de réaliser 2ml soit 0,08mg (ou 80 μg)
-ET renouveler toutes les 2min par 40 μg soit 0,04mg/1ml jusqu’à l’objectif d’une FR = 12-14l/min (Avis médical)
-
-Réanimation :
-Injection à 3 reprises (a 5 min d’intervalle) une ampoule 0,4mg/1ml IV
-
-Réinjections possible jusqu'à max 10mg : si pas de modification clinique = pas d’intoxication morphinique
-
-Si intoxications aux morphinomimétiques :
-• Dose initiale de 0,4 à 2mg administration possible (Avis médical)
-• Dose progressive 0,1 mg jusqu'à ventilation respiratoire suffisante (Avis médical)
-
-Si amélioration : renouvellement dose initiale avec intervalles de 3 min (Avis médical)
-
-Exemples de préparations/dilutions :
-Pour concentrations :
-0,04mg/ml : 0,4mg/1ml (1 amp) + 9ml NaCl 0,9% = 0,4mg/10ml
-
-0,04mg/ml : 1,6mg/4ml (4 amp) + 36 ml NaCl 0,9% = 1,6mg/40ml (IVSE)
-
-0,1 mg/ml : 1,2mg/3ml (3 amp) + 9 ml NaCl 0,9% = 1,2mg/12ml (IVSE)
-
-PÉDIATRIE :
-
-10 μg/kg en IV à renouveler 3 fois ou plus sans dépasser 125 μg/kg
-10 μg/kg/heure en IVSE`,
+⚠️ Durée d'action 30–90 min < durée des opioïdes à longue action (méthadone, fentanyl LP) — surveillance prolongée, risque renarcotisation.
+⚠️ Buprénorphine : moins sensible à la naloxone — doubler les doses et associer flumazénil si benzodiazépines`,
   prep:`Par concentration :
 • 0,04 mg/ml : 0,4mg/1ml (1 amp) + 9ml NaCl 0,9% = 0,4mg/10ml
 
@@ -6934,10 +6968,13 @@ En prévention des crises d’épilepsie (souvent chez les traumatisés crânien
 A noter que 1,5 mg de fosphénytoïne = 1 mg d'équivalent phénytoïne (EP)`,
   presc:`ADULTES :
 
-Etat de mal épileptique :
-Dose de charge :
-15 mg/kg d'équivalent phénytoïne (EP) (Modalité de 50 à 100mg/min Maximum)
-Personne âgée > 65ans : 10 à 15 mg/kg en IVSE sur 30min (Modalité de 25mg/min Maximum)
+État de mal épileptique (2e ligne après benzodiazépines) :
+Dose de charge : 20 mg EP/kg IVL (débit max 150 mg EP/min).
+Personne âgée > 65 ans : 15 mg EP/kg, débit max 50–100 mg EP/min.
+Dose d'entretien : 4–5 mg EP/kg/24h.
+
+⚠️ 1,5 mg fosphénytoïne sodique = 1 mg EP (équivalent phénytoïne).
+⚠️ ECG et TA continus pendant perfusion — risque bradycardie, hypotension, BAV.
 
 Dose entretien (selon réponse du patient et concentrations plasmatiques) :
 4 à 5 mg/kg/24h d'équivalent phénytoïne (EP)
@@ -7109,14 +7146,15 @@ Contractures musculaires
 Intoxication aux neurotoxiques`,
   presc:`ADULTES :
 
-Généralement 1mg (diluer avec le solvant) en IVL/IM (Avis médical)
-Renouvelable 4 à 6 fois / jour (avis médical)
+Crise convulsive / EME :
+0,015 mg/kg IVD (max 1,5 mg adulte) — diluer avec le solvant fourni → concentration 0,5 mg/mL.
+Renouvelable 1 fois à 5 min si persistance.
 
-• Agitation/crise comitiale : 1mg IVL sur 1min
-Renouveler 3 fois par jour si nécessaire (avis médical)
+Exemple 70 kg : 1 mg IVD.
+Entretien si EME réfractaire : 0,5–1 mg/h IVSE.
 
-• Etat de mal convulsif : 1 mg IVL (avis médical)
-2 fois possible (avis médical)
+⚠️ Dépression respiratoire — matériel de ventilation disponible.
+⚠️ CI : insuffisance respiratoire sévère, myasthénie, insuffisance hépatique sévère. médical)
 
 ENFANTS (1 À 15 ANS) :
 
@@ -7322,35 +7360,17 @@ Effets :
 • Antipyrétique, analgésique, antiallergique, Antioedémateux, Immunosuppresseur...`,
   presc:`ADULTES :
 
-• IV : 20 à 60mg /Jour
-Renouvèlement possible 2 à 3 fois /jour
+Asthme aigu grave / Épiglottite / Laryngite : 1–2 mg/kg IVL (max 120 mg).
+Choc anaphylactique (adjuvant adrénaline) : 1–2 mg/kg IVL.
+Sclérose en plaques — poussée : 1 g/j IVL 500 mL NaCl sur 3j (protocole neurologique).
+Maladies inflammatoires / Rhumatologie : 0,5–1 mg/kg/j.
+Bolus (HTIC, greffe) : 15–30 mg/kg IVL sur 30 min.
+IM : reconstituer avec 2 mL EPPI.
 
-Possibilité de 120 à 240mg en dose d’attaque sur 10 min (Avis médical)
+Équivalence : 4 mg méthylprednisolone = 5 mg prednisolone = 20 mg hydrocortisone.
+⚠️ Incompatible avec gluconate de calcium, héparine dans même seringue.
 
-• IM : A reconstituer avec 2ml d’EPPI (Avis médical)
-
-Exemples Selon les cas suivant, Généralement :
-
-Asthme/Epiglottite/Laryngite :
-1 à 2mg/kg en IVL (Avis médical)
-
-Choc anaphylactique : jusqu'à 30mg/kg possible en IV
-Possible 1 à 2 fois par jour (Avis médical)
-
-Traumatisme du Rachis : 30mg/kg sur 30 min
-Puis 3 à 6mg/kg en IVSE sur 20h (Avis médical)
-
-ENFANTS : Généralement
-IV : 1 à 3mg/kg/jour (Avis médical)
-
-Préparation possible :
-
-IVL possible sur 10 à 30 min, dilution dans soluté de 100 ml NaCl 0,9% ou G5% (Avis médical)
-
-IVD possible sur 3 à 5 min (Avis médical)
-
-Dyspnée laryngée (prescription déjà rencontrée) :
-Aérosols 20mg dans 5ml NaCl 0,9% (si pas de VVP) (Avis médical)`,
+ENFANTS : 1–2 mg/kg/j (max 60 mg/j). Bolus : 30 mg/kg/j (max 1 g).`,
   prep:`Préparation DILUÉE :
 Flacon 120mg dans 12ml NaCl 0,9% = soit 10mg/ml
 IVL sur 3 min minimum
@@ -8263,6 +8283,1161 @@ Déconseillé si grossesse / allaitement (cf CRAT)`,
   dil:`NaCl 0,9%, G5%, Mannitol 10%, Ringer Lactate`,
   voie:`IV`,
   },
+  ,{nom:'ADENOSINE',dci:'Adénosine (Krenosin®)',
+  ind:`Tachycardie jonctionnelle paroxystique (TSV) — réduction en rythme sinusal après échec des manœuvres vagales.
+Test diagnostique des tachycardies à QRS larges ou fins (après échec manœuvres vagales).`,
+  presc:`Adulte : 6 mg IVD bolus rapide — si échec à 2 min : 12 mg IVD (max).
+Enfant : 0,1 mg/kg IVD (max 6 mg) — si échec : 0,2 mg/kg IVD (max 12 mg).
+⚠️ Bolus strict, veine proximale, rinçage immédiat rapide. Atropine 1 mg prête. ECG continu obligatoire.
+⚠️ Ne pas confondre avec Striadyne® (ATP 20 mg — posologie différente).`,
+  prep:`PUR — ampoule 6 mg/2 mL
+Injection en bolus IVD très rapide sur la veine la plus proximale possible.`,
+  surv:`ECG continu obligatoire. FC, TA, SpO2.
+Effets attendus : asystolie transitoire de 3–10 s, bouffée de chaleur, dyspnée passagère.
+⚠️ CI : BAV 2 et 3, dysfonction sinusale, syndrome de WPW, asthme, BPCO sévère.`,
+  ci:`BAV 2e et 3e degré (sans pacemaker), maladie du sinus, syndrome de WPW, asthme/BPCO sévère, hypotension artérielle.`,
+  dil:`Pur — ne pas diluer`,voie:`IV bolus`,},
+
+  {nom:'AMIODARONE',dci:'Amiodarone',
+  ind:`Troubles du rythme ventriculaires graves : TV, FV réfractaires aux CEE (ACR).
+Troubles du rythme supra-ventriculaires : FA rapide, flutter.`,
+  presc:`ACR (FV/TV réfractaires) : 300 mg IVD pur après 3e choc, 150 mg IVD après 5e choc.
+Trouble du rythme (TV mal tolérée, FA rapide) : dose de charge 150–300 mg IVL 20 min dans G5% strict, entretien 900 mg/24h IVSE.
+⚠️ G5% strict uniquement — incompatible NaCl, bicarb, furosémide, héparine.`,
+  prep:`G5% strict uniquement.
+Charge : 300 mg (2 amp/6 mL) + 14 mL G5% → 20 mL (15 mg/mL), passer en 20 min.
+ACR : pur IVD rapide.
+⚠️ Voie veineuse centrale recommandée (risque phlébite en VVP).`,
+  surv:`ECG continu : allongement QT, bradycardie, BAV. TA, FC.
+Effets secondaires IV : hypotension, bradycardie, phlébit (voie centrale préférée).
+Incompatible : NaCl, Héparine, bicarb, furosémide.`,
+  ci:`Bradycardie sévère, BAV sans pacemaker, hyperthyroïdie, allergie iode.`,
+  dil:`G5% strict uniquement`,voie:`IV`,},
+
+  {nom:'BRIDION',dci:'Sugammadex',
+  ind:`Antagonisation rapide du blocage neuromusculaire induit par rocuronium (Esmeron®) ou vécuronium.
+Indication principale : échec d'intubation / cannot intubate-cannot oxygenate (CICO).`,
+  presc:`Antagonisation immédiate (CICO) : 16 mg/kg IV bolus.
+Antagonisation profonde (T1 < 2 post-tet) : 4 mg/kg IV.
+Antagonisation modérée (T2 ≥ 2 post-tet) : 2 mg/kg IV.`,
+  prep:`PUR — solution prête à l'emploi 200 mg/2 mL.
+Injection IV bolus en 10 secondes.`,
+  surv:`FC, FR, SpO2, récupération neuromusculaire. TA.
+⚠️ Récurrence possible du bloc si dose insuffisante. Surveillance 30 min.`,
+  ci:`Hypersensibilité. Insuffisance rénale sévère (DFG < 30 mL/min) — utilisation possible si urgence vitale.`,
+  dil:`Pur`,voie:`IV bolus`,},
+
+  {nom:'BUSCOPAN',dci:'Butylscopolamine (Hyoscine)',
+  ind:`Antispasmodique — coliques néphrétiques, coliques hépatiques, spasmes digestifs douloureux.`,
+  presc:`Adulte : 20 mg IM ou IV lente (1 min minimum).
+Peut être renouvelé 3 fois/24h. Max 100 mg/j.
+Enfant > 6 ans : 0,3 mg/kg IM/IV (max 20 mg).`,
+  prep:`PUR — ampoule 20 mg/1 mL.
+Dilution possible dans 10 mL NaCl 0,9% pour IVL.`,
+  surv:`TA, FC. Rétention urinaire chez l'homme. Effets atropiniques : bouche sèche, tachycardie, mydriase.`,
+  ci:`Glaucome angle fermé, adénome prostate, occlusion intestinale, mégacôlon toxique, tachycardie.`,
+  dil:`NaCl 0,9%`,voie:`IV lente / IM`,},
+
+  {nom:'CORTANCYL',dci:'Prednisone',
+  ind:`Corticothérapie orale anti-inflammatoire et immunosuppressive — asthme, BPCO exacerbation, réactions allergiques sévères, maladies inflammatoires.`,
+  presc:`Adulte : 0,5 à 1 mg/kg/j PO en 1 prise le matin (max 80 mg/j).
+Asthme aigu : 40–60 mg/j 5–10 jours.
+Équivalence : 5 mg prednisone = 4 mg méthylprednisolone = 0,75 mg dexaméthasone.`,
+  prep:`Comprimés 1, 5, 20 mg — voie orale uniquement.`,
+  surv:`Glycémie, TA, poids. Effets secondaires : hyperglycémie, HTA, troubles du sommeil, agitation.
+Décroissance progressive si traitement > 10 jours.`,
+  ci:`Infection non contrôlée (relative), ulcère gastrique actif (relative), psychose aiguë.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'DECTANCYL',dci:'Dexaméthasone',
+  ind:`HTIC, œdème cérébral péritumoral, méningite bactérienne (adjuvant), nausées chimio, insuffisance surrénale, choc septique réfractaire, extubation (prévention laryngospasme).`,
+  presc:`Méningite : 0,15 mg/kg IV/6h (max 10 mg) pendant 4 jours.
+HTIC/œdème : 8–16 mg IV puis 4 mg/6h.
+Adulte standard : 4–8 mg IV ou IM.
+Enfant : 0,15–0,6 mg/kg/j.`,
+  prep:`Ampoule 4 mg/1 mL ou 20 mg/5 mL.
+Peut être dilué dans NaCl 0,9% ou G5%.`,
+  surv:`Glycémie, TA. Effets secondaires : hyperglycémie, agitation, HTA.
+⚠️ Pas d'effet minéralocorticoïde — ne pas utiliser pour insuffisance surrénale aiguë.`,
+  ci:`Infections fongiques systémiques (relative en urgence).`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV / IM / PO`,},
+
+  {nom:'DOLIPRANE',dci:'Paracétamol',
+  ind:`Antalgique palier 1 et antipyrétique — douleurs légères à modérées, fièvre.`,
+  presc:`Adulte : 1 g PO ou IV/6h (max 4 g/j). Réduire à 500 mg si < 50 kg, insuffisance hépatique, alcoolisme.
+Enfant : 15 mg/kg/6h PO (max 60 mg/kg/j).
+IV : 1 g en 15 min (poche 100 mL prête).`,
+  prep:`IV : poche prête à l'emploi 1 g/100 mL — passer en 15 min.
+PO : comprimés 500 mg, 1 g. Suppositoires.`,
+  surv:`Efficacité antalgique/antipyrétique. Pas de surveillance particulière aux doses thérapeutiques.
+⚠️ Hépatotoxicité en cas de surdosage. Antidote : N-acétylcystéine.`,
+  ci:`Insuffisance hépatocellulaire sévère.`,
+  dil:`Prête à l'emploi`,voie:`IV / PO / rectal`,},
+
+  {nom:'DROLEPTAN',dci:'Dropéridol',
+  ind:`Antiémétique puissant. Sédation légère en préanesthésie. Agitation en association.`,
+  presc:`Antiémétique : 0,625–1,25 mg IV.
+Sédation/analgésie : 2,5 mg IV lente, renouvelable.
+PCA morphine : 2,5 mg/50 mL avec morphine 50 mg.`,
+  prep:`Ampoule 2,5 mg/1 mL.
+Dilution dans 10 mL NaCl pour IVL.`,
+  surv:`ECG (allongement QT +++). TA, FC, sédation, signes extrapyramidaux.
+⚠️ Risque torsade de pointe — ECG préalable, ne pas associer à d'autres allongeants QT.`,
+  ci:`QT long, hypokaliémie, bradycardie, phéochromocytome, maladie de Parkinson.`,
+  dil:`NaCl 0,9%`,voie:`IV lente`,},
+
+  {nom:'FLAGYL',dci:'Métronidazole',
+  ind:`Infections anaérobies, infections à germes sensibles (perioste, intraabdominales, gynécologiques, SNC). Traitement de l'encéphalopathie hépatique.`,
+  presc:`Adulte : 500 mg IV/8h ou 1 g IV/12h (dose de charge 15 mg/kg).
+Poche 500 mg/100 mL prête à l'emploi — passer en 30–60 min.`,
+  prep:`Poche 500 mg/100 mL — prête à l'emploi.
+Passer en 30 à 60 min minimum.`,
+  surv:`Effets secondaires : nausées, goût métallique, névrite périphérique si prolongé.
+⚠️ Disulfirame-like avec alcool — abstinence stricte pendant et 48h après traitement.`,
+  ci:`Grossesse 1er trimestre (relative), allaitement, association alcool.`,
+  dil:`Prête à l'emploi`,voie:`IV perf`,},
+
+  {nom:'HALDOL',dci:'Halopéridol',
+  ind:`Agitation psychomotrice, états délirants aigus, delirium. Nausées et vomissements réfractaires.`,
+  presc:`Agitation : 5–10 mg IM ou IV lente, renouvelable à 30 min (max 20 mg/24h).
+Agitation sévère : 5 mg IV + benzodiazépine.
+Nausées : 0,5–2 mg IM/IV.
+Sujet âgé : réduire 50%.`,
+  prep:`Ampoule 5 mg/1 mL.
+Diluer dans 10 mL NaCl 0,9% pour IVL.`,
+  surv:`ECG (allongement QT). Signes extrapyramidaux (akathisie, dystonie aiguë — antidote : biperiden). Sédation, PA, FC.`,
+  ci:`QT long, maladie de Parkinson, syndrome malin des neuroleptiques, épilepsie non contrôlée.`,
+  dil:`NaCl 0,9%`,voie:`IM / IV lente`,},
+
+  {nom:'INTRALIPIDE',dci:'Émulsion lipidique 20%',
+  ind:`Intoxication aux anesthésiques locaux (lidocaïne, bupivacaïne, ropivacaïne) avec toxicité systémique (convulsions, ACR).`,
+  presc:`Bolus : 1,5 mL/kg IVD en 1 min (≈ 100 mL adulte 70 kg).
+Perfusion : 0,25 mL/kg/min IVSE pendant 30–60 min.
+Peut répéter le bolus 2× à 5 min si ACR persiste.
+Dose cumulée max : 12 mL/kg.`,
+  prep:`Solution prête à l'emploi 20% — flacon 100 ou 500 mL.`,
+  surv:`FC, TA, ECG. Réponse hémodynamique. Lipémie (surveillance).
+⚠️ En cas d'ACR : poursuivre RCP + ACLS en parallèle.`,
+  ci:`Aucune en contexte d'urgence vitale. Précaution si troubles sévères métabolisme des lipides.`,
+  dil:`Prête à l'emploi`,voie:`IV`,},
+
+  {nom:'IXPRIM',dci:'Tramadol + Paracétamol (37,5 mg + 325 mg)',
+  ind:`Antalgique palier 2 — douleurs modérées à sévères en PO.`,
+  presc:`Adulte : 1–2 cp PO toutes les 6h (max 8 cp/j soit 300 mg tramadol / 2 600 mg paracétamol).
+Ne pas dépasser 4 g/j de paracétamol toutes sources confondues.`,
+  prep:`Comprimés PO uniquement.`,
+  surv:`Sédation, nausées, constipation. Risque convulsif (tramadol). Surveillance hépatique si traitement prolongé.`,
+  ci:`Épilepsie non contrôlée, IMAO < 14 j, insuffisance respiratoire sévère, insuffisance hépatique sévère.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'KARDEGIC',dci:'Acide acétylsalicylique (Lysine)',
+  ind:`Antiagrégant plaquettaire — SCA, AVC ischémique, prévention secondaire.
+Antalgique/antipyrétique à forte dose (moins utilisé).`,
+  presc:`SCA — dose de charge (patient naïf à l'aspirine) : 150–300 mg PO ou IV.
+Puis entretien 75–100 mg/j à vie.
+AVC ischémique (hors hémorragique) : 300 mg PO ou IV en phase aiguë.
+Prévention secondaire : 75–100 mg/j PO.
+⚠️ ESC 2023 : dose de charge 150–300 mg (non 500 mg) pour limiter le risque hémorragique.
+
+Source : ESC Guidelines ACS 2023, RCP ANSM.`,
+  prep:`Sachet 160 mg ou 500 mg — dissolution dans eau pour IV ou prise PO.
+IV : diluer dans 5–10 mL eau PPI, passer en IVL 2–3 min.`,
+  surv:`Risque hémorragique. Surveillance si association à d'autres antiagrégants ou anticoagulants. Gastrotoxicité.`,
+  ci:`Ulcère gastroduodénal actif, hémophilie, hypersensibilité AINS, 3e trimestre grossesse.`,
+  dil:`Eau PPI`,voie:`IV lente / PO`,},
+
+  {nom:'LARGACTIL',dci:'Chlorpromazine',
+  ind:`Agitation psychomotrice sévère, états psychotiques aigus, hoquet rebelle, nausées réfractaires.`,
+  presc:`Agitation : 25–50 mg IM profond. Max 150 mg/24h.
+IV (rare, en réanimation) : 25 mg dilué dans 250 mL NaCl, perfusion lente sous surveillance ECG.
+Sujet âgé : réduire 50–75%.`,
+  prep:`Ampoule 25 mg/5 mL.
+IM profond (muscle large). Pour IV : diluer 25 mg dans 250 mL NaCl 0,9%.`,
+  surv:`TA (hypotension orthostatique +++), ECG, signes extrapyramidaux, sédation.
+⚠️ Ne jamais injecter pur IV — risque d'hypotension sévère.`,
+  ci:`QT long, maladie de Parkinson, phéochromocytome, glaucome angle fermé.`,
+  dil:`NaCl 0,9% — OBLIGATOIRE pour IV`,voie:`IM profond (IV dilué, rare)`,},
+
+  {nom:'LOVENOX',dci:'Énoxaparine sodique',
+  ind:`Prévention et traitement des thromboses veineuses profondes (TVP) et embolie pulmonaire (EP). SCA (NSTEMI, STEMI).`,
+  presc:`Préventif : 40 mg/j SC (risque élevé) ou 20 mg/j SC (risque modéré). 1 injection/j.
+Curatif TVP/EP : 100 UI/kg (= 1 mg/kg) × 2/j SC, ou 150 UI/kg × 1/j SC.
+SCA NSTEMI : 1 mg/kg × 2/j SC (max 100 mg pour les 2 premières injections).
+STEMI + fibrinolyse : 30 mg IV bolus + 1 mg/kg SC dans l'heure, puis 1 mg/kg/12h (max 100 mg).
+⚠️ Réduire à 1 mg/kg × 1/j si DFG 15–30 mL/min.
+⚠️ CI si DFG < 15 mL/min.
+Antidote : sulfate de protamine (neutralisation partielle ~60–80%).
+
+Source : RCP ANSM, GIHP RFE mai 2024.`,
+  prep:`Seringues pré-remplies 20, 40, 60, 80, 100 mg. Injection SC abdomen.`,
+  surv:`NFS plaquettes (TIH J3–J5). Activité anti-Xa si nécessaire. Signes hémorragiques.
+Antidote : sulfate de protamine (neutralisation partielle ~60–80%).`,
+  ci:`TIH antérieure, hémorragie active, endocardite bactérienne, DFG < 15 mL/min.`,
+  dil:`SC uniquement`,voie:`SC`,},
+
+  {nom:'MANNITOL',dci:'Mannitol',
+  ind:`Hypertension intracrânienne (HTIC), œdème cérébral, oligurie de l'insuffisance rénale aiguë.`,
+  presc:`HTIC : 0,25–1 g/kg en IVL 20–30 min (solution 20% : 1,25–5 mL/kg).
+Répétable toutes les 4–6h selon osmolarité sérique (objectif < 320 mOsm/L).`,
+  prep:`Solution 10% ou 20% prête à l'emploi (ou flacon à réchauffer si cristaux).
+⚠️ Filtrer si cristallisation visible. Ne pas mélanger avec d'autres médicaments dans la même voie. Ne pas associer au sang.`,
+  surv:`Osmolarité sérique (max 320 mOsm/L), ionogramme, diurèse, PIC si monitorée.
+⚠️ Risque de rebond HTIC si arrêt brutal.`,
+  ci:`Insuffisance cardiaque décompensée, déshydratation sévère, hyperosmolarité > 320.`,
+  dil:`Prête à l'emploi — ne pas diluer`,voie:`IV perf`,},
+
+  {nom:'METIBLO',dci:'Bleu de méthylène (Chlorure de méthylthioninium)',
+  ind:`Méthémoglobinémie symptomatique ou ≥ 30% (intoxication par nitrates, nitrites, aniline, poppers, lidocaïne...).`,
+  presc:`1–2 mg/kg IVL 15 min dans G5% strict — peut répéter 1h après si persistance.
+Max cumulé : 7 mg/kg.
+⚠️ G5% strict — NaCl contre-indiqué.`,
+  prep:`Ampoule 1% (10 mg/mL). Diluer dans G5% pour concentration finale 1 mg/mL.`,
+  surv:`SpO2 (faux positif possible au pulsioxymètre — utiliser CO-oxymètre). Méthémoglobinémie. FC, TA.
+⚠️ Inefficace si déficit G6PD.`,
+  ci:`Déficit en G6PD, méthémoglobinémie par chlorate (inefficace).`,
+  dil:`G5% strict`,voie:`IV lente`,},
+
+  {nom:'NESDONAL',dci:'Thiopental sodique',
+  ind:`Induction anesthésique (ISR). Traitement du status épileptique réfractaire. HTIC réfractaire (coma barbiturique).`,
+  presc:`Induction : 3–5 mg/kg IVD lente.
+Status épileptique réfractaire : 100–250 mg IVL, puis 0,5–5 mg/kg/h IVSE.`,
+  prep:`Poudre à reconstituer : 500 mg dans 20 mL eau PPI → 25 mg/mL.
+Filtrer avant injection.`,
+  surv:`TA (hypotension +++), FR, SpO2, ECG. Sédation profonde.
+⚠️ Dépression cardiovasculaire majeure — avoir vasopresseurs prêts.`,
+  ci:`Choc cardiogénique, insuffisance surrénale, porphyrie, allergie aux barbituriques.`,
+  dil:`Eau PPI`,voie:`IV`,},
+
+  {nom:'NIPRIDE',dci:'Nitroprussiate de sodium',
+  ind:`Urgence hypertensive sévère, dissection aortique (associé à bêtabloquant), insuffisance cardiaque avec surcharge.`,
+  presc:`0,3–0,5 µg/kg/min IVSE, augmenter par paliers de 0,5 µg/kg/min toutes les 5 min. Max 10 µg/kg/min.
+⚠️ Durée limitée — risque d'intoxication cyanure si > 10 µg/kg/min ou > 72h.`,
+  prep:`50 mg dans 250 mL G5% (200 µg/mL). Protéger de la lumière obligatoirement.`,
+  surv:`TA invasive recommandée. Dosage thiocyanates si > 72h. Acidose métabolique = signe d'intoxication.
+⚠️ Antidote intox cyanure : hydroxocobalamine (Cyanokit®).`,
+  ci:`Anémie sévère, insuffisance hépatique sévère, atrophie optique de Leber. Pas de forme IV disponible — ne pas utiliser pur.`,
+  dil:`G5% uniquement — protéger de la lumière`,voie:`IVSE`,},
+
+  {nom:'NOZINAN',dci:'Lévomépromazine',
+  ind:`Agitation, anxiété sévère, soins palliatifs (sédation), nausées réfractaires.`,
+  presc:`Agitation : 25–50 mg IM profond toutes les 8–12h.
+Soins palliatifs/sédation : 12,5–50 mg/24h IVSE ou SC.
+Sujet âgé : réduire 50%.`,
+  prep:`Ampoule 25 mg/1 mL. IM profond ou SC. Diluer dans NaCl si IVSE.`,
+  surv:`TA (hypotension orthostatique), ECG, sédation, signes extrapyramidaux.`,
+  ci:`QT long, glaucome angle fermé, rétention urinaire.`,
+  dil:`NaCl 0,9%`,voie:`IM / SC / IVSE`,},
+
+  {nom:'ONDANSETRON',dci:'Ondansétron',
+  ind:`Nausées et vomissements post-opératoires, induits par chimiothérapie, gastroparésie sévère.`,
+  presc:`Adulte : 4–8 mg IV lente (2–5 min) ou PO. Max 32 mg/j.
+Enfant ≥ 6 mois : 0,1 mg/kg IV (max 4 mg).`,
+  prep:`Ampoule 4 mg/2 mL ou 8 mg/4 mL. PO : comprimés 4 et 8 mg.
+Peut diluer dans NaCl 0,9% ou G5% pour IVL.`,
+  surv:`ECG si patient à risque QT long. FC, TA.
+⚠️ Allongement QT dose-dépendant — ne pas dépasser 32 mg/j IV.`,
+  ci:`QT long congénital, hypokaliémie, hypomagnésémie non corrigée.`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV lente / PO`,},
+
+  {nom:'PANTOPRAZOLE',dci:'Pantoprazole',
+  ind:`Ulcère gastroduodénal, hémorragie digestive haute (prévention/traitement), œsophagite peptique, syndrome de Zollinger-Ellison. En urgence : hémostase ulcéreuse après endoscopie.`,
+  presc:`Standard : 40 mg IV/j en IVL 15 min ou PO.
+Hémorragie digestive haute : dose de charge 80 mg IVL 15 min, puis 8 mg/h IVSE pendant 72h.`,
+  prep:`Flacon poudre 40 mg à reconstituer dans 10 mL NaCl 0,9%, puis diluer dans 100 mL pour IVL.`,
+  surv:`Efficacité clinique (douleur, hematemèse). Magnésémie si traitement prolongé.`,
+  ci:`Hypersensibilité aux IPP. Association avec atazanavir, nelfinavir.`,
+  dil:`NaCl 0,9%`,voie:`IV / PO`,},
+
+  {nom:'PLAVIX',dci:'Clopidogrel',
+  ind:`Antiagrégant plaquettaire — SCA, angioplastie coronaire (stent), prévention AVC/IDM secondaire, AOMI.`,
+  presc:`SCA (si ticagrélor/prasugrel impossible ou sujets âgés ≥ 70 ans) : dose de charge 300–600 mg PO, puis 75 mg/j.
+AVC ischémique / AOMI : 75 mg/j PO.
+Stent coronaire (DAPT) : 75 mg/j × 12 mois.
+⚠️ ESC 2023 : préférer ticagrélor ou prasugrel si PCI disponible.
+⚠️ Arrêt 5–7 jours avant chirurgie élective.
+
+Source : ESC Guidelines ACS 2023.`,
+  prep:`Comprimés 75 mg et 300 mg — voie orale uniquement.`,
+  surv:`Risque hémorragique. Numération plaquettes. Purpura thrombotique thrombocytopénique (PTT) rare.
+⚠️ Délai d'action 6h après prise. Arrêt 5–7j avant chirurgie élective.`,
+  ci:`Hémorragie active, insuffisance hépatique sévère, grossesse.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'PRADAXA',dci:'Dabigatran étexilate',
+  ind:`Anticoagulant oral direct (AOD anti-IIa) — FANV, TVP/EP, prévention post-chirurgicale.`,
+  presc:`FANV : 150 mg × 2/j PO (110 mg × 2/j si âge ≥ 80 ans ou risque hémorragique).
+⚠️ Antidote spécifique : Praxbind® (idarucizumab) 5 g IV en urgence.`,
+  prep:`Gélules PO uniquement — ne pas écraser.`,
+  surv:`TCA (reflet qualitatif), temps de thrombine ou temps d'écarine pour dosage. Fonction rénale (élimination rénale 80%).`,
+  ci:`DFG < 30 mL/min, hémorragie active, lésion à risque hémorragique significatif.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'PRAXBIND',dci:'Idarucizumab',
+  ind:`Antidote spécifique du dabigatran (Pradaxa®) — en urgence hémorragique ou chirurgie urgente.`,
+  presc:`5 g IV (2 flacons de 2,5 g/50 mL) — injection IV directe ou perfusion courte consécutive.
+⚠️ Dose unique. Peut être répété une fois si coagulation non normalisée.`,
+  prep:`Solution prête à l'emploi 2,5 g/50 mL — pas de dilution.
+2 flacons à passer consécutivement.`,
+  surv:`TCA, temps de thrombine. Hémostase clinique. Reprise possible du dabigatran 24h après si nécessaire.`,
+  ci:`Hypersensibilité à l'idarucizumab.`,
+  dil:`Prête à l'emploi — ne pas diluer`,voie:`IV direct`,},
+
+  {nom:'ROCEPHINE',dci:'Ceftriaxone',
+  ind:`Méningite bactérienne, sepsis/choc septique, pneumonie communautaire grave, infection ostéo-articulaire, gonococcie.`,
+  presc:`Adulte : 1–2 g IV/24h (méningite : 2 g × 2/j).
+Enfant : 50–100 mg/kg/j (max 4 g/j, méningite 100 mg/kg/j).
+Gonococcie : 250–500 mg IM dose unique.`,
+  prep:`Flacon 500 mg ou 1 g poudre.
+IV : reconstituer dans 10 mL EPPI, puis diluer dans 100 mL NaCl 0,9% ou G5%. IVL 30 min.
+IM : reconstituer dans lidocaïne 1% (1 g dans 3,5 mL).`,
+  surv:`Allergie (cross-réactivité pénicillines ~1–2%). Biliaire (lithiase réversible si traitement prolongé). NFS.`,
+  ci:`Allergie céphalosporines, hyperbilirubinémie néonatale, nouveau-né (< 41 SA) avec perfusion de calcium IV.`,
+  dil:`NaCl 0,9%, G5% (IV) — lidocaïne 1% (IM)`,voie:`IV / IM`,},
+
+  {nom:'SOLUPRED',dci:'Prednisolone',
+  ind:`Corticothérapie systémique — asthme aigu grave, BPCO exacerbée, réaction allergique, maladies inflammatoires, greffe.`,
+  presc:`Adulte : 1 mg/kg/j PO ou IV (max 80 mg/j).
+Asthme : 40–60 mg/j × 5–10 jours.
+Équivalence : 5 mg prednisolone = 4 mg méthylprednisolone = 0,75 mg dexaméthasone.`,
+  prep:`Comprimés effervescents 5 et 20 mg. Solution buvable 1 mg/mL.
+IV : ampoule injectable (Hydrocortancyl® 2,5% suspension).`,
+  surv:`Glycémie, TA, poids. Insomnie, agitation. Décroissance progressive si traitement prolongé.`,
+  ci:`Infection non contrôlée (relative). Vaccin vivant atténué.`,
+  dil:`Voie orale principalement`,voie:`PO / IV`,},
+
+  {nom:'TAVANIC',dci:'Lévofloxacine',
+  ind:`Pneumonie communautaire, exacerbation BPCO, sinusite, infections urinaires compliquées, infections cutanées.`,
+  presc:`Adulte : 500 mg IV/24h ou 500 mg × 2/j si infection sévère. IVL 60 min.
+Pneumonie : 500 mg/j × 7–14 jours.`,
+  prep:`Poche 500 mg/100 mL ou 250 mg/50 mL prête à l'emploi.
+IVL strictement sur 60 min minimum.`,
+  surv:`ECG (QT long). Tendinopathie (risque rupture). Glycémie chez diabétiques. NFS si prolongé.
+⚠️ Photosensibilisation — protection solaire.`,
+  ci:`QT long, tendons fragilisés, antécédent de tendinopathie aux fluoroquinolones, épilepsie.`,
+  dil:`Prête à l'emploi`,voie:`IV perf (60 min) / PO`,},
+
+  {nom:'TAZOCILLINE',dci:'Pipéracilline + Tazobactam',
+  ind:`Sepsis, pneumonie nosocomiale, infections abdominales, cutanées, urinaires sévères à germes sensibles (dont pseudomonas).`,
+  presc:`Adulte : 4 g/0,5 g IV/8h (infections sévères : /6h). IVL 30 min.
+Doses augmentées : 4 g/0,5 g en perfusion prolongée 4h (PK/PD optimisé).`,
+  prep:`Flacon 4 g/0,5 g poudre. Reconstituer dans 20 mL EPPI, puis diluer dans 100 mL NaCl 0,9%. IVL 30 min.`,
+  surv:`Allergie pénicillines (cross-réactivité). NFS (neutropénie si prolongé). Ionogramme (hypokaliémie).`,
+  ci:`Allergie pénicillines ou bêtalactamines. Insuffisance rénale sévère (adapter doses).`,
+  dil:`NaCl 0,9%`,voie:`IV perf`,},
+
+  {nom:'TICAGRELOR',dci:'Ticagrélor',
+  ind:`Antiagrégant plaquettaire — SCA (NSTEMI, STEMI), angioplastie coronaire en association avec aspirine.`,
+  presc:`Dose de charge : 180 mg PO, puis 90 mg × 2/j pendant 12 mois.`,
+  prep:`Comprimés 90 mg — voie orale uniquement.`,
+  surv:`Dyspnée (fréquente, généralement légère, régressive). Risque hémorragique. Bradycardie.
+⚠️ Arrêt 5 jours avant chirurgie élective.`,
+  ci:`AVC hémorragique, saignement actif, insuffisance hépatique sévère.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'TIENAM',dci:'Imipenème + Cilastatine',
+  ind:`Antibiothérapie large spectre — infections sévères polymicrobiennes, nosocomiales, choc septique, bactéries multi-résistantes.`,
+  presc:`Adulte : 500 mg IV/6h ou 1 g IV/8h. IVL 30–60 min (1 g sur 60 min).
+Max 4 g/j en infections sévères.`,
+  prep:`Flacon 500 mg poudre. Reconstituer dans 100 mL NaCl 0,9% ou G5%. IVL 30 min (500 mg) ou 60 min (1 g).`,
+  surv:`Allergie bêtalactamines. Risque convulsif (surtout si IRA non corrigée ou ATCD épilepsie). NFS.`,
+  ci:`Allergie aux bêtalactamines sévère. Adapter doses si insuffisance rénale.`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV perf`,},
+
+  {nom:'VOGALENE',dci:'Métopimazine',
+  ind:`Nausées et vomissements — post-opératoires, chimio, grossesse, vertiges.`,
+  presc:`Adulte : 7,5 mg IV lente ou IM, renouvelable. Max 30 mg/j.
+PO : 15 mg lyoc × 3/j.
+Enfant > 25 kg : 0,3 mg/kg IM.`,
+  prep:`Ampoule 7,5 mg/1,5 mL. Diluer dans 10 mL NaCl pour IVL.`,
+  surv:`Signes extrapyramidaux (rares). Sédation légère. TA.`,
+  ci:`Glaucome angle fermé (relative), rétention urinaire, association aux dopaminergiques.`,
+  dil:`NaCl 0,9%`,voie:`IV lente / IM / PO`,},
+
+  {nom:'VOLTARENE',dci:'Diclofénac',
+  ind:`Anti-inflammatoire AINS — douleurs rhumatismales, coliques (néphrétiques, hépatiques), dysménorrhées, migraines.`,
+  presc:`Adulte : 75 mg IM profond (1 fois/j max 2j) ou 75 mg IV perf (30 min).
+PO : 50 mg × 2–3/j ou 75 mg LP × 1–2/j.`,
+  prep:`Ampoule 75 mg/3 mL pour IM ou IV (diluer dans 100–500 mL NaCl 0,9%). PO : comprimés.`,
+  surv:`Fonction rénale, TA, signes digestifs. Risque cardiovasculaire.
+⚠️ AINS — prudence si IRC, sujet âgé, ICA, déshydratation.`,
+  ci:`IRC sévère, insuffisance hépatique sévère, ulcère actif, 3e trimestre grossesse, insuffisance cardiaque.`,
+  dil:`NaCl 0,9%`,voie:`IM / IV perf / PO`,},
+
+  {nom:'XARELTO',dci:'Rivaroxaban',
+  ind:`Anticoagulant oral direct (AOD anti-Xa) — FANV, TVP/EP, prévention post-chirurgicale.`,
+  presc:`FANV : 20 mg/j PO avec repas du soir (15 mg si DFG 15–49).
+TVP/EP : 15 mg × 2/j × 3 sem, puis 20 mg/j.
+⚠️ Antidote : Andexxa® (andexanet alfa) ou PPSB en urgence.`,
+  prep:`Comprimés PO — à prendre avec nourriture.`,
+  surv:`Pas de surveillance biologique standard (anti-Xa non calibré pour rivaroxaban en routine). Fonction rénale.`,
+  ci:`DFG < 15 mL/min, hémorragie active, grossesse.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'XYLOCARD',dci:'Lidocaïne',
+  ind:`Troubles du rythme ventriculaires résistants (TV, FV réfractaires) après amiodarone. Intoxication aux anesthésiques locaux (en association Intralipide).`,
+  presc:`Adulte : dose de charge 1–1,5 mg/kg IVD (max 100 mg), entretien 1–4 mg/min IVSE.
+⚠️ Dose cumulative max 3 mg/kg.`,
+  prep:`Ampoule 100 mg/5 mL (2%) ou 200 mg/10 mL.
+Entretien : 4 × 100 mg dans 500 mL NaCl → 0,8 mg/mL (ou 4 amp dans 20 mL → 40 mg/mL concentré).`,
+  surv:`ECG continu. Signes toxicité CNS (convulsions, somnolence). TA, FC.`,
+  ci:`BAV haut degré sans pacemaker, bloc sino-auriculaire, porphyrie aiguë.`,
+  dil:`NaCl 0,9%`,voie:`IV`,},
+
+  {nom:'ELIQUIS',dci:'Apixaban',
+  ind:`Anticoagulant oral direct (AOD anti-Xa) — FANV, TVP/EP, prévention post-chirurgicale.`,
+  presc:`FANV : 5 mg × 2/j PO (2,5 mg × 2/j si ≥ 2 critères : âge ≥ 80 ans, poids ≤ 60 kg, créat ≥ 133 µmol/L).
+TVP/EP aiguë : 10 mg × 2/j × 7j, puis 5 mg × 2/j.
+⚠️ Antidote : Andexxa® (andexanet alfa).`,
+  prep:`Comprimés PO uniquement.`,
+  surv:`Pas de surveillance biologique standard. Fonction rénale. Signes hémorragiques.`,
+  ci:`DFG < 15 mL/min, hémorragie active, grossesse.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'PREVISCAN',dci:'Fluindione',
+  ind:`Anticoagulant oral (AVK) — FANV, TVP/EP, valvulopathie mitrale, prévention thromboembolique.`,
+  presc:`Dose initiale : 20 mg/j PO. Adapter selon INR (cible habituelle 2–3, mécanique 3–4,5).
+⚠️ Antidote : vitamine K1 PO/IV + PPSB si urgence hémorragique.`,
+  prep:`Comprimés 20 mg — voie orale.`,
+  surv:`INR régulier (hebdomadaire en phase initiation, mensuel si stable). Signes hémorragiques.
+⚠️ Nombreuses interactions médicamenteuses.`,
+  ci:`Grossesse, hémorragie active, chirurgie à risque hémorragique élevé imminente.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  // Fiches minimales (à compléter)
+  {nom:'ALDACTONE',dci:'Spironolactone',
+  ind:`Diurétique épargneur de potassium — insuffisance cardiaque, hyperaldostéronisme, ascite cirrhotique.`,
+  presc:`25–100 mg/j PO en 1–2 prises. Max 400 mg/j.`,
+  prep:`Comprimés 25, 50, 75, 100 mg — voie orale.`,
+  surv:`Kaliémie ++ (risque hyperkaliémie). Fonction rénale, TA, natriémie.`,
+  ci:`Hyperkaliémie, IRC sévère, association éplérénone.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
+
+  {nom:'ADVIL',dci:'Ibuprofène',
+  ind:`AINS — douleurs légères à modérées, fièvre, inflammation.`,
+  presc:`Adulte : 400 mg × 3/j PO avec repas (max 1 200 mg/j automédication, 2 400 mg/j prescrit).
+Enfant : 10 mg/kg × 3/j (max 30 mg/kg/j).`,
+  prep:`Comprimés, gélules, suspension buvable — voie orale.`,
+  surv:`Fonction rénale, signes digestifs. Risque cardiovasculaire.`,
+  ci:`Ulcère actif, IRC sévère, 3e trimestre grossesse, insuffisance cardiaque, aspirine si asthme.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'COUMADINE',dci:'Warfarine',
+  ind:`AVK — FANV, TVP/EP, prothèse valvulaire mécanique.`,
+  presc:`Dose initiale 5 mg/j PO, adapter selon INR (cible 2–3 ou 3–4,5 selon indication).`,
+  prep:`Comprimés 2 et 5 mg — voie orale.`,
+  surv:`INR. Antidote urgence : vitamine K1 IV + PPSB (Kanokad® ou Octaplex®).`,
+  ci:`Grossesse, hémorragie active, HTA sévère non contrôlée.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'DOMPERIDONE',dci:'Dompéridone',
+  ind:`Nausées, vomissements, gastroparésie.`,
+  presc:`10 mg PO × 3/j avant repas. Max 30 mg/j. Durée max 7 jours.`,
+  prep:`Comprimés 10 mg, suspension buvable — voie orale.`,
+  surv:`ECG si prolongé (risque QT). Signes extrapyramidaux rares.`,
+  ci:`Prolactinome, QT long, association aux médicaments allongeant QT.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'DUSPATALIN',dci:'Mébévérine',
+  ind:`Syndrome de l'intestin irritable, spasmes digestifs.`,
+  presc:`200 mg LP × 2/j PO avant repas.`,
+  prep:`Gélules LP 200 mg — voie orale.`,
+  surv:`Efficacité clinique. Peu d'effets secondaires.`,
+  ci:`Hypersensibilité, iléus paralytique.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'FRAGMINE',dci:'Daltéparine sodique',
+  ind:`Prévention et traitement TVP/EP. SCA.`,
+  presc:`Préventif : 2 500–5 000 UI SC/j (1 injection/j).
+Curatif TVP/EP : 100 UI/kg × 2/j SC OU 200 UI/kg × 1/j SC (max 18 000 UI/j).
+SCA instable/NSTEMI : 120 UI/kg × 2/j SC (max 10 000 UI × 2/j).
+⚠️ CI si DFG < 30 mL/min. Adapter si 30–50 mL/min.
+Antidote : sulfate de protamine (neutralisation partielle).
+
+Source : RCP ANSM COMEDIMS APHP 2014.`,
+  prep:`Seringues pré-remplies SC.`,
+  surv:`Plaquettes (TIH). Anti-Xa si nécessaire. Signes hémorragiques. Antidote : protamine.`,
+  ci:`TIH, hémorragie active, endocardite bactérienne.`,
+  dil:`SC uniquement`,voie:`SC`,},
+
+  {nom:'FRAXIPARINE',dci:'Nadroparine calcique',
+  ind:`Prévention et traitement TVP/EP. SCA instable.`,
+  presc:`Préventif risque modéré : 2 850 UI/j SC (0,3 mL).
+Préventif risque élevé : 38 UI/kg J1–J3, puis 57 UI/kg/j à partir J4.
+Curatif TVP/EP : 95 UI/kg × 2/j SC.
+Curatif 1 injection/j (Fraxodi®) : 171 UI/kg × 1/j.
+SCA instable : 86 UI/kg × 2/j SC.
+⚠️ CI si DFG < 30 mL/min. Pas d'antidote spécifique complet.
+
+Source : RCP ANSM, GIHP RFE mai 2024.`,
+  prep:`Seringues pré-remplies 0,2 mL à 1 mL.`,
+  surv:`Plaquettes (TIH J3–J5). Signes hémorragiques. Anti-Xa si nécessaire.`,
+  ci:`TIH antérieure, hémorragie active, DFG < 30 mL/min.`,
+  dil:`SC uniquement`,voie:`SC`,},
+
+  {nom:'INNOHEP',dci:'Tinzaparine sodique',
+  ind:`Prévention et traitement TVP/EP.`,
+  presc:`Préventif : 4 500 UI/j SC. Curatif : 175 UI/kg × 1/j SC.`,
+  prep:`Seringues pré-remplies.`,
+  surv:`Plaquettes. Signes hémorragiques.`,
+  ci:`TIH, hémorragie active.`,
+  dil:`SC uniquement`,voie:`SC`,},
+
+  {nom:'KANOKAD',dci:'PPSB (Facteurs II, VII, IX, X)',
+  ind:`Antidote AVK en urgence hémorragique ou chirurgie urgente. Reversal anticoagulants.`,
+  presc:`Dose selon INR et poids (25 UI/kg si INR 2–3,9 ; 35 UI/kg si INR 4–6 ; 50 UI/kg si INR > 6).
+IVL 3 mg/kg/min (max 210 UI/min).`,
+  prep:`Flacon lyophilisé à reconstituer dans l'eau PPI fournie. IVL.`,
+  surv:`INR 30 min après injection. Risque thromboembolique. TA, FC.`,
+  ci:`CIVD, TIH récente (relative).`,
+  dil:`Eau PPI fournie`,voie:`IV lente`,},
+
+  {nom:'LEXOMIL',dci:'Bromazépam',
+  ind:`Anxiété, insomnie légère (benzodiazépine intermédiaire).`,
+  presc:`1,5–6 mg PO × 2–3/j.`,
+  prep:`Comprimés 1,5 et 6 mg — voie orale.`,
+  surv:`Sédation, dépendance. Risque chute sujet âgé.`,
+  ci:`Insuffisance respiratoire sévère, myasthénie, apnées du sommeil.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'MOTILIUM',dci:'Dompéridone',
+  ind:`Nausées, vomissements, gastroparésie.`,
+  presc:`10 mg × 3/j PO avant repas. Max 7 jours.`,
+  prep:`Comprimés 10 mg.`,
+  surv:`ECG si prolongé. Signes extrapyramidaux rares.`,
+  ci:`QT long, prolactinome.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'OCTAPLEX',dci:'PPSB (Facteurs II, VII, IX, X)',
+  ind:`Antidote AVK urgence, coagulopathie hémorragique, chirurgie urgente sous AVK.`,
+  presc:`Selon INR et poids : 25–50 UI/kg IVL. Max 3 000 UI dose unique.`,
+  prep:`Flacon poudre à reconstituer. IVL 1–2 mL/min (max 8 mL/min).`,
+  surv:`INR 30 min après injection. Thrombose (rare). TA.`,
+  ci:`CIVD, TIH récente.`,
+  dil:`Eau PPI fournie`,voie:`IV lente`,},
+
+  {nom:'ONDEXXYA',dci:'Andexanet alfa',
+  ind:`Antidote spécifique rivaroxaban (Xarelto®) et apixaban (Eliquis®) — urgence hémorragique grave.`,
+  presc:`Dose faible (si dernière prise > 8h ou dose quotidienne ≤ 10 mg) : 400 mg IV bolus 30 min, puis 480 mg IVSE 2h.
+Dose élevée : 800 mg IV bolus 30 min, puis 960 mg IVSE 2h.`,
+  prep:`Poudre lyophilisée. Reconstituer selon RCP.`,
+  surv:`Activité anti-Xa. Hémostase clinique. Risque thromboembolique rebond.`,
+  ci:`Hypersensibilité.`,
+  dil:`Eau PPI`,voie:`IV`,},
+
+  {nom:'PHENERGAN',dci:'Prométhazine',
+  ind:`Antihistaminique sédatif, antiémétique, prémédication.`,
+  presc:`Adulte : 25–50 mg IM profond ou IV lente diluée.`,
+  prep:`Ampoule 50 mg/2 mL. Diluer dans 10–20 mL NaCl pour IVL.`,
+  surv:`Sédation, effets extrapyramidaux, sécheresse muqueuses.`,
+  ci:`Glaucome angle fermé, adénome prostate, enfant < 2 ans.`,
+  dil:`NaCl 0,9%`,voie:`IM / IV lente diluée`,},
+
+  {nom:'RISPERDAL',dci:'Rispéridone',
+  ind:`Schizophrénie, épisodes maniaques, troubles comportementaux de la démence.`,
+  presc:`Adulte : 1–6 mg/j PO en 1–2 prises. Sujet âgé : 0,5 mg × 2/j.`,
+  prep:`Comprimés, solution buvable.`,
+  surv:`ECG (QT), prise de poids, glycémie, signes extrapyramidaux.`,
+  ci:`QT long, syndrome malin des neuroleptiques.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'SELOKEN',dci:'Métoprolol',
+  ind:`HTA, angor, insuffisance cardiaque, prévention IDM, arythmies supra-ventriculaires.`,
+  presc:`HTA/angor : 50–200 mg/j PO. Urgence (SCA) : 5 mg IV lente × 3 à 2 min d'intervalle.`,
+  prep:`Comprimés LP 100–200 mg. IV : ampoule 5 mg/5 mL.`,
+  surv:`FC, TA, PR (ECG). Bronchospasme chez asthmatique.`,
+  ci:`Bradycardie < 45/min, BAV 2–3 sans PM, asthme sévère, choc cardiogénique.`,
+  dil:`NaCl 0,9%`,voie:`PO / IV lente`,},
+
+  {nom:'SINTROM',dci:'Acénocoumarol',
+  ind:`AVK — FANV, TVP/EP, valvulopathie.`,
+  presc:`1–4 mg/j PO, adapter à l'INR (cible 2–3 habituellement).`,
+  prep:`Comprimés 1 et 4 mg.`,
+  surv:`INR. Antidote urgence : vitamine K1 + PPSB.`,
+  ci:`Grossesse, hémorragie active.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'TEMESTA',dci:'Lorazépam',
+  ind:`Anxiété, insomnie, état de mal épileptique (prémédication et sédation procédurale).`,
+  presc:`Anxiété : 1–2,5 mg PO × 2–3/j. Sédation pré-op : 2–4 mg IM/IV. EME : 0,05–0,1 mg/kg IV.`,
+  prep:`Comprimés 1 et 2,5 mg. Ampoule 4 mg/1 mL pour IV/IM.`,
+  surv:`Sédation, dépression respiratoire. Antidote : flumazénil.`,
+  ci:`Insuffisance respiratoire sévère, myasthénie, apnées du sommeil.`,
+  dil:`NaCl 0,9%`,voie:`PO / IM / IV`,},
+
+  {nom:'ZALDIAR',dci:'Tramadol + Paracétamol (37,5 + 325 mg)',
+  ind:`Antalgique palier 2 — douleurs modérées à sévères.`,
+  presc:`Adulte : 1–2 cp toutes les 4–6h. Max 8 cp/j.`,
+  prep:`Comprimés PO.`,
+  surv:`Sédation, nausées, constipation. Risque convulsif.`,
+  ci:`Épilepsie non contrôlée, IMAO < 14j, insuffisance respiratoire sévère.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  ,{nom:'ANDEXXA',dci:'Andexanet alfa',
+  ind:`Antidote spécifique des inhibiteurs du facteur Xa (rivaroxaban, apixaban) en cas d'hémorragie grave menaçant le pronostic vital ou chirurgie urgente.`,
+  presc:`Dose faible (dernière prise > 8h ou dose ≤ 10 mg) : 400 mg IV bolus 30 min + 480 mg IVSE sur 2h.
+Dose élevée : 800 mg IV bolus 30 min + 960 mg IVSE sur 2h.`,
+  prep:`Flacon lyophilisé — reconstituer selon RCP (eau PPI fournie).`,
+  surv:`Activité anti-Xa, hémostase clinique. Risque thromboembolique rebond — reprise anticoagulation dès que possible.`,
+  ci:`Hypersensibilité.`,
+  dil:`Eau PPI fournie`,voie:`IV`,},
+
+  {nom:'ANGIOX',dci:'Bivalirudine',
+  ind:`Anticoagulation en angioplastie coronaire percutanée (ACP) — alternative à l'héparine notamment en cas de TIH.`,
+  presc:`ACP urgente : 0,75 mg/kg IV bolus, puis 1,75 mg/kg/h IVSE pendant la procédure.`,
+  prep:`Flacon 250 mg poudre. Reconstituer dans 5 mL EPPI, diluer dans 50 mL NaCl 0,9% ou G5%.`,
+  surv:`ACT (Activated Clotting Time). Signes hémorragiques. Fonction rénale.`,
+  ci:`Hémorragie active, TIH (paradoxalement — vérifier RCP), IRC sévère (adapter doses).`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV bolus + IVSE`,},
+
+  {nom:'ANTARENE',dci:'Ibuprofène',
+  ind:`AINS — douleurs légères à modérées, fièvre, inflammation.`,
+  presc:`Adulte : 400 mg × 3/j PO avec repas (max 1 200 mg/j en automédication).
+Enfant : 20–30 mg/kg/j en 3 prises.`,
+  prep:`Comprimés, suspension buvable — voie orale.`,
+  surv:`Fonction rénale, signes digestifs. Risque cardiovasculaire.`,
+  ci:`Ulcère actif, IRC sévère, 3e trimestre grossesse, insuffisance cardiaque sévère.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'ARIXTRA',dci:'Fondaparinux sodique',
+  ind:`Anticoagulant (anti-Xa pur) — prévention TVP post-chirurgicale, traitement TVP/EP, SCA (NSTEMI).`,
+  presc:`Préventif : 2,5 mg SC/j (débuter 6h post-op).
+Curatif TVP/EP : 5 mg SC/j (< 50 kg), 7,5 mg/j (50–100 kg), 10 mg/j (> 100 kg).
+CI si DFG < 30 mL/min. Prudence 30–50 mL/min.`,
+  prep:`Seringues pré-remplies SC. Ne pas injecter IM.`,
+  surv:`Pas de surveillance anti-Xa en routine. NFS (pas de TIH décrit). Signes hémorragiques. Fonction rénale.
+Pas d'antidote spécifique — protamine inefficace.`,
+  ci:`DFG < 30 mL/min, hémorragie active, endocardite bactérienne, poids < 50 kg (préventif).`,
+  dil:`SC uniquement`,voie:`SC`,},
+
+  {nom:'ASPIRIN',dci:'Acide acétylsalicylique',
+  ind:`Antiagrégant (faibles doses), antalgique/antipyrétique/anti-inflammatoire (fortes doses).`,
+  presc:`Antiagrégant — dose de charge SCA : 150–300 mg PO (patient naïf). Entretien : 75–100 mg/j.
+Antipyrétique/antalgique : 500 mg–1 g × 3–4/j PO (max 3 g/j adulte standard).
+Anti-inflammatoire (rhumatologie) : 2–3 g/j en prises fractionnées.
+⚠️ ESC 2023 : dose de charge antiplaquettaire ≤ 300 mg.
+
+Source : ESC Guidelines ACS 2023, RCP ANSM.`,
+  prep:`Comprimés, sachets effervescents, IV (Aspégic®).`,
+  surv:`Risque hémorragique, saignement digestif. Bronchospasme chez asthmatiques AINS-sensibles.`,
+  ci:`Ulcère actif, hémophilie, 3e trimestre grossesse, enfant < 15 ans (syndrome de Reye).`,
+  dil:`Eau pour IV`,voie:`PO / IV lente`,},
+
+  {nom:'ATENOLOL',dci:'Aténolol',
+  ind:`Bêtabloquant cardiosélectif — HTA, angor, prévention IDM, arythmies supra-ventriculaires.`,
+  presc:`HTA/angor : 50–100 mg/j PO en 1 prise.
+IV : 5 mg IVL sur 5 min, renouvelable à 10 min (max 10–15 mg).`,
+  prep:`Comprimés 50 et 100 mg. Ampoule 5 mg/10 mL pour IV.`,
+  surv:`FC, TA, PR (ECG). Bronchospasme chez asthmatiques.`,
+  ci:`Bradycardie < 45/min, BAV 2–3 sans PM, asthme, BPCO sévère, choc cardiogénique.`,
+  dil:`NaCl 0,9%`,voie:`PO / IV lente`,},
+
+  {nom:'AVLOCARDYL',dci:'Propranolol',
+  ind:`Bêtabloquant non cardiosélectif — HTA, angor, arythmies, hyperthyroïdie, tremblements essentiels, prophylaxie migraines.`,
+  presc:`HTA : 40–80 mg × 2–3/j PO. Arythmies : 10–40 mg × 3/j.
+IV (urgence) : 1 mg IVL/min, renouvelable toutes les 2 min (max 10 mg).`,
+  prep:`Comprimés 40 mg. Ampoule 1 mg/1 mL pour IV.`,
+  surv:`FC, TA, PR. Risque bronchospasme. Masque les signes d'hypoglycémie chez diabétiques.`,
+  ci:`Asthme, BPCO sévère, bradycardie < 45/min, BAV 2–3, choc cardiogénique, phéo non bloqué.`,
+  dil:`NaCl 0,9%, G5%`,voie:`PO / IV lente`,},
+
+  {nom:'BI-PROFENID',dci:'Kétoprofène LP',
+  ind:`AINS — douleurs rhumatismales, post-opératoires, dysménorrhées, coliques.`,
+  presc:`100 mg LP × 2/j PO avec repas.`,
+  prep:`Gélules LP 100 et 150 mg.`,
+  surv:`Fonction rénale, signes digestifs. Risque cardiovasculaire.`,
+  ci:`Ulcère actif, IRC sévère, 3e trimestre grossesse, insuffisance cardiaque sévère.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'BRUFEN',dci:'Ibuprofène',
+  ind:`AINS — douleurs, fièvre, inflammation.`,
+  presc:`400–600 mg × 3/j PO avec repas.`,
+  prep:`Comprimés 200, 400, 600 mg.`,
+  surv:`Fonction rénale, signes digestifs.`,
+  ci:`Ulcère actif, IRC sévère, 3e trimestre grossesse.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'CARDENSIEL',dci:'Bisoprolol',
+  ind:`Bêtabloquant cardiosélectif — insuffisance cardiaque stable (FE altérée), HTA, angor.`,
+  presc:`IC : débuter 1,25 mg/j PO, doubler toutes les 2 sem jusqu'à max 10 mg/j.
+HTA : 5–10 mg/j.`,
+  prep:`Comprimés 1,25 ; 2,5 ; 5 ; 10 mg.`,
+  surv:`FC, TA, signes d'insuffisance cardiaque. Pas de bronchospasme aux doses thérapeutiques.`,
+  ci:`BAV 2–3 sans PM, bradycardie sévère, asthme/BPCO sévère, choc cardiogénique.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'CIFLOX',dci:'Ciprofloxacine',
+  ind:`Fluoroquinolone large spectre — infections urinaires compliquées, pneumonies, infections ostéo-articulaires, infections à pseudomonas.`,
+  presc:`IV : 400 mg × 2/j IVL strictement sur 60 min (max 3/j si infection sévère).
+PO : 500–750 mg × 2/j.
+⚠️ IVL 60 min STRICTE — injection trop rapide → hypotension, phlébite.
+⚠️ Association fluoroquinolones + AINS → risque convulsif.
+⚠️ Pas d'injection IM.
+
+Source : RCP ANSM, BDPM.`,
+  prep:`Poche 400 mg/200 mL prête à l'emploi — IVL 60 min strict.`,
+  surv:`ECG (QT long). Tendinopathie (risque rupture). Fonction rénale. Photosensibilisation.`,
+  ci:`QT long, tendinopathie aux fluoroquinolones, épilepsie non contrôlée.`,
+  dil:`Prête à l'emploi`,voie:`IV perf (60 min) / PO`,},
+
+  {nom:'CLAMOXYL',dci:'Amoxicilline',
+  ind:`Amoxicilline seule — infections ORL, bronchites, pneumonies communautaires légères, infections urinaires, Lyme.`,
+  presc:`Adulte : 1 g IV/8h (infections modérées) ou PO × 3/j.
+Méningite bactérienne : 2 g IV/4h (200 mg/kg/j). IVL 30 min.
+Enfant : 50–100 mg/kg/j IV (méningite : 200 mg/kg/j).
+⚠️ Rash cutané si mononucléose infectieuse — ne pas utiliser si angine sans documentation.
+
+Source : RCP ANSM, BDPM.`,
+  prep:`Flacon 500 mg ou 1 g poudre. Reconstituer EPPI, diluer dans 100 mL NaCl. IVL 30 min.`,
+  surv:`Allergie pénicillines (anaphylaxie). NFS si traitement prolongé.`,
+  ci:`Allergie pénicillines, mononucléose infectieuse (rash).`,
+  dil:`NaCl 0,9%`,voie:`IV / PO`,},
+
+  {nom:'CLOPIDOGREL',dci:'Clopidogrel',
+  ind:`Antiagrégant plaquettaire — SCA, AVC ischémique, AOMI, stent coronaire.`,
+  presc:`SCA (si prasugrel/ticagrélor impossible ou sujets âgés ≥ 70 ans) : dose de charge 300–600 mg PO, puis 75 mg/j.
+AVC ischémique / AOMI : 75 mg/j PO (sans dose de charge).
+Stent coronaire (DAPT) : 75 mg/j pendant 12 mois minimum.
+⚠️ ESC 2023 : ticagrélor ou prasugrel préférés si PCI — clopidogrel si CI ou sujets âgés.
+
+Source : ESC Guidelines ACS 2023.`,
+  prep:`Comprimés 75 mg et 300 mg.`,
+  surv:`Risque hémorragique. Arrêt 5–7j avant chirurgie.`,
+  ci:`Hémorragie active, insuffisance hépatique sévère.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'CONTRAMAL',dci:'Tramadol',
+  ind:`Antalgique palier 2 — douleurs modérées à sévères.`,
+  presc:`50–100 mg PO ou IV/4–6h. Max 400 mg/j.`,
+  prep:`Gélules, comprimés LP, solution injectable IV (diluer dans 100 mL).`,
+  surv:`Sédation, nausées. Risque convulsif. Antidote sédation : naloxone.`,
+  ci:`Épilepsie non contrôlée, IMAO < 14j, insuffisance respiratoire sévère.`,
+  dil:`NaCl 0,9%, G5%`,voie:`PO / IV lente`,},
+
+  {nom:'DEBRIDAT',dci:'Trimébutine',
+  ind:`Antispasmodique intestinal — syndrome de l'intestin irritable, spasmes digestifs, troubles fonctionnels intestinaux.`,
+  presc:`100–200 mg × 3/j PO avant repas.`,
+  prep:`Comprimés 100 et 200 mg.`,
+  surv:`Peu d'effets secondaires. Efficacité clinique.`,
+  ci:`Hypersensibilité.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'DIAZEPAM',dci:'Diazépam',
+  ind:`État de mal épileptique (1re ligne si midazolam indisponible), sevrage alcoolique, contracture musculaire, anxiété sévère, sédation procédurale.`,
+  presc:`EME adulte (1re ligne si midazolam indisponible) : 10 mg IV lente (2 mg/min) ou rectal. Renouvelable 1× après 10–15 min (max 20 mg).
+Sevrage alcoolique : 10–20 mg PO/IV, adapter selon symptômes CIWA.
+Contracture musculaire : 5–10 mg IV.
+⚠️ Injection IM à ÉVITER — absorption erratique et douloureuse.
+⚠️ Précipitation possible si dilué dans NaCl 0,9% — injecter pur lentement ou diluer dans G5%.
+⚠️ Antidote : flumazénil.
+
+Source : RCP ANSM, BDPM.`,
+  prep:`Ampoule 10 mg/2 mL. Diluer dans 10 mL NaCl pour IVL.
+Intrarectal : ampoule 10 mg/2,5 mL.`,
+  surv:`Sédation, dépression respiratoire. Antidote : flumazénil.
+⚠️ Précipitation si dilué dans NaCl — injecter pur lentement ou dans G5%.`,
+  ci:`Insuffisance respiratoire sévère, myasthénie, apnées du sommeil.`,
+  dil:`G5% ou pur`,voie:`IV lente / rectal`,},
+
+  {nom:'DILTIAZEM',dci:'Diltiazem',
+  ind:`Antiarythmique classe IV — tachycardie jonctionnelle, FA/flutter rapide (ralentissement FC). Angor vasospastique.`,
+  presc:`Tachycardie : 0,25 mg/kg IVL 2 min (max 25 mg), puis 0,35 mg/kg si besoin.
+FA rapide : 0,25 mg/kg IVL 5 min, relais IVSE 5–15 mg/h.`,
+  prep:`Ampoule 25 mg/5 mL. Diluer dans 100–250 mL NaCl 0,9% ou G5%. IVL.`,
+  surv:`ECG continu (bradycardie, BAV). TA, FC. Ne pas associer aux bêtabloquants IV.`,
+  ci:`Bradycardie, BAV 2–3, IC sévère (FE < 40%), syndrome de WPW, hypotension.`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV lente / IVSE`,},
+
+  {nom:'DOBUTREX',dci:'Dobutamine',
+  ind:`Inotrope positif — choc cardiogénique, insuffisance cardiaque aiguë sévère.`,
+  presc:`2,5–10 µg/kg/min IVSE, augmenter par paliers. Max 20 µg/kg/min.
+⚠️ G5% strict — pas de bolus.`,
+  prep:`Flacon 250 mg/20 mL. Diluer 250 mg dans 30 mL G5% → 50 mL à 5 mg/mL.`,
+  surv:`ECG (tachycardie, arythmies). TA, FC, débit urinaire. Ischémie myocardique.`,
+  ci:`Cardiomyopathie obstructive (CMH), rétrécissement aortique serré.`,
+  dil:`G5% strict`,voie:`IVSE`,},
+
+  {nom:'EFFERALGAN',dci:'Paracétamol',
+  ind:`Antalgique palier 1 et antipyrétique.`,
+  presc:`Adulte : 1 g × 3–4/j PO (max 4 g/j). Enfant : 15 mg/kg × 4–6/j.`,
+  prep:`Comprimés effervescents 500 mg et 1 g.`,
+  surv:`Hépatotoxicité en cas de surdosage. Antidote : N-acétylcystéine.`,
+  ci:`Insuffisance hépatique sévère.`,
+  dil:`Dissolution dans eau`,voie:`PO`,},
+
+  {nom:'EFIENT',dci:'Prasugrel',
+  ind:`Antiagrégant plaquettaire — SCA avec angioplastie coronaire programmée (NSTEMI, STEMI).`,
+  presc:`Dose de charge : 60 mg PO (avant ou lors de la PCI), puis 10 mg/j pendant 12 mois.
+Dose réduite : 5 mg/j si poids < 60 kg OU âge ≥ 75 ans (déconseillé chez > 75 ans sauf bénéfice > risque).
+⚠️ CONTRE-INDICATION ABSOLUE si ATCD AVC ou AIT (risque hémorragique cérébral majeur).
+⚠️ Utiliser uniquement si anatomie coronaire connue (ne pas administrer avant coronarographie).
+⚠️ Arrêt 7 jours avant chirurgie élective.
+
+Source : RCP ANSM, ESC Guidelines ACS 2023.`,
+  prep:`Comprimés 5 et 10 mg.`,
+  surv:`Risque hémorragique (supérieur au clopidogrel). Arrêt 7j avant chirurgie.`,
+  ci:`ATCD AVC/AIT, hémorragie active, insuffisance hépatique sévère.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'EUPHRESSYL',dci:'Urapidil',
+  ind:`Urgence hypertensive, HTA péri-opératoire, phéochromocytome.`,
+  presc:`Bolus : 12,5–25 mg IVL sur 20 s, renouvelable × 2.
+IVSE : 9–30 mg/h.`,
+  prep:`Ampoule 50 mg/10 mL. Diluer dans NaCl 0,9% ou G5%.`,
+  surv:`TA (toutes les 2–5 min au début), FC.`,
+  ci:`Hypersensibilité, sténose aortique, shunt aorto-pulmonaire.`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV bolus / IVSE`,},
+
+  {nom:'FUROSEMIDE',dci:'Furosémide',
+  ind:`Diurétique de l'anse — OAP cardiogénique, surcharge hydrosodée, décompensation cardiaque, HTA, hypercalcémie.`,
+  presc:`OAP : 40–80 mg IV lente. IVSE : 5–20 mg/h.
+⚠️ Même médicament que Lasilix® — doublon à éviter.`,
+  prep:`Ampoule 20 mg/2 mL ou 250 mg/25 mL. IVL (1 mg/min max).`,
+  surv:`Diurèse, ionogramme (hypokaliémie, hyponatrémie), créatinine, TA.`,
+  ci:`Insuffisance rénale fonctionnelle, déshydratation, hypokaliémie sévère.`,
+  dil:`NaCl 0,9%`,voie:`IV lente / IVSE`,},
+
+  {nom:'GENTALLINE',dci:'Gentamicine',
+  ind:`Aminoside — sepsis grave, endocardite, infections sévères à bacilles gram négatif.`,
+  presc:`Adulte : 3–8 mg/kg/j IV en dose unique journalière (DUJ) — préférer 5–7 mg/kg/j en première intention pour infections sévères.
+Adaptation selon dosage résiduel avant injection suivante (objectif : résiduelle < 0,5 µg/mL pour prévenir toxicité).
+Durée max : 5 jours (arrêt après 24–72h si antibiogramme disponible).
+⚠️ DUJ non recommandée si : neutropénie, IRC, ascite, endocardite, grands brûlés (> 20%), grossesse.
+
+Source : RCP ANSM mai 2024 — Gentamicine Panpharma.`,
+  prep:`Ampoule 80 mg/2 mL ou 160 mg/2 mL. Diluer dans 100 mL NaCl. IVL 30 min.`,
+  surv:`Dosage résiduel, créatinine, audiogramme si prolongé. Ototoxicité et néphrotoxicité.
+⚠️ Ne pas dépasser 5 mg/kg/j. Adapter si IRC.`,
+  ci:`IRC sévère sans dialyse (relative), grossesse (relative), allergie aminosides.`,
+  dil:`NaCl 0,9%`,voie:`IV perf (30 min)`,},
+
+  {nom:'INEXIUM',dci:'Ésoméprazole',
+  ind:`IPP — ulcère gastroduodénal, RGO, hémorragie digestive haute, syndrome de Zollinger-Ellison.`,
+  presc:`Standard : 40 mg IV ou PO × 1/j. Hémorragie digestive : 80 mg IVL 30 min puis 8 mg/h IVSE × 72h.`,
+  prep:`Flacon 40 mg poudre. Reconstituer dans 100 mL NaCl. IVL 10–30 min.`,
+  surv:`Hypoagnésémie si traitement prolongé. Efficacité clinique.`,
+  ci:`Hypersensibilité aux IPP. Association atazanavir, nelfinavir.`,
+  dil:`NaCl 0,9%`,voie:`IV / PO`,},
+
+  {nom:'INIPOMP',dci:'Pantoprazole',
+  ind:`IPP — identique à Eupantol® — ulcère, hémorragie digestive, RGO.`,
+  presc:`40 mg IV ou PO × 1/j. Urgence hémorragique : 80 mg IVL puis 8 mg/h IVSE.`,
+  prep:`Flacon 40 mg poudre. Diluer dans 100 mL NaCl.`,
+  surv:`Magnésémie si prolongé. Efficacité clinique.`,
+  ci:`Hypersensibilité IPP.`,
+  dil:`NaCl 0,9%`,voie:`IV / PO`,},
+
+  {nom:'ISUPREL',dci:'Isoprénaline',
+  ind:`Bradycardie sévère sur BAV ou dysfonction sinusale en attente d'entraînement électrosystolique. Torsades de pointe.`,
+  presc:`IVSE : débuter 0,02–0,1 µg/kg/min. Titrer sur FC cible.
+⚠️ G5% strict. Pas de bolus.`,
+  prep:`5 ampoules 0,2 mg/1 mL dans 45 mL G5% → 50 mL à 0,02 mg/mL.`,
+  surv:`ECG continu (arythmies ventriculaires). FC, TA. Ischémie myocardique.`,
+  ci:`Tachycardie sinusale, IDM récent, hyperexcitabilité ventriculaire, intoxication digitalique.`,
+  dil:`G5% strict`,voie:`IVSE`,},
+
+  {nom:'IZALGI',dci:'Tramadol + Paracétamol (37,5 + 325 mg)',
+  ind:`Antalgique palier 2 — douleurs modérées à sévères.`,
+  presc:`1–2 cp toutes les 6h. Max 8 cp/j.`,
+  prep:`Comprimés PO.`,
+  surv:`Sédation, nausées. Risque convulsif.`,
+  ci:`Épilepsie non contrôlée, IMAO < 14j, insuffisance respiratoire sévère.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'KETALAR',dci:'Chlorhydrate de kétamine',
+  ind:`Analgésie procédurale, induction anesthésique ISR, analgésie en co-analgésie, sédation dissociative.`,
+  presc:`Analgésie/sédation procédurale : 0,1–0,5 mg/kg IVL lente (titration 25 mg/25 mg).
+Induction ISR : 1–2 mg/kg IVD lente en 60 s (RCP : 1–4,5 mg/kg, moyenne 2 mg/kg = 5–10 min).
+IM (si voie IV impossible) : 6,5–10 mg/kg.
+Entretien anesthésie : 1–4 mg/kg/h IVSE.`,
+  prep:`Ampoule 500 mg/10 mL (50 mg/mL) ou 250 mg/5 mL. Diluer si nécessaire dans NaCl.`,
+  surv:`TA, FC (effets sympathomimétiques). Hypersialorrhée (midazolam si besoin). Hallucinations/dysphorie.`,
+  ci:`HTA non contrôlée, HTIC, psychose aiguë instable, prééclampsie sévère (relative).`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV lente / IM / IVSE`,},
+
+  {nom:'KETUM',dci:'Kétoprofène',
+  ind:`AINS — douleurs rhumatismales, post-opératoires, coliques, dysménorrhées.`,
+  presc:`50–100 mg × 2–3/j PO ou 100 mg IV perf × 2/j.`,
+  prep:`Gélules, ampoule 100 mg pour IV (diluer dans 100 mL, IVL 20 min).`,
+  surv:`Fonction rénale, signes digestifs.`,
+  ci:`Ulcère actif, IRC sévère, 3e trimestre grossesse.`,
+  dil:`NaCl 0,9%`,voie:`PO / IV perf`,},
+
+  {nom:'KRENOSIN',dci:'Adénosine',
+  ind:`Identique à Adénosine® — tachycardie jonctionnelle paroxystique, test diagnostique TSV.`,
+  presc:`6 mg IVD bolus, si échec 12 mg à 2 min. ⚠️ Rinçage immédiat VVP.`,
+  prep:`PUR — ampoule 6 mg/2 mL. Bolus strict sur veine proximale.`,
+  surv:`ECG continu. Asystolie transitoire attendue. Atropine 1 mg prête.`,
+  ci:`BAV 2–3, maladie du sinus, WPW, asthme, bronchospasme.`,
+  dil:`Pur`,voie:`IV bolus`,},
+
+  {nom:'LAMALINE',dci:'Opium + Paracétamol + Caféine',
+  ind:`Antalgique palier 2 — douleurs modérées.`,
+  presc:`1–2 gélules × 4/j PO. Max 8/j.`,
+  prep:`Gélules 10 mg opium / 300 mg paracétamol / 30 mg caféine.`,
+  surv:`Sédation, constipation. Attention cumuler paracétamol.`,
+  ci:`Insuffisance respiratoire, IMAO < 14j.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'LEPONEX',dci:'Clozapine',
+  ind:`Schizophrénie résistante. Risque suicidaire élevé chez patient schizophrène.`,
+  presc:`Débuter 12,5–25 mg/j, augmenter progressivement. Max 900 mg/j.`,
+  prep:`Comprimés 25 et 100 mg.`,
+  surv:`NFS hebdomadaire (agranulocytose ++ — programme REMS). ECG, glycémie, poids. Sédation, hypersalivation.`,
+  ci:`Antécédent agranulocytose/granulocytopénie sous clozapine, myocardite, épilepsie non contrôlée.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'LIXIANA',dci:'Édoxaban',
+  ind:`AOD anti-Xa — FANV, TVP/EP.`,
+  presc:`FANV : 60 mg/j PO (30 mg si DFG 15–50, poids ≤ 60 kg ou inhibiteur P-gp).
+TVP/EP : 60 mg/j après 5–10j héparine.`,
+  prep:`Comprimés 15, 30, 60 mg — voie orale.`,
+  surv:`Pas de surveillance biologique standard. Fonction rénale. Signes hémorragiques.`,
+  ci:`DFG < 15 mL/min, hémorragie active, grossesse.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'LOPRESSOR',dci:'Métoprolol',
+  ind:`Bêtabloquant cardiosélectif — HTA, angor, arythmies, IC (formes LP).`,
+  presc:`HTA : 50–200 mg/j PO. IV (arythmie) : 5 mg IVL × 3 à 2 min d'intervalle.`,
+  prep:`Comprimés 50 et 100 mg. Ampoule 5 mg/5 mL pour IV.`,
+  surv:`FC, TA, PR. Bronchospasme chez asthmatiques.`,
+  ci:`Bradycardie, BAV, asthme, BPCO sévère, choc cardiogénique.`,
+  dil:`NaCl 0,9%`,voie:`PO / IV lente`,},
+
+  {nom:'LYSANXIA',dci:'Prazépam',
+  ind:`Anxiété sévère, syndrome de sevrage aux benzodiazépines.`,
+  presc:`10–20 mg/j PO en 2–3 prises. Max 60 mg/j.`,
+  prep:`Comprimés 10 mg, gouttes buvables.`,
+  surv:`Sédation, risque de dépendance. Chute sujet âgé.`,
+  ci:`Insuffisance respiratoire sévère, myasthénie, apnées du sommeil.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'MEDROL',dci:'Méthylprednisolone',
+  ind:`Corticothérapie orale — maladies inflammatoires, allergies sévères, rhumatologie, greffe.`,
+  presc:`4–64 mg/j PO en 1 prise matinale. Adapter selon indication.
+Équivalence : 4 mg méthylprednisolone = 5 mg prednisolone.`,
+  prep:`Comprimés 4, 16, 32, 100 mg.`,
+  surv:`Glycémie, TA. Décroissance progressive si > 10j.`,
+  ci:`Infection non contrôlée (relative).`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'METOCLOPRAMIDE',dci:'Métoclopramide',
+  ind:`Nausées, vomissements, gastroparésie, RGO.`,
+  presc:`10 mg IV lente, IM ou PO × 3/j. Max 30 mg/j.`,
+  prep:`Ampoule 10 mg/2 mL. Diluer dans 10 mL NaCl pour IVL.`,
+  surv:`Signes extrapyramidaux (surtout jeunes — akathisie, dyskinésie aiguë). Sédation.
+⚠️ Antidote extrapyramidal : biperiden (Akineton®).`,
+  ci:`Obstruction digestive, phéochromocytome, épilepsie (relative).`,
+  dil:`NaCl 0,9%`,voie:`IV lente / IM / PO`,},
+
+  {nom:'MIVACRON',dci:'Chlorure de mivacurium',
+  ind:`Curare non dépolarisant d'action courte — intubation et relâchement musculaire per-opératoire.`,
+  presc:`Intubation : 0,15–0,25 mg/kg IVD. Entretien : 0,1 mg/kg selon réponse neuromusculaire.`,
+  prep:`Ampoule 10 mg/5 mL. Diluer dans NaCl 0,9% ou G5%.`,
+  surv:`Monitorage neuromusculaire. SpO2, capnographie. Libération histamine (rougeur, hypotension).`,
+  ci:`Myasthénie (relative), déficit en pseudocholinestérases, allergie.`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV`,},
+
+  {nom:'MOBIC',dci:'Méloxicam',
+  ind:`AINS — polyarthrite rhumatoïde, arthrose, spondylarthrite.`,
+  presc:`7,5–15 mg/j PO avec repas.`,
+  prep:`Comprimés 7,5 et 15 mg.`,
+  surv:`Fonction rénale, signes digestifs, risque cardiovasculaire.`,
+  ci:`Ulcère actif, IRC sévère, 3e trimestre grossesse.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'MOPRAL',dci:'Oméprazole',
+  ind:`IPP — ulcère gastroduodénal, RGO, protection gastrique sous AINS, H. pylori.`,
+  presc:`20–40 mg/j PO ou IV. Prise 30 min avant repas.`,
+  prep:`Gélules 10, 20, 40 mg. Flacon 40 mg poudre pour IV (dans 100 mL NaCl, IVL 20 min).`,
+  surv:`Hypoagnésémie si prolongé.`,
+  ci:`Hypersensibilité IPP.`,
+  dil:`NaCl 0,9%`,voie:`PO / IV`,},
+
+  {nom:'NIFLURIL',dci:'Acide niflumique',
+  ind:`AINS — douleurs ORL, gingivales, rhumatismales, dysménorrhées.`,
+  presc:`250 mg × 3/j PO.`,
+  prep:`Gélules 250 mg.`,
+  surv:`Signes digestifs, fonction rénale.`,
+  ci:`Ulcère actif, IRC, 3e trimestre grossesse.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'NORCURON',dci:'Vécuronium',
+  ind:`Curare non dépolarisant intermédiaire — intubation et relâchement musculaire.`,
+  presc:`Intubation : 0,1 mg/kg IVD. Entretien : 0,02 mg/kg selon réponse neuromusculaire.`,
+  prep:`Flacon 4 mg ou 10 mg poudre. Reconstituer EPPI. Peut diluer dans NaCl.`,
+  surv:`Monitorage neuromusculaire. SpO2, capnographie.
+Antagoniste : néostigmine + atropine (ou sugammadex si rocuronium préféré).`,
+  ci:`Myasthénie (relative), allergie.`,
+  dil:`NaCl 0,9%`,voie:`IV`,},
+
+  {nom:'NUREFLEX',dci:'Ibuprofène',
+  ind:`AINS — douleurs légères à modérées, fièvre.`,
+  presc:`400 mg × 3/j PO avec repas.`,
+  prep:`Comprimés 400 mg.`,
+  surv:`Fonction rénale, signes digestifs.`,
+  ci:`Ulcère actif, IRC, 3e trimestre grossesse.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'NUROFEN',dci:'Ibuprofène',
+  ind:`AINS — douleurs légères à modérées, fièvre.`,
+  presc:`200–400 mg × 3/j PO avec repas.`,
+  prep:`Comprimés, capsules, gel oral.`,
+  surv:`Fonction rénale, signes digestifs.`,
+  ci:`Ulcère actif, IRC, 3e trimestre grossesse.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'OFLOCET',dci:'Ofloxacine',
+  ind:`Fluoroquinolone — infections urinaires, prostatites, pneumonies, infections ORL.`,
+  presc:`200–400 mg × 2/j PO ou IV. IVL 60 min.`,
+  prep:`Comprimés 200 mg. Poche IV 200 mg/40 mL prête — diluer dans 100 mL NaCl, IVL 60 min.`,
+  surv:`ECG (QT long). Tendinopathie. Photosensibilisation.`,
+  ci:`QT long, tendinopathie aux quinolones, épilepsie.`,
+  dil:`NaCl 0,9%`,voie:`PO / IV perf (60 min)`,},
+
+  {nom:'OGAST',dci:'Lansoprazole',
+  ind:`IPP — ulcère gastroduodénal, RGO, éradication H. pylori, Zollinger-Ellison.`,
+  presc:`15–30 mg/j PO avant repas.`,
+  prep:`Gélules 15 et 30 mg.`,
+  surv:`Hypoagnésémie si prolongé.`,
+  ci:`Hypersensibilité IPP.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'OXYCODONE',dci:'Oxycodone',
+  ind:`Antalgique opioïde fort — douleurs sévères résistant aux autres antalgiques.`,
+  presc:`LP : 10–40 mg × 2/j PO. LI : 5–10 mg × 4–6/j. IV : 0,05–0,1 mg/kg IVL.
+⚠️ Pas de dose de charge PO > 10 mg sans titration préalable.`,
+  prep:`Comprimés LP 10–80 mg. Ampoule 10 mg/1 mL pour IV (diluer dans NaCl).`,
+  surv:`Sédation, dépression respiratoire (antidote : naloxone). Constipation, nausées.`,
+  ci:`Insuffisance respiratoire sévère, iléus paralytique, IMAO < 14j.`,
+  dil:`NaCl 0,9%`,voie:`PO / IV lente`,},
+
+  {nom:'PALLADONE',dci:'Hydromorphone',
+  ind:`Antalgique opioïde fort — douleurs chroniques sévères, cancer.`,
+  presc:`LP : 4–8 mg × 2/j PO. Rotation opioïde : hydromorphone = morphine / 5.`,
+  prep:`Gélules LP 4, 8, 16, 24 mg.`,
+  surv:`Sédation, dépression respiratoire. Constipation.`,
+  ci:`Insuffisance respiratoire, IMAO < 14j, iléus.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'PARACETAMOL',dci:'Paracétamol',
+  ind:`Antalgique palier 1 et antipyrétique. Identique à Doliprane®/Efferalgan®.`,
+  presc:`1 g × 3–4/j IV ou PO (max 4 g/j). Réduire si < 50 kg ou insuffisance hépatique.`,
+  prep:`Poche 1 g/100 mL prête à l'emploi pour IV — passer en 15 min.`,
+  surv:`Hépatotoxicité en cas de surdosage. Antidote : N-acétylcystéine.`,
+  ci:`Insuffisance hépatocellulaire sévère.`,
+  dil:`Prête à l'emploi`,voie:`IV / PO / rectal`,},
+
+  {nom:'PAVULON',dci:'Bromure de pancuronium',
+  ind:`Curare non dépolarisant longue durée — intubation, relâchement musculaire prolongé en réanimation.`,
+  presc:`Intubation : 0,08–0,1 mg/kg IVD. Entretien : 0,02 mg/kg selon réponse.`,
+  prep:`Ampoule 4 mg/2 mL. Peut diluer dans NaCl.`,
+  surv:`Monitorage neuromusculaire. Tachycardie (effet vagolytique). SpO2.
+Antagoniste : néostigmine + atropine.`,
+  ci:`Myasthénie (relative), tachycardie instable (tachycardisant).`,
+  dil:`NaCl 0,9%`,voie:`IV`,},
+
+  {nom:'PHLOROGLUCINOL',dci:'Phloroglucinol',
+  ind:`Antispasmodique musculotrope — coliques digestives, coliques hépatiques (non compliquées), dysménorrhées, spasmes digestifs.`,
+  presc:`80 mg IV lente ou IM ou PO × 3/j. Max 240 mg/j.`,
+  prep:`Ampoule 80 mg/4 mL — peut injecter pur IVL ou IM. Comprimés 80 mg.`,
+  surv:`Peu d'effets secondaires. Efficacité clinique.`,
+  ci:`Obstruction digestive (relative). Hypersensibilité.`,
+  dil:`Pur ou NaCl 0,9%`,voie:`IV / IM / PO`,},
+
+  {nom:'PROTAMINE',dci:'Sulfate de protamine',
+  ind:`Antidote de l'héparine non fractionnée (HNF). Neutralisation partielle des HBPM.`,
+  presc:`HNF IV : 1 mg protamine neutralise 100 UI HNF (sur la dose des 2 dernières heures max).
+Max 50 mg en 10 min. IVL stricte.
+HBPM : neutralisation partielle (~60–80%) — 1 mg protamine/1 mg énoxaparine.`,
+  prep:`Ampoule 50 mg/5 mL. Diluer dans NaCl 0,9% ou G5%. IVL 10 min minimum.`,
+  surv:`TA, FC (hypotension, bradycardie si injection trop rapide). TCA, anti-Xa. Réaction allergique.
+⚠️ Ne jamais injecter en bolus rapide.`,
+  ci:`Allergie (poisson si origine marine). Précaution chez allergiques à la protamine/insuline NPH.`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV lente (10 min minimum)`,},
+
+  {nom:'PROVEBLUE',dci:'Bleu de méthylène (Chlorure de méthylthioninium)',
+  ind:`Méthémoglobinémie symptomatique (identique à Métiblo®).`,
+  presc:`1–2 mg/kg IVL 15 min dans G5% strict. Max cumulé 7 mg/kg.`,
+  prep:`Ampoule 1% (10 mg/mL) — diluer dans G5% strict.`,
+  surv:`SpO2 (CO-oxymètre), méthémoglobinémie. Inefficace si déficit G6PD.`,
+  ci:`Déficit G6PD, méthémoglobinémie au chlorate.`,
+  dil:`G5% strict`,voie:`IV lente`,},
+
+  {nom:'PULMICORT',dci:'Budésonide',
+  ind:`Corticoïde inhalé — asthme, BPCO. En urgence : croup (laryngite sous-glottique) en nébulisation.`,
+  presc:`Croup : 2 mg en nébulisation dose unique (peut répéter).
+Asthme traitement de fond : 200–800 µg/j inhalé.`,
+  prep:`Solution pour nébulisation 0,5 mg/mL ou 1 mg/2 mL. Nébuliser sur 15 min.`,
+  surv:`Candidose oropharyngée si inhalé (rincer bouche). Efficacité clinique.`,
+  ci:`Hypersensibilité. Infection fongique oropharyngée active (inhalé).`,
+  dil:`NaCl 0,9% (nébulisation)`,voie:`Inhalation / Nébulisation`,},
+
+  {nom:'RAPIFEN',dci:'Alfentanil',
+  ind:`Opioïde d'action ultra-courte — analgésie peropératoire, sédation procédurale courte, intubation.`,
+  presc:`Bolus procédural : 7–15 µg/kg IVD. Entretien : 25–75 µg/kg/h IVSE.`,
+  prep:`Ampoule 500 µg/10 mL. Diluer dans NaCl ou G5%.`,
+  surv:`Dépression respiratoire (antidote : naloxone). Rigidité thoracique si bolus rapide. SpO2, FC.`,
+  ci:`Insuffisance respiratoire sévère (relative en urgence).`,
+  dil:`NaCl 0,9%, G5%`,voie:`IV bolus / IVSE`,},
+
+  {nom:'REVERPLEG',dci:'Argipressine (Vasopressine)',
+  ind:`Choc septique réfractaire aux catécholamines — vasopresseur adjuvant.`,
+  presc:`0,01–0,03 UI/min IVSE (0,6–1,8 UI/h). Max 0,04 UI/min. Pas de bolus.`,
+  prep:`Ampoule 20 UI/1 mL. Diluer 1 ampoule dans 19 mL NaCl → 1 UI/mL.`,
+  surv:`TA invasive recommandée. Ischémie coronaire, mésentérique ou cutanée si dose excessive. Natrémie.`,
+  ci:`Aucune en contexte d'urgence vitale. Précaution ischémie coronaire connue.`,
+  dil:`NaCl 0,9%`,voie:`IVSE`,},
+
+  {nom:'ROHYPNOL',dci:'Flunitrazépam',
+  ind:`Prémédication anesthésique, insomnie sévère résistante.
+⚠️ Usage très encadré — médicament classé stupéfiant.`,
+  presc:`Prémédication : 1–2 mg PO la veille ou 1 h avant.`,
+  prep:`Comprimés 1 mg — ordonnance sécurisée.`,
+  surv:`Sédation profonde, amnésie, dépression respiratoire.`,
+  ci:`Insuffisance respiratoire, myasthénie, apnées du sommeil.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'SALBUTAMOL',dci:'Sulfate de salbutamol',
+  ind:`Bronchodilatateur bêta-2 — crise d'asthme, BPCO exacerbée, bronchospasme, hyperkaliémie (IV).`,
+  presc:`Nébulisation (asthme/BPCO) : 2,5–5 mg diluée dans 5 mL NaCl 0,9%, débit O2 6 L/min × 15 min. Renouvelable toutes les 20 min si nécessaire.
+IV (asthme aigu grave) : 5–25 µg/min IVSE ou bolus 250 µg IVL sur 10 min.
+Hyperkaliémie (adjuvant) : 10–20 mg en nébulisation sur 15 min.
+⚠️ Nébulisation en continu en cas d'AAG (asthme aigu grave) possible.
+⚠️ Hypokaliémie fréquente à fortes doses — surveiller kaliémie.
+
+Source : RCP ANSM BDPM.`,
+  prep:`Nébulisation : Salbutamol fort 5 mg/2,5 mL — diluer dans 5 mL NaCl.
+IV : 5 mg dans 500 mL NaCl (10 µg/mL).`,
+  surv:`FC (tachycardie), tremblement, hypokaliémie (si prolongé). SpO2, débit expiratoire.`,
+  ci:`Tachycardie supra-ventriculaire non contrôlée (relative).`,
+  dil:`NaCl 0,9%`,voie:`Nébulisation / IV`,},
+
+  {nom:'SERESTA',dci:'Oxazépam',
+  ind:`Anxiété, insomnie, sevrage alcoolique (benzodiazépine courte durée d'action — préférable sujet âgé et cirrhotique).`,
+  presc:`Anxiété/sevrage : 10–30 mg PO × 3–4/j.`,
+  prep:`Comprimés 10 et 50 mg.`,
+  surv:`Sédation. Moins de risque d'accumulation chez sujet âgé (pas de métabolisme hépatique actif).`,
+  ci:`Insuffisance respiratoire sévère, myasthénie.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  {nom:'XANAX',dci:'Alprazolam',
+  ind:`Anxiété, attaque de panique, trouble panique.`,
+  presc:`0,25–0,5 mg × 3/j PO. Max 4 mg/j.`,
+  prep:`Comprimés 0,25 mg et 0,5 mg.`,
+  surv:`Sédation, dépendance, risque de syndrome de sevrage.`,
+  ci:`Insuffisance respiratoire sévère, myasthénie, apnées du sommeil.`,
+  dil:`Voie orale`,voie:`PO`,},
+
+  ,{nom:'APROVEL',dci:'Irbésartan',
+  ind:`Antagoniste des récepteurs de l'angiotensine II (ARA2 / sartan) — HTA essentielle, néphropathie diabétique (type 2 avec HTA et microalbuminurie).`,
+  presc:`HTA : 150 mg/j PO en 1 prise, adapter à 300 mg/j selon réponse.
+Néphropathie diabétique : 300 mg/j.
+⚠️ Pas de forme IV — voie orale uniquement.`,
+  prep:`Comprimés 75, 150 et 300 mg — voie orale.`,
+  surv:`TA, kaliémie (hyperkaliémie possible si IRC ou association IEC/autre ARA2), créatinine.
+⚠️ Arrêt obligatoire en cas de grossesse dès que détectée.`,
+  ci:`Grossesse (2e et 3e trimestre) +++, allaitement, hypersensibilité.`,
+  dil:`Voie orale uniquement`,voie:`PO`,},
 ];
 /* ========== MODULE FICHES MEDICAMENTS ========== */
 (function(){
@@ -8479,7 +9654,10 @@ var screenParents = {
   'doses-ref':    'doses-adulte',
   'doses-ped-ref':'doses-ped',
   'medicaments':  'home',
-  'score-dep':    'scores'
+  'score-dep':    'scores',
+  'equiv-corticoides': 'medicaments',
+  'equiv-hbpm':    'medicaments',
+  'equiv-princeps': 'medicaments'
 };
 
 /* Appelé par Android via evaluateJavascript */
@@ -8506,4 +9684,272 @@ function handleBackPress() {
   }
 })();
 
-</script></body></html>
+
+const princepsData = [
+  // Analgésiques / Antalgiques
+  {princeps:'ACUPAN',dci:'Néfopam'},
+  {princeps:'CONTRAMAL',dci:'Tramadol'},
+  {princeps:'DIANTALVIC',dci:'Dextropropoxyphène + Paracétamol'},
+  {princeps:'DOLIPRANE',dci:'Paracétamol'},
+  {princeps:'EFFERALGAN',dci:'Paracétamol'},
+  {princeps:'IXPRIM',dci:'Tramadol + Paracétamol'},
+  {princeps:'IZALGI',dci:'Tramadol + Paracétamol'},
+  {princeps:'LAMALINE',dci:'Opium + Paracétamol + Caféine'},
+  {princeps:'MORPHINE',dci:'Chlorhydrate de morphine'},
+  {princeps:'NUBAIN',dci:'Nalbuphine'},
+  {princeps:'OXYCODONE',dci:'Oxycodone'},
+  {princeps:'PALLADONE',dci:'Hydromorphone'},
+  {princeps:'PARACETAMOL',dci:'Paracétamol'},
+  {princeps:'STADOL',dci:'Butorphanol'},
+  {princeps:'SUFENTA',dci:'Sufentanil'},
+  {princeps:'TOPALGIC',dci:'Tramadol'},
+  {princeps:'ZALDIAR',dci:'Tramadol + Paracétamol'},
+  // Anti-inflammatoires
+  {princeps:'ADVIL',dci:'Ibuprofène'},
+  {princeps:'ANTARENE',dci:'Ibuprofène'},
+  {princeps:'ASPEGIC',dci:'Acétylsalicylate de lysine'},
+  {princeps:'ASPIRIN',dci:'Acide acétylsalicylique'},
+  {princeps:'BI-PROFENID',dci:'Kétoprofène LP'},
+  {princeps:'BRUFEN',dci:'Ibuprofène'},
+  {princeps:'KARDEGIC',dci:'Acide acétylsalicylique (lysine)'},
+  {princeps:'KETUM',dci:'Kétoprofène'},
+  {princeps:'MOBIC',dci:'Méloxicam'},
+  {princeps:'NIFLURIL',dci:'Acide niflumique'},
+  {princeps:'NUREFLEX',dci:'Ibuprofène'},
+  {princeps:'NUROFEN',dci:'Ibuprofène'},
+  {princeps:'PROFENID',dci:'Kétoprofène'},
+  {princeps:'TOPREC',dci:'Kétoprofène'},
+  {princeps:'VOLTARENE',dci:'Diclofénac'},
+  // Corticoïdes systémiques
+  {princeps:'CELESTENE',dci:'Bétaméthasone'},
+  {princeps:'CORTANCYL',dci:'Prednisone'},
+  {princeps:'DECTANCYL',dci:'Dexaméthasone'},
+  {princeps:'DEXAMETASONE',dci:'Dexaméthasone'},
+  {princeps:'HYDROCORTISONE',dci:'Hydrocortisone'},
+  {princeps:'MEDROL',dci:'Méthylprednisolone'},
+  {princeps:'SOLUMEDROL',dci:'Méthylprednisolone succinate sodique'},
+  {princeps:'SOLUPRED',dci:'Prednisolone'},
+  // Antiémétiques
+  {princeps:'DROLEPTAN',dci:'Dropéridol'},
+  {princeps:'DOMPERIDONE',dci:'Dompéridone'},
+  {princeps:'METOCLOPRAMIDE',dci:'Métoclopramide'},
+  {princeps:'MOTILIUM',dci:'Dompéridone'},
+  {princeps:'ONDANSETRON',dci:'Ondansétron'},
+  {princeps:'PHENERGAN',dci:'Prométhazine'},
+  {princeps:'PRIMPERAN',dci:'Métoclopramide'},
+  {princeps:'VOGALENE',dci:'Métopimazine'},
+  {princeps:'ZOPHREN',dci:'Ondansétron'},
+  // Anesthésiques / Sédatifs / Hypnotiques
+  {princeps:'DIPRIVAN',dci:'Propofol'},
+  {princeps:'ETOMIDATE',dci:'Étomidate'},
+  {princeps:'HYPNOMIDATE',dci:'Étomidate'},
+  {princeps:'HYPNOVEL',dci:'Midazolam'},
+  {princeps:'KETALAR',dci:'Chlorhydrate de kétamine'},
+  {princeps:'NESDONAL',dci:'Thiopental sodique'},
+  {princeps:'PENTHOTAL',dci:'Thiopental sodique'},
+  {princeps:'PROPOFOL',dci:'Propofol'},
+  {princeps:'RAPIFEN',dci:'Alfentanil'},
+  {princeps:'SUFENTA',dci:'Sufentanil'},
+  // Benzodiazépines
+  {princeps:'DIAZEPAM',dci:'Diazépam'},
+  {princeps:'HYPNOVEL',dci:'Midazolam'},
+  {princeps:'LEXOMIL',dci:'Bromazépam'},
+  {princeps:'LYSANXIA',dci:'Prazépam'},
+  {princeps:'RIVOTRIL',dci:'Clonazépam'},
+  {princeps:'ROHYPNOL',dci:'Flunitrazépam'},
+  {princeps:'SERESTA',dci:'Oxazépam'},
+  {princeps:'TEMESTA',dci:'Lorazépam'},
+  {princeps:'TRANXENE',dci:'Clorazépate dipotassique'},
+  {princeps:'VALIUM',dci:'Diazépam'},
+  {princeps:'XANAX',dci:'Alprazolam'},
+  // Curares / Antagonistes
+  {princeps:'BRIDION',dci:'Sugammadex'},
+  {princeps:'CELOCURINE',dci:'Suxaméthonium (Succinylcholine)'},
+  {princeps:'ESMERON',dci:'Bromure de rocuronium'},
+  {princeps:'MIVACRON',dci:'Chlorure de mivacurium'},
+  {princeps:'NIMBEX',dci:'Bésilate de cisatracurium'},
+  {princeps:'NORCURON',dci:'Vécuronium'},
+  {princeps:'PAVULON',dci:'Bromure de pancuronium'},
+  {princeps:'TRACRIUM',dci:'Bésilate d\'atracurium'},
+  // Cardio-vasculaire / Antiarythmiques
+  {princeps:'ADRÉNALINE AGUETTANT',dci:'Adrénaline (Épinéphrine)'},
+  {princeps:'ALDACTONE',dci:'Spironolactone'},
+  {princeps:'AMIODARONE',dci:'Amiodarone'},
+  {princeps:'ANGIOX',dci:'Bivalirudine'},
+  {princeps:'ARIXTRA',dci:'Fondaparinux sodique'},
+  {princeps:'ATENOLOL',dci:'Aténolol'},
+  {princeps:'ATROPINE',dci:'Sulfate d\'atropine'},
+  {princeps:'AVLOCARDYL',dci:'Propranolol'},
+  {princeps:'CARDENSIEL',dci:'Bisoprolol'},
+  {princeps:'CLOPIDOGREL',dci:'Clopidogrel'},
+  {princeps:'CORDARONE',dci:'Amiodarone'},
+  {princeps:'COUMADINE',dci:'Warfarine'},
+  {princeps:'DIGOXINE',dci:'Digoxine'},
+  {princeps:'DILTIAZEM',dci:'Diltiazem'},
+  {princeps:'DOBUTREX',dci:'Dobutamine'},
+  {princeps:'DOPAMINE',dci:'Dopamine chlorhydrate'},
+  {princeps:'EFIENT',dci:'Prasugrel'},
+  {princeps:'EPHÉDRINE',dci:'Chlorhydrate d\'éphédrine'},
+  {princeps:'EUPRESSYL',dci:'Urapidil'},
+  {princeps:'FRAGMINE',dci:'Daltéparine sodique'},
+  {princeps:'FRAXIPARINE',dci:'Nadroparine calcique'},
+  {princeps:'INNOHEP',dci:'Tinzaparine sodique'},
+  {princeps:'ISUPREL',dci:'Isoprénaline chlorhydrate'},
+  {princeps:'LASILIX',dci:'Furosémide'},
+  {princeps:'LOPRESSOR',dci:'Métoprolol'},
+  {princeps:'LOVENOX',dci:'Énoxaparine sodique'},
+  {princeps:'LOXEN',dci:'Nicardipine'},
+  {princeps:'NATISPRAY',dci:'Trinitrine (Trinitrate de glycéryle)'},
+  {princeps:'NIMOTOP',dci:'Nimodipine'},
+  {princeps:'NIPRIDE',dci:'Nitroprussiate de sodium'},
+  {princeps:'NORADRÉNALINE',dci:'Norépinéphrine (Tartrate de noradrénaline)'},
+  {princeps:'PLAVIX',dci:'Clopidogrel'},
+  {princeps:'PREVISCAN',dci:'Fluindione'},
+  {princeps:'RISORDAN',dci:'Dinitrate d\'isosorbide'},
+  {princeps:'SELOKEN',dci:'Métoprolol'},
+  {princeps:'SINTROM',dci:'Acénocoumarol'},
+  {princeps:'TILDIEM',dci:'Diltiazem'},
+  {princeps:'TENORMINE',dci:'Aténolol'},
+  {princeps:'TICAGRELOR',dci:'Ticagrélor'},
+  {princeps:'TRILIPIX',dci:'Fénofibrate'},
+  {princeps:'VISKEN',dci:'Pindolol'},
+  {princeps:'XYLOCARD',dci:'Lidocaïne'},
+  // Anticoagulants / Antidotes anticoagulants
+  {princeps:'ANDEXXA',dci:'Andexanet alfa (antidote AOD anti-Xa)'},
+  {princeps:'HÉPARINE',dci:'Héparine sodique (HNF)'},
+  {princeps:'KANOKAD',dci:'PPSB (Facteurs II, VII, IX, X)'},
+  {princeps:'OCTAPLEX',dci:'PPSB (Facteurs II, VII, IX, X)'},
+  {princeps:'ONDEXXYA',dci:'Andexanet alfa'},
+  {princeps:'PRADAXA',dci:'Dabigatran étexilate'},
+  {princeps:'PRAXBIND',dci:'Idarucizumab (antidote dabigatran)'},
+  {princeps:'PROTAMINE',dci:'Sulfate de protamine'},
+  {princeps:'XARELTO',dci:'Rivaroxaban'},
+  {princeps:'ELIQUIS',dci:'Apixaban'},
+  {princeps:'LIXIANA',dci:'Édoxaban'},
+  // Bronchodilatateurs / Respiratoire
+  {princeps:'ATROVENT',dci:'Bromure d\'ipratropium'},
+  {princeps:'BRICANYL',dci:'Sulfate de terbutaline'},
+  {princeps:'PULMICORT',dci:'Budésonide'},
+  {princeps:'SALBUTAMOL',dci:'Sulfate de salbutamol'},
+  {princeps:'VENTOLINE',dci:'Sulfate de salbutamol'},
+  // Système nerveux / Neurologie
+  {princeps:'ANEXATE',dci:'Flumazénil'},
+  {princeps:'DEPAKINE',dci:'Valproate de sodium'},
+  {princeps:'DILANTIN',dci:'Phénytoïne sodique'},
+  {princeps:'GARDENAL',dci:'Phénobarbital'},
+  {princeps:'KEPPRA',dci:'Lévétiracétam'},
+  {princeps:'LEPONEX',dci:'Clozapine'},
+  {princeps:'LOXAPAC',dci:'Loxapine'},
+  {princeps:'MANNITOL',dci:'Mannitol'},
+  {princeps:'NARCAN',dci:'Naloxone'},
+  {princeps:'NOZINAN',dci:'Lévomépromazine'},
+  {princeps:'PRODILANTIN',dci:'Fosphénytoïne sodique'},
+  {princeps:'RISPERDAL',dci:'Rispéridone'},
+  {princeps:'RIVOTRIL',dci:'Clonazépam'},
+  // Antidotes / Toxicologie
+  {princeps:'ACTILYSE',dci:'Altéplase'},
+  {princeps:'BLEU DE PRUSSE',dci:'Hexacyanoferrate de potassium'},
+  {princeps:'CAMCOLIT',dci:'Carbonate de lithium'},
+  {princeps:'EXACYL',dci:'Acide tranexamique'},
+  {princeps:'GLUCAGEN',dci:'Glucagon'},
+  {princeps:'INTRALIPIDE',dci:'Émulsion lipidique 20%'},
+  {princeps:'METIBLO',dci:'Bleu de méthylène'},
+  {princeps:'PROVEBLUE',dci:'Bleu de méthylène'},
+  {princeps:'REVERPLEG',dci:'Argipressine (Vasopressine)'},
+  // Métabolisme / Divers urgences
+  {princeps:'ANEXATE',dci:'Flumazénil'},
+  {princeps:'BICARBONATE DE SODIUM',dci:'Bicarbonate de sodium'},
+  {princeps:'CALCIUM GLUCONATE',dci:'Gluconate de calcium 10%'},
+  {princeps:'CALCIUM CHLORURE',dci:'Chlorure de calcium 10%'},
+  {princeps:'GLUCONATE DE CALCIUM',dci:'Gluconate de calcium'},
+  {princeps:'GLUCOSE',dci:'Glucose 10% / 30% (G10, G30)'},
+  {princeps:'INSULINE NOVORAPID',dci:'Insuline asparte'},
+  {princeps:'INSULINE HUMALOG',dci:'Insuline lispro'},
+  {princeps:'POTASSIUM CHLORURE',dci:'Chlorure de potassium'},
+  {princeps:'SULFATE DE MAGNESIUM',dci:'Sulfate de magnésium 15%'},
+  // Antispasmodiques / Digestif
+  {princeps:'BUSCOPAN',dci:'Butylscopolamine (Hyoscine)'},
+  {princeps:'DEBRIDAT',dci:'Trimébutine'},
+  {princeps:'DUSPATALIN',dci:'Mébévérine'},
+  {princeps:'PHLOROGLUCINOL',dci:'Phloroglucinol'},
+  {princeps:'SPASFON',dci:'Phloroglucinol'},
+  // IPP / Digestif urgences
+  {princeps:'INEXIUM',dci:'Ésoméprazole'},
+  {princeps:'INIPOMP',dci:'Pantoprazole'},
+  {princeps:'MOPRAL',dci:'Oméprazole'},
+  {princeps:'OGAST',dci:'Lansoprazole'},
+  {princeps:'EUPANTOL',dci:'Pantoprazole'},
+  {princeps:'PANTOPRAZOLE',dci:'Pantoprazole'},
+  // Antibiotiques
+  {princeps:'AUGMENTIN',dci:'Amoxicilline + Acide clavulanique'},
+  {princeps:'CLAMOXYL',dci:'Amoxicilline'},
+  {princeps:'CLAFORAN',dci:'Céfotaxime'},
+  {princeps:'CIFLOX',dci:'Ciprofloxacine'},
+  {princeps:'FLAGYL',dci:'Métronidazole'},
+  {princeps:'GENTALLINE',dci:'Gentamicine'},
+  {princeps:'OFLOCET',dci:'Ofloxacine'},
+  {princeps:'ROCEPHINE',dci:'Ceftriaxone'},
+  {princeps:'TAVANIC',dci:'Lévofloxacine'},
+  {princeps:'TAZOCILLINE',dci:'Pipéracilline + Tazobactam'},
+  {princeps:'TIENAM',dci:'Imipenème + Cilastatine'},
+  {princeps:'ZIENAM',dci:'Imipenème + Cilastatine'},
+  // Psychiatrie urgences
+  {princeps:'HALDOL',dci:'Halopéridol'},
+  {princeps:'LARGACTIL',dci:'Chlorpromazine'},
+  {princeps:'LOXAPAC',dci:'Loxapine'},
+  {princeps:'TERCIAN',dci:'Cyamémazine'},
+  // Divers urgences
+  {princeps:'ADENOSINE',dci:'Adénosine'},
+  {princeps:'ATROPINE AGUETTANT',dci:'Sulfate d\'atropine'},
+  {princeps:'CELOCURINE',dci:'Suxaméthonium'},
+  {princeps:'CLAFORAN',dci:'Céfotaxime sodique'},
+  {princeps:'FUROSEMIDE',dci:'Furosémide'},
+  {princeps:'ISUPREL',dci:'Isoprénaline'},
+  {princeps:'KRENOSIN',dci:'Adénosine'},
+  {princeps:'STRIADYNE',dci:'Adénosine triphosphate (ATP)'},
+  {princeps:'APROVEL',dci:'Irbésartan'},
+];
+
+(function(){
+  const search = document.getElementById('princepsSearch');
+  const content = document.getElementById('princepsContent');
+  const count = document.getElementById('princepsCount');
+  if(!search || !content) return;
+
+  function normS(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+
+  function render(){
+    const q = normS(search.value);
+    const filtered = q.length >= 1
+      ? princepsData.filter(r => normS(r.princeps).includes(q) || normS(r.dci).includes(q))
+      : princepsData;
+    if(count) count.textContent = filtered.length + ' entrée' + (filtered.length > 1 ? 's' : '');
+    if(!filtered.length){
+      content.innerHTML = '<div style="padding:14px;color:var(--text2)">Aucun résultat</div>';
+      return;
+    }
+    content.innerHTML = filtered.map(r =>
+      '<div class="antidote-card"><div class="antidote-intox">' + r.princeps + '®</div>' +
+      '<div class="antidote-remedy">→ ' + r.dci + '</div></div>'
+    ).join('');
+  }
+  search.addEventListener('input', render);
+  render();
+})();
+
+
+function switchMedMainTab(tab){
+  const fiches = document.getElementById('medPanelFiches');
+  const equiv = document.getElementById('medPanelEquiv');
+  const btnF = document.getElementById('medTabFiches');
+  const btnE = document.getElementById('medTabEquiv');
+  if(tab === 'fiches'){
+    fiches.style.display=''; equiv.style.display='none';
+    btnF.classList.add('active'); btnE.classList.remove('active');
+  } else {
+    fiches.style.display='none'; equiv.style.display='';
+    btnE.classList.add('active'); btnF.classList.remove('active');
+  }
+}
+
+</script>
