@@ -1,9 +1,11 @@
 /* ============================================================
-   Urg Pocket — Service Worker v1.2.0
-   Cache-first pour l'app, network-first pour CGU/privacy
+   Urg Pocket — Service Worker v1.2.57
+   Cache-first pour l'app, network-first pour CGU/privacy/version.json
+   Mise à jour automatique : le cache est versionné et les anciens
+   caches sont purgés à chaque activation.
    ============================================================ */
 
-const CACHE_NAME = 'urg-pocket-v1.2.0';
+const CACHE_NAME = 'urg-pocket-v1.2.57';
 const STATIC_ASSETS = [
   '/urg-pocket/',
   '/urg-pocket/index.html',
@@ -19,7 +21,14 @@ self.addEventListener('install', (event) => {
       });
     })
   );
-  self.skipWaiting();
+  // Ne pas skipWaiting automatiquement : on attend le message côté client
+});
+
+/* ---- Message depuis le client (pour forcer l'activation) ---- */
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 /* ---- Activate : nettoyage des anciens caches ---- */
@@ -34,9 +43,8 @@ self.addEventListener('activate', (event) => {
             return caches.delete(key);
           })
       )
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 /* ---- Fetch : stratégie par type de ressource ---- */
@@ -45,6 +53,14 @@ self.addEventListener('fetch', (event) => {
 
   // Ignorer les requêtes non-GET
   if (event.request.method !== 'GET') return;
+
+  // version.json : toujours réseau en priorité, pas de cache
+  if (url.pathname.endsWith('/version.json')) {
+    event.respondWith(
+      fetch(event.request, {cache: 'no-store'}).catch(() => caches.match(event.request))
+    );
+    return;
+  }
 
   // CGU et privacy : network-first (contenu pouvant évoluer)
   if (url.pathname.includes('cgu.html') || url.pathname.includes('privacy.html')) {
@@ -74,18 +90,39 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // App principale : cache-first, fallback réseau
+  // App principale (navigation / index.html) : network-first
+  // pour toujours servir la dernière version quand le réseau est disponible,
+  // tout en restant hors-ligne fonctionnel via le fallback cache.
+  if (event.request.mode === 'navigate' ||
+      url.pathname.endsWith('/') ||
+      url.pathname.endsWith('index.html') ||
+      url.pathname.endsWith('urg_pocket.html')) {
+    event.respondWith(
+      fetch(event.request).then((res) => {
+        if (url.origin === self.location.origin && res.status === 200) {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
+        return res;
+      }).catch(() => {
+        return caches.match(event.request).then((cached) => {
+          return cached || caches.match('/urg-pocket/');
+        });
+      })
+    );
+    return;
+  }
+
+  // Autres ressources : cache-first, fallback réseau
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
       return fetch(event.request).then((res) => {
-        // Mettre en cache les ressources de l'origine
         if (url.origin === self.location.origin && res.status === 200) {
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, res.clone()));
         }
         return res;
       }).catch(() => {
-        // Fallback vers index.html pour la navigation
         if (event.request.mode === 'navigate') {
           return caches.match('/urg-pocket/');
         }

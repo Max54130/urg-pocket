@@ -5,8 +5,8 @@
 <style>
 
 /* === THEME === */
-:root{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f7f9fb;--surface3:#edf1f5;--text:#1a2332;--text2:#5c6b7a;--line:#dce3eb;--primary:#1a73e8;--primary2:#1558b8;--secondary:#0d9488;--danger:#d32f2f;--shadow:0 2px 8px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.04);--header:60px;--bottom:72px}
-body.dark{--bg:#0f0f12;--surface:#17181c;--surface2:#1f2028;--surface3:#2a2c33;--text:#e9e9ef;--text2:#b9bcc7;--line:#35373f;--primary:#5b9ef4;--primary2:#3d8be8;--secondary:#4db6ac;--danger:#ef5350;--shadow:0 2px 8px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.2)}
+:root{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f7f9fb;--surface3:#edf1f5;--text:#1a2332;--text2:#5c6b7a;--line:#dce3eb;--primary:#1a73e8;--primary2:#1558b8;--secondary:#0d9488;--danger:#d32f2f;--shadow:0 2px 8px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.04);--header:60px;--bottom:72px;--sem-ok:#1A9B6C;--sem-warn:#D79A10;--sem-danger:#C0392B}
+body.dark{--bg:#0f0f12;--surface:#17181c;--surface2:#1f2028;--surface3:#2a2c33;--text:#e9e9ef;--text2:#b9bcc7;--line:#35373f;--primary:#5b9ef4;--primary2:#3d8be8;--secondary:#4db6ac;--danger:#ef5350;--shadow:0 2px 8px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.2);--sem-ok:#2EC090;--sem-warn:#F0C040;--sem-danger:#E8605A}
 
 
 .accent-dot{width:40px;height:40px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:border-color .15s,transform .1s;padding:0}
@@ -161,6 +161,18 @@ tr:last-child td{border-bottom:none}
 .norm-key{font-size:13px;color:var(--text2);font-weight:800;text-transform:uppercase;letter-spacing:.03em}
 .norm-val{font-size:15px;font-weight:700}
 
+/* === UPDATE BANNER (nouvelle version disponible) === */
+.update-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:var(--primary);color:#fff;padding:10px 14px;display:none;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:13px;line-height:1.4}
+.update-banner.visible{display:flex}
+.update-banner-icon{font-size:18px;flex-shrink:0}
+.update-banner-text{flex:1;min-width:0}
+.update-banner-text strong{display:block;font-weight:800;font-size:14px;margin-bottom:2px}
+.update-banner-actions{display:flex;gap:8px;flex-shrink:0}
+.update-banner-btn{background:#fff;color:var(--primary);border:none;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.update-banner-btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);padding:6px 10px}
+body.update-visible{padding-top:56px}
+body.update-visible.dark{padding-top:56px}
+
 /* === PROTOCOLES === */
 .proto-card{margin-bottom:14px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface2)}
 .proto-head{padding:14px;font-weight:900;font-size:16px;background:var(--surface3);display:flex;align-items:center;gap:10px;cursor:pointer}
@@ -170,6 +182,38 @@ tr:last-child td{border-bottom:none}
 .proto-step{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.55;display:flex;gap:10px}
 .proto-step:last-child{border-bottom:none}
 .proto-num{flex:0 0 28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}
+
+/* === DECISION TREE (arbre décisionnel hybride) === */
+.dt-node{background:var(--surface2);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:all .15s}
+.dt-node:hover{border-color:var(--primary)}
+.dt-node.open{border-color:var(--primary);background:color-mix(in srgb,var(--primary) 8%,var(--surface2))}
+.dt-node-q{font-weight:700;font-size:14px;line-height:1.4;display:flex;align-items:center;gap:8px;color:var(--text)}
+.dt-node-q::before{content:"?";flex:0 0 22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}
+.dt-node-chevron{margin-left:auto;transition:transform .2s;color:var(--text2);font-size:16px}
+.dt-node.open .dt-node-chevron{transform:rotate(90deg)}
+.dt-node-hint{font-size:12px;color:var(--text2);margin-top:4px;margin-left:30px;line-height:1.4}
+.dt-branches{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.dt-node.open .dt-branches{display:block}
+.dt-branch{display:flex;gap:10px;margin-bottom:8px;align-items:stretch}
+.dt-branch:last-child{margin-bottom:0}
+.dt-branch-label{flex:0 0 58px;border-radius:8px;padding:8px 6px;font-size:11px;font-weight:800;text-align:center;display:grid;place-items:center;line-height:1.2}
+.dt-branch-label.yes{background:color-mix(in srgb,var(--sem-ok) 15%,var(--surface));color:var(--sem-ok);border:1.5px solid var(--sem-ok)}
+.dt-branch-label.no{background:color-mix(in srgb,var(--sem-danger) 12%,var(--surface));color:var(--sem-danger);border:1.5px solid var(--sem-danger)}
+.dt-branch-label.warn{background:color-mix(in srgb,var(--sem-warn) 18%,var(--surface));color:var(--sem-warn);border:1.5px solid var(--sem-warn)}
+.dt-branch-content{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.5;color:var(--text)}
+.dt-branch-content strong{color:var(--primary)}
+.dt-outcome{background:color-mix(in srgb,var(--primary) 10%,var(--surface2));border-left:4px solid var(--primary);padding:12px 14px;border-radius:8px;margin-bottom:10px;font-size:13px;line-height:1.5;color:var(--text)}
+.dt-outcome-title{font-weight:800;color:var(--primary);font-size:13px;margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+.grade-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:0;min-width:440px}
+.grade-table th,.grade-table td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;text-transform:none;letter-spacing:normal}
+.grade-table thead th{background:var(--surface3);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--text);text-align:center}
+.grade-table tbody th{background:var(--surface2);font-weight:700;font-size:12px;color:var(--text);width:110px;white-space:nowrap}
+.grade-table td.grade-I{background:color-mix(in srgb,var(--sem-ok) 12%,transparent);color:var(--text)}
+.grade-table td.grade-II{background:color-mix(in srgb,var(--sem-warn) 14%,transparent);color:var(--text)}
+.grade-table td.grade-III{background:color-mix(in srgb,var(--sem-danger) 12%,transparent);color:var(--text)}
+.tx-block{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px}
+.tx-block-title{font-weight:800;font-size:13px;color:var(--primary);margin-bottom:6px}
+.tx-block ul{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:var(--text)}
 
 /* === TIMER === */
 
@@ -332,10 +376,12 @@ body:not(.dark) .score-result.ring-result.red{background:#1f0d0d;border-color:#e
 body.colorblind{
   --primary:#0072B2;--primary2:#005A8E;
   --secondary:#E69F00;--danger:#9B27AF;
+  --sem-ok:#0072B2;--sem-warn:#E69F00;--sem-danger:#9B27AF;
 }
 body.colorblind.dark{
   --primary:#56B4E9;--primary2:#0072B2;
   --secondary:#F0C040;--danger:#CC79A7;
+  --sem-ok:#56B4E9;--sem-warn:#F0C040;--sem-danger:#CC79A7;
 }
 
 /* Score results */
@@ -466,6 +512,10 @@ body.colorblind .sr-symbol.red{background:#9B27AF}
 .med-main-tabs{display:flex;gap:8px;margin-bottom:14px}
 .med-main-tab{flex:1;padding:10px 8px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--text2);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
 .med-main-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.proto-step{display:flex;gap:12px;margin-bottom:10px;padding:10px;background:var(--surface2);border-radius:10px}
+.proto-step-num{min-width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.proto-step-content{font-size:13px;line-height:1.5;color:var(--text)}
 </style><script>/* Prevent flash colorblind */(function(){if(localStorage.getItem('urg-colorblind')==='on'){document.documentElement.classList.add('colorblind');document.body&&document.body.classList.add('colorblind');}})()
 /* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
 <script>
@@ -527,7 +577,18 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
     <button class="privacy-popup-btn" id="privacyPopupOk" disabled style="opacity:.45;cursor:not-allowed">J'ai compris</button>
   </div>
 </div>
-<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;overflow:hidden;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="var(--primary)"/><rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/><rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/><polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="debit">💧 Débit perf</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="avatar-wrap" id="topbarAvatar" title="Profil"><div class="avatar" id="topbarAvatarImg"><span id="topbarAvatarIcon">👤</span></div><span class="avatar-name" id="topbarAvatarName"></span></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
+<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;overflow:hidden;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="var(--primary)"/><rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/><rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/><polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="avatar-wrap" id="topbarAvatar" title="Profil"><div class="avatar" id="topbarAvatarImg"><span id="topbarAvatarIcon">👤</span></div><span class="avatar-name" id="topbarAvatarName"></span></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
+<div class="update-banner" id="updateBanner" role="status" aria-live="polite">
+  <span class="update-banner-icon">🎉</span>
+  <div class="update-banner-text">
+    <strong>Nouvelle version disponible</strong>
+    <span id="updateBannerDetails">Rechargez l'application pour profiter des dernières mises à jour.</span>
+  </div>
+  <div class="update-banner-actions">
+    <button class="update-banner-btn secondary" id="updateBannerDismiss" type="button">Plus tard</button>
+    <button class="update-banner-btn" id="updateBannerAction" type="button">Mettre à jour</button>
+  </div>
+</div>
 <main role="main">
   <section class="screen active" id="screen-home">
 <div style="display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.4">
@@ -547,8 +608,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="home-section">
 <div class="home-section-title">Calculs</div>
 <div class="home-compact-grid">
-<button class="home-compact" data-target="debit"><span class="hc-icon">💧</span><span class="hc-label">Débit perf</span></button>
-<button class="home-compact" data-target="doses"><span class="hc-icon">💉</span><span class="hc-label">Doses pondérales</span></button>
+<button class="home-compact" data-target="doses"><span class="hc-icon">💉</span><span class="hc-label">Calculs de dose</span></button>
 <button class="home-compact" data-target="convertisseur"><span class="hc-icon">⚖️</span><span class="hc-label">Convertisseur bio</span></button>
 <button class="home-compact" data-target="scores"><span class="hc-icon">📋</span><span class="hc-label">Scores</span></button>
 </div></div>
@@ -568,7 +628,71 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <button class="home-compact" data-target="settings"><span class="hc-icon">⚙️</span><span class="hc-label">Paramètres</span></button>
 </div></div>
 </div>
-</section><section class="screen" id="screen-debit"><div class="content-card"><div class="page-head"><div><h2>Débit perf</h2><p>Calcul du débit de perfusion</p></div><button class="btn reset-inline" id="debitResetBtn" type="button" aria-label="Réinitialiser le débit">↺ RAZ</button></div><div class="inline-form"><div class="field"><div class="label">Volume (en mL)</div><input class="num-input" id="debitVolume" aria-label="Volume en millilitres" min="0" step="0.01" type="number" placeholder="mL"/></div><div class="field"><div class="label">Durée</div><div class="duration-row"><input class="num-input" id="debitDuree" aria-label="Durée de la perfusion" min="0" step="0.01" type="number" placeholder="durée"/><div class="duration-toggle"><button class="unit-btn" data-unit="heures" type="button">Heures</button><button class="unit-btn active" data-unit="minutes" type="button">Minutes</button></div></div><input id="debitUnit" type="hidden" value="minutes"/></div></div><button class="btn primary" id="debitCalcBtn">Calculer</button><div class="result-list"><div class="result"><div class="result-name">Débit mL / h</div><div class="result-num" id="resMlH">—</div></div><div class="result"><div class="result-name">Gouttes / minute</div><div class="result-num" id="resGMin">—</div></div><div class="result"><div class="result-name">Gouttes / seconde</div><div class="result-num" id="resGSec">—</div></div><div class="result"><div class="result-name">Gouttes / 10 secondes</div><div class="result-num" id="resG10">—</div></div></div><div class="note"><strong>Rappel</strong><br/>Débit (mL/h) = Volume / Temps · Débit (gouttes/min) = Volume × 20 / Temps · 1 mL = 20 gouttes · 24 h = 1440 minutes.</div></div></section><section class="screen" id="screen-normes"><div class="content-card"><div class="page-head"><div><h2>Normes biologiques</h2><p>Repères indicatifs — valeurs adultes</p></div></div>
+</section>
+
+<section class="screen" id="screen-pca"><div class="content-card">
+<div class="page-head"><div><h2>PCA / IVSE</h2><p>Calculateur de seringue électrique</p></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn reset-inline" id="pcaResetBtn" type="button" aria-label="Réinitialiser">↺ RAZ</button>
+<button class="btn-back" data-target="doses">◀ Calculs</button>
+</div>
+</div>
+
+<div class="field" style="margin-bottom:14px">
+  <div class="label">Unité du médicament</div>
+  <div class="duration-toggle">
+    <button class="unit-btn active pca-unit-btn" data-unit="mg" type="button">mg</button>
+    <button class="unit-btn pca-unit-btn" data-unit="UI" type="button">UI</button>
+  </div>
+</div>
+
+<div class="med-main-tabs" style="margin-bottom:14px">
+  <button class="med-main-tab active" id="pcaTabPrescription" onclick="switchPcaTab('prescription')">📋 Prescription → Débit</button>
+  <button class="med-main-tab" id="pcaTabInverse" onclick="switchPcaTab('inverse')">🔄 Débit → Dose</button>
+</div>
+
+<div id="pcaPanelPrescription">
+  <div class="note" style="margin-top:0">Entrez la prescription complète pour calculer tous les paramètres de la seringue.</div>
+  <div class="inline-form">
+    <div class="field"><div class="label">Dose totale dans la seringue (<span class="pca-unit-lbl">mg</span>)</div>
+      <input class="num-input" id="pcaDoseTotale" type="number" min="0" step="0.1" placeholder="ex : 50"/></div>
+    <div class="field"><div class="label">Volume total de la seringue (mL)</div>
+      <input class="num-input" id="pcaVolume" type="number" min="0" step="0.1" placeholder="ex : 50"/></div>
+    <div class="field"><div class="label">Débit continu (mL/h)</div>
+      <input class="num-input" id="pcaDebitContinu" type="number" min="0" step="0.01" placeholder="ex : 1.2"/></div>
+    <div class="field"><div class="label">Dose bolus (<span class="pca-unit-lbl">mg</span>)</div>
+      <input class="num-input" id="pcaBolusDose" type="number" min="0" step="0.1" placeholder="ex : 3"/></div>
+    <div class="field"><div class="label">Période réfractaire (min)</div>
+      <input class="num-input" id="pcaRefractaire" type="number" min="0" step="1" placeholder="ex : 20"/></div>
+    <div class="field"><div class="label">Dose max sur 4h (<span class="pca-unit-lbl">mg</span>) <span style="font-size:11px;color:var(--text2)">débit continu + bolus</span></div>
+      <input class="num-input" id="pcaDoseMax4h" type="number" min="0" step="0.1" placeholder="ex : 12"/></div>
+  </div>
+  <button class="btn primary" id="pcaCalcBtn" style="margin-top:4px">Calculer</button>
+  <div id="pcaResults" style="margin-top:12px"></div>
+</div>
+
+<div id="pcaPanelInverse" style="display:none">
+  <div class="note" style="margin-top:0">Entrez le débit et la concentration pour retrouver la dose administrée.</div>
+  <div class="inline-form">
+    <div class="field"><div class="label">Dose totale dans la seringue (<span class="pca-unit-lbl">mg</span>)</div>
+      <input class="num-input" id="pcaInvDoseTotale" type="number" min="0" step="0.1" placeholder="ex : 50"/></div>
+    <div class="field"><div class="label">Volume total de la seringue (mL)</div>
+      <input class="num-input" id="pcaInvVolume" type="number" min="0" step="0.1" placeholder="ex : 50"/></div>
+    <div class="field"><div class="label">Débit continu observé (mL/h)</div>
+      <input class="num-input" id="pcaInvDebit" type="number" min="0" step="0.01" placeholder="ex : 2.4"/></div>
+    <div class="field"><div class="label">Dose bolus voulue (<span class="pca-unit-lbl">mg</span>) — optionnel</div>
+      <input class="num-input" id="pcaInvBolus" type="number" min="0" step="0.1" placeholder="ex : 3"/></div>
+  </div>
+  <button class="btn primary" id="pcaInvCalcBtn" style="margin-top:4px">Calculer</button>
+  <div id="pcaInvResults" style="margin-top:12px"></div>
+</div>
+
+<div class="note" style="margin-top:16px"><strong>Rappel PCA</strong><br/>
+Dose max 4h = débit continu 4h + bolus accordés sur 4h.<br/>
+Bolus max/4h = dose max 4h − (débit × 4) puis ÷ dose bolus.<br/>
+Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
+<strong>Double contrôle systématique avant programmation.</strong></div>
+</div></section><section class="screen" id="screen-normes"><div class="content-card"><div class="page-head"><div><h2>Normes biologiques</h2><p>Repères indicatifs — valeurs adultes</p></div></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact norme-nav-btn" data-norme="Gaz du sang"><span class="hc-icon">🫁</span><span class="hc-label">Gaz du sang</span></button>
 <button class="home-compact norme-nav-btn" data-norme="Numération Formule Sanguine (NFS)"><span class="hc-icon">🩸</span><span class="hc-label">NFS</span></button>
@@ -587,6 +711,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="section-title" style="margin-top:0"><h3>🧠 Neuro / Conscience</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="score-glasgow"><span class="hc-icon">🧠</span><span class="hc-label">Glasgow</span></button>
+<button class="home-compact" data-target="score-glasgow-ped"><span class="hc-icon">👶</span><span class="hc-label">Glasgow pédia</span></button>
 <button class="home-compact" data-target="score-nihss"><span class="hc-icon">📋</span><span class="hc-label">NIHSS</span></button>
 </div>
 <div class="section-title"><h3>❤️ Cardio / Hémodynamique</h3></div>
@@ -599,10 +724,23 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="score-vittel"><span class="hc-icon">🚑</span><span class="hc-label">Vittel</span></button>
 <button class="home-compact" data-target="score-wells-ep"><span class="hc-icon">🫁</span><span class="hc-label">Wells EP</span></button>
+<button class="home-compact" data-target="score-geneve"><span class="hc-icon">🇨🇭</span><span class="hc-label">Genève révisé</span></button>
+<button class="home-compact" data-target="score-perc"><span class="hc-icon">🚫</span><span class="hc-label">PERC</span></button>
+<button class="home-compact" data-target="score-years"><span class="hc-icon">📅</span><span class="hc-label">YEARS</span></button>
+<button class="home-compact" data-target="score-spesi"><span class="hc-icon">📊</span><span class="hc-label">sPESI</span></button>
+</div>
+<div class="section-title"><h3>🩸 Hémorragie digestive</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="score-blatchford"><span class="hc-icon">🩸</span><span class="hc-label">Blatchford</span></button>
 </div>
 <div class="section-title"><h3>🦠 Infectio / Sepsis</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="score-qsofa"><span class="hc-icon">🦠</span><span class="hc-label">qSOFA</span></button>
+</div>
+<div class="section-title"><h3>😣 Douleur</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="score-algoplus"><span class="hc-icon">⚡</span><span class="hc-label">Algoplus</span></button>
+<button class="home-compact" data-target="score-doloplus"><span class="hc-icon">📋</span><span class="hc-label">Doloplus-2</span></button>
 </div>
 <div class="section-title"><h3>🔧 Spécialisés</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
@@ -634,6 +772,24 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 </div></section>
 <section class="screen" id="screen-score-braden"><div class="content-card"><div class="page-head"><div><h2>Braden</h2></div><p>Évalue le risque d'escarre selon 6 critères. Plus le score est bas, plus le risque est élevé.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="score-panel" id="score-braden" ><div class="section-title"><h3>Échelle de Braden</h3><span class="muted">Évaluation du risque d’escarre</span></div><div class="braden-grid" id="bradenWrap"></div><div class="score-result" id="bradenResult" aria-live="polite">Braden · score total : 23 · risque très faible</div></div>
+</div></section>
+
+<section class="screen" id="screen-score-algoplus"><div class="content-card"><div class="page-head"><div><h2>Algoplus</h2><p>Douleur aiguë · Personne âgée non communicante</p></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0">Hétéro-évaluation de la <strong>douleur aiguë</strong> chez le sujet âgé présentant des troubles de la communication verbale. 5 items binaires (Oui/Non). Un seul comportement suffit pour coter «&nbsp;Oui&nbsp;».<br/>Source : Rat P. et al. — SFAP / doloplus.fr 2011.</div>
+<div id="algoplus-form">
+<div class="section-title" style="margin-top:12px"><h3>Cotation</h3></div>
+</div>
+<div class="score-result" id="algoplus-result" aria-live="polite">—</div>
+<div class="note" style="margin-top:12px"><strong>Interprétation :</strong> Score ≥ 2/5 → douleur aiguë probable — prise en charge antalgique recommandée.<br/>Score &lt; 2 → si doute : réaliser un test antalgique et/ou compléter par un Doloplus-2.</div>
+</div></section>
+
+<section class="screen" id="screen-score-doloplus"><div class="content-card"><div class="page-head"><div><h2>Doloplus-2</h2><p>Douleur chronique · Personne âgée non communicante</p></div><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0">Hétéro-évaluation de la <strong>douleur chronique</strong> chez le sujet âgé non communicant. 10 items (0–3) en 3 groupes. Cotation en équipe pluridisciplinaire recommandée.<br/>Source : Wary B., Serbouti S. — Revue Douleurs 2001. Validée SFAP.</div>
+<div id="doloplus-form">
+<div class="section-title" style="margin-top:12px"><h3>Cotation</h3></div>
+</div>
+<div class="score-result" id="doloplus-result" aria-live="polite">—</div>
+<div class="note" style="margin-top:12px"><strong>Interprétation :</strong> Score ≥ 5/30 → douleur clairement affirmée.<br/>Score 1–4 → test antalgique si doute.<br/>⚠️ Ne pas comparer les scores entre patients différents. Réévaluation quotidienne.</div>
 </div></section>
 <section class="screen" id="screen-score-news2"><div class="content-card"><div class="page-head"><div><h2>NEWS2</h2></div><p>Détecte la dégradation clinique précoce à partir des constantes vitales. Déclenche l'alerte médicale.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="score-panel" id="score-news2" ><div class="section-title"><h3>NEWS2</h3><span class="muted">National Early Warning Score 2</span></div><div class="field" style="margin-top:14px;margin-bottom:8px"><div class="label">Échelle SpO₂</div><div class="duration-toggle"><button class="unit-btn news2-scale-btn active" data-scale="1" type="button">Scale 1 (standard)</button><button class="unit-btn news2-scale-btn" data-scale="2" type="button">Scale 2 — BPCO</button></div></div><div class="score-list" id="news2Wrap"></div><div class="score-result" id="news2Result" aria-live="polite">0 · risque faible</div></div>
@@ -684,13 +840,42 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 
 </div></section>
 
-<section class="screen" id="screen-doses"><div class="content-card"><div class="page-head"><div><h2>Doses</h2><p>Calculs de doses pondérales</p></div></div>
-<div class="section-title"><h3>Calculs de doses</h3></div>
+<section class="screen" id="screen-doses"><div class="content-card">
+<div class="page-head"><div><h2>Calculs de dose</h2><p>Pondérales · Seringue · Débit</p></div>
+<button class="btn reset-inline" id="debitResetBtn2" type="button" aria-label="Réinitialiser">↺ RAZ</button>
+</div>
+
+<div class="section-title" style="margin-top:0"><h3>💉 Doses pondérales &amp; seringue</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="doses-adulte"><span class="hc-icon">💉</span><span class="hc-label">Doses adulte</span></button>
 <button class="home-compact" data-target="doses-ped"><span class="hc-icon">👶</span><span class="hc-label">Doses pédiatriques</span></button>
+<button class="home-compact" data-target="pca"><span class="hc-icon">💊</span><span class="hc-label">PCA / IVSE</span></button>
 <button class="home-compact" data-target="equiv-voies"><span class="hc-icon">🔄</span><span class="hc-label">Équivalence des voies</span></button>
 </div>
+
+<div class="section-title"><h3>💧 Débit de perfusion</h3></div>
+<div class="inline-form">
+  <div class="field"><div class="label">Volume (mL)</div>
+    <input class="num-input" id="debitVolume" aria-label="Volume en millilitres" min="0" step="0.01" type="number" placeholder="mL"/></div>
+  <div class="field"><div class="label">Durée</div>
+    <div class="duration-row">
+      <input class="num-input" id="debitDuree" aria-label="Durée" min="0" step="0.01" type="number" placeholder="durée"/>
+      <div class="duration-toggle">
+        <button class="unit-btn" data-unit="heures" type="button">Heures</button>
+        <button class="unit-btn active" data-unit="minutes" type="button">Minutes</button>
+      </div>
+    </div>
+    <input id="debitUnit" type="hidden" value="minutes"/>
+  </div>
+</div>
+<button class="btn primary" id="debitCalcBtn" style="margin-bottom:10px">Calculer</button>
+<div class="result-list">
+  <div class="result"><div class="result-name">Débit mL / h</div><div class="result-num" id="resMlH">—</div></div>
+  <div class="result"><div class="result-name">Gouttes / minute</div><div class="result-num" id="resGMin">—</div></div>
+  <div class="result"><div class="result-name">Gouttes / seconde</div><div class="result-num" id="resGSec">—</div></div>
+  <div class="result"><div class="result-name">Gouttes / 10 secondes</div><div class="result-num" id="resG10">—</div></div>
+</div>
+<div class="note"><strong>Rappel</strong><br/>Débit (mL/h) = Volume / Temps · 1 mL = 20 gouttes · 24 h = 1440 min.</div>
 </div></section>
 
 <section class="screen" id="screen-equiv-corticoides"><div class="content-card"><div class="page-head"><div><h2>Équivalences corticoïdes</h2><p>Doses équipotentes par voie systémique</p></div><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div>
@@ -769,12 +954,42 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 
 <section class="screen" id="screen-protocoles"><div class="content-card"><div class="page-head"><div><h2>Protocoles rapides</h2><p>Check-lists de prise en charge urgente</p></div></div>
 <div class="alert" style="margin-top:0;margin-bottom:14px">Ces check-lists sont des aide-mémoires. Elles ne remplacent pas les protocoles de service ni la formation AFGSU.</div>
+<div class="section-title" style="margin-top:0"><h3>🫀 Urgences vitales — Réa CP</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="proto-acr"><span class="hc-icon">🫀</span><span class="hc-label">ACR adulte</span></button>
 <button class="home-compact" data-target="proto-acr_ped"><span class="hc-icon">👶</span><span class="hc-label">ACR pédiatrique</span></button>
-<button class="home-compact" data-target="proto-anaphylaxie"><span class="hc-icon">⚠️</span><span class="hc-label">Choc anaphylactique</span></button>
-<button class="home-compact" data-target="proto-avc"><span class="hc-icon">🧠</span><span class="hc-label">AVC</span></button>
+</div>
+<div class="section-title"><h3>❤️ Urgences cardiovasculaires</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="proto-douleur_tho"><span class="hc-icon">💔</span><span class="hc-label">Douleur thoracique / SCA</span></button>
+</div>
+<div class="section-title"><h3>🧠 Urgences neurologiques</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-avc"><span class="hc-icon">🧠</span><span class="hc-label">AVC</span></button>
+</div>
+<div class="section-title"><h3>🩸 Chocs</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-anaphylaxie"><span class="hc-icon">⚠️</span><span class="hc-label">Choc anaphylactique</span></button>
+<button class="home-compact" data-target="proto-choc-septique"><span class="hc-icon">🦠</span><span class="hc-label">Choc septique</span></button>
+<button class="home-compact" data-target="proto-choc-hemorragique"><span class="hc-icon">🩸</span><span class="hc-label">Choc hémorragique</span></button>
+<button class="home-compact" data-target="proto-choc-hypovolemique"><span class="hc-icon">💧</span><span class="hc-label">Choc hypovolémique</span></button>
+</div>
+<div class="section-title"><h3>🚑 Traumatologie</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-trauma"><span class="hc-icon">🦺</span><span class="hc-label">Trauma grave — ABCDE</span></button>
+</div>
+<div class="section-title"><h3>🩹 Hématologie / Transfusion</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-transfusion"><span class="hc-icon">🏥</span><span class="hc-label">Protocole transfusionnel</span></button>
+</div>
+<div class="section-title"><h3>🦴 Orthopédie</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-entorse-cheville"><span class="hc-icon">🦶</span><span class="hc-label">Entorse cheville</span></button>
+</div>
+<div class="section-title"><h3>📖 Annexes / Gestes</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-voie-io"><span class="hc-icon">🦴</span><span class="hc-label">Voie intra-osseuse</span></button>
+<button class="home-compact" data-target="proto-territoires-idm"><span class="hc-icon">🫀</span><span class="hc-label">Territoires IDM</span></button>
 </div>
 </div></section>
 
@@ -803,12 +1018,465 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div id="protoContent-douleur_tho"></div>
 </div></section>
 
+<section class="screen" id="screen-proto-choc-septique"><div class="content-card">
+<div class="page-head"><div><h2>Choc septique</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : Surviving Sepsis Campaign 2021 — SRLF/SFMU/SFAR</div>
+<div class="proto-step"><div class="proto-step-num">1</div><div class="proto-step-content"><strong>Reconnaître</strong><br/>Infection suspectée + dysfonction d'organe (qSOFA ≥ 2, lactates > 2 mmol/L, MAP < 65 mmHg malgré remplissage)</div></div>
+<div class="proto-step"><div class="proto-step-num">2</div><div class="proto-step-content"><strong>Bundle H1 — Dans la première heure</strong><br/>
+• Hémocultures × 2 (avant ATB si possible)<br/>
+• Lactates artériels<br/>
+• ATB large spectre IV — dans l'heure (Tazocilline 4g + Amikacine 25 mg/kg ou selon protocole local)<br/>
+• Remplissage NaCl 0,9% ou Ringer Lactate 30 mL/kg en 3h si hypotension<br/>
+• Noradrénaline si MAP < 65 mmHg malgré remplissage — objectif MAP ≥ 65 mmHg</div></div>
+<div class="proto-step"><div class="proto-step-num">3</div><div class="proto-step-content"><strong>Vasopresseurs</strong><br/>
+• Noradrénaline 1ère ligne — démarrer 0,1–0,2 µg/kg/min IVSE<br/>
+• Vasopressine 0,03 UI/min si noradrénaline > 0,25 µg/kg/min<br/>
+• Dobutamine si dysfonction myocardique associée (FEVG < 40%)</div></div>
+<div class="proto-step"><div class="proto-step-num">4</div><div class="proto-step-content"><strong>Contrôle de la source</strong><br/>
+• Identifier et contrôler le foyer infectieux (drainage, chirurgie)<br/>
+• Adapter l'ATB à l'antibiogramme dès résultats</div></div>
+<div class="proto-step"><div class="proto-step-num">5</div><div class="proto-step-content"><strong>Surveillance horaire</strong><br/>
+TA invasive · FC · SvO2 ou ScvO2 ≥ 70% · Lactates toutes les 2h · Diurèse ≥ 0,5 mL/kg/h · Glycémie 7–10 mmol/L</div></div>
+<div class="note" style="margin-top:10px">⚠️ Corticoïdes : Hydrocortisone 200 mg/j IVSE si noradrénaline > 0,25 µg/kg/min persistante. Source : SSC 2021, SRLF.</div>
+</div></section>
+
+<section class="screen" id="screen-proto-choc-hemorragique"><div class="content-card">
+<div class="page-head"><div><h2>Choc hémorragique</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : SFAR/SFMU — Damage control resuscitation 2023</div>
+<div class="proto-step"><div class="proto-step-num">1</div><div class="proto-step-content"><strong>Reconnaître</strong><br/>
+PAS < 90 mmHg + tachycardie > 120/min + contexte traumatique ou hémorragie active<br/>
+Shock Index ≥ 1 (FC/PAS) · Classes ATLS I–IV</div></div>
+<div class="proto-step"><div class="proto-step-num">2</div><div class="proto-step-content"><strong>Stop the bleed</strong><br/>
+• Compression directe — garrot si membre<br/>
+• Acide tranexamique (Exacyl®) 1g IV en 10 min — dans les 3h post-traumatisme +++<br/>
+• Relais 1g IVSE sur 8h</div></div>
+<div class="proto-step"><div class="proto-step-num">3</div><div class="proto-step-content"><strong>Damage Control Resuscitation</strong><br/>
+• Objectif PAS 80–90 mmHg (hypotension permissive) jusqu'à contrôle chirurgical — sauf TCG : PAS ≥ 110 mmHg<br/>
+• Remplissage limité — cristalloïdes (NaCl 0,9% ou RL) max 1–2L<br/>
+• Transfusion précoce : CGR / PFC / Plaquettes ratio 1:1:1 si disponibles<br/>
+• Fibrinogène si < 1,5 g/L : 3–4g IV</div></div>
+<div class="proto-step"><div class="proto-step-num">4</div><div class="proto-step-content"><strong>Vasopresseurs si nécessaire</strong><br/>
+Noradrénaline — démarrer si remplissage insuffisant<br/>
+Éviter adrénaline en 1ère ligne (tachycardie, ischémie)</div></div>
+<div class="proto-step"><div class="proto-step-num">5</div><div class="proto-step-content"><strong>Surveillance</strong><br/>
+TA invasive · FC · SaO2 · Lactates · NFS · Bilan coag (TP, TCA, fibrinogène) · Température (prévenir hypothermie) · Calcium ionisé</div></div>
+<div class="note" style="margin-top:10px">⚠️ Triade létale : Hypothermie + Acidose + Coagulopathie — prévenir activement. Source : SFAR 2023.</div>
+</div></section>
+
+<section class="screen" id="screen-proto-choc-hypovolemique"><div class="content-card">
+<div class="page-head"><div><h2>Choc hypovolémique</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : SFMU/SFAR — Choc circulatoire 2020</div>
+<div class="proto-step"><div class="proto-step-num">1</div><div class="proto-step-content"><strong>Reconnaître</strong><br/>
+PAS < 90 mmHg (ou chute > 40 mmHg) + signes de bas débit : marbrures, oligurie, tachycardie, confusion<br/>
+Causes : déshydratation, vomissements, diarrhée, 3e secteur (pancréatite, occlusion), brûlures</div></div>
+<div class="proto-step"><div class="proto-step-num">2</div><div class="proto-step-content"><strong>Remplissage vasculaire</strong><br/>
+• Ringer Lactate ou NaCl 0,9% — 500 mL à 1L en 15–30 min<br/>
+• Réévaluer après chaque bolus (TA, FC, diurèse)<br/>
+• Max 30 mL/kg en l'absence de réponse → discuter vasopresseurs<br/>
+• Albumine 4% si hypoalbuminémie sévère (soins palliatifs, cirrhose)</div></div>
+<div class="proto-step"><div class="proto-step-num">3</div><div class="proto-step-content"><strong>Traitement étiologique</strong><br/>
+• Corriger la cause (réhydratation PO si toléré, antiémétiques, antidiarrhéiques)<br/>
+• Occlusion/3e secteur → chirurgie urgente</div></div>
+<div class="proto-step"><div class="proto-step-num">4</div><div class="proto-step-content"><strong>Vasopresseurs si réfractaire</strong><br/>
+Noradrénaline après remplissage adéquat (2–3 bolus sans amélioration)</div></div>
+<div class="proto-step"><div class="proto-step-num">5</div><div class="proto-step-content"><strong>Surveillance</strong><br/>
+TA · FC · Diurèse ≥ 0,5 mL/kg/h · Lactates · Ionogramme (Na, K, Cl) · Créatinine · Poids quotidien</div></div>
+</div></section>
+
+<section class="screen" id="screen-proto-trauma"><div class="content-card">
+<div class="page-head"><div><h2>Trauma grave — ABCDE</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : Critères Vittel — SFMU/SAMU de France 2011. Score ISS ≥ 16 = trauma grave.</div>
+<div class="proto-step"><div class="proto-step-num">A</div><div class="proto-step-content"><strong>Airway — Voies aériennes</strong><br/>
+• Liberté VA : subluxation mandibule, aspiration, canule de Guedel<br/>
+• IOT si GCS ≤ 8, détresse respiratoire, obstruction VA<br/>
+• Cricothyroïdotomie si IOT impossible<br/>
+• Protection rachis cervical si mécanisme évocateur</div></div>
+<div class="proto-step"><div class="proto-step-num">B</div><div class="proto-step-content"><strong>Breathing — Ventilation</strong><br/>
+• SpO2 ≥ 94%, FiO2 élevée<br/>
+• Pneumothorax compressif → exsufflation immédiate (2e EIC ligne médio-claviculaire) + drain<br/>
+• Volet costal → ventilation contrôlée<br/>
+• Plaie soufflante → pansement 3 côtés</div></div>
+<div class="proto-step"><div class="proto-step-num">C</div><div class="proto-step-content"><strong>Circulation — Contrôle hémorragie</strong><br/>
+• Stop the bleed (compression, garrot si membre)<br/>
+• Exacyl® 1g IV dans les 3h<br/>
+• 2 VVP calibreuses ou VVC ou IO<br/>
+• Remplissage limité si choc hémorragique (voir protocole choc)<br/>
+• Bassin instable → ceinture pelvienne</div></div>
+<div class="proto-step"><div class="proto-step-num">D</div><div class="proto-step-content"><strong>Disability — Neurologie</strong><br/>
+• GCS, pupilles (mydriase unilatérale = HTIC jusqu'à preuve du contraire)<br/>
+• TCG (GCS ≤ 13) → Mannitol 20% 0,25–1 g/kg si HTIC, objectif PAS ≥ 110 mmHg<br/>
+• Immobilisation rachis si douleur cervicale ou mécanisme</div></div>
+<div class="proto-step"><div class="proto-step-num">E</div><div class="proto-step-content"><strong>Exposition / Environment</strong><br/>
+• Déshabiller complètement (ne pas oublier le dos)<br/>
+• Prévenir l'hypothermie : couverture de survie, réchauffer les solutés<br/>
+• Score ISS, critères Vittel → orientation centre trauma</div></div>
+<div class="note" style="margin-top:10px">Critères Vittel : ≥ 1 critère = trauma grave → réanimation trauma. Variables physio : PAS < 90, GCS < 14, FR < 10 ou > 29, SpO2 < 90%. Source : SFMU/SAMU 2011.</div>
+</div></section>
+
+<section class="screen" id="screen-proto-transfusion"><div class="content-card">
+<div class="page-head"><div><h2>Protocole transfusionnel</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : HAS — Transfusion de produits sanguins labiles 2023, ANSM</div>
+<div class="section-title" style="margin-top:0"><h3>Seuils transfusionnels</h3></div>
+<div class="result-list">
+<div class="result"><div class="result-name">Adulte sain (asymptomatique)</div><div class="result-num">Hb &lt; 7 g/dL</div></div>
+<div class="result"><div class="result-name">Coronarien / IC / SCA</div><div class="result-num">Hb &lt; 9–10 g/dL</div></div>
+<div class="result"><div class="result-name">Sujet âgé symptomatique</div><div class="result-num">Hb &lt; 8 g/dL</div></div>
+<div class="result"><div class="result-name">Plaquettes (hémorragie active)</div><div class="result-num">&lt; 50 G/L</div></div>
+<div class="result"><div class="result-name">PFC (coagulopathie)</div><div class="result-num">TP &lt; 40% ou ratio &gt; 1,5</div></div>
+<div class="result"><div class="result-name">Fibrinogène</div><div class="result-num">&lt; 1,5 g/L</div></div>
+</div>
+<div class="section-title"><h3>Règles obligatoires avant transfusion</h3></div>
+<div class="proto-step"><div class="proto-step-num">1</div><div class="proto-step-content"><strong>Prescription médicale nominative</strong><br/>Indication, produit, quantité, durée, surveillance</div></div>
+<div class="proto-step"><div class="proto-step-num">2</div><div class="proto-step-content"><strong>Groupage ABO-Rh + RAI</strong><br/>
+• 2 déterminations de groupe (2 prélèvements distincts)<br/>
+• RAI &lt; 72h avant transfusion<br/>
+• Compatibilité ABO obligatoire (CGR, PFC)</div></div>
+<div class="proto-step"><div class="proto-step-num">3</div><div class="proto-step-content"><strong>Contrôle ultime au lit du patient</strong><br/>
+• Vérifier identité patient (étiquette, bracelet)<br/>
+• Vérifier étiquette poche (groupe, N° don, péremption)<br/>
+• Test de compatibilité au lit : Beth-Vincent (CGR)</div></div>
+<div class="section-title"><h3>Surveillance — pendant et après</h3></div>
+<div class="proto-step"><div class="proto-step-num">⚡</div><div class="proto-step-content"><strong>Incidents transfusionnels — reconnaître</strong><br/>
+• <strong>Frissons/fièvre ≥ 1°C</strong> : réaction fébrile non hémolytique (RFNH) — ralentir, antipyrétique<br/>
+• <strong>Urticaire/bronchospasme</strong> : réaction allergique — arrêter, adrénaline si anaphylaxie<br/>
+• <strong>Douleur lombaire, hémoglobinurie, collapsus</strong> : accident hémolytique immédiat (AHO) → ARRÊT IMMÉDIAT, réanimation, déclaration ANSM<br/>
+• <strong>OAP dans les 6h</strong> : TACO (surcharge) ou TRALI (lésion pulmonaire) → furosémide ou assistance respiratoire<br/>
+• <strong>Tout incident</strong> → signalement hémovigilance obligatoire</div></div>
+<div class="proto-step"><div class="proto-step-num">📋</div><div class="proto-step-content"><strong>Surveillance standard</strong><br/>
+T0 (avant), +15 min, +30 min, fin de transfusion, +1h après :<br/>
+TA · FC · T° · FR · SpO2 · Diurèse · État général · Aspect des urines</div></div>
+<div class="note" style="margin-top:10px">⚠️ Débit CGR : 1 CGR en 1h30–4h (max 4h). PFC : 30 min. Plaquettes : 20–30 min. Jamais de médicament dans la poche. Source : HAS 2023, ANSM.</div>
+</div></section>
+
+<section class="screen" id="screen-proto-entorse-cheville"><div class="content-card">
+<div class="page-head"><div><h2>Entorse cheville</h2><p>Diagnostic, classification et traitement</p></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Aide-mémoire pour entorse latérale aiguë (85 % des entorses de cheville). Ne remplace pas l'avis médical.</div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-entorse-diag"><span class="hc-icon">🔎</span><span class="hc-label">Arbre diagnostique</span></button>
+<button class="home-compact" data-target="proto-entorse-grades"><span class="hc-icon">📊</span><span class="hc-label">Classification 3 grades</span></button>
+<button class="home-compact" data-target="proto-entorse-tx"><span class="hc-icon">💊</span><span class="hc-label">Traitement</span></button>
+</div>
+<div class="note">Sources : Ottawa Ankle Rules (Stiell, JAMA 1993) · Bastin C., <em>Orthopédie pratique</em>, UCLouvain 2016 (CC BY-NC-SA) · Kerkhoffs et al., Cochrane 2013 · Petersen et al., Arch Orthop Trauma Surg 2013 · KCE Report 197BS 2013 · de Lécluse, J Traumatol Sport 2003.</div>
+</div></section>
+
+<section class="screen" id="screen-proto-entorse-diag"><div class="content-card">
+<div class="page-head"><div><h2>Arbre diagnostique</h2><p>Indications de l'imagerie en entorse aiguë</p></div><button class="btn-back" data-target="proto-entorse-cheville">◀ Entorse</button></div>
+
+<div class="dt-node" onclick="this.classList.toggle('open')">
+<div class="dt-node-q">1. Mécanisme en inversion forcée ?<span class="dt-node-chevron">▸</span></div>
+<div class="dt-node-hint">Pied qui part en dedans, jambe en dehors (flexion plantaire + supination + adduction).</div>
+<div class="dt-branches">
+<div class="dt-branch"><div class="dt-branch-label yes">OUI</div><div class="dt-branch-content"><strong>Entorse latérale probable</strong> (85 % des cas). Ligament le plus touché : <strong>LTFA</strong>. Passer au nœud 2.</div></div>
+<div class="dt-branch"><div class="dt-branch-label no">NON</div><div class="dt-branch-content"><strong>Attention aux « fausses » entorses</strong> : syndesmose, Chopart, luxation des fibulaires, fracture malléole externe, dôme talien, base du 5<sup>e</sup> méta. Avis spécialisé.</div></div>
+</div>
+</div>
+
+<div class="dt-node" onclick="this.classList.toggle('open')">
+<div class="dt-node-q">2. Critères d'Ottawa présents ?<span class="dt-node-chevron">▸</span></div>
+<div class="dt-node-hint">Douleur en zone malléolaire ET ≥ 1 critère : sensibilité pointe/bord postérieur malléole (6 cm), base du 5<sup>e</sup> méta, naviculaire, ou impossibilité de faire 4 pas.</div>
+<div class="dt-branches">
+<div class="dt-branch"><div class="dt-branch-label yes">OUI</div><div class="dt-branch-content"><strong>→ RX standard</strong> (face + face rotation médiale 20° + profil pied inclus). Passer au nœud 3.</div></div>
+<div class="dt-branch"><div class="dt-branch-label no">NON</div><div class="dt-branch-content"><strong>Pas de RX.</strong> Traitement symptomatique + information patient. Réévaluation à J3-J5.</div></div>
+</div>
+<div class="dt-node-hint" style="margin-top:8px">Sensibilité 96-99 %, spécificité 26-48 %. Réduit les RX de 30-40 %. &lt; 2 % de fractures manquées.</div>
+</div>
+
+<div class="dt-node" onclick="this.classList.toggle('open')">
+<div class="dt-node-q">3. Résultat de la RX ?<span class="dt-node-chevron">▸</span></div>
+<div class="dt-node-hint">Chercher : fracture malléolaire, processus latéral talus, dôme talien, base 5<sup>e</sup> méta, col du talus, naviculaire, arrachements Chopart/Lisfranc, diastasis tibio-fibulaire.</div>
+<div class="dt-branches">
+<div class="dt-branch"><div class="dt-branch-label no">RX +</div><div class="dt-branch-content"><strong>Fracture visible</strong> → avis orthopédique. TDM si fracture articulaire complexe.</div></div>
+<div class="dt-branch"><div class="dt-branch-label yes">RX −</div><div class="dt-branch-content"><strong>Entorse probable</strong> → traitement, réévaluation J3-J5.</div></div>
+<div class="dt-branch"><div class="dt-branch-label warn">DOUTE</div><div class="dt-branch-content">Discordance radio-clinique → <strong>TDM</strong> (petits arrachements, processus latéral talus).</div></div>
+</div>
+</div>
+
+<div class="dt-node" onclick="this.classList.toggle('open')">
+<div class="dt-node-q">4. Indication d'IRM ?<span class="dt-node-chevron">▸</span></div>
+<div class="dt-node-hint">Non systématique. Réservée aux situations spécifiques.</div>
+<div class="dt-branches">
+<div class="dt-branch"><div class="dt-branch-label yes">IRM</div><div class="dt-branch-content">
+• Signes de gravité + cheville inexaminable<br/>
+• Doute atteinte associée (osseuse, LCM, sous-talienne)<br/>
+• Épanchement abondant/persistant<br/>
+• Suspicion lésion ostéochondrale du dôme talien<br/>
+• Sportif de haut niveau<br/>
+• Évolution défavorable
+</div></div>
+<div class="dt-branch"><div class="dt-branch-label no">NON</div><div class="dt-branch-content">Entorse classique → <strong>pas d'IRM</strong>. Clinique + RX (± écho) suffisent.</div></div>
+</div>
+</div>
+
+<div class="dt-node" onclick="this.classList.toggle('open')">
+<div class="dt-node-q">5. Place de l'échographie ?<span class="dt-node-chevron">▸</span></div>
+<div class="dt-node-hint">Opérateur-dépendante. Complémentaire de la RX, ne la remplace pas.</div>
+<div class="dt-branches">
+<div class="dt-branch"><div class="dt-branch-label warn">OUI si</div><div class="dt-branch-content">
+• Entorse cliniquement grave<br/>
+• Sportif de haut niveau<br/>
+• Idéalement entre <strong>J3 et J5</strong><br/>
+• Précise le siège, nombre de faisceaux, avulsions
+</div></div>
+<div class="dt-branch"><div class="dt-branch-label no">NON</div><div class="dt-branch-content">Entorse bénigne évidente. Ne dispense jamais de la RX si Ottawa+.</div></div>
+</div>
+</div>
+
+<div class="dt-outcome">
+<div class="dt-outcome-title">🎯 Règle des 3 temps</div>
+Clinique + RX + écho à <strong>J0, J5 et J30</strong>. L'examen aigu des premières 24 h a une sensibilité de 71 % seulement ; elle atteint 89 % à J3-J5.
+</div>
+<div class="note" style="margin-top:10px">Sources : Ottawa (Stiell, JAMA 1993) · Bastin, UCLouvain 2016 · KCE 197BS 2013. Voir aussi <strong>Sources</strong> dans le menu principal.</div>
+</div></section>
+
+<section class="screen" id="screen-proto-entorse-grades"><div class="content-card">
+<div class="page-head"><div><h2>Classification 3 grades</h2><p>Signes cliniques selon la gravité</p></div><button class="btn-back" data-target="proto-entorse-cheville">◀ Entorse</button></div>
+
+<div class="table-scroll">
+<table class="grade-table">
+<thead><tr><th></th><th>Grade I</th><th>Grade II</th><th>Grade III</th></tr></thead>
+<tbody>
+<tr><th>Lésion</th><td class="grade-I">Étirement</td><td class="grade-II">Rupture partielle</td><td class="grade-III">Rupture totale</td></tr>
+<tr><th>Craquement</th><td class="grade-I">—</td><td class="grade-II">±</td><td class="grade-III">+</td></tr>
+<tr><th>Douleur</th><td class="grade-I">Modérée</td><td class="grade-II">Marquée</td><td class="grade-III">Intense/syncopale</td></tr>
+<tr><th>Marche</th><td class="grade-I">Normale</td><td class="grade-II">Boiterie</td><td class="grade-III">Appui impossible</td></tr>
+<tr><th>Gonflement</th><td class="grade-I">Latéral modéré</td><td class="grade-II">Antéro-latéral</td><td class="grade-III">Global « œuf de pigeon »</td></tr>
+<tr><th>Ecchymose</th><td class="grade-I">—</td><td class="grade-II">—</td><td class="grade-III">Latérale puis diffuse</td></tr>
+<tr><th>Tiroir antérieur</th><td class="grade-I">Indolore</td><td class="grade-II">Sensible</td><td class="grade-III">+ (laxité)</td></tr>
+<tr><th>Varus passif</th><td class="grade-I">Sensible</td><td class="grade-II">Douloureux</td><td class="grade-III">+ (bâillement)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note" style="margin-top:14px">
+<strong>LTFA</strong> : talo-fibulaire antérieur · <strong>LCF</strong> : calcanéo-fibulaire · <strong>LCM</strong> : ligament collatéral médial.<br/>
+L'absence de signes de laxité en aigu n'exclut pas la rupture (défense musculaire, douleur). La réévaluation à J3-J5 est indispensable pour fiabiliser le diagnostic.<br/><br/>
+Sources : Bastin, UCLouvain 2016 · de Lécluse, J Traumatol Sport 2003.
+</div>
+</div></section>
+
+<section class="screen" id="screen-proto-entorse-tx"><div class="content-card">
+<div class="page-head"><div><h2>Traitement</h2><p>Par grade de gravité</p></div><button class="btn-back" data-target="proto-entorse-cheville">◀ Entorse</button></div>
+
+<div class="tx-block">
+<div class="tx-block-title">Phase aiguë (0-72 h) — Protocole GREC</div>
+<ul>
+<li><strong>G</strong>lace : cryothérapie 15-20 min × 3-4/j</li>
+<li><strong>R</strong>epos : décharge, béquilles si appui douloureux</li>
+<li><strong>É</strong>lévation du membre</li>
+<li><strong>C</strong>ompression : bande non adhésive, retirée la nuit</li>
+<li>Antalgie : paracétamol ± AINS topiques ; AINS oraux si persistance</li>
+</ul>
+</div>
+
+<div class="tx-block">
+<div class="tx-block-title">Grade I — bénin</div>
+<ul>
+<li>Traitement fonctionnel : bandage, appui selon tolérance</li>
+<li>Pas d'immobilisation</li>
+<li>Reprise d'activité dès que possible</li>
+</ul>
+</div>
+
+<div class="tx-block">
+<div class="tx-block-title">Grade II — modéré</div>
+<ul>
+<li>Orthèse semi-rigide (type Aircast®) 3 semaines</li>
+<li>Appui partiel puis total selon douleur</li>
+<li>Rééducation proprioceptive dès J10-J15</li>
+</ul>
+</div>
+
+<div class="tx-block">
+<div class="tx-block-title">Grade III — grave</div>
+<ul>
+<li>Immobilisation rigide (soft cast / résine / plâtre) 10 j, puis orthèse semi-rigide 3-6 semaines</li>
+<li>Décharge initiale puis appui progressif</li>
+<li>Rééducation (proprioception +++)</li>
+<li>Avis chirurgical si : arrachement ostéo-périosté, fracture ostéo-chondrale, lésion médiale associée</li>
+</ul>
+</div>
+
+<div class="tx-block">
+<div class="tx-block-title">⏰ Réévaluation J3-J5 (systématique)</div>
+<ul>
+<li>Réexamen clinique (sensibilité 89 %, spécificité 70 %)</li>
+<li>Recherche de laxité : tiroir antérieur, varus</li>
+<li>Échographie si entorse sévère ou évolution atypique</li>
+<li>Ajustement du traitement selon le grade confirmé</li>
+</ul>
+</div>
+
+<div class="dt-outcome">
+<div class="dt-outcome-title">⚠️ Attention</div>
+20 % des entorses sont graves, dont la moitié laisse des séquelles si mal traitées. L'instabilité chronique favorise la dégradation articulaire précoce.
+</div>
+<div class="note" style="margin-top:10px">Sources : Kerkhoffs et al., Cochrane 2013 · Petersen et al., Arch Orthop Trauma Surg 2013 · Bastin, UCLouvain 2016.</div>
+</div></section>
+
+<section class="screen" id="screen-proto-voie-io"><div class="content-card">
+<div class="page-head"><div><h2>Voie intra-osseuse</h2><p>Accès vasculaire d'urgence</p></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Indication en urgence vitale si voie veineuse périphérique impossible après 2 tentatives ou 90 secondes.</div>
+
+<div class="section-title" style="margin-top:0"><h3>📍 Sites de pose</h3></div>
+<div class="tx-block">
+<div class="tx-block-title">Adulte</div>
+<ul>
+<li><strong>Tibia proximal</strong> (site de choix) : 2 cm sous la tubérosité tibiale antérieure, face médiale</li>
+<li><strong>Humérus proximal</strong> : 1 cm au-dessus du col chirurgical, face antéro-latérale</li>
+<li><strong>Sternum manubrium</strong> : dispositif spécifique (FAST1)</li>
+</ul>
+</div>
+<div class="tx-block">
+<div class="tx-block-title">Enfant</div>
+<ul>
+<li><strong>Tibia proximal</strong> : 1-2 cm sous la tubérosité tibiale, face antéro-médiale (site préférentiel < 6 ans)</li>
+<li><strong>Tibia distal</strong> : 1-2 cm au-dessus de la malléole médiale</li>
+<li><strong>Fémur distal</strong> : 1-2 cm au-dessus du condyle fémoral externe (nourrisson)</li>
+</ul>
+</div>
+
+<div class="section-title"><h3>🩺 Technique (dispositif EZ-IO)</h3></div>
+<div class="tx-block">
+<ul>
+<li>Asepsie cutanée large (chlorhexidine alcoolique)</li>
+<li>Aiguille perpendiculaire à la peau, pénétration jusqu'à ressentir l'os</li>
+<li>Perçage à vitesse constante jusqu'à "perte de résistance" (enfoncement brusque dans la moelle)</li>
+<li>Retrait du mandrin, fixation du prolongateur</li>
+<li>Contrôle du placement : aspiration de sang médullaire (inconstant) + injection-test 10 mL NaCl 0,9% sans résistance ni infiltration</li>
+<li>Si patient conscient : <strong>lidocaïne 2% sans adrénaline</strong> 40 mg IO lent (2 mL) avant perfusion (douleur à l'injection)</li>
+<li>Fixation et étiquetage : <strong>durée maximale 24 h</strong></li>
+</ul>
+</div>
+
+<div class="section-title"><h3>💉 Débits et produits</h3></div>
+<div class="tx-block">
+<ul>
+<li>Tous les produits IV sont administrables par voie IO (cristalloïdes, colloïdes, catécholamines, anesthésiques, transfusion)</li>
+<li>Débit spontané limité : <strong>manchon de pression 300 mmHg</strong> ou seringue pour obtenir des débits comparables à une VVP</li>
+<li>Prélèvements sanguins possibles (ionogramme, Hb, lactate, glycémie, groupage)</li>
+</ul>
+</div>
+
+<div class="section-title"><h3>⛔ Contre-indications</h3></div>
+<div class="tx-block">
+<ul>
+<li>Fracture du membre cible (site homolatéral)</li>
+<li>Ostéomyélite / cellulite au site de ponction</li>
+<li>Tentative IO précédente infructueuse du même os (&lt; 48 h)</li>
+<li>Ostéogenèse imparfaite, ostéoporose sévère</li>
+<li>Prothèse articulaire au site de ponction</li>
+</ul>
+</div>
+
+<div class="section-title"><h3>⚠️ Complications</h3></div>
+<div class="tx-block">
+<ul>
+<li>Extravasation / infiltration (la plus fréquente — arrêter immédiatement)</li>
+<li>Syndrome des loges (rare mais grave)</li>
+<li>Ostéomyélite (&lt; 1 %)</li>
+<li>Fracture iatrogène (enfant +++)</li>
+<li>Embolie graisseuse</li>
+</ul>
+</div>
+
+<div class="note" style="margin-top:14px">Sources : ERC 2021 · SFAR RFE 2021 · AHA ACLS 2020 · RCP dispositifs EZ-IO (Teleflex).</div>
+</div></section>
+
+<section class="screen" id="screen-proto-territoires-idm"><div class="content-card">
+<div class="page-head"><div><h2>Territoires des infarctus</h2><p>Corrélation ECG / artère coronaire</p></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Localisation du territoire ischémique à partir des dérivations ECG et de l'artère occluse.</div>
+
+<div class="table-scroll">
+<table class="grade-table" style="min-width:480px">
+<thead><tr><th>Territoire</th><th>Dérivations</th><th>Artère</th></tr></thead>
+<tbody>
+<tr><th>Antéro-septal</th><td>V1-V2-V3</td><td>IVA proximale</td></tr>
+<tr><th>Apical</th><td>V3-V4</td><td>IVA distale</td></tr>
+<tr><th>Antérieur étendu</th><td>V1 à V6, DI, aVL</td><td>IVA proximale (tronc commun possible)</td></tr>
+<tr><th>Latéral haut</th><td>DI, aVL</td><td>Diagonale (IVA) ou Circonflexe</td></tr>
+<tr><th>Latéral bas</th><td>V5-V6</td><td>Circonflexe ou Marginale</td></tr>
+<tr><th>Inférieur</th><td>DII, DIII, aVF</td><td>Coronaire droite (85 %) ou Circonflexe</td></tr>
+<tr><th>Postérieur (basal)</th><td>V7-V8-V9 (miroir V1-V3)</td><td>Coronaire droite ou Circonflexe</td></tr>
+<tr><th>Ventricule droit</th><td>V3R-V4R</td><td>Coronaire droite proximale</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-title"><h3>🔍 Points clés</h3></div>
+<div class="tx-block">
+<ul>
+<li><strong>IDM inférieur</strong> : toujours rechercher une extension au VD (V3R-V4R) → impact sur remplissage, contre-indication dérivés nitrés</li>
+<li><strong>IDM postérieur</strong> : image en miroir en V1-V3 (sous-décalage ST + ondes R amples) → ajouter V7-V8-V9</li>
+<li><strong>Occlusion tronc commun</strong> : sus-décalage aVR + sous-décalage diffus (≥ 6 dérivations) → urgence absolue</li>
+<li><strong>Bloc de branche gauche récent</strong> + douleur thoracique : équivalent STEMI, critères Sgarbossa</li>
+</ul>
+</div>
+
+<div class="section-title"><h3>🎯 Critères STEMI (ESC 2023)</h3></div>
+<div class="tx-block">
+<ul>
+<li>Sus-décalage ST ≥ 1 mm dans 2 dérivations contiguës (membres)</li>
+<li>Sus-décalage ST ≥ 2 mm (homme ≥ 40 ans) / ≥ 2,5 mm (homme &lt; 40 ans) / ≥ 1,5 mm (femme) en V2-V3</li>
+<li>Sus-décalage ST ≥ 0,5 mm en V7-V8-V9 (postérieur) ou V3R-V4R (VD)</li>
+<li>BBG nouveau ou présumé nouveau + clinique typique</li>
+</ul>
+</div>
+
+<div class="dt-outcome">
+<div class="dt-outcome-title">🚨 Conduite STEMI</div>
+Angioplastie primaire (PCI) en urgence — objectif premier contact médical → ouverture artère &lt; 90 min. Double antiagrégation + anticoagulation selon protocole. Voir <strong>Protocoles → Douleur thoracique / SCA</strong>.
+</div>
+
+<div class="note" style="margin-top:14px">Sources : ESC 2023 STEMI Guidelines · Thygesen 4th Universal Definition of MI 2018 · Sgarbossa NEJM 1996.</div>
+</div></section>
 
 <section class="screen" id="screen-score-wells-ep"><div class="content-card"><div class="page-head"><div><h2>Wells EP</h2></div><p>Évalue la probabilité clinique d'embolie pulmonaire. Oriente vers D-dimères ou Angio-TDM.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="note" style="margin-top:0;margin-bottom:14px">Probabilité clinique d'embolie pulmonaire. ≤4 = improbable → D-dimères. >4 = probable → angio-TDM d'emblée.</div>
 <div class="score-panel" id="score-wells-ep"><div class="section-title"><h3>Score de Wells — EP</h3></div>
 <div class="score-list" id="wellsEpWrap"></div>
 <div class="score-result" id="wellsEpResult" aria-live="polite">0</div>
+</div></div></section>
+
+<section class="screen" id="screen-score-geneve"><div class="content-card"><div class="page-head"><div><h2>Genève révisé</h2></div><p>Probabilité clinique d'EP — alternative à Wells. Version simplifiée validée (Klok 2008).</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Score complètement objectif (pas de critère "diagnostic alternatif"). 0-3 : EP improbable → D-dimères. ≥4 : EP probable → angio-TDM.</div>
+<div class="score-panel" id="score-geneve"><div class="section-title"><h3>Score de Genève révisé (simplifié)</h3></div>
+<div class="score-list" id="geneveWrap"></div>
+<div class="score-result" id="geneveResult" aria-live="polite">0</div>
+</div></div></section>
+
+<section class="screen" id="screen-score-perc"><div class="content-card"><div class="page-head"><div><h2>PERC</h2></div><p>Règle d'exclusion de l'EP chez patient à faible risque — évite les D-dimères inutiles.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Pulmonary Embolism Rule-out Criteria (Kline 2004). À utiliser <strong>uniquement</strong> si probabilité clinique déjà jugée faible. Si les 8 critères sont absents → EP exclue (VPN > 99 %). Si ≥ 1 critère présent → D-dimères.</div>
+<div class="score-panel" id="score-perc"><div class="section-title"><h3>Score PERC</h3></div>
+<div class="score-list" id="percWrap"></div>
+<div class="score-result" id="percResult" aria-live="polite">0 critère</div>
+</div></div></section>
+
+<section class="screen" id="screen-score-years"><div class="content-card"><div class="page-head"><div><h2>YEARS</h2></div><p>Algorithme moderne d'exclusion de l'EP avec seuil de D-dimères adapté (van der Hulle 2017).</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">3 items cliniques. <strong>0 item + D-dimères &lt; 1000 ng/mL</strong> OU <strong>≥1 item + D-dimères &lt; 500 ng/mL</strong> → EP exclue. Sinon angio-TDM.</div>
+<div class="score-panel" id="score-years"><div class="section-title"><h3>Algorithme YEARS</h3></div>
+<div class="score-list" id="yearsWrap"></div>
+<div class="score-result" id="yearsResult" aria-live="polite">0 item</div>
+</div></div></section>
+
+<section class="screen" id="screen-score-spesi"><div class="content-card"><div class="page-head"><div><h2>sPESI</h2></div><p>Stratification pronostique d'une EP confirmée — orientation ambulatoire vs hospitalière (Jiménez 2010).</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Simplified Pulmonary Embolism Severity Index. <strong>0</strong> = bas risque (mortalité 30j ~1 %) → ambulatoire possible. <strong>≥1</strong> = risque élevé → hospitalisation.</div>
+<div class="score-panel" id="score-spesi"><div class="section-title"><h3>sPESI</h3></div>
+<div class="score-list" id="spesiWrap"></div>
+<div class="score-result" id="spesiResult" aria-live="polite">0</div>
+</div></div></section>
+
+<section class="screen" id="screen-score-blatchford"><div class="content-card"><div class="page-head"><div><h2>Blatchford</h2></div><p>Hémorragie digestive haute — évalue le risque d'intervention (transfusion, endoscopie, chirurgie).</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Glasgow-Blatchford Score (Blatchford 2000). Score <strong>0-1</strong> : faible risque → prise en charge ambulatoire envisageable. <strong>≥ 2</strong> : hospitalisation recommandée.</div>
+<div class="score-panel" id="score-blatchford"><div class="section-title"><h3>Blatchford (GBS)</h3></div>
+<div class="score-list" id="blatchfordWrap"></div>
+<div class="score-result" id="blatchfordResult" aria-live="polite">0</div>
+</div></div></section>
+
+<section class="screen" id="screen-score-glasgow-ped"><div class="content-card"><div class="page-head"><div><h2>Glasgow pédiatrique</h2></div><p>Adaptation du Glasgow pour l'enfant de moins de 5 ans (réponses verbales adaptées à l'âge).</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Échelle de coma de Glasgow pédiatrique — pour enfants &lt; 5 ans. Réponses verbales modifiées selon le développement du langage. Interprétation : 15 normal · ≤ 8 coma grave (IOT).</div>
+<div class="score-panel" id="score-glasgow-ped"><div class="section-title"><h3>Glasgow pédiatrique</h3></div>
+<div class="score-list" id="glasgowPedWrap"></div>
+<div class="score-result" id="glasgowPedResult" aria-live="polite">15 / 15</div>
 </div></div></section>
 
 <section class="screen" id="screen-score-nihss"><div class="content-card"><div class="page-head"><div><h2>NIHSS</h2></div><p>Quantifie le déficit neurologique lors d'un AVC. Guide l'indication de thrombolyse et thrombectomie.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
@@ -907,7 +1575,12 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="label">Adapter l'interface à votre métier</div>
 <div style="display:flex;gap:10px;margin-top:8px">
 <button class="profile-toggle-btn" data-profile="medical" type="button">🩺 Médecin</button>
-<button class="profile-toggle-btn" data-profile="paramedical" type="button">💊 Paramédical</button>
+<button class="profile-toggle-btn" data-profile="paramedical" type="button">💉 Paramédical</button>
+</div>
+<div style="margin-top:8px;font-size:12px;color:var(--text2)" id="profileActiveNote"></div>
+<div style="margin-top:6px;font-size:12px;color:var(--text2)">
+<strong>Médecin</strong> : tous les scores sauf douleur gériatrique et obstétrique.<br/>
+<strong>Paramédical</strong> : scores surveillance, douleur, obstétrique, sepsis.
 </div>
 <button id="resetProfileBtn" type="button" style="margin-top:10px;width:100%;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text2);font-size:13px;cursor:pointer;">↺ Réafficher le choix de profil</button>
 </div>
@@ -924,7 +1597,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.44</span>
+<span style="color:var(--primary);font-weight:800">1.2.57</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -968,7 +1641,15 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="result"><div class="result-name"><strong>Malinas</strong><br/>Risque d'accouchement imminent en préhospitalier.<br/><br/><a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div><div class="result-num">SFMU</div></div>
 <div class="result"><div class="result-name"><strong>Cushman</strong><br/>Sévérité du sevrage alcoolique.<br/><br/><a href="https://www.sfalcoologie.asso.fr/download/RBP2015-SFA-Sevrage.pdf" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFA — Sevrage</a> <a href="https://www.sfmu.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div><div class="result-num">SFA / SFMU</div></div>
 <div class="result"><div class="result-name"><strong>Braden</strong><br/>Risque d'escarre. Plus le score est bas, plus le risque est élevé.<br/><br/><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8363405/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 NIH/PMC</a></div><div class="result-num">NIH/PMC</div></div>
+<div class="result"><div class="result-name"><strong>Algoplus</strong><br/>Hétéro-évaluation de la douleur aiguë chez le sujet âgé non communicant. 5 items binaires, seuil ≥ 2/5.<br/><br/><a href="https://www.doloplus.fr/en/the-algoplus-scale/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 doloplus.fr — Algoplus</a> <a href="https://sfap.org/document/les-echelles-de-la-douleur-adulte-echelles-d-hetero-evaluation" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAP</a></div><div class="result-num">SFAP 2011</div></div>
+<div class="result"><div class="result-name"><strong>Doloplus-2</strong><br/>Hétéro-évaluation de la douleur chronique chez le sujet âgé non communicant. 10 items (0–3) en 3 groupes, seuil ≥ 5/30.<br/><br/><a href="https://www.doloplus.fr/en/the-doloplus-scale/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 doloplus.fr — Doloplus-2</a></div><div class="result-num">Wary B. 2001</div></div>
 <div class="result"><div class="result-name"><strong>Killip</strong><br/>Stratification de l'IC aiguë post-SCA. Corrélé à la mortalité hospitalière.<br/><br/><a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC — SCA</a> <a href="https://jamanetwork.com/journals/jama/fullarticle/339477" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 JAMA — Killip 1967</a></div><div class="result-num">ESC / JAMA</div></div>
+<div class="result"><div class="result-name"><strong>Genève révisé (simplifié)</strong><br/>Probabilité clinique d'EP — alternative à Wells (critères objectifs).<br/><br/><a href="https://pubmed.ncbi.nlm.nih.gov/18318712/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Klok et al., Arch Intern Med 2008</a></div><div class="result-num">Klok 2008</div></div>
+<div class="result"><div class="result-name"><strong>PERC</strong><br/>Pulmonary Embolism Rule-out Criteria — exclusion EP chez patient faible risque.<br/><br/><a href="https://pubmed.ncbi.nlm.nih.gov/15304025/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Kline et al., JTH 2004</a></div><div class="result-num">Kline 2004</div></div>
+<div class="result"><div class="result-name"><strong>YEARS</strong><br/>Algorithme moderne EP avec seuil D-dimères adapté.<br/><br/><a href="https://pubmed.ncbi.nlm.nih.gov/28492849/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 van der Hulle et al., Lancet 2017</a></div><div class="result-num">van der Hulle 2017</div></div>
+<div class="result"><div class="result-name"><strong>sPESI</strong><br/>Simplified Pulmonary Embolism Severity Index — pronostic EP.<br/><br/><a href="https://pubmed.ncbi.nlm.nih.gov/20696966/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Jiménez et al., Arch Intern Med 2010</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Pulmonary-Embolism" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC 2019</a></div><div class="result-num">Jiménez 2010 / ESC</div></div>
+<div class="result"><div class="result-name"><strong>Blatchford (GBS)</strong><br/>Glasgow-Blatchford Score — risque intervention hémorragie digestive haute.<br/><br/><a href="https://pubmed.ncbi.nlm.nih.gov/11073021/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Blatchford, Lancet 2000</a></div><div class="result-num">Blatchford 2000</div></div>
+<div class="result"><div class="result-name"><strong>Glasgow pédiatrique</strong><br/>Adaptation de l'échelle de Glasgow pour enfants &lt; 5 ans.<br/><br/><a href="https://pubmed.ncbi.nlm.nih.gov/16278702/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Holmes et al., Ann Emerg Med 2005</a></div><div class="result-num">Holmes 2005</div></div>
 <div class="result"><div class="result-name"><strong>DFG / CKD-EPI 2021</strong><br/>Estimation du DFG. Remplace Cockcroft-Gault.<br/><br/><a href="https://www.kidney.org/professionals/kdoqi/gfr_calculator" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 KDIGO/NKF</a> <a href="https://www.has-sante.fr/jcms/c_878871/fr/evaluation-du-debit-de-filtration-glomerulaire" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS</a></div><div class="result-num">KDIGO / HAS</div></div>
 <div class="result"><div class="result-name"><strong>IMC / Surface (Mosteller)</strong><br/>IMC OMS + surface corporelle pour posologies.<br/><br/><a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 OMS</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1757537/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Mosteller NEJM 1987</a></div><div class="result-num">OMS / NEJM</div></div>
 </div>
@@ -981,7 +1662,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="note">Facteurs de conversion SI. Glycémie ×5,551 | Créatinine ×0,01131 | Cholestérol ×2,586 | Triglycérides ×1,129 | Bilirubine ×0,05847.<br/><br/><a href="https://unitslab.com/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 UnitsLab</a></div>
 
 <div class="section-title"><h3>Doses pondérales &amp; Fiches médicaments</h3></div>
-<div class="note">Posologies issues du Vidal, SFAR/SFMU. Fiches médicaments extraites et corrigées depuis la base <em>medicurg.db</em> (app Fiches Médicaments). Corrections critiques appliquées (ACTRAPID, ADRENALINE, ACUPAN, ANEXATE). ACTILYSE et ESMERON complétés depuis les RCP officiels ANSM 2024. <strong>Toujours vérifier avec le protocole de service et le Vidal.</strong><br/><br/>
+<div class="note">228 fiches médicaments — SAMU/SMUR et urgences hospitalières. Révision complète sourcée v1.2.43 (avril 2026). Sources : RCP ANSM, BDPM, Vidal 2024, ESC ACS 2023, GIHP RFE mai 2024, ERC 2021, SFAR. Corrections critiques : Amiodarone (ERC 2021), Naloxone titration (RCP ANSM), Prodilantin 20 mg EP/kg, Rivotril 0,015 mg/kg, Gentamicine 3–8 mg/kg, Clopidogrel/Kardegic dose de charge ESC 2023, Lovenox STEMI, Fraxiparine 95 UI/kg, Diazepam IM éviter, Ciflox IVL 60 min, Augmentin. <strong>Toujours vérifier avec le protocole de service et le Vidal avant administration.</strong><br/><br/>
 <a href="https://base-donnees-publique.medicaments.gouv.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 BDPM — ANSM</a>
 <a href="https://www.vidal.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Vidal 2024</a>
 <a href="https://sfar.org/publications-et-recommandations/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAR</a>
@@ -998,6 +1679,14 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <a href="https://cprguidelines.eu/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025</a>
 </div>
 
+<div class="section-title"><h3>Équivalences médicamenteuses</h3></div>
+<div class="note">Équivalences corticoïdes, HBPM et Princeps→DCI.<br/><br/>
+<a href="https://recomedicales.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 RecoMédicales 2024</a>
+<a href="https://www.gihp-france.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 GIHP — RFE mai 2024</a>
+<a href="https://sfar.org/publications-et-recommandations/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAR 1996</a>
+<a href="https://comedims.aphp.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 COMEDIMS APHP 2014</a>
+<a href="https://www.srlf.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SRLF 2024 (Princeps)</a>
+</div>
 <div class="section-title"><h3>Équivalence des voies</h3></div>
 <div class="note">Ratios d'équivalence issus du Vidal, SFAR et de la littérature pharmacologique. Variabilité interindividuelle importante — adapter à la clinique.<br/><br/>
 <a href="https://www.vidal.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Vidal</a>
@@ -1010,19 +1699,27 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <div class="note">Adulte : OMS/ESC/SFMU. Pédiatrie : PALS/AHA + Nelson.<br/><br/><a href="https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-advanced-life-support" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 AHA — PALS</a> <a href="https://www.sfmu.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU</a></div>
 
 <div class="section-title"><h3>Protocoles rapides</h3></div>
-<div class="note">ERC 2025 (ACR adulte/pédiatrique), HAS+SFMU/SFNV 2024 (AVC), RFE SFMU 2016 (anaphylaxie), ESC 2023+SFC/SFMU (SCA).<br/><br/><a href="https://www.erc.edu/science-research/guidelines/guidelines-2025/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025 — ACR</a> <a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — AVC</a> <a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Anaphylaxie</a> <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC 2023 — SCA</a></div>
-
-<div class="section-title"><h3>Anticoagulants — antidotes</h3></div>
-<div class="note">Antidotes des anticoagulants : protamine (HNF/HBPM), idarucizumab (Pradaxa®), andexanet alfa (Xarelto®/Eliquis®/Lixiana®), PPSB + vitamine K1 (AVK). Sources : RCP ANSM, ESC 2023, GIHP 2020.<br/><br/>
-<a href="https://base-donnees-publique.medicaments.gouv.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 BDPM ANSM</a>
-<a href="https://www.escardio.org/Guidelines" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC Guidelines</a>
-<a href="https://www.gihp.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 GIHP 2020</a>
+<div class="note">ERC 2025 (ACR adulte/pédiatrique), HAS+SFMU/SFNV 2024 (AVC), RFE SFMU 2016 (anaphylaxie), ESC 2023+SFC/SFMU (SCA).<br/>Surviving Sepsis Campaign 2021 + SRLF/SFMU/SFAR (choc septique), SFAR/SFMU Damage Control Resuscitation 2023 (choc hémorragique), SFMU/SFAR Choc circulatoire 2020 (choc hypovolémique), Critères Vittel SFMU/SAMU de France 2011 (trauma grave), HAS Transfusion PSL 2023 + ANSM (protocole transfusionnel).<br/><strong>Entorse cheville</strong> : Ottawa Ankle Rules (Stiell et al., JAMA 1993) · Bastin C., <em>Orthopédie pratique</em>, UCLouvain 2016 (CC BY-NC-SA) · Kerkhoffs et al., Cochrane 2013 · Petersen et al., Arch Orthop Trauma Surg 2013 · KCE Report 197BS 2013 · de Lécluse, J Traumatol Sport 2003.<br/>
+<strong>Voie intra-osseuse</strong> : ERC 2021 · SFAR RFE 2021 · AHA ACLS 2020.<br/>
+<strong>Territoires des infarctus</strong> : ESC 2023 STEMI Guidelines · Thygesen 4th Universal Definition of MI 2018 · Sgarbossa NEJM 1996.<br/><br/>
+<a href="https://www.erc.edu/science-research/guidelines/guidelines-2025/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ERC 2025 — ACR</a>
+<a href="https://www.has-sante.fr/jcms/c_830700/fr/accident-vasculaire-cerebral" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS — AVC</a>
+<a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Anaphylaxie</a>
+<a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC 2023 — SCA</a>
+<a href="https://www.srlf.org/article/prise-en-charge-du-choc-septique" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SRLF — Choc septique</a>
+<a href="https://sfar.org/prise-en-charge-du-choc-hemorragique/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFAR — Choc hémorragique</a>
+<a href="https://www.sfmu.org/fr/vie-professionnelle/outils-professionnels/referentiels-consensus/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU — Critères Vittel</a>
+<a href="https://www.has-sante.fr/jcms/c_2062407/fr/transfusion-de-produits-sanguins-labiles" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 HAS 2023 — Transfusion PSL</a>
+<a href="https://pubmed.ncbi.nlm.nih.gov/8320784/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Stiell JAMA 1993 — Ottawa</a>
+<a href="https://dial.uclouvain.be/pr/boreal/object/boreal:184974" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Bastin UCLouvain 2016</a>
+<a href="https://kce.fgov.be/fr/publications/tous-les-rapports/entorse-de-la-cheville-diagnostic-et-traitement" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 KCE Report 197BS 2013</a>
 </div>
-<div class="section-title"><h3>Anticoagulants — antidotes</h3></div>
-<div class="note">Antidotes des anticoagulants : protamine (HNF/HBPM), idarucizumab/Praxbind® (Dabigatran), andexanet alfa/Ondexxya® (Xarelto®/Eliquis®/Lixiana®), PPSB + vitamine K1 (AVK — Coumadine®, Sintrom®, Préviscan®).<br/><br/>
+
+<div class="section-title"><h3>Anticoagulants et antidotes</h3></div>
+<div class="note">Antidotes : protamine (HNF/HBPM), idarucizumab/Praxbind® (Dabigatran/Pradaxa®), andexanet alfa/Ondexxya® (rivaroxaban/apixaban), PPSB + vitamine K1 (AVK — Coumadine®, Sintrom®, Préviscan®). HBPM : Lovenox®, Fraxiparine®, Fragmine®, Innohep®, Arixtra®.<br/><br/>
 <a href="https://base-donnees-publique.medicaments.gouv.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 BDPM ANSM</a>
-<a href="https://www.escardio.org/Guidelines" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC Guidelines</a>
-<a href="https://www.gihp.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 GIHP 2020</a>
+<a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC Guidelines ACS 2023</a>
+<a href="https://www.gihp-france.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 GIHP — RFE mai 2024</a>
 </div>
 <div class="section-title"><h3>Toxicologie</h3></div>
 <div class="note">SFMU/Toxin — Pr Vincent Danel, Grenoble (rév. déc. 2019).<br/><br/><a href="https://www.sfmu.org/toxin/ANTIDOTE/TOXANTTB.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Antidotes</a> <a href="https://www.sfmu.org/toxin/DOSETOXI/DOSETOX.HTM" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 SFMU/Toxin — Doses toxiques</a> <a href="https://www.centres-antipoison.net/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 Centres antipoison</a></div>
@@ -1114,10 +1811,19 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <div class="score-result" id="killipResult" aria-live="polite" style="margin-top:14px">—</div>
 </div></section>
 
-<section class="screen" id="screen-doses-adulte"><div class="content-card"><div class="page-head"><div><h2>Doses adulte</h2><p>Calcul de dose selon le poids</p></div><div style="display:flex;gap:8px"><button class="btn reset-inline" id="doseResetBtn" type="button" aria-label="Réinitialiser">↺ RAZ</button><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div></div>
+<section class="screen" id="screen-doses-adulte"><div class="content-card"><div class="page-head"><div><h2>Doses adulte</h2><p>Calcul de dose selon le poids</p></div><div style="display:flex;gap:8px"><button class="btn reset-inline" id="doseResetBtn" type="button" aria-label="Réinitialiser">↺ RAZ</button><button class="btn-back" data-target="doses">◀ Calculs</button></div></div>
 <div class="inline-form" style="margin-top:14px">
 <div class="field"><div class="label">Poids du patient (kg)</div><input class="num-input" id="dosePoids" aria-label="Poids en kg" min="0" step="0.1" type="number" placeholder="kg"/></div>
-<div class="field" style="display:none"><div class="label">Posologie (mg/kg)</div><input class="num-input" id="doseMgKg" aria-label="Posologie mg/kg" min="0" step="0.01" type="number" placeholder="mg/kg"/></div>
+<div class="field" style="display:none" id="doseMgKgField">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+    <div class="label" style="margin-bottom:0">Posologie</div>
+    <div class="duration-toggle" id="doseUnitToggle" style="gap:4px">
+      <button class="unit-btn active" data-doseunit="mg" type="button">mg/kg</button>
+      <button class="unit-btn" data-doseunit="ui" type="button">UI/kg</button>
+    </div>
+  </div>
+  <input class="num-input" id="doseMgKg" aria-label="Posologie par kg" min="0" step="0.001" type="number" placeholder="valeur/kg"/>
+</div>
 <div class="field" style="display:none"><div class="label">Concentration (mg/mL)</div><input class="num-input" id="doseConc" aria-label="Concentration mg/mL" min="0" step="0.01" type="number" placeholder="mg/mL"/></div>
 </div>
 <div class="note" id="dosePoidsNote" style="margin-top:6px;margin-bottom:4px"></div>
@@ -1138,7 +1844,7 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <div class="result-list" id="equivResults"></div>
 <div class="note" id="equivNote" style="margin-top:10px"></div>
 </div></section>
-<section class="screen" id="screen-doses-ped"><div class="content-card"><div class="page-head"><div><h2>Doses pédiatriques</h2><p>Calcul de dose selon le poids</p></div><button class="btn-back" data-target="medicaments">◀ Médicaments</button></div>
+<section class="screen" id="screen-doses-ped"><div class="content-card"><div class="page-head"><div><h2>Doses pédiatriques</h2><p>Calcul de dose selon le poids</p></div><button class="btn-back" data-target="doses">◀ Calculs</button></div>
 <div class="inline-form" style="margin-top:14px">
 <div class="field"><div class="label">Poids de l'enfant (kg)</div><input class="num-input" id="pedPoids" type="number" min="0.5" max="100" step="0.1" placeholder="kg"/></div>
 </div>
@@ -1219,7 +1925,7 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 </div></section>
 
 </main>
-<nav class="bottom-nav" role="navigation" aria-label="Navigation principale"><button class="nav-btn active" data-target="home" aria-label="Accueil"><span class="nav-icon">🏠</span><span>Accueil</span></button><button class="nav-btn" data-target="debit" aria-label="Débit perfusion"><span class="nav-icon">💧</span><span>Débit</span></button><button class="nav-btn" data-target="normes" aria-label="Normes biologiques"><span class="nav-icon">🧪</span><span>Normes</span></button><button class="nav-btn" data-target="scores" aria-label="Scores cliniques"><span class="nav-icon">📋</span><span>Scores</span></button><button class="nav-btn" data-target="tubes" aria-label="Ordre prélèvement tubes"><span class="nav-icon">🩸</span><span>Prélèvt.</span></button><button class="nav-btn" data-target="antidotes" aria-label="Antidotes"><span class="nav-icon">💊</span><span>Antidotes</span></button><button class="nav-btn" data-target="doses" aria-label="Doses pondérales"><span class="nav-icon">💉</span><span>Doses</span></button><button class="nav-btn" data-target="protocoles" aria-label="Protocoles rapides"><span class="nav-icon">🚨</span><span>Protocoles</span></button></nav></div>
+<nav class="bottom-nav" role="navigation" aria-label="Navigation principale"><button class="nav-btn active" data-target="home" aria-label="Accueil"><span class="nav-icon">🏠</span><span>Accueil</span></button><button class="nav-btn" data-target="normes" aria-label="Normes biologiques"><span class="nav-icon">🧪</span><span>Normes</span></button><button class="nav-btn" data-target="scores" aria-label="Scores cliniques"><span class="nav-icon">📋</span><span>Scores</span></button><button class="nav-btn" data-target="tubes" aria-label="Ordre prélèvement tubes"><span class="nav-icon">🩸</span><span>Prélèvt.</span></button><button class="nav-btn" data-target="antidotes" aria-label="Antidotes"><span class="nav-icon">💊</span><span>Antidotes</span></button><button class="nav-btn" data-target="doses" aria-label="Calculs de dose"><span class="nav-icon">💉</span><span>Calculs</span></button><button class="nav-btn" data-target="protocoles" aria-label="Protocoles rapides"><span class="nav-icon">🚨</span><span>Protocoles</span></button></nav></div>
 <script>
 const antidoteCategories = [
   {title:"⚡ Urgences fréquentes",items:[
@@ -1478,7 +2184,8 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.44';
+const APP_VERSION = '1.2.57';
+const APP_VERSION_CODE = 74;
 /* Normalisation accents pour recherche */
 function normSearch(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 
@@ -1486,7 +2193,7 @@ const appState = { activeScreen: 'home' };
 
 const screens = {
   home: document.getElementById('screen-home'),
-  debit: document.getElementById('screen-debit'),
+  debit: document.getElementById('screen-doses'),
   normes: document.getElementById('screen-normes'),
   scores: document.getElementById('screen-scores'),
   tubes: document.getElementById('screen-tubes'),
@@ -1499,7 +2206,15 @@ const screens = {
   settings: document.getElementById('screen-settings'),
   'score-glasgow': document.getElementById('screen-score-glasgow'),
   'score-braden': document.getElementById('screen-score-braden'),
+  'score-algoplus': document.getElementById('screen-score-algoplus'),
+  'score-doloplus': document.getElementById('screen-score-doloplus'),
   'score-wells-ep': document.getElementById('screen-score-wells-ep'),
+  'score-geneve': document.getElementById('screen-score-geneve'),
+  'score-perc': document.getElementById('screen-score-perc'),
+  'score-years': document.getElementById('screen-score-years'),
+  'score-spesi': document.getElementById('screen-score-spesi'),
+  'score-blatchford': document.getElementById('screen-score-blatchford'),
+  'score-glasgow-ped': document.getElementById('screen-score-glasgow-ped'),
   'score-nihss': document.getElementById('screen-score-nihss'),
   'score-heart': document.getElementById('screen-score-heart'),
   'score-vittel': document.getElementById('screen-score-vittel'),
@@ -1517,6 +2232,17 @@ const screens = {
   'proto-anaphylaxie': document.getElementById('screen-proto-anaphylaxie'),
   'proto-avc': document.getElementById('screen-proto-avc'),
   'proto-douleur_tho': document.getElementById('screen-proto-douleur_tho'),
+  'proto-choc-septique': document.getElementById('screen-proto-choc-septique'),
+  'proto-choc-hemorragique': document.getElementById('screen-proto-choc-hemorragique'),
+  'proto-choc-hypovolemique': document.getElementById('screen-proto-choc-hypovolemique'),
+  'proto-trauma': document.getElementById('screen-proto-trauma'),
+  'proto-transfusion': document.getElementById('screen-proto-transfusion'),
+  'proto-entorse-cheville': document.getElementById('screen-proto-entorse-cheville'),
+  'proto-entorse-diag': document.getElementById('screen-proto-entorse-diag'),
+  'proto-entorse-grades': document.getElementById('screen-proto-entorse-grades'),
+  'proto-entorse-tx': document.getElementById('screen-proto-entorse-tx'),
+  'proto-voie-io': document.getElementById('screen-proto-voie-io'),
+  'proto-territoires-idm': document.getElementById('screen-proto-territoires-idm'),
   'dfg': document.getElementById('screen-dfg'),
   'imc': document.getElementById('screen-imc'),
   'killip': document.getElementById('screen-killip'),
@@ -1529,7 +2255,8 @@ const screens = {
   'score-dep': document.getElementById('screen-score-dep'),
   'equiv-corticoides': document.getElementById('screen-equiv-corticoides'),
   'equiv-hbpm': document.getElementById('screen-equiv-hbpm'),
-  'equiv-princeps': document.getElementById('screen-equiv-princeps')
+  'equiv-princeps': document.getElementById('screen-equiv-princeps'),
+  'pca': document.getElementById('screen-pca')
 };
 
 /* Titles removed — topbar always shows Urg Pocket */
@@ -2293,16 +3020,27 @@ function calcDose(){
   const conc = parseFloat(document.getElementById('doseConc')?.value);
   const elMg = document.getElementById('doseTotalMg');
   const elMl = document.getElementById('doseTotalMl');
+  const activeUnit = document.querySelector('#doseUnitToggle .unit-btn.active');
+  const unit = activeUnit ? activeUnit.dataset.doseunit : 'mg';
   if(!(p>0) || !(mgkg>0)){
     if(elMg) elMg.textContent = '—';
     if(elMl) elMl.textContent = '—';
     return;
   }
-  const totalMg = p * mgkg;
-  if(elMg) elMg.textContent = fmt(totalMg) + ' mg';
-  if(conc > 0 && elMl) elMl.textContent = fmt(totalMg / conc) + ' mL';
+  const total = p * mgkg;
+  const unitLabel = unit === 'ui' ? ' UI' : ' mg';
+  if(elMg) elMg.textContent = fmt(total) + unitLabel;
+  if(unit === 'mg' && conc > 0 && elMl) elMl.textContent = fmt(total / conc) + ' mL';
   else if(elMl) elMl.textContent = '—';
 }
+// Toggle mg/UI
+document.querySelectorAll('#doseUnitToggle .unit-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('#doseUnitToggle .unit-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    calcDose();
+  });
+});
 ['dosePoids','doseMgKg','doseConc'].forEach(id => {
   document.getElementById(id)?.addEventListener('input', calcDose);
 });
@@ -2628,6 +3366,12 @@ function calcCockcroft(){
     {label:'APGAR',keywords:'apgar naissance nouveau-né néonatal',target:'score-apgar',tag:'Score'},
     {label:'Braden',keywords:'braden escarre peau prévention',target:'score-braden',tag:'Score'},
     {label:'Wells EP',keywords:'wells embolie pulmonaire thrombose ep',target:'score-wells-ep',tag:'Score'},
+    {label:'Genève révisé',keywords:'geneve embolie pulmonaire ep klok probabilité clinique',target:'score-geneve',tag:'Score'},
+    {label:'PERC',keywords:'perc embolie pulmonaire exclusion kline rule out',target:'score-perc',tag:'Score'},
+    {label:'YEARS',keywords:'years embolie pulmonaire d-dimères seuil adapté van der hulle',target:'score-years',tag:'Score'},
+    {label:'sPESI',keywords:'spesi pesi simplifié embolie pulmonaire pronostic mortalité jimenez',target:'score-spesi',tag:'Score'},
+    {label:'Blatchford',keywords:'blatchford gbs hémorragie digestive haute hdh ulcère glasgow',target:'score-blatchford',tag:'Score'},
+    {label:'Glasgow pédiatrique',keywords:'glasgow pédiatrique pediatric coma enfant nourrisson gcs',target:'score-glasgow-ped',tag:'Score'},
     {label:'NIHSS',keywords:'nihss avc stroke neurologique déficit thrombolyse',target:'score-nihss',tag:'Score'},
     {label:'HEART',keywords:'heart douleur thoracique mace cardiaque troponine',target:'score-heart',tag:'Score'},
     {label:'Vittel',keywords:'vittel trauma traumatologie grave critères',target:'score-vittel',tag:'Score'},
@@ -2635,7 +3379,8 @@ function calcCockcroft(){
     {label:'Malinas',keywords:'malinas accouchement obstétrique imminent contractions',target:'score-malinas',tag:'Score'},
     {label:'Cushman',keywords:'cushman sevrage alcool alcoolique',target:'score-cushman',tag:'Score'},
     // Modules
-    {label:'Débit perfusion',keywords:'débit perf perfusion gouttes ml volume durée',target:'debit',tag:'Calcul'},
+    {label:'Débit de perfusion',keywords:'débit perf perfusion gouttes ml volume durée calcul',target:'doses',tag:'Calcul'},
+    {label:'Calculs de dose',keywords:'calcul dose pondérale poids mg kg débit perfusion seringue ivse pca',target:'doses',tag:'Calcul'},
     {label:'Doses pondérales',keywords:'dose poids mg kg adrénaline kétamine morphine midazolam amoxicilline naloxone paracétamol',target:'doses',tag:'Calcul'},
     {label:'Convertisseur bio',keywords:'convertisseur unités glycémie mmol créatinine cholestérol température',target:'convertisseur',tag:'Outil'},
     {label:'Constantes vitales',keywords:'constantes fc fr pa spo2 fréquence cardiaque respiratoire pression température pédiatrie enfant adulte',target:'constped',tag:'Référence'},
@@ -2646,6 +3391,12 @@ function calcCockcroft(){
     {label:'Choc anaphylactique',keywords:'anaphylaxie choc allergique adrénaline urticaire',target:'proto-anaphylaxie',tag:'Protocole'},
     {label:'AVC',keywords:'avc accident vasculaire cérébral fast thrombolyse',target:'proto-avc',tag:'Protocole'},
     {label:'Douleur thoracique / SCA',keywords:'douleur thoracique sca stemi infarctus troponine coronaire',target:'proto-douleur_tho',tag:'Protocole'},
+    {label:'Entorse cheville',keywords:'entorse cheville ottawa ligament ltfa lcf inversion orthopédie traumatologie',target:'proto-entorse-cheville',tag:'Protocole'},
+    {label:'Entorse cheville — arbre diagnostique',keywords:'entorse cheville ottawa rx radio échographie irm scanner tdm diagnostic imagerie',target:'proto-entorse-diag',tag:'Protocole'},
+    {label:'Entorse cheville — classification 3 grades',keywords:'entorse cheville grade gravité classification lécluse',target:'proto-entorse-grades',tag:'Protocole'},
+    {label:'Entorse cheville — traitement',keywords:'entorse cheville traitement grec rice orthèse immobilisation aircast soft cast',target:'proto-entorse-tx',tag:'Protocole'},
+    {label:'Voie intra-osseuse',keywords:'voie intra-osseuse io ez-io tibia humérus accès vasculaire urgence vitale smur',target:'proto-voie-io',tag:'Protocole'},
+    {label:'Territoires des infarctus',keywords:'territoires infarctus idm stemi ecg dérivations coronaire iva circonflexe antérieur inférieur postérieur ventricule droit sgarbossa',target:'proto-territoires-idm',tag:'Protocole'},
     // Normes
     {label:'Gaz du sang',keywords:'gaz sang ph pco2 po2 bicarbonate sao2',target:'norme-detail',normeKey:'Gaz du sang',tag:'Norme'},
     {label:'NFS',keywords:'nfs numération formule sanguine hématies hémoglobine hématocrite leucocytes plaquettes vgm',target:'norme-detail',normeKey:'Numération Formule Sanguine (NFS)',tag:'Norme'},
@@ -2774,7 +3525,7 @@ document.querySelectorAll('.score-result').forEach(el => {
     document.body.classList.toggle('dark', isDark);
     document.documentElement.classList.toggle('dark', isDark);
     const t = document.getElementById('themeToggle');
-    if(t) t.textContent = isDark ? '☀️' : '🌙';
+    if(t) t.textContent = mode === 'auto' ? '🔄' : isDark ? '☀️' : '🌙';
     document.querySelectorAll('.settings-theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === mode));
     setTimeout(() => applyAccent(localStorage.getItem(KEYS.accent) || 'blue'), 20);
   }
@@ -2805,13 +3556,12 @@ document.querySelectorAll('.score-result').forEach(el => {
   // --- Nav toggles ---
   const allNavItems = [
     {key:'home',label:'🏠 Accueil',locked:true},
-    {key:'debit',label:'💧 Débit'},
     {key:'normes',label:'🧪 Normes'},
     {key:'scores',label:'📋 Scores'},
     {key:'tubes',label:'🩸 Prélèvt.'},
     {key:'antidotes',label:'☠️ Toxicologie'},
     {key:'medicaments',label:'💊 Médicaments'},
-    {key:'doses',label:'💉 Doses'},
+    {key:'doses',label:'💉 Calculs de dose'},
     {key:'protocoles',label:'🚨 Protocoles'},
     {key:'convertisseur',label:'⚖️ Convertisseur'},
     {key:'constped',label:'🩺 Constantes'},
@@ -2966,8 +3716,9 @@ document.querySelectorAll('.score-result').forEach(el => {
     // Override the old toggle to cycle through the settings
     themeBtn.addEventListener('click', (e) => {
       e.stopImmediatePropagation();
-      const isDark = document.body.classList.contains('dark');
-      applyTheme(isDark ? 'light' : 'dark');
+      const cur = localStorage.getItem('urg-theme') || 'auto';
+      const next = cur === 'light' ? 'dark' : cur === 'dark' ? 'auto' : 'light';
+      applyTheme(next);
     }, true);
   }
 })();
@@ -3150,6 +3901,205 @@ const dosesToxiques = [
   w.addEventListener('change',function(){var t=0;items.forEach(function(_,i){var s=w.querySelector('input[name="heart'+i+'"]:checked');if(s)t+=parseInt(s.value);});var int=t<=3?'Risque faible (~2% MACE)':t<=6?'Risque intermédiaire (~15%)':'Risque élevé (~50%)';var clsH=t<=3?'green':t<=6?'yellow':'red';r.classList.remove('green','yellow','red');r.classList.add(clsH);updateColorResult(r,clsH);renderRingResult(r,{score:t,badge:int,interp:'/10 — Score HEART (SCA)',conduct:t<=3?'Sortie possible — troponines à 3h':'Hospitalisation — surveillance troponines + cardio'});});
 })();
 
+/* ========== GENÈVE RÉVISÉ (simplifié) ========== */
+(function(){
+  // Version simplifiée (Klok 2008) — 1 pt par item présent
+  var items=[
+    {label:"Âge > 65 ans",pts:1},
+    {label:"ATCD TVP ou EP",pts:1},
+    {label:"Chirurgie ou fracture MI < 1 mois",pts:1},
+    {label:"Cancer actif (traité < 1 an)",pts:1},
+    {label:"Douleur unilatérale MI",pts:1},
+    {label:"Hémoptysie",pts:1},
+    {label:"FC 75-94 bpm",pts:1},
+    {label:"FC ≥ 95 bpm",pts:2},
+    {label:"Douleur à la palpation d'un trajet veineux + œdème unilatéral",pts:1}
+  ];
+  var w=document.getElementById('geneveWrap'),r=document.getElementById('geneveResult');
+  if(!w)return;
+  items.forEach(function(it,i){w.innerHTML+='<div class="score-item"><label><input type="checkbox" value="'+it.pts+'"/> '+it.label+' <span class="muted">('+it.pts+' pt'+(it.pts>1?'s':'')+')</span></label></div>';});
+  w.addEventListener('change',function(){var t=0;w.querySelectorAll('input:checked').forEach(function(cb){t+=parseFloat(cb.value);});var clsG=t<=3?'green':'red';r.classList.remove('green','yellow','red');r.classList.add(clsG);updateColorResult(r,clsG);renderRingResult(r,{score:t,badge:t<=3?'EP improbable':'EP probable',interp:t<=3?'Score 0-3 — D-dimères':'Score ≥4 — Angio-TDM',conduct:t<=3?'D-dimères à doser':'Angio-TDM thoracique en urgence'});});
+})();
+
+/* ========== PERC ========== */
+(function(){
+  // Pulmonary Embolism Rule-out Criteria (Kline 2004)
+  // TOUS les 8 critères doivent être NON pour exclure l'EP (VPN > 99 %)
+  var items=[
+    "Âge ≥ 50 ans",
+    "FC ≥ 100 bpm",
+    "SpO₂ < 95 % en air ambiant",
+    "Œdème unilatéral d'un MI",
+    "Hémoptysie",
+    "Chirurgie ou traumatisme récent (< 4 sem) nécessitant anesthésie",
+    "ATCD de TVP ou EP",
+    "Prise d'œstrogènes (contraception, hormonothérapie)"
+  ];
+  var w=document.getElementById('percWrap'),r=document.getElementById('percResult');
+  if(!w)return;
+  items.forEach(function(lbl){w.innerHTML+='<div class="score-item"><label><input type="checkbox"/> '+lbl+'</label></div>';});
+  w.addEventListener('change',function(){
+    var n=w.querySelectorAll('input:checked').length;
+    var clsP=n===0?'green':'red';
+    r.classList.remove('green','yellow','red');r.classList.add(clsP);updateColorResult(r,clsP);
+    renderRingResult(r,{
+      score:n,
+      badge:n===0?'EP exclue':'PERC positif',
+      interp:n===0?'0 critère — VPN > 99 %':n+' critère'+(n>1?'s':'')+' positif'+(n>1?'s':''),
+      conduct:n===0?'Pas de D-dimères, EP exclue cliniquement':'Dosage D-dimères requis'
+    });
+  });
+})();
+
+/* ========== YEARS ========== */
+(function(){
+  // Algorithme YEARS (van der Hulle 2017) — 3 items cliniques
+  var items=[
+    "Signes cliniques de TVP",
+    "Hémoptysie",
+    "EP = diagnostic le plus probable"
+  ];
+  var w=document.getElementById('yearsWrap'),r=document.getElementById('yearsResult');
+  if(!w)return;
+  items.forEach(function(lbl){w.innerHTML+='<div class="score-item"><label><input type="checkbox"/> '+lbl+'</label></div>';});
+  // Champ D-dimères
+  w.innerHTML+='<div class="score-item" style="margin-top:10px"><div class="label">D-dimères (ng/mL) — optionnel</div><input type="number" id="yearsDdim" class="num-input" min="0" step="1" placeholder="ex : 600" style="margin-top:4px"/></div>';
+  function recalc(){
+    var n=w.querySelectorAll('input[type="checkbox"]:checked').length;
+    var ddim=parseFloat(document.getElementById('yearsDdim').value);
+    var seuil=(n===0)?1000:500;
+    var conclusion, badge, cls;
+    if(isNaN(ddim)){
+      conclusion='Doser les D-dimères. Seuil : '+seuil+' ng/mL';
+      badge=n+' item'+(n>1?'s':'');
+      cls='yellow';
+    } else if(ddim<seuil){
+      conclusion='D-dimères < '+seuil+' ng/mL — EP exclue';
+      badge='EP exclue';cls='green';
+    } else {
+      conclusion='D-dimères ≥ '+seuil+' ng/mL — Angio-TDM';
+      badge='Angio-TDM requis';cls='red';
+    }
+    r.classList.remove('green','yellow','red');r.classList.add(cls);updateColorResult(r,cls);
+    renderRingResult(r,{score:n,badge:badge,interp:conclusion,conduct:isNaN(ddim)?'Dosage D-dimères':(ddim<seuil?'Pas de TDM':'Angio-TDM thoracique')});
+  }
+  w.addEventListener('change',recalc);
+  w.addEventListener('input',recalc);
+})();
+
+/* ========== sPESI ========== */
+(function(){
+  // Simplified Pulmonary Embolism Severity Index (Jiménez 2010)
+  // 6 items, 1 pt chacun. 0 = bas risque, ≥1 = risque élevé
+  var items=[
+    "Âge > 80 ans",
+    "Cancer actif",
+    "Maladie cardio-pulmonaire chronique",
+    "FC ≥ 110 bpm",
+    "PAS < 100 mmHg",
+    "SaO₂ < 90 %"
+  ];
+  var w=document.getElementById('spesiWrap'),r=document.getElementById('spesiResult');
+  if(!w)return;
+  items.forEach(function(lbl){w.innerHTML+='<div class="score-item"><label><input type="checkbox"/> '+lbl+'</label></div>';});
+  w.addEventListener('change',function(){
+    var t=w.querySelectorAll('input:checked').length;
+    var clsS=t===0?'green':'red';
+    r.classList.remove('green','yellow','red');r.classList.add(clsS);updateColorResult(r,clsS);
+    renderRingResult(r,{
+      score:t,
+      badge:t===0?'Bas risque':'Risque élevé',
+      interp:t===0?'Mortalité 30j ~1,0 %':'Mortalité 30j ~10,9 %',
+      conduct:t===0?'Prise en charge ambulatoire envisageable (si conditions socio-médicales)':'Hospitalisation — surveillance hémodynamique'
+    });
+  });
+})();
+
+/* ========== BLATCHFORD (GBS) ========== */
+(function(){
+  // Glasgow-Blatchford Score (Blatchford 2000) — HDH
+  // Critères et points selon l'article original
+  var items=[
+    {l:"Urée (mmol/L)",o:[["< 6,5",0],["6,5-7,9",2],["8,0-9,9",3],["10,0-24,9",4],["≥ 25",6]]},
+    {l:"Hémoglobine homme (g/dL)",o:[["≥ 13",0],["12-12,9",1],["10-11,9",3],["< 10",6]]},
+    {l:"Hémoglobine femme (g/dL)",o:[["≥ 12",0],["10-11,9",1],["< 10",6]]},
+    {l:"PAS (mmHg)",o:[["≥ 110",0],["100-109",1],["90-99",2],["< 90",3]]},
+    {l:"FC ≥ 100 bpm",o:[["Non",0],["Oui",1]]},
+    {l:"Méléna",o:[["Non",0],["Oui",1]]},
+    {l:"Syncope",o:[["Non",0],["Oui",2]]},
+    {l:"Hépatopathie",o:[["Non",0],["Oui",2]]},
+    {l:"Insuffisance cardiaque",o:[["Non",0],["Oui",2]]}
+  ];
+  var w=document.getElementById('blatchfordWrap'),r=document.getElementById('blatchfordResult');
+  if(!w)return;
+  items.forEach(function(it,i){
+    var oh=it.o.map(function(o,j){return '<label class="score-option"><input type="radio" name="blt'+i+'" value="'+o[1]+'"/> '+o[0]+' ('+o[1]+')</label>';}).join('');
+    w.innerHTML+='<div class="score-item"><div class="label">'+it.l+'</div><div class="score-options">'+oh+'</div></div>';
+  });
+  w.addEventListener('change',function(){
+    var t=0;
+    items.forEach(function(_,i){var s=w.querySelector('input[name="blt'+i+'"]:checked');if(s)t+=parseInt(s.value);});
+    var clsB=t<=1?'green':t<=5?'yellow':'red';
+    r.classList.remove('green','yellow','red');r.classList.add(clsB);updateColorResult(r,clsB);
+    renderRingResult(r,{
+      score:t,
+      badge:t<=1?'Faible risque':t<=5?'Risque modéré':'Risque élevé',
+      interp:t<=1?'Score 0-1 — intervention peu probable':'Score '+t+' — intervention probable',
+      conduct:t<=1?'Prise en charge ambulatoire possible selon contexte':'Hospitalisation + endoscopie'
+    });
+  });
+})();
+
+/* ========== GLASGOW PÉDIATRIQUE ========== */
+(function(){
+  // Glasgow Coma Scale pédiatrique (< 5 ans) — réponses verbales adaptées
+  var items=[
+    {l:"Ouverture des yeux",o:[
+      ["Spontanée",4],
+      ["À la parole",3],
+      ["À la douleur",2],
+      ["Aucune",1]
+    ]},
+    {l:"Réponse verbale",o:[
+      ["Babille, mots appropriés au stade",5],
+      ["Pleurs consolables, interaction réduite",4],
+      ["Pleurs inconsolables, cris",3],
+      ["Gémissements, geint à la douleur",2],
+      ["Aucune",1]
+    ]},
+    {l:"Réponse motrice",o:[
+      ["Mouvements spontanés normaux",6],
+      ["Retrait au toucher",5],
+      ["Retrait à la douleur",4],
+      ["Flexion anormale (décortication)",3],
+      ["Extension anormale (décérébration)",2],
+      ["Aucune",1]
+    ]}
+  ];
+  var w=document.getElementById('glasgowPedWrap'),r=document.getElementById('glasgowPedResult');
+  if(!w)return;
+  items.forEach(function(it,i){
+    var oh=it.o.map(function(o,j){return '<label class="score-option"><input type="radio" name="gped'+i+'" value="'+o[1]+'"/> '+o[0]+' ('+o[1]+')</label>';}).join('');
+    w.innerHTML+='<div class="score-item"><div class="label">'+it.l+'</div><div class="score-options">'+oh+'</div></div>';
+  });
+  w.addEventListener('change',function(){
+    var t=0, allFilled=true;
+    items.forEach(function(_,i){
+      var s=w.querySelector('input[name="gped'+i+'"]:checked');
+      if(s)t+=parseInt(s.value);else allFilled=false;
+    });
+    if(!allFilled && t===0) return;
+    var clsG=t>=13?'green':t>=9?'yellow':'red';
+    r.classList.remove('green','yellow','red');r.classList.add(clsG);updateColorResult(r,clsG);
+    renderRingResult(r,{
+      score:t,
+      badge:t>=13?'Normal / TC léger':t>=9?'TC modéré':'TC grave / Coma',
+      interp:'/15 — Glasgow pédiatrique (< 5 ans)',
+      conduct:t<=8?'IOT à discuter — réanimation pédiatrique':t<=12?'Surveillance rapprochée — bilan neuro':'Surveillance standard'
+    });
+  });
+})();
+
 /* ========== VITTEL ========== */
 (function(){
   var cats=[{c:"Cinétique",i:["Éjection véhicule","Passager décédé","Chute > 6 m","Piéton/cycliste renversé","Blast"]},{c:"Physiologie",i:["PAS < 90","GCS < 13","SpO₂ < 90 %"]},{c:"Anatomie",i:["Trauma pénétrant","Volet thoracique","Brûlure sévère","Fracture bassin","Amputation","Ischémie de membre"]},{c:"Réanimation préhosp.",i:["Ventilation assistée","Remplissage > 1000 mL","Catécholamines","Pantalon anti-choc"]},{c:"Terrain",i:["Âge > 65 ans","Grossesse 2e/3e T","Anticoagulant"]}];
@@ -3227,12 +4177,14 @@ document.addEventListener('change',function(e){
 
   var profileConfig = {
     medical: {
-      hideScores: ['score-braden'],
-      note: 'Vue médecin — scores paramédicaux masqués'
+      hideScores: ['score-braden','score-algoplus','score-doloplus','score-malinas','score-apgar','score-cushman'],
+      hideProto: [],
+      note: 'Vue médecin — Scores med spé, protocoles, calculs complets'
     },
     paramedical: {
-      hideScores: ['score-nihss','score-heart','score-shockindex','score-wells-ep'],
-      note: 'Vue paramédical — scores de spécialiste masqués'
+      hideScores: ['score-nihss','score-heart','score-wells-ep'],
+      hideProto: [],
+      note: 'Vue paramédical — Scores cliniques, protocoles, doses, surveillance'
     }
   };
 
@@ -3243,7 +4195,7 @@ document.addEventListener('change',function(e){
     document.querySelectorAll('#screen-scores .home-compact[data-target]').forEach(function(btn){
       btn.style.display = '';
     });
-    // Masquer les scores non pertinents
+    // Masquer les scores non pertinents pour ce profil
     cfg.hideScores.forEach(function(target){
       var btn = document.querySelector('#screen-scores .home-compact[data-target="'+target+'"]');
       if(btn) btn.style.display = 'none';
@@ -3252,6 +4204,9 @@ document.addEventListener('change',function(e){
     document.querySelectorAll('.profile-toggle-btn').forEach(function(b){
       b.classList.toggle('active', b.dataset.profile === profile);
     });
+    // Afficher une note de profil actif
+    var noteEl = document.getElementById('profileActiveNote');
+    if(noteEl) noteEl.textContent = cfg.note;
     localStorage.setItem(PROFILE_KEY, profile);
   }
 
@@ -3541,6 +4496,125 @@ document.addEventListener('change',function(e){
 })();
 
 
+/* ========== DÉTECTION NOUVELLE VERSION (PWA + Android) ========== */
+(function(){
+  var banner = document.getElementById('updateBanner');
+  var details = document.getElementById('updateBannerDetails');
+  var actionBtn = document.getElementById('updateBannerAction');
+  var dismissBtn = document.getElementById('updateBannerDismiss');
+  if(!banner || !actionBtn) return;
+
+  var DISMISS_KEY = 'urg-update-dismissed';
+  var VERSION_JSON_URL = 'https://max54130.github.io/urg-pocket/version.json';
+  var PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.urgpocket.app';
+
+  // État : quel type de mise à jour est détecté
+  var updateType = null; // 'pwa' | 'android'
+  var pendingRegistration = null;
+  var remoteVersion = null;
+
+  function showBanner(type, extra){
+    updateType = type;
+    if(type === 'pwa'){
+      details.textContent = 'Rechargez pour profiter des dernières mises à jour.';
+      actionBtn.textContent = 'Recharger';
+    } else if(type === 'android'){
+      details.textContent = 'Version ' + (extra || '') + ' publiée. Installez-la depuis le Play Store.';
+      actionBtn.textContent = 'Play Store';
+    }
+    banner.classList.add('visible');
+    document.body.classList.add('update-visible');
+  }
+
+  function hideBanner(){
+    banner.classList.remove('visible');
+    document.body.classList.remove('update-visible');
+  }
+
+  actionBtn.addEventListener('click', function(){
+    if(updateType === 'pwa'){
+      // Dire au SW en attente de prendre le relais, puis recharger
+      if(pendingRegistration && pendingRegistration.waiting){
+        pendingRegistration.waiting.postMessage({type:'SKIP_WAITING'});
+      }
+      window.location.reload();
+    } else if(updateType === 'android'){
+      window.open(PLAY_STORE_URL, '_blank');
+    }
+  });
+
+  dismissBtn.addEventListener('click', function(){
+    hideBanner();
+    // Mémoriser le rejet pour cette version spécifique (évite la réapparition infinie)
+    try {
+      var key = updateType === 'android' ? (remoteVersion || 'android') : 'pwa-pending';
+      localStorage.setItem(DISMISS_KEY, key);
+    } catch(e){}
+  });
+
+  // --- 1) Détection PWA via Service Worker ---
+  if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
+    navigator.serviceWorker.ready.then(function(reg){
+      pendingRegistration = reg;
+      // Nouveau SW déjà en attente au chargement
+      if(reg.waiting && navigator.serviceWorker.controller){
+        showBanner('pwa');
+      }
+      // Écoute des nouveaux SW qui apparaissent
+      reg.addEventListener('updatefound', function(){
+        var newWorker = reg.installing;
+        if(!newWorker) return;
+        newWorker.addEventListener('statechange', function(){
+          if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
+            showBanner('pwa');
+          }
+        });
+      });
+    }).catch(function(){});
+
+    // Recharger la page une fois le nouveau SW actif
+    var refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function(){
+      if(refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
+  }
+
+  // --- 2) Détection Android via fetch version.json ---
+  // S'exécute partout (navigateur + WebView Android) sauf si déjà déclenché en PWA
+  function checkRemoteVersion(){
+    try {
+      fetch(VERSION_JSON_URL + '?t=' + Date.now(), {cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function(data){
+          if(!data || typeof data.versionCode !== 'number') return;
+          remoteVersion = data.versionName || String(data.versionCode);
+          // Comparer avec la version locale
+          if(typeof APP_VERSION_CODE === 'number' && data.versionCode > APP_VERSION_CODE){
+            // Vérifier si l'utilisateur a déjà rejeté cette version
+            var dismissed = null;
+            try { dismissed = localStorage.getItem(DISMISS_KEY); } catch(e){}
+            if(dismissed === remoteVersion) return;
+            // En PWA la bannière pwa prime ; en Android on affiche la bannière android
+            if(!banner.classList.contains('visible')){
+              showBanner('android', remoteVersion);
+            }
+          }
+        })
+        .catch(function(){ /* Silencieux si hors-ligne ou erreur réseau */ });
+    } catch(e){}
+  }
+
+  // Délai initial pour ne pas polluer le premier rendu
+  setTimeout(checkRemoteVersion, 3000);
+  // Re-vérifier quand l'app revient au premier plan
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'visible') checkRemoteVersion();
+  });
+})();
+
+
 /* ========== POP-UP CONFIDENTIALITÉ ========== */
 (function(){
   var PRIVACY_KEY = 'urg-privacy-seen';
@@ -3584,9 +4658,12 @@ const adulteDrugs = [
   {nom:'Adrenaline ACR',mgkg:null,max:null,voie:'IVD',note:'1mg fixe toutes les 3-5min',conc:1},
   {nom:'Amiodarone ACR',mgkg:5,max:300,voie:'IV rapide G5%',note:'Apres 3eme choc',conc:50},
   {nom:'Atropine',mgkg:null,max:null,voie:'IVD',note:'0,5-1mg fixe. Max 3mg',conc:0.5},
+  {nom:'Brevibloc Esmolol',mgkg:0.5,max:null,voie:'IV bolus 1min',note:'Bolus puis 50-200µg/kg/min IVSE. β-bloquant ultra-court. Source : RCP ANSM.',conc:10},
   {nom:'Clonazepam Rivotril',mgkg:0.01,max:1,voie:'IV lent',note:'Etat de mal',conc:1},
   {nom:'Diazepam Valium',mgkg:0.1,max:10,voie:'IV lent',note:'Convulsions. Max 10mg',conc:5},
   {nom:'Etomidate Hypnomidate',mgkg:0.3,max:20,voie:'IV rapide',note:'Induction',conc:2},
+  {nom:'Fentanyl',mgkg:0.002,max:0.2,voie:'IV lent',note:'Analgésie urgence : 1-3 µg/kg. Morphinique 100× plus puissant. Source : RCP ANSM.',conc:0.05},
+  {nom:'Fluimucil N-acétylcystéine',mgkg:150,max:null,voie:'IV perf 1h',note:'Antidote paracétamol : 150 mg/kg en 1h puis 50 mg/kg/4h puis 100 mg/kg/16h. Source : Toxin SFMU.',conc:200},
   {nom:'Furosemide Lasilix',mgkg:0.5,max:40,voie:'IV lent',note:'Diuretique urgence',conc:10},
   {nom:'Ketamine analgesie',mgkg:0.3,max:20,voie:'IV lent',note:'Sub-dissociatif',conc:10},
   {nom:'Ketamine induction',mgkg:2,max:200,voie:'IV lent',note:'Induction',conc:10},
@@ -3597,9 +4674,11 @@ const adulteDrugs = [
   {nom:'Naloxone',mgkg:0.04,max:0.4,voie:'IV titre',note:'Bolus 0,04mg. Titrer.',conc:0.4},
   {nom:'Ondansetron Zophren',mgkg:null,max:null,voie:'IV lent',note:'4-8mg fixe',conc:2},
   {nom:'Paracetamol IV',mgkg:15,max:1000,voie:'IV perf 15min',note:'Max 4g/j',conc:10},
+  {nom:'Potassium KCl',mgkg:null,max:null,voie:'IVSE',note:'Max 20 mmol/h voie périph, 40 mmol/h voie centrale. JAMAIS en IVD. Source : RCP ANSM.',conc:1000},
   {nom:'Propofol Diprivan',mgkg:2,max:200,voie:'IV lent',note:'Induction. Titrer.',conc:10},
   {nom:'Rocuronium ISR',mgkg:1,max:null,voie:'IV bolus',note:'ISR. Antidote: sugammadex',conc:10},
   {nom:'Sulfate de Mg',mgkg:30,max:2000,voie:'IV lent',note:'Eclampsie/torsades',conc:150},
+  {nom:'Trandate Labetalol',mgkg:0.25,max:20,voie:'IV lent 2min',note:'HTA grossesse/AVC : 20 mg IVL puis 20-80 mg/10-20min. Max 300 mg. α/β-bloquant. Source : RCP ANSM.',conc:5},
 ];
 
 /* ========== EQUIVALENCE DES VOIES ========== */
@@ -9617,11 +10696,19 @@ var screenParents = {
   'score-apgar':     'scores',
   'score-cushman':   'scores',
   'score-wells-ep':  'scores',
+  'score-geneve':    'scores',
+  'score-perc':      'scores',
+  'score-years':     'scores',
+  'score-spesi':     'scores',
+  'score-blatchford':'scores',
+  'score-glasgow-ped':'scores',
   'score-nihss':     'scores',
   'score-heart':     'scores',
   'score-vittel':    'scores',
   'score-shockindex':'scores',
   'score-malinas':   'scores',
+  'score-algoplus':  'scores',
+  'score-doloplus':  'scores',
   /* Sous-pages normes */
   'norme-detail':    'normes',
   /* Sous-pages protocoles */
@@ -9630,11 +10717,23 @@ var screenParents = {
   'proto-anaphylaxie':'protocoles',
   'proto-avc':       'protocoles',
   'proto-douleur_tho':'protocoles',
+  'proto-choc-septique':'protocoles',
+  'proto-choc-hemorragique':'protocoles',
+  'proto-choc-hypovolemique':'protocoles',
+  'proto-trauma':'protocoles',
+  'proto-transfusion':'protocoles',
+  'proto-entorse-cheville':'protocoles',
+  'proto-entorse-diag':'proto-entorse-cheville',
+  'proto-entorse-grades':'proto-entorse-cheville',
+  'proto-entorse-tx':'proto-entorse-cheville',
+  'proto-voie-io':'protocoles',
+  'proto-territoires-idm':'protocoles',
   /* Sous-pages toxico */
   'toxico-antidotes':'antidotes',
   'toxico-doses':    'antidotes',
   /* Pages principales → accueil */
   'debit':        'home',
+  'pca':          'doses',
   'normes':       'home',
   'scores':       'home',
   'tubes':        'home',
@@ -9952,4 +11051,299 @@ function switchMedMainTab(tab){
   }
 }
 
+
+/* ===== ALGOPLUS ===== */
+(function(){
+  var items = [
+    {id:'alg1', label:'Expressions du visage', desc:'Froncement des sourcils, grimace, crispation, mâchoire serrée'},
+    {id:'alg2', label:'Regard', desc:'Regard fixe, vide, lointain, larmes'},
+    {id:'alg3', label:'Plaintes', desc:'"Aïe", "Ouille", gémissements, cris, pleurs'},
+    {id:'alg4', label:'Position du corps', desc:'Recroquevillé, crispé, protection de zones douloureuses, immobilité'},
+    {id:'alg5', label:'Comportements atypiques', desc:'Agitation, agrippement, opposition aux soins, comportement inhabituel'}
+  ];
+  var form = document.getElementById('algoplus-form');
+  if(!form) return;
+  var section = document.querySelector('#screen-score-algoplus');
+  var container = document.createElement('div');
+  items.forEach(function(item,i){
+    var div = document.createElement('div');
+    div.className = 'score-row';
+    div.style.cssText = 'border-bottom:1px solid var(--line);padding:10px 0';
+    div.innerHTML = '<div style="font-weight:600;margin-bottom:4px">'+(i+1)+'. '+item.label+'</div>' +
+      '<div style="font-size:12px;color:var(--text2);margin-bottom:8px">'+item.desc+'</div>' +
+      '<div style="display:flex;gap:10px">' +
+        '<button class="unit-btn alg-btn alg-no" data-id="'+item.id+'" data-val="0" style="flex:1">Non — 0</button>' +
+        '<button class="unit-btn alg-btn alg-yes" data-id="'+item.id+'" data-val="1" style="flex:1">Oui — 1</button>' +
+      '</div>';
+    container.appendChild(div);
+  });
+  form.appendChild(container);
+
+  var scores = {};
+  section.addEventListener('click', function(e){
+    var btn = e.target.closest('.alg-btn');
+    if(!btn) return;
+    var id = btn.dataset.id;
+    scores[id] = parseInt(btn.dataset.val);
+    section.querySelectorAll('.alg-btn[data-id="'+id+'"]').forEach(function(b){
+      b.classList.toggle('active', b === btn);
+    });
+    if(Object.keys(scores).length === items.length){
+      var total = Object.values(scores).reduce(function(a,b){return a+b;},0);
+      var res = document.getElementById('algoplus-result');
+      var cls = total >= 2 ? 'red' : 'green';
+      var badge = total >= 2 ? 'Douleur aiguë probable' : 'Douleur aiguë peu probable';
+      var conduct = total >= 2 ? 'Prise en charge antalgique recommandée' : 'Score < 2 — si doute : test antalgique et/ou Doloplus-2';
+      updateColorResult(res, cls);
+      renderRingResult(res, {score: total + '/5', label: 'ALGOPLUS', badge: badge, interp: '5 items comportementaux — seuil ≥ 2', conduct: conduct});
+    }
+  });
+})();
+
+/* ===== DOLOPLUS-2 ===== */
+(function(){
+  var groups = [
+    { title: '🔴 Réactions somatiques (items 1–5)', items: [
+      {id:'dol1', label:'1. Plaintes somatiques', opts:['0 — Absence de plainte','1 — Plaintes spontanées occasionnelles','2 — Plaintes spontanées continues','3 — Cris et/ou gémissements continus']},
+      {id:'dol2', label:'2. Positions antalgiques au repos', opts:['0 — Pas de position antalgique','1 — Le sujet évite certaines positions','2 — Position antalgique permanente et efficace','3 — Position antalgique permanente inefficace']},
+      {id:'dol3', label:'3. Protection des zones douloureuses', opts:['0 — Pas de protection','1 — Protection légère sans gêner les soins','2 — Protection gêne les soins','3 — Protection gêne les soins, toute approche provoque cris/pleurs']},
+      {id:'dol4', label:'4. Mimique', opts:['0 — Mimique habituelle','1 — Mimique semblant exprimer la douleur lors des mobilisations','2 — Mimique douloureuse spontanée et permanente','3 — Mimique inexpressive et permanente (prostration)']},
+      {id:'dol5', label:'5. Sommeil', opts:['0 — Sommeil habituel','1 — Difficultés d\'endormissement','2 — Réveils fréquents (agitation motrice)','3 — Insomnie avec retentissement sur les phases d\'éveil']}
+    ]},
+    { title: '🟠 Réactions psychomotrices (items 6–7)', items: [
+      {id:'dol6', label:'6. Toilette et/ou habillage', opts:['0 — Possibilités habituelles inchangées','1 — Possibilités habituelles peu diminuées (précautionneux mais complet)','2 — Possibilités habituelles très diminuées (difficile et partiel)','3 — Toilette et/ou habillage impossibles (opposition)']},
+      {id:'dol7', label:'7. Mouvements', opts:['0 — Possibilités habituelles inchangées','1 — Mouvements actifs limités (évite certains mouvements)','2 — Mouvements actifs et passifs limités','3 — Mouvement impossible (opposition)']}
+    ]},
+    { title: '🟡 Réactions psychosociales (items 8–10)', items: [
+      {id:'dol8', label:'8. Communication', opts:['0 — Communication inchangée','1 — Communication diminuée sans rupture','2 — Diminution importante de la communication','3 — Absence ou refus de toute communication']},
+      {id:'dol9', label:'9. Vie sociale', opts:['0 — Participation habituelle aux différentes activités','1 — Participation sur stimulation','2 — Refus partiel de participation','3 — Refus de toute vie sociale']},
+      {id:'dol10', label:'10. Troubles du comportement', opts:['0 — Comportement habituel','1 — Troubles du comportement répétitifs à la stimulation douloureuse','2 — Troubles du comportement permanents','3 — Troubles du comportement permanents incontrôlables']}
+    ]}
+  ];
+  var form = document.getElementById('doloplus-form');
+  if(!form) return;
+  var section = document.querySelector('#screen-score-doloplus');
+  var scores = {};
+
+  groups.forEach(function(group){
+    var gtitle = document.createElement('div');
+    gtitle.className = 'section-title';
+    gtitle.innerHTML = '<h3>'+group.title+'</h3>';
+    form.appendChild(gtitle);
+    group.items.forEach(function(item){
+      var div = document.createElement('div');
+      div.style.cssText = 'margin-bottom:14px;padding:10px;background:var(--surface2);border-radius:8px';
+      div.innerHTML = '<div style="font-weight:600;margin-bottom:8px;font-size:13px">'+item.label+'</div>';
+      item.opts.forEach(function(opt,i){
+        var btn = document.createElement('button');
+        btn.className = 'unit-btn dol-btn';
+        btn.dataset.id = item.id;
+        btn.dataset.val = i;
+        btn.textContent = opt;
+        btn.style.cssText = 'display:block;width:100%;text-align:left;margin-bottom:4px;font-size:12px';
+        div.appendChild(btn);
+      });
+      form.appendChild(div);
+    });
+  });
+
+  section.addEventListener('click', function(e){
+    var btn = e.target.closest('.dol-btn');
+    if(!btn) return;
+    var id = btn.dataset.id;
+    scores[id] = parseInt(btn.dataset.val);
+    section.querySelectorAll('.dol-btn[data-id="'+id+'"]').forEach(function(b){
+      b.classList.toggle('active', b === btn);
+    });
+    var total = Object.values(scores).reduce(function(a,b){return a+b;},0);
+    var filled = Object.keys(scores).length;
+    var res = document.getElementById('doloplus-result');
+    var cls = total >= 5 ? 'red' : total >= 2 ? 'yellow' : 'green';
+    var badge = total >= 5 ? 'Douleur affirmée' : total >= 2 ? 'Score intermédiaire' : 'Douleur non affirmée';
+    var conduct = total >= 5 ? 'Prise en charge antalgique indiquée — réévaluation quotidienne' :
+                  total >= 2 ? 'Test antalgique recommandé si doute clinique' :
+                  'Douleur non affirmée — surveiller évolution';
+    updateColorResult(res, cls);
+    renderRingResult(res, {score: total + '/30', label: 'DOLOPLUS', badge: badge, interp: filled + '/10 items cotés — seuil ≥ 5', conduct: conduct});
+  });
+})();
+
+
+/* ===== MODULE PCA / IVSE ===== */
+(function(){
+  function r(v, d) { return Math.round(v * Math.pow(10, d||2)) / Math.pow(10, d||2); }
+
+  function rowResult(label, val, unit, warn) {
+    var cls = warn ? 'color:var(--danger);font-weight:700' : '';
+    return '<div class="result"><div class="result-name">' + label + '</div>' +
+           '<div class="result-num" style="' + cls + '">' + val + ' <small>' + unit + '</small></div></div>';
+  }
+
+  function alertBlock(msg) {
+    return '<div class="note" style="background:rgba(192,57,43,.12);border-left:3px solid var(--danger);margin-top:8px">' +
+           '⚠️ ' + msg + '</div>';
+  }
+
+  /* --- Gestion unité mg/UI --- */
+  var pcaUnit = 'mg';
+  var unitBtns = document.querySelectorAll('.pca-unit-btn');
+  unitBtns.forEach(function(b) {
+    b.addEventListener('click', function() {
+      pcaUnit = b.dataset.unit;
+      unitBtns.forEach(function(x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      // Mettre à jour tous les labels dynamiques
+      document.querySelectorAll('.pca-unit-lbl').forEach(function(s) { s.textContent = pcaUnit; });
+    });
+  });
+
+  /* --- Mode Prescription → Débit --- */
+  var calcBtn = document.getElementById('pcaCalcBtn');
+  if (calcBtn) calcBtn.addEventListener('click', function() {
+    var doseTotale = parseFloat(document.getElementById('pcaDoseTotale').value);
+    var vol = parseFloat(document.getElementById('pcaVolume').value);
+    var debitContinu = parseFloat(document.getElementById('pcaDebitContinu').value);
+    var bolusDose = parseFloat(document.getElementById('pcaBolusDose').value);
+    var refractaire = parseFloat(document.getElementById('pcaRefractaire').value);
+    var doseMax4h = parseFloat(document.getElementById('pcaDoseMax4h').value);
+    var res = document.getElementById('pcaResults');
+    var u = pcaUnit;
+
+    if (isNaN(doseTotale) || isNaN(vol) || vol <= 0 || doseTotale <= 0) {
+      res.innerHTML = '<div class="note">⚠️ Renseignez la dose totale et le volume.</div>'; return;
+    }
+
+    var conc = doseTotale / vol; // u/mL
+    var html = '<div class="section-title" style="margin-top:8px"><h3>Résultats</h3></div>';
+    html += '<div class="result-list">';
+    html += rowResult('Concentration', r(conc, 3), u + '/mL');
+
+    var alerts = [];
+
+    if (!isNaN(debitContinu) && debitContinu > 0) {
+      var doseHeure = conc * debitContinu;
+      var dose24h = doseHeure * 24;
+      var dureeSeringue = vol / debitContinu;
+      html += rowResult('Dose débit continu', r(doseHeure, 2), u + '/h');
+      html += rowResult('Dose débit continu / 24h', r(dose24h, 1), u + '/24h');
+      html += rowResult('Durée seringue (débit continu seul)', r(dureeSeringue, 1), 'h');
+    }
+
+    if (!isNaN(bolusDose) && bolusDose > 0) {
+      var bolusVol = bolusDose / conc;
+      html += rowResult('Volume bolus', r(bolusVol, 2), 'mL');
+
+      if (!isNaN(refractaire) && refractaire > 0) {
+        var bolusMaxHeure = 60 / refractaire;
+        html += rowResult('Bolus max / heure (réfractaire)', r(bolusMaxHeure, 1), 'bolus/h');
+        var doseBolus1h = bolusMaxHeure * bolusDose;
+        html += rowResult('Dose max bolus / heure', r(doseBolus1h, 2), u + '/h');
+      }
+
+      if (!isNaN(doseMax4h) && doseMax4h > 0) {
+        var debitContiuVal = (!isNaN(debitContinu) && debitContinu > 0) ? debitContinu : 0;
+        var doseConti4h = conc * debitContiuVal * 4;
+        var doseBolusDispo4h = doseMax4h - doseConti4h;
+        var bolusMax4h = doseBolusDispo4h > 0 ? Math.floor(doseBolusDispo4h / bolusDose) : 0;
+
+        html += rowResult('Dose débit continu sur 4h', r(doseConti4h, 2), u);
+        html += rowResult('Dose disponible en bolus sur 4h', r(Math.max(0, doseBolusDispo4h), 2), u);
+        html += rowResult('Bolus max accordés sur 4h', bolusMax4h, 'bolus');
+
+        // Vérification cohérence réfractaire vs bolus max 4h
+        if (!isNaN(refractaire) && refractaire > 0) {
+          var bolusTheo4h = Math.floor(240 / refractaire);
+          if (bolusTheo4h < bolusMax4h) {
+            alerts.push('Avec la période réfractaire de ' + refractaire + ' min, le patient ne peut faire que ' +
+              bolusTheo4h + ' bolus en 4h (< ' + bolusMax4h + ' autorisés). La dose max 4h ne sera pas atteinte par les bolus seuls.');
+          }
+          if (bolusTheo4h > bolusMax4h) {
+            html += rowResult('Bolus max selon réfractaire (4h)', bolusTheo4h, 'bolus théoriques');
+          }
+        }
+
+        // Alerte si dose max non atteignable (débit continu seul dépasse déjà)
+        if (doseConti4h > doseMax4h) {
+          alerts.push('Le débit continu seul (' + r(doseConti4h,2) + ' ' + u + ' en 4h) dépasse la dose max 4h (' + doseMax4h + ' ' + u + '). Vérifier la prescription.');
+        }
+
+        // Durée seringue avec bolus
+        if (!isNaN(refractaire) && refractaire > 0 && debitContiuVal > 0) {
+          html += rowResult('Durée seringue estimée (avec bolus max)', r(vol / (debitContiuVal + (bolusMax4h > 0 ? bolusDose / conc * bolusMax4h / 4 : 0)), 1), 'h');
+        }
+      }
+    }
+
+    html += '</div>';
+    alerts.forEach(function(a) { html += alertBlock(a); });
+    html += '<div class="note" style="margin-top:8px;font-size:11px">Double contrôle systématique avant programmation.</div>';
+    res.innerHTML = html;
+  });
+
+  /* --- Mode Inverse : Débit → Dose --- */
+  var invBtn = document.getElementById('pcaInvCalcBtn');
+  if (invBtn) invBtn.addEventListener('click', function() {
+    var doseTotale = parseFloat(document.getElementById('pcaInvDoseTotale').value);
+    var vol = parseFloat(document.getElementById('pcaInvVolume').value);
+    var debit = parseFloat(document.getElementById('pcaInvDebit').value);
+    var bolusDose = parseFloat(document.getElementById('pcaInvBolus').value);
+    var res = document.getElementById('pcaInvResults');
+    var u = pcaUnit;
+
+    if (isNaN(doseTotale) || isNaN(vol) || isNaN(debit) || vol <= 0 || doseTotale <= 0 || debit <= 0) {
+      res.innerHTML = '<div class="note">⚠️ Renseignez la dose totale, le volume et le débit.</div>'; return;
+    }
+
+    var conc = doseTotale / vol;
+    var doseH = conc * debit;
+    var dose24 = doseH * 24;
+    var duree = vol / debit;
+
+    var html = '<div class="section-title" style="margin-top:8px"><h3>Résultats</h3></div>';
+    html += '<div class="result-list">';
+    html += rowResult('Concentration', r(conc, 3), u + '/mL');
+    html += rowResult('Dose reçue / heure', r(doseH, 2), u + '/h');
+    html += rowResult('Dose reçue / 24h', r(dose24, 1), u + '/24h');
+    html += rowResult('Durée seringue restante', r(duree, 1), 'h');
+
+    if (!isNaN(bolusDose) && bolusDose > 0) {
+      var bolusVol = bolusDose / conc;
+      html += rowResult('Volume bolus', r(bolusVol, 2), 'mL');
+      html += rowResult('Débit pour ' + bolusDose + ' ' + u + '/h', r(bolusDose / conc, 2), 'mL/h');
+    }
+
+    html += '</div>';
+    res.innerHTML = html;
+  });
+
+  /* --- Reset --- */
+  var resetBtn = document.getElementById('pcaResetBtn');
+  if (resetBtn) resetBtn.addEventListener('click', function() {
+    ['pcaDoseTotale','pcaVolume','pcaDebitContinu','pcaBolusDose','pcaRefractaire','pcaDoseMax4h',
+     'pcaInvDoseTotale','pcaInvVolume','pcaInvDebit','pcaInvBolus'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    var r1 = document.getElementById('pcaResults');
+    var r2 = document.getElementById('pcaInvResults');
+    if (r1) r1.innerHTML = '';
+    if (r2) r2.innerHTML = '';
+  });
+})();
+
+function switchPcaTab(tab) {
+  var p = document.getElementById('pcaPanelPrescription');
+  var i = document.getElementById('pcaPanelInverse');
+  var bp = document.getElementById('pcaTabPrescription');
+  var bi = document.getElementById('pcaTabInverse');
+  if (tab === 'prescription') {
+    p.style.display = ''; i.style.display = 'none';
+    bp.classList.add('active'); bi.classList.remove('active');
+  } else {
+    p.style.display = 'none'; i.style.display = '';
+    bi.classList.add('active'); bp.classList.remove('active');
+  }
+}
+
 </script>
+</body></html>

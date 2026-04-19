@@ -6,8 +6,8 @@
   "scope": "/urg-pocket/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0f0f12",
-  "theme_color": "#0f0f12",
+  "background_color": "#0E1A25",
+  "theme_color": "#1A73C8",
   "lang": "fr",
   "categories": ["medical", "health"],
   "icons": [

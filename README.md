@@ -1,6 +1,6 @@
 # Urg Pocket
 
-**Aide-mémoire médical pour les équipes SAMU / SMUR**
+**Aide-mémoire médical pour les équipes SAMU / SMUR et urgences hospitalières**
 
 Application HTML single-file conçue pour les urgentistes, SMUR et équipes préhospitalières. Fonctionne hors ligne, sans compte, sans collecte de données.
 
@@ -11,247 +11,280 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 - **Application** : [max54130.github.io/urg-pocket](https://max54130.github.io/urg-pocket/)
 - **Politique de confidentialité** : [privacy.html](https://max54130.github.io/urg-pocket/privacy.html)
 - **CGU** : [cgu.html](https://max54130.github.io/urg-pocket/cgu.html)
-- **Contact** : urgpocket@gmail.com
 
 ---
 
-## Contenu v1.2.36
+## Version actuelle
 
-### Scores cliniques (15)
+| Paramètre | Valeur |
+|-----------|--------|
+| versionName | **1.2.57** |
+| versionCode | **74** |
+| Date | Avril 2026 |
+| Prochaine release minimum | versionCode **≥ 75** / versionName **"1.2.58"** |
+| Dernier publié Play Store | versionCode 28 / versionName 1.2.11 |
 
-| Score | Domaine | Affichage |
-|-------|---------|-----------| 
-| Glasgow | Neuro / Conscience | Anneau coloré |
-| NIHSS | Neuro / AVC | Anneau coloré |
-| NEWS2 | Dégradation clinique | Anneau coloré |
-| HEART | Cardio / SCA | Anneau coloré |
-| Shock Index | Cardio / Hémodynamique | Anneau coloré |
-| Wells EP | Thrombose / EP | Anneau coloré |
-| Vittel | Trauma grave | Anneau coloré |
-| qSOFA | Infectio / Sepsis | Anneau coloré |
-| APGAR | Néonatal | Anneau coloré |
-| Malinas | Obstétrique | Anneau coloré |
-| Cushman | Sevrage alcoolique | Anneau coloré |
-| Braden | Risque escarre | Anneau coloré |
-| **DFG / CKD-EPI 2021** | Fonction rénale | Anneau coloré |
-| **IMC / Surface (Mosteller)** | Anthropométrie | Anneau coloré |
-| **Killip** | IC post-SCA | Anneau coloré |
+---
 
-Tous les scores démarrent vierges — aucune valeur pré-remplie au chargement.
+## Contenu
 
-### Protocoles d'urgence
-- ACR adulte (ERC 2025)
-- ACR pédiatrique (AFGSU/ERC 2025)
-- Choc anaphylactique (RFE SFMU 2016)
-- AVC — Alerte et orientation (HAS + SFMU/SFNV 2024)
-- Douleur thoracique / SCA (ESC 2023)
+### Médicaments
+- **228 fiches** médicaments complètes avec posologies détaillées (SAMU/SMUR + urgences hospitalières)
+- **204 entrées** Princeps→DCI avec recherche sans accents
+- **26 médicaments** en doses pondérales rapides (calcul automatique selon poids)
+- Équivalences corticoïdes, HBPM, Princeps→DCI
+- Révisions sourcées — RCP ANSM, ESC 2023, GIHP 2024, ERC 2021, SFMU/Toxin
 
-### Autres modules
-- Débit de perfusion
-- Normes biologiques (adulte + pédiatrique)
-- Toxicologie : 52 antidotes + 112 doses toxiques
-- Doses pondérales
-- Convertisseur biologique (6 molécules, bouton ⇄)
-- Constantes vitales par population
-- Ordre de prélèvement des tubes
-- Sources médicales complètes (15 scores avec liens officiels)
+### Scores cliniques (24 scores)
+| Score | Domaine |
+|-------|---------|
+| Glasgow | Neuro / Conscience |
+| Glasgow pédiatrique | Neuro / Conscience (enfant < 5 ans) |
+| NIHSS | Neuro / AVC |
+| NEWS2 | Cardio / Hémodynamique |
+| HEART | Cardio / SCA |
+| Killip | Cardio / Insuffisance cardiaque |
+| Shock Index | Cardio / Hémodynamique |
+| Wells EP | Thrombose |
+| Genève révisé | Thrombose / EP |
+| PERC | Thrombose / EP (exclusion) |
+| YEARS | Thrombose / EP (algorithme D-dimères) |
+| sPESI | Thrombose / EP (pronostic) |
+| Blatchford | Hémorragie digestive haute |
+| Vittel | Trauma grave |
+| qSOFA | Sepsis |
+| APGAR | Pédiatrie / Néonatologie |
+| Malinas | Obstétrique |
+| Cushman | Sevrage alcoolique |
+| Braden | Escarre |
+| Algoplus | Douleur aiguë (PA non communicant) |
+| Doloplus-2 | Douleur chronique (PA non communicant) |
+| DEP / Peak Flow | Respiratoire |
+| DFG / CKD-EPI 2021 | Néphrologie |
+| IMC / Surface corporelle | Posologie |
+
+### Protocoles (13)
+| Protocole | Catégorie | Source |
+|-----------|-----------|--------|
+| ACR adulte | Urgences vitales | ERC 2025 |
+| ACR pédiatrique | Urgences vitales | ERC 2025 |
+| Douleur thoracique / SCA | Cardiovasculaire | ESC 2023 + SFC/SFMU |
+| AVC | Neurologique | HAS + SFMU/SFNV 2024 |
+| Anaphylaxie | Chocs | RFE SFMU 2016 |
+| Choc septique | Chocs | SSC 2021 + SRLF/SFMU/SFAR |
+| Choc hémorragique | Chocs | SFAR/SFMU Damage Control 2023 |
+| Choc hypovolémique | Chocs | SFMU/SFAR 2020 |
+| Trauma grave — ABCDE | Traumatologie | Critères Vittel SFMU 2011 |
+| Protocole transfusionnel | Hémato/Transfusion | HAS Transfusion PSL 2023 + ANSM |
+| Entorse cheville | Orthopédie | Ottawa JAMA 1993 + Bastin UCLouvain |
+| Voie intra-osseuse | Annexes / Gestes | ERC 2021 + SFAR RFE 2021 |
+| Territoires des infarctus | Annexes / Gestes | ESC 2023 STEMI + Thygesen 2018 |
+
+### Références
+- Normes biologiques adulte et pédiatriques
+- Constantes vitales adulte et pédiatriques
+- Tubes de prélèvement — ordre et examens
+- Toxicologie — antidotes et doses toxiques
+- Convertisseur d'unités biologiques
+- Calculs : DFG/CKD-EPI 2021, IMC/Surface, Killip
+- PCA / IVSE — calculateur seringue électrique (toggle mg/UI)
+- Calculs de dose — doses pondérales, débit perfusion, équivalence voies
+
+---
+
+## Thème graphique
+
+| Variable | Clair | Sombre |
+|----------|-------|--------|
+| Fond | `#EDF1F7` | `#0E1A25` |
+| Surface | `#FFFFFF` | `#132030` |
+| Primaire | `#1A73C8` | `#5BA8E8` |
+| Danger | `#C0392B` | `#E8605A` |
+| Succès | `#1A9B6C` | `#2EC090` |
+
+**Accents personnalisables** : Rouge, Orange, Or `#D79A10`, Vert, Bleu (défaut), Violet
+
+---
+
+## Sources principales
+
+| Source | Utilisation |
+|--------|------------|
+| RCP ANSM / BDPM | Fiches médicaments — posologies et CI |
+| ERC Guidelines 2021 | ACR adulte/pédiatrique, Amiodarone |
+| ESC Guidelines ACS 2023 | Antiagrégants, SCA |
+| GIHP — RFE mai 2024 | HBPM (Lovenox, Fraxiparine, Fragmine, Innohep) |
+| SFAR | Équivalences corticoïdes, équivalence des voies |
+| RecoMédicales 2024 | Équivalences corticoïdes |
+| SRLF 2024 | Liste Princeps→DCI |
+| COMEDIMS APHP 2014 | Équivalences HBPM |
+| Wary B., Serbouti S. — Revue Douleurs 2001 | Score Doloplus-2 |
+| Rat P. et al. — SFAP / doloplus.fr 2011 | Score Algoplus |
+| CLSI GP41 | Ordre des tubes |
+| JAMA — Sepsis-3 2016 | qSOFA |
+| HAS | DFG/CKD-EPI, AVC, EP |
+
+---
+
+## Architecture technique
+
+- **Single-file HTML** — CSS et JS inline, ~552 KB
+- **Hors ligne** — Service Worker PWA
+- **Android** — WebView (targetSdk 35, minSdk 24)
+- **Thèmes** — Clair / Sombre / Auto
+- **Accessibilité** — Mode daltonisme
+- **Sections** : 47 sections HTML équilibrées
+- **Scripts** : 3 blocs `<script>` équilibrés
 
 ---
 
 ## Changelog
 
+### v1.2.57 (avril 2026)
+- ⏪ **Rollback complet des illustrations SVG** : retrait des 6 schémas médicaux ajoutés en v1.2.55 et v1.2.56 (Territoires IDM, Voie intra-osseuse, Ligaments cheville, Zones Ottawa, Injection IM anaphylaxie, Rythmes ECG ACR). Les dessins anatomiques SVG faits à la main n'étaient pas d'une qualité suffisante.
+- 🧹 Retrait de l'infrastructure CSS associée (classes `.med-figure`, `.fig-*`)
+- ✅ Retour à l'état fonctionnel identique à la v1.2.54 (64 sections, 989 div, 0 schéma médical, seul le logo topbar reste en SVG)
+- ✅ versionCode 74
+
+### v1.2.56 (avril 2026)
+- 🎨 **Phase 2 des illustrations SVG** — 4 nouveaux schémas médicaux originaux :
+  - **Ligaments latéraux de la cheville** (page Entorse) : vue latérale externe avec tibia, fibula, malléole latérale, talus, calcanéum, et les 3 faisceaux LTFA (rouge, ~70 %), LCF (orange, ~20 %), LTFP (bleu, rare), flèche du mécanisme inversion + flexion plantaire
+  - **Zones de palpation Ottawa** (page Arbre diagnostique entorse) : pied vu du dessus avec les 4 points critiques numérotés (malléoles latérale/médiale, base 5e métatarsien, naviculaire) + mention "impossibilité de faire 4 pas"
+  - **Site d'injection IM d'adrénaline** (page Anaphylaxie) : cuisse divisée en 3 tiers, site cible (1/3 moyen face antéro-latérale — vaste latéral) surligné, aiguille avec dosage, mise en garde artère fémorale côté médial
+  - **Rythmes ECG de l'ACR** (page ACR adulte) : 4 tracés distinctifs sur 2 panneaux, CHOCABLES (FV chaotique, TV sans pouls régulière) en rouge + NON CHOCABLES (asystolie ligne plate, AESP QRS réguliers sans pouls) en bleu, avec conduite associée
+- ✅ Total illustrations : 6 schémas SVG dans 6 fiches médicales (+ 2 de la v1.2.55)
+- ✅ Tous les SVG s'adaptent au thème sombre/clair et au mode daltonien (utilisent les variables CSS sémantiques)
+- ✅ versionCode 73
+
+### v1.2.55 (avril 2026)
+- 🎨 **Premières illustrations SVG** — schémas médicaux intégrés directement dans les fiches sans fichiers externes (single-file HTML préservé) :
+  - **Territoires des infarctus** : schéma cœur en deux vues (antérieure + postérieure) avec zones colorées pour les 5 territoires (antérieur, inférieur, latéral, postérieur, ventricule droit) et dérivations ECG annotées
+  - **Voie intra-osseuse** : schéma des 3 sites principaux de pose (tibia proximal adulte, tibia proximal enfant, humérus proximal) avec points de ponction marqués, tubérosité tibiale antérieure repérée, cotes (2 cm, 1 cm) et flèches d'orientation
+- 🎨 **Infrastructure CSS figures** : classes `.med-figure`, `.med-figure-caption`, `.med-figure-legend` réutilisables. SVG adaptatifs au thème sombre/clair et au mode daltonien (utilisent `--sem-danger`, `--sem-warn`, `--sem-ok`, `--primary`, `--text1`, `--text2`)
+- 🎨 Tous les schémas **originaux** — dessinés à la main en SVG, pas de reprise depuis sources externes pour éviter tout conflit de droits
+- ✅ versionCode 72
+
+### v1.2.54 (avril 2026)
+- 🔧 **Audit complet du code** — 4 bugs structurels corrigés :
+  - `work.html`, `privacy.html`, `cgu.html` étaient tronqués (manquaient `</body></html>`). privacy.html coupé en pleine phrase ("peut être adressée à la "). cgu.html coupé en plein `<h`. Fichiers complétés et fermés proprement.
+  - `manifest.json` : couleurs du splash PWA corrigées (`background_color` et `theme_color`) pour matcher la palette réelle de l'app (`#0E1A25` / `#1A73C8` au lieu de `#0f0f12`)
+  - `privacy.html` et `cgu.html` : dates "mars 2026" → "avril 2026"
+- 📝 **README actualisé** : tableau scores (15 → 24), protocoles (5 → 13), médicaments pondéraux (≈ 21 → 26). Ajout des nouveaux protocoles (entorse cheville, voie IO, territoires IDM, chocs), nouveaux scores (Genève, PERC, YEARS, sPESI, Blatchford, Glasgow pédiatrique, Killip, DFG, IMC), calculs (PCA/IVSE).
+- ✅ Audits validés sans problème : routes de navigation, clés localStorage (8 clés propres), liens externes (38 domaines tous médicaux crédibles), console.log (1 seul légitime pour SW)
+- ✅ versionCode 71
+
+### v1.2.53 (avril 2026)
+- ✅ **7 nouveaux scores cliniques** :
+  - **Genève révisé (simplifié)** — probabilité clinique d'EP, alternative à Wells (Klok 2008)
+  - **PERC** — Pulmonary Embolism Rule-out Criteria, exclusion EP patient faible risque (Kline 2004)
+  - **YEARS** — algorithme moderne d'EP avec seuil D-dimères adapté (van der Hulle 2017)
+  - **sPESI** — Simplified Pulmonary Embolism Severity Index, pronostic EP (Jiménez 2010)
+  - **Blatchford (GBS)** — hémorragie digestive haute, risque d'intervention (Blatchford 2000)
+  - **Glasgow pédiatrique** — adaptation pour enfants < 5 ans (Holmes 2005)
+- ✅ **5 nouveaux médicaments** en doses pondérales adultes :
+  - **Brevibloc (Esmolol)** — β-bloquant ultra-court IV
+  - **Fentanyl** — morphinique urgence
+  - **Fluimucil (N-acétylcystéine)** — antidote paracétamol
+  - **Potassium (KCl)** — protocole IVSE
+  - **Trandate (Labétalol)** — HTA grossesse / AVC
+- ✅ **2 nouvelles annexes** (section 📖 Annexes / Gestes dans Protocoles) :
+  - **Voie intra-osseuse** — sites de pose (adulte/enfant), technique EZ-IO, débits, contre-indications, complications (ERC 2021, SFAR 2021)
+  - **Territoires des infarctus** — tableau complet dérivations ECG / artères coronaires + critères STEMI ESC 2023 + points clés (Sgarbossa, équivalent STEMI)
+- ✅ Nouvelle section "🩸 Hémorragie digestive" dans le menu Scores
+- ✅ Toutes les sources référencées dans la page Sources centrale avec liens PubMed
+- ✅ 13 nouvelles entrées dans la recherche globale
+- ✅ versionCode 70
+
+### v1.2.52 (avril 2026)
+- 🔧 **Hotfix navigation** : bouton retour manquant sur la page **PCA / IVSE** ajouté (retour vers Calculs de dose)
+- 🔧 **Doses adulte** : correction du bouton retour qui pointait vers Médicaments au lieu de Calculs de dose
+- 🔧 **Doses pédiatriques** : correction du bouton retour qui pointait vers Médicaments au lieu de Calculs de dose
+- ✅ Audit complet des boutons retour sur les 40+ sous-pages — toutes les autres (scores, protocoles, entorse, normes, toxico, équivalences) étaient correctement ciblées
+- ✅ versionCode 69
+
+### v1.2.51 (avril 2026)
+- ✅ **Page PCA / IVSE** : retrait du champ "Médicament (optionnel)" + ajout d'un toggle **mg / UI** en haut de la page qui change toutes les occurrences d'unité dynamiquement (labels, résultats, alertes)
+- ✅ **Détection automatique de nouvelle version** (PWA + Android) :
+  - Bannière fixée en haut de l'écran : "Nouvelle version disponible" + boutons "Plus tard" / "Mettre à jour"
+  - **PWA** : écoute les événements `updatefound` du Service Worker. Le SW envoie `SKIP_WAITING` puis recharge automatiquement
+  - **Android (WebView)** : fetch périodique de `version.json` sur GitHub Pages (check initial après 3 s + à chaque retour au premier plan). Comparaison avec `APP_VERSION_CODE` local. Redirige vers le Play Store si version distante plus récente
+  - Mémorisation du refus par version (évite la réapparition infinie)
+- ✅ **Service Worker réécrit** :
+  - `CACHE_NAME` versionné (`urg-pocket-v1.2.51`) — bumpé à chaque release pour forcer le rafraîchissement
+  - Stratégie **network-first pour la navigation** : la dernière version est toujours servie quand le réseau est disponible, fallback cache si hors-ligne
+  - `version.json` toujours fetché en réseau (pas de cache)
+  - Gestion du message `SKIP_WAITING` pour activation immédiate
+- ✅ Nouveau fichier **`version.json`** à la racine GitHub Pages (versionCode, versionName, date de release, URL Play Store, changelog)
+- ✅ Nouvelle constante `APP_VERSION_CODE = 68` côté JS pour la comparaison numérique
+- ✅ versionCode 68
+
+### v1.2.50 (avril 2026)
+- ✅ **Mode daltonien étendu** : variables CSS sémantiques (`--sem-ok`, `--sem-warn`, `--sem-danger`) pour que les nouveaux composants (arbre décisionnel, classification 3 grades, traitement) s'adaptent automatiquement au mode daltonien (palette Wong 2011)
+- ✅ **Refonte du menu Protocoles** en 7 catégories logiques :
+  - 🫀 Urgences vitales — Réa CP (ACR adulte, ACR pédiatrique)
+  - ❤️ Urgences cardiovasculaires (Douleur thoracique / SCA)
+  - 🧠 Urgences neurologiques (AVC)
+  - 🩸 Chocs (Anaphylactique, Septique, Hémorragique, Hypovolémique)
+  - 🚑 Traumatologie (Trauma grave — ABCDE)
+  - 🩹 Hématologie / Transfusion (Protocole transfusionnel)
+  - 🦴 Orthopédie (Entorse cheville)
+- ✅ Renommage "Trauma grave — arbre décisionnel" → "Trauma grave — ABCDE" (plus honnête, c'était une check-list)
+- ✅ **Refonte page Doses → "Calculs de dose"** : bouton PCA / IVSE remonté dans la première section (plus accessible), 2 sections claires (Doses pondérales & seringue / Débit de perfusion)
+- ✅ **Page d'accueil** : suppression du bouton fantôme "Débit perf" (redirigeait vers Doses), retrait du doublon "Doses pondérales", remplacé par un bouton unique "Calculs de dose"
+- ✅ **Bottom-nav** : bouton "Débit" retiré (redondant), "Doses" renommé "Calculs"
+- ✅ **Sourcing renforcé** : sources Entorse cheville ajoutées à la page Sources centrale (liens Stiell JAMA 1993, Bastin UCLouvain 2016, KCE 197BS), notes "Sources" en bas de chaque sous-page entorse
+- ✅ versionCode 67
+
+### v1.2.49 (avril 2026)
+- ✅ Nouveau protocole : **Entorse cheville** (section 🦴 Orthopédie dans Protocoles)
+- ✅ Structure multi-pages : index + arbre diagnostique + classification 3 grades + traitement
+- ✅ Composant réutilisable `decision-tree` (arbre décisionnel hybride : nœuds cliquables avec branches Oui/Non/Doute)
+- ✅ Arbre diagnostique imagerie — Ottawa, RX standard, TDM, IRM, échographie (5 nœuds cliquables)
+- ✅ Classification en 3 grades (tableau signes cliniques)
+- ✅ Traitement par grade + GREC + réévaluation J3-J5
+- ✅ 4 entrées ajoutées à la recherche globale
+- ✅ Sources : Ottawa (Stiell JAMA 1993), Bastin UCLouvain 2016, Kerkhoffs Cochrane 2013, KCE 197BS 2013, de Lécluse 2003
+- ✅ versionCode 66
+
+### v1.2.45 (avril 2026)
+- ✅ Score Algoplus — douleur aiguë PA non communicant (5 items binaires, seuil ≥ 2/5, anneau coloré)
+- ✅ Score Doloplus-2 — douleur chronique PA non communicant (10 items 0–3, seuil ≥ 5/30, anneau coloré)
+- ✅ Section 😣 Douleur dans l'écran Scores
+- ✅ Fix rendu anneaux colorés Algoplus/Doloplus (class="score-result", valeur initiale "—")
+- ✅ versionCode 62
+
 ### v1.2.44 (avril 2026)
+- ✅ Nouveau thème graphique — fond clair #EDF1F7, fond sombre bleu-nuit #0E1A25, primaire #1A73C8
+- ✅ Suppression de toute référence au CNPA dans l'app et la documentation
+- ✅ Palette d'accents mise à jour — Rouge, Orange, Or #D79A10, Vert, Bleu (défaut), Violet
+- ✅ versionCode 61
+
+### v1.2.43 (avril 2026)
 - ✅ Révision complète des ~100 fiches non-urgence — corrections sourcées RCP ANSM / ESC 2023 / GIHP 2024
-- ✅ Corrections : Gentamicine (3–8 mg/kg RCP), Clopidogrel/Plavix (ESC 2023 dose charge 300–600 mg), Kardegic/Aspirin (150–300 mg ESC 2023), Efient (CI absolue AVC/AIT), Ciflox (IVL 60 min strict), Clamoxyl (méningite 200 mg/kg/j), Lovenox (STEMI protocole), Fraxiparine (95 UI/kg curatif), Diazepam (IM éviter), Salbutamol (nébulisation continue AAG), Augmentin (posologies détaillées)
+- ✅ Corrections : Gentamicine (3–8 mg/kg), Clopidogrel/Plavix (ESC 2023), Kardegic/Aspirin (150–300 mg), Efient (CI AVC/AIT), Ciflox (IVL 60 min), Lovenox (STEMI), Fraxiparine (95 UI/kg), Diazepam (IM éviter), Augmentin
 - ✅ versionCode 60
 
+### v1.2.42 (avril 2026)
+- ✅ Révision fiches urgences vitales — Naloxone (titration 0,04 mg, renarcotisation), Prodilantin (20 mg EP/kg), Rivotril (0,015 mg/kg), Solumedrol (posologies par indication), Adénosine (distinction Striadyne/ATP)
+- ✅ versionCode 59
+
+### v1.2.41 (avril 2026)
+- ✅ Fiche APROVEL (Irbésartan) — fiche complète + entrée Princeps→DCI
+- ✅ versionCode 58
 
 ### v1.2.40 (avril 2026)
-- ✅ Fiches médicaments — 129 fiches (73 → 129) : Amiodarone, Bridion, Buscopan, Cortancyl, Dectancyl, Doliprane, Droleptan, Flagyl, Haldol, Intralipide, Ixprim, Kardegic, Largactil, Lovenox, Mannitol, Metiblo, Nesdonal, Nipride, Nozinan, Ondansétron, Pantoprazole, Plavix, Pradaxa, Praxbind, Rocéphine, Solupred, Tavanic, Tazocilline, Ticagrélor, Tienam, Vogalène, Voltarène, Xarelto, Xylocard, Eliquis, Préviscan + fiches minimales (à compléter)
+- ✅ Fiches médicaments complètes — 228 fiches (couverture totale de la liste Princeps→DCI)
+- ✅ versionCode 57
+
+### v1.2.39 (avril 2026)
+- ✅ Fiches médicaments — 167 fiches : Amiodarone, Bridion, Buscopan, Doliprane, Flagyl, Haldol, Intralipide, Kardegic, Largactil, Lovenox, Mannitol, Metiblo, Nesdonal, Nipride, Nozinan, Ondansétron, Pantoprazole, Plavix, Pradaxa, Praxbind, Rocéphine, Solupred, Tavanic, Tazocilline, Ticagrélor, Tienam, Vogalène, Voltarène, Xarelto, Xylocard, Eliquis, Préviscan + fiches minimales
 - ✅ versionCode 56
 
+### v1.2.38 (avril 2026)
+- ✅ Sous-onglets 💊 Fiches / 🔄 Équivalences dans l'écran Médicaments
+- ✅ versionCode 55
 
-### v1.2.36 (avril 2026)
-- ✅ Recherche insensible aux accents (antidotes, fiches médicaments, doses toxiques)
-- ✅ DEP/Peak Flow — cercle et couleur AAG corrigés (violet < 33%)
-- ✅ Anticoagulants — Préviscan®, Sintrom®, AVK ajoutés dans catégorie dédiée
-- ✅ versionCode 50
+### v1.2.37 (avril 2026)
+- ✅ Liste Princeps→DCI étendue à 203 entrées (urgences hospitalières)
+- ✅ versionCode 54
 
-
-### v1.2.22 (avril 2026)
-- ✅ Fiches médicaments — onglets fonctionnels (Indication / Prescription / Préparation / Surveillance)
-- ✅ Onglet Sources mis à jour — fiches médicaments, équivalence des voies, ANSM/Vidal/SFAR
-- ✅ versionCode 39
-
-
-### v1.2.20 (avril 2026)
-- ✅ Correction définitive boucle infinie sur l'accueil (corruption JS doseRefs)
-- ✅ Reconstruction complète depuis base stable v1.2.13
-- ✅ Module Fiches médicaments — 73 molécules SAMU/SMUR (4 onglets)
-- ✅ Doses adulte — sélecteur molécule + calcul automatique selon poids
-- ✅ Doses pédiatriques — interface unifiée, 17 molécules, alertes dose max
-- ✅ Équivalence des voies IV/IM/SC/PO — 6 molécules
-- ✅ Menu Doses restructuré en 3 entrées
-- ✅ versionCode 37
-
-
-### v1.2.14 (avril 2026)
-- ✅ Doses reorganisé en menu de navigation (Adulte / Pédiatrique / Équivalence)
-- ✅ Nouveau : Équivalence des voies IV/IM/SC/PO (6 molécules)
-- ✅ Nouveau : Doses pédiatriques avec calcul auto selon poids (18 molécules)
-- ✅ versionCode 31
-
-### v1.2.13 (mars 2026)
-- ✅ Glasgow — mode patient non communiquant (verbal exclu, score /10)
-- ✅ versionCode 30
-
-
-### v1.2.12 (mars 2026)
-- ✅ Alcoolémie ajoutée dans le tube gris
-- ✅ Protocoles : termes médicaux abrégés explicités (FV, TV, BAVU, IO, PCI, UNV, HNF, HBPM…)
-- ✅ Ballonnet → angioplastie (PCI) dans le protocole SCA
-- ✅ versionCode 29
-
-
-### v1.2.11 (mars 2026)
-- ✅ Acceptation des CGU obligatoire au lancement et à chaque mise à jour
-- ✅ Encart confidentialité permanent sur l'accueil
-- ✅ Bouton retour CGU/Privacy corrigé (sticky + safe-area)
-- ✅ Vouvoiement dans la section Contact
-- ✅ versionCode 28
-
-
-### v1.2.9 (mars 2026)
-- ✅ Photo de profil et prénom/pseudo (Paramètres → Identité)
-- ✅ Avatar circulaire dans la topbar avec clic vers Paramètres
-- ✅ Stockage 100% local (localStorage, aucune donnée transmise)
-- ✅ versionCode 26
-
-### v1.2.8 (mars 2026)
-- ✅ Mode daltonien complet (Paramètres → Accessibilité) — palette Wong 2011
-- ✅ Bandeaux explicites ✓ NORMAL / ⚠ ATTENTION / ✕ CRITIQUE sur tous les résultats
-- ✅ versionCode 25
-
-### v1.2.6 (mars 2026)
-- ✅ Mode daltonien complet (Paramètres → Accessibilité) — palette Wong 2011, bandeaux ✓/⚠/✕
-- ✅ 3 nouveaux calculs : DFG/CKD-EPI 2021, IMC/Surface corporelle (Mosteller), Killip
-- ✅ Tous les scores vierges au chargement — option "— Sélectionner —" + guards null
-- ✅ Couleur d'accent Or (#D79A10) — palette ordonnée selon spectre lumineux
-- ✅ Sources médicales complètes pour les 15 scores (liens vers références officielles)
-- ✅ Reset profil depuis les Paramètres (↺ Réafficher le choix de profil)
-- ✅ Nom de fichier GitHub fixe : `urg_pocket.html` (indépendant de la version)
-- ✅ Nettoyage code JS orphelin (CHA₂DS₂-VASc, Cockcroft-Gault sans screen)
-- ✅ versionCode 26
-
-### v1.2.5 (mars 2026)
-- ✅ Dialog native Android pour confirmation quitter l'app (AlertDialog)
-- ✅ Bouton retour Android fonctionnel sur toutes les pages
-- ✅ Descriptions courtes sur les 12 pages de score
-- ✅ Correction version affichée dans "À propos"
-- ✅ versionCode 26
-
-### v1.2.0 (mars 2026)
-- ✅ Anneaux de score (Glasgow, NEWS2, qSOFA) — fond sombre, cercle coloré, pill risque
-- ✅ Splash screen animé au démarrage
-- ✅ Système de profils médecin / paramédical
-- ✅ Navigation retour Android hiérarchique
-- ✅ Logo topbar cliquable → accueil
-- ✅ PWA : manifest + Service Worker offline (GitHub Pages uniquement)
-- ✅ Fix bug espace blanc (div déséquilibrés dans screen-scores)
-- ✅ Fix status bar Android 15 edge-to-edge
-
-### v1.1.0 (mars 2026)
-- 6 nouveaux scores : Wells EP, NIHSS, HEART, Vittel, Shock Index, Malinas
-- Menu scores réorganisé par catégories
-- Section Paramètres enrichie
-
----
-
-## Structure du dépôt
-
-```
-urg-pocket/
-├── index.html           ← entrée GitHub Pages (redirect vers urg_pocket.html)
-├── urg_pocket.html      ← application principale (single-file, nom fixe)
-├── manifest.json        ← PWA manifest
-├── sw.js                ← Service Worker offline (GitHub Pages uniquement)
-├── cgu.html             ← CGU (12 articles)
-├── privacy.html         ← Politique de confidentialité (RGPD/CNIL)
-├── icons/
-│   ├── icon-192.png     ← icône PWA
-│   └── icon-512.png     ← icône Play Store
-└── README.md
-```
-
-> ⚠️ Le fichier principal s'appelle toujours `urg_pocket.html` — ne jamais le renommer avec un numéro de version.
-
----
-
-## Déploiement GitHub Pages
-
-1. Pousser tous les fichiers sur la branche `main`
-2. Settings → Pages → Source : `main` / `/ (root)`
-3. URL : `https://max54130.github.io/urg-pocket/`
-
-## Android Studio
-
-- `WebViewAssetLoader` — sert le HTML via `https://urgpocket.app/`
-- `AndroidBridge` — `showExitDialog()` + `confirmExit()` exposés via `window.Android`
-- Bouton retour → `evaluateJavascript("handleBackPress()")` → JS gère la navigation
-- `targetSdk 35`, `compileSdk 35`, `minSdk 26` (Android 8.0+)
-- Edge-to-edge : `env(safe-area-inset-top)` en CSS
-
----
-
-## Hiérarchie de navigation (bouton retour Android)
-
-```
-home
-├── scores
-│   ├── score-glasgow / news2 / qsofa / braden / apgar / cushman
-│   ├── score-wells-ep / nihss / heart / vittel / shockindex / malinas
-│   └── dfg / imc / killip
-├── normes → norme-detail
-├── protocoles → proto-acr / proto-acr_ped / proto-anaphylaxie / proto-avc / proto-douleur_tho
-├── antidotes → toxico-antidotes / toxico-doses
-└── debit / tubes / doses / convertisseur / constped / sources / settings
-```
-
----
-
-## Versions
-
-| versionCode | versionName | Statut |
-|-------------|-------------|--------|
-| 56 | 1.2.40 | **Build actuel** |
-| 24 | 1.2.7 | Publié Play Store |
-| 23 | 1.2.6 | Publié Play Store |
-| 22 | 1.2.5 | Publié Play Store |
-| 21 | 1.2.4 | Publié Play Store |
-
-> La prochaine release Play Store doit utiliser versionCode **≥ 62**.
-
----
-
-## Sources médicales
-
-| Source | Utilisation |
-|--------|-------------|
-| **ERC 2025** | ACR adulte et pédiatrique |
-| **SFMU / Toxin** | Protocoles, antidotes, doses toxiques (Pr Danel, Grenoble, 2019) |
-| **SFAR** | Anesthésie-réanimation, doses pondérales |
-| **HAS** | AVC, DFG, recommandations nationales |
-| **ESC 2023** | SCA, HEART, Wells EP, Killip |
-| **RCP** | NEWS2 |
-| **JAMA / Sepsis-3** | qSOFA (2016) |
-| **ACOG** | Score APGAR |
-| **KDIGO / NKF** | DFG CKD-EPI 2021 |
-| **OMS** | IMC |
-| **SFA / SFMU** | Cushman (sevrage alcoolique) |
-| **CLSI GP41** | Ordre de prélèvement des tubes |
-
----
-
-## Avertissement
-
-Urg Pocket est un **aide-mémoire** destiné aux professionnels de santé. Il ne constitue pas un dispositif médical et ne remplace pas le jugement clinique, les protocoles de service ni la formation. Les posologies doivent être vérifiées avant toute administration.
