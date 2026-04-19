@@ -1597,7 +1597,7 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.57</span>
+<span style="color:var(--primary);font-weight:800">1.2.58</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -2184,8 +2184,8 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.57';
-const APP_VERSION_CODE = 74;
+const APP_VERSION = '1.2.58';
+const APP_VERSION_CODE = 75;
 /* Normalisation accents pour recherche */
 function normSearch(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 
@@ -4177,27 +4177,29 @@ document.addEventListener('change',function(e){
 
   var profileConfig = {
     medical: {
-      hideScores: ['score-braden','score-algoplus','score-doloplus','score-malinas','score-apgar','score-cushman'],
+      hideScores: [],
       hideProto: [],
-      note: 'Vue médecin — Scores med spé, protocoles, calculs complets'
+      hideHome: [],
+      note: 'Vue médecin — Tous les scores, protocoles et calculs disponibles'
     },
     paramedical: {
-      hideScores: ['score-nihss','score-heart','score-wells-ep'],
+      hideScores: [],
       hideProto: [],
-      note: 'Vue paramédical — Scores cliniques, protocoles, doses, surveillance'
+      hideHome: [],
+      note: 'Vue paramédical — Tous les scores, protocoles et calculs disponibles'
     }
   };
 
   function applyProfile(profile){
     if(!profile || !profileConfig[profile]) return;
     var cfg = profileConfig[profile];
-    // Réafficher tous les boutons de scores
-    document.querySelectorAll('#screen-scores .home-compact[data-target]').forEach(function(btn){
+    // Réafficher tous les boutons de l'accueil et de la page scores
+    document.querySelectorAll('#screen-home .home-compact[data-target], #screen-scores .home-compact[data-target]').forEach(function(btn){
       btn.style.display = '';
     });
-    // Masquer les scores non pertinents pour ce profil
-    cfg.hideScores.forEach(function(target){
-      var btn = document.querySelector('#screen-scores .home-compact[data-target="'+target+'"]');
+    // Masquer sur l'ACCUEIL uniquement (plus de filtrage dans le reste de l'app)
+    (cfg.hideHome || []).forEach(function(target){
+      var btn = document.querySelector('#screen-home .home-compact[data-target="'+target+'"]');
       if(btn) btn.style.display = 'none';
     });
     // Mettre à jour les boutons toggle dans paramètres

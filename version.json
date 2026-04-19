@@ -1,8 +1,8 @@
 {
-  "versionCode": 74,
-  "versionName": "1.2.57",
+  "versionCode": 75,
+  "versionName": "1.2.58",
   "releaseDate": "2026-04-19",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "Rollback : retrait de tous les schémas SVG médicaux (Territoires IDM, Voie IO, Entorse, Ottawa, Anaphylaxie, ACR). Retour à l'état fonctionnel de la v1.2.54 sans illustrations."
+  "changelog": "Correction du filtrage par profil : la page Scores affiche désormais tous les scores (24) peu importe le profil. Le filtrage par profil est déplacé vers l'accueil (désactivé pour l'instant, à définir)."
 }

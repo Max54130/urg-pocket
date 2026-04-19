@@ -18,10 +18,10 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.2.57** |
-| versionCode | **74** |
+| versionName | **1.2.58** |
+| versionCode | **75** |
 | Date | Avril 2026 |
-| Prochaine release minimum | versionCode **≥ 75** / versionName **"1.2.58"** |
+| Prochaine release minimum | versionCode **≥ 76** / versionName **"1.2.59"** |
 | Dernier publié Play Store | versionCode 28 / versionName 1.2.11 |
 
 ---
@@ -139,6 +139,13 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.2.58 (avril 2026)
+- 🔧 **Correction du filtrage par profil** : la page Scores affichait 6 boutons cachés en profil "médical" (Algoplus, Doloplus-2, Braden, Malinas, APGAR, Cushman) et 3 en profil "paramédical" (NIHSS, HEART, Wells EP), ce qui rendait les sections "Douleur" et "Spécialisés" visuellement vides alors que leurs titres restaient affichés.
+- ✅ **Tous les scores, protocoles et calculs sont désormais accessibles** peu importe le profil — 24 scores, 13 protocoles, aucun masquage.
+- 🏗️ **Infrastructure prête pour filtrage futur de l'accueil** : la fonction `applyProfile` a été refactorisée pour cibler `#screen-home` via `hideHome: []` au lieu de `#screen-scores` via `hideScores`. Pour activer le filtrage plus tard, il suffit de remplir `hideHome` avec les `data-target` à cacher sur l'accueil dans `profileConfig`.
+- 🔁 Réinitialisation automatique : les utilisateurs qui avaient un profil avec des boutons cachés verront tous les scores réapparaître au prochain lancement.
+- ✅ versionCode 75
 
 ### v1.2.57 (avril 2026)
 - ⏪ **Rollback complet des illustrations SVG** : retrait des 6 schémas médicaux ajoutés en v1.2.55 et v1.2.56 (Territoires IDM, Voie intra-osseuse, Ligaments cheville, Zones Ottawa, Injection IM anaphylaxie, Rythmes ECG ACR). Les dessins anatomiques SVG faits à la main n'étaient pas d'une qualité suffisante.
