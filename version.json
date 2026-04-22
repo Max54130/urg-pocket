@@ -38,122 +38,122 @@
     {
       "name": "Glasgow",
       "domain": "Neuro · Conscience",
-      "tooltip": "Évalue le niveau de conscience (ouverture des yeux, réponse verbale, motrice). Score de 3 à 15. Référence en neurologie et réanimation préhospitalière."
+      "tooltip": "Évalue le niveau de conscience."
     },
     {
       "name": "Glasgow pédia.",
       "domain": "Enfant < 5 ans",
-      "tooltip": "Adaptation du Glasgow pour les enfants de moins de 5 ans (Holmes 2005). Items verbaux adaptés à l'âge."
+      "tooltip": "Évalue le niveau de conscience chez l'enfant."
     },
     {
       "name": "NIHSS",
       "domain": "AVC",
-      "tooltip": "National Institutes of Health Stroke Scale. Évaluation standardisée de la sévérité d'un AVC en 11 items. Guide la décision de thrombolyse / thrombectomie."
+      "tooltip": "Mesure la sévérité d'un AVC."
     },
     {
       "name": "NEWS2",
       "domain": "Hémodynamique",
-      "tooltip": "National Early Warning Score 2. Détection précoce de la détérioration clinique à partir des constantes vitales. Seuils d'escalade thérapeutique."
+      "tooltip": "Détecte la détérioration clinique précoce."
     },
     {
       "name": "HEART",
       "domain": "SCA",
-      "tooltip": "Probabilité d'événement coronarien aigu à 6 semaines. Intègre histoire clinique, ECG, âge, facteurs de risque et troponine. Score de 0 à 10."
+      "tooltip": "Estime le risque d'événement coronarien."
     },
     {
       "name": "Killip",
       "domain": "IC aiguë",
-      "tooltip": "Classification de l'insuffisance cardiaque aiguë sur IDM. 4 stades de sévérité, pronostic hospitalier."
+      "tooltip": "Classe l'insuffisance cardiaque sur IDM."
     },
     {
       "name": "Shock Index",
       "domain": "Hémodynamique",
-      "tooltip": "FC / PAS. Indicateur simple et rapide d'instabilité hémodynamique. Seuil d'alerte > 0,9."
+      "tooltip": "Signale l'instabilité hémodynamique."
     },
     {
       "name": "Wells EP",
       "domain": "Thrombose",
-      "tooltip": "Probabilité clinique d'embolie pulmonaire. 7 items, 3 niveaux de risque. Oriente la stratégie diagnostique (D-dimères / angioscanner)."
+      "tooltip": "Évalue la probabilité d'embolie pulmonaire."
     },
     {
       "name": "Genève rév.",
       "domain": "EP",
-      "tooltip": "Genève révisé simplifié (Klok 2008). Alternative à Wells pour la probabilité clinique d'EP. Variables objectives, pas d'appréciation clinique subjective."
+      "tooltip": "Alternative objective à Wells pour l'EP."
     },
     {
       "name": "PERC",
       "domain": "EP · exclusion",
-      "tooltip": "Pulmonary Embolism Rule-out Criteria (Kline 2004). 8 critères négatifs permettent d'exclure une EP chez le patient à faible risque, sans D-dimères."
+      "tooltip": "Exclut une EP chez le patient à faible risque."
     },
     {
       "name": "YEARS",
       "domain": "EP · D-dimères",
-      "tooltip": "Algorithme moderne d'exclusion d'EP (van der Hulle 2017). Seuil de D-dimères adapté au nombre d'items YEARS positifs. Réduit le recours au scanner."
+      "tooltip": "Algorithme d'exclusion d'EP avec D-dimères."
     },
     {
       "name": "sPESI",
       "domain": "EP · pronostic",
-      "tooltip": "Simplified Pulmonary Embolism Severity Index (Jiménez 2010). Pronostic à 30 jours d'une EP confirmée. Orientation ambulatoire vs hospitalisation."
+      "tooltip": "Pronostic à 30 jours d'une EP confirmée."
     },
     {
       "name": "Blatchford",
       "domain": "Hémorragie digestive",
-      "tooltip": "Glasgow-Blatchford Score (Blatchford 2000). Risque d'intervention hémostatique ou de transfusion en cas d'hémorragie digestive haute."
+      "tooltip": "Évalue le risque d'intervention sur hémorragie digestive haute."
     },
     {
       "name": "Vittel",
       "domain": "Trauma grave",
-      "tooltip": "Critères de Vittel (SFMU 2011). 5 volets évaluant la gravité d'un traumatisme. Orientation vers un centre de traumatologie."
+      "tooltip": "Oriente vers un centre de traumatologie."
     },
     {
       "name": "qSOFA",
       "domain": "Sepsis",
-      "tooltip": "quick Sequential Organ Failure Assessment (Sepsis-3, JAMA 2016). 3 items au lit du patient pour identifier rapidement un sepsis à risque."
+      "tooltip": "Repère rapidement un sepsis à risque."
     },
     {
       "name": "APGAR",
       "domain": "Néonatologie",
-      "tooltip": "Évaluation du nouveau-né à 1, 5 et 10 minutes. 5 critères (coloration, FC, respiration, tonus, réactivité). Score 0-10."
+      "tooltip": "Évalue le nouveau-né à 1, 5 et 10 minutes."
     },
     {
       "name": "Malinas",
       "domain": "Obstétrique",
-      "tooltip": "Score Malinas. Évalue l'imminence d'un accouchement en préhospitalier. Décide du transport ou de l'accouchement sur place."
+      "tooltip": "Évalue l'imminence d'un accouchement."
     },
     {
       "name": "Cushman",
       "domain": "Sevrage OH",
-      "tooltip": "Évaluation et surveillance du sevrage alcoolique. Oriente la prescription de benzodiazépines. Répétition fréquente dans les premières 24h."
+      "tooltip": "Surveille le sevrage alcoolique."
     },
     {
       "name": "Braden",
       "domain": "Escarre",
-      "tooltip": "Risque de survenue d'escarre chez le patient alité. 6 items (perception sensorielle, humidité, activité, mobilité, nutrition, friction)."
+      "tooltip": "Évalue le risque d'escarre."
     },
     {
       "name": "Algoplus",
       "domain": "Douleur aiguë PA",
-      "tooltip": "Évaluation comportementale de la douleur aiguë chez la personne âgée non communicante. 5 items binaires, seuil ≥ 2/5."
+      "tooltip": "Évalue la douleur aiguë chez la personne âgée non communicante."
     },
     {
       "name": "Doloplus-2",
       "domain": "Douleur chron. PA",
-      "tooltip": "Évaluation de la douleur chronique chez la personne âgée non communicante (Wary 2001). 10 items, seuil ≥ 5/30."
+      "tooltip": "Évalue la douleur chronique chez la personne âgée non communicante."
     },
     {
       "name": "DEP",
       "domain": "Respiratoire",
-      "tooltip": "Débit Expiratoire de Pointe (Peak Flow). Valeur théorique selon âge/taille/sexe. Évaluation de la sévérité d'une crise d'asthme."
+      "tooltip": "Évalue la sévérité d'une crise d'asthme."
     },
     {
       "name": "DFG CKD-EPI",
       "domain": "Néphrologie",
-      "tooltip": "Estimation du débit de filtration glomérulaire (CKD-EPI 2021). Adaptation posologique des médicaments à élimination rénale."
+      "tooltip": "Estime la fonction rénale pour adapter les posologies."
     },
     {
       "name": "IMC / SC",
       "domain": "Posologie",
-      "tooltip": "Indice de Masse Corporelle et Surface Corporelle. Calculs fondamentaux pour l'adaptation posologique (chimio, clairance, dose idéale)."
+      "tooltip": "Calcule l'IMC et la surface corporelle."
     }
   ]
 }
