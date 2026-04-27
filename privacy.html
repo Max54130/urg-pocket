@@ -1,64 +1,161 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Urg Pocket — Politique de confidentialité</title>
+<title>Urg Pocket : politique de confidentialité</title>
+<meta name="description" content="Politique de confidentialité d'Urg Pocket. Aucune collecte de données.">
+<meta name="theme-color" content="#0E1A25">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box}
-body{font-family:-apple-system,system-ui,'Inter',sans-serif;max-width:700px;margin:0 auto;padding:24px 20px 60px;background:#0f0f12;color:#e9e9ef;line-height:1.65;font-size:15px}
-h1{color:#5B9EF4;font-size:22px;font-weight:900;margin-bottom:4px}
-h2{color:#b9bcc7;font-size:16px;font-weight:800;margin-top:32px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #35373f}
-p{margin:0 0 12px;color:#c9ccd7}
-a{color:#5B9EF4;text-decoration:none}
-a:hover{text-decoration:underline}
-.date{color:#b9bcc7;font-size:13px;margin-bottom:28px}
-.badge{display:inline-flex;align-items:center;gap:6px;background:#064e3b;color:#6ee7b7;border:1px solid #065f46;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:20px}
-.back{display:inline-flex;align-items:center;gap:6px;color:#5B9EF4;font-size:14px;font-weight:600;margin-bottom:24px;text-decoration:none}
-.back:hover{text-decoration:underline}
+  :root{
+    --bg:#0E1A25;
+    --surface:#132030;
+    --surface2:#1A2A3C;
+    --text:#E9EFF6;
+    --text2:#9FB0C3;
+    --text3:#6B7D92;
+    --line:#2A3A4E;
+    --primary:#5BA8E8;
+    --success:#2EC090;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,system-ui,sans-serif;
+    background:var(--bg);color:var(--text);
+    line-height:1.65;font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--primary);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;max-width:1180px;margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px;color:var(--text)}
+  .brand-mark{
+    width:40px;height:40px;display:grid;place-items:center;
+    filter:drop-shadow(0 4px 14px rgba(26,115,200,.35));
+  }
+  .brand-mark svg{width:40px;height:40px;display:block}
+  .back-link{
+    color:var(--text2);font-size:14px;font-weight:600;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:10px 16px;border-radius:10px;
+    border:1px solid var(--line);background:var(--surface);
+    transition:border-color .15s, color .15s;
+  }
+  .back-link:hover{color:var(--primary);border-color:var(--primary);text-decoration:none}
+
+  main{max-width:780px;margin:0 auto;padding:60px 24px 100px}
+
+  .page-header{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+  h1{
+    font-size:clamp(32px, 4vw, 44px);
+    font-weight:800;letter-spacing:-.025em;
+    line-height:1.1;margin-bottom:12px;
+  }
+  .date{color:var(--text2);font-size:14px;margin-bottom:20px}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:999px;
+    background:color-mix(in srgb, var(--success) 15%, transparent);
+    border:1px solid color-mix(in srgb, var(--success) 40%, transparent);
+    color:var(--success);font-size:13px;font-weight:700;
+  }
+
+  h2{
+    font-size:20px;font-weight:800;letter-spacing:-.01em;
+    color:var(--text);margin-top:40px;margin-bottom:12px;
+    padding-bottom:8px;border-bottom:1px solid var(--line);
+  }
+  p{color:var(--text2);margin-bottom:14px;line-height:1.7}
+  p strong{color:var(--text)}
+  ul{margin:0 0 14px;padding-left:22px;color:var(--text2)}
+  li{margin-bottom:6px}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 24px;text-align:center;
+    color:var(--text3);font-size:13px;
+  }
+  footer a{color:var(--text2)}
 </style>
 </head>
 <body>
-<div style="position:sticky;top:0;z-index:10;background:inherit;padding:max(16px,env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid rgba(128,128,128,.15)">
-<button onclick="if(window.history.length>1){window.history.back();}else{window.location.href='https://max54130.github.io/urg-pocket/urg_pocket.html';}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#1A73E8;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;min-height:44px">← Retour à l'application</button>
-</div>
 
-<a href="https://max54130.github.io/urg-pocket/" class="back">← Retour à l'application</a>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="19" cy="19" r="19" fill="#1A73C8"/>
+          <rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/>
+          <rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/>
+          <polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Urg Pocket
+    </a>
+    <a href="index.html" class="back-link">← Retour au site</a>
+  </div>
+</nav>
 
-<h1>Politique de confidentialité</h1>
-<p class="date">Urg Pocket — Dernière mise à jour : avril 2026</p>
+<main>
+  <div class="page-header">
+    <h1>Politique de confidentialité</h1>
+    <p class="date">Urg Pocket, dernière mise à jour : avril 2026</p>
+    <div class="badge">✓ Aucune collecte de données</div>
+  </div>
 
-<div class="badge">✅ Aucune collecte de données</div>
+  <h2>Résumé</h2>
+  <p>Urg Pocket ne collecte aucune donnée personnelle. L'application fonctionne entièrement en local sur votre appareil.</p>
 
-<h2>Résumé</h2>
-<p>Urg Pocket ne collecte aucune donnée personnelle. L'application fonctionne entièrement en local sur votre appareil.</p>
+  <h2>Données collectées</h2>
+  <p>Aucune. L'application ne collecte, ne transmet et ne stocke aucune donnée personnelle, médicale ou d'utilisation sur un serveur distant.</p>
 
-<h2>Données collectées</h2>
-<p>Aucune. L'application ne collecte, ne transmet et ne stocke aucune donnée personnelle, médicale ou d'utilisation sur un serveur distant.</p>
+  <h2>Données stockées localement</h2>
+  <p>L'application utilise le stockage local de votre navigateur (localStorage) uniquement pour sauvegarder vos préférences d'interface : thème, couleur d'accent, taille du texte, onglets sélectionnés, profil (médecin/paramédical). Ces données restent sur votre appareil et ne sont jamais transmises.</p>
 
-<h2>Données stockées localement</h2>
-<p>L'application utilise le stockage local de votre navigateur (localStorage) uniquement pour sauvegarder vos préférences d'interface : thème, couleur d'accent, taille du texte, onglets sélectionnés, profil (médecin/paramédical). Ces données restent sur votre appareil et ne sont jamais transmises.</p>
+  <h2>Connexion internet</h2>
+  <p>L'application peut charger la police de caractères Inter depuis Google Fonts lors du premier lancement. Aucune donnée personnelle n'est transmise lors de cette requête. En mode PWA ou Android, l'application fonctionne intégralement hors ligne après le premier chargement.</p>
 
-<h2>Connexion internet</h2>
-<p>L'application peut charger la police de caractères Inter depuis Google Fonts lors du premier lancement. Aucune donnée personnelle n'est transmise lors de cette requête. En mode PWA ou Android, l'application fonctionne intégralement hors ligne après le premier chargement.</p>
+  <h2>Données médicales</h2>
+  <p>Urg Pocket est un outil de référence. Aucune donnée patient n'est saisie, stockée ou transmise par l'application. Les scores et calculs sont effectués localement et ne sont pas enregistrés.</p>
 
-<h2>Données médicales</h2>
-<p>Urg Pocket est un outil de référence. Aucune donnée patient n'est saisie, stockée ou transmise par l'application. Les scores et calculs sont effectués localement et ne sont pas enregistrés.</p>
+  <h2>Publicité et analytique</h2>
+  <p>L'application ne contient aucune publicité, aucun traceur, aucun cookie, aucun outil d'analytique.</p>
 
-<h2>Publicité et analytique</h2>
-<p>L'application ne contient aucune publicité, aucun traceur, aucun cookie, aucun outil d'analytique.</p>
+  <h2>Partage de données avec des tiers</h2>
+  <p>Aucun partage de données avec des tiers. L'application ne contient aucun SDK tiers de collecte de données.</p>
 
-<h2>Partage de données avec des tiers</h2>
-<p>Aucun partage de données avec des tiers. L'application ne contient aucun SDK tiers de collecte de données.</p>
+  <h2>Contact</h2>
+  <p>Pour toute question concernant cette politique de confidentialité, contactez-nous à : <a href="mailto:contact@urgpocket.app">contact@urgpocket.app</a></p>
 
-<h2>Contact</h2>
-<p>Pour toute question concernant cette politique de confidentialité, contactez-nous à : <a href="/cdn-cgi/l/email-protection#41343326312e222a243501262c20282d6f222e2c"><span class="__cf_email__" data-cfemail="9eebecf9eef1fdf5fbeadef9f3fff7f2b0fdf1f3">[email&#160;protected]</span></a></p>
+  <h2>Modifications</h2>
+  <p>Cette politique peut être mise à jour. La date de dernière modification est indiquée en haut de page. La poursuite de l'utilisation de l'application après modification vaut acceptation des nouvelles conditions.</p>
 
-<h2>Modifications</h2>
-<p>Cette politique peut être mise à jour. La date de dernière modification est indiquée en haut de page. La poursuite de l'utilisation de l'application après modification vaut acceptation des nouvelles conditions.</p>
+  <h2>Droit applicable</h2>
+  <p>La présente politique de confidentialité est régie par le droit français et le Règlement (UE) 2016/679 (RGPD). Toute réclamation relative au traitement de données personnelles peut être adressée à la Commission Nationale de l'Informatique et des Libertés (CNIL), <a href="https://www.cnil.fr/" rel="noopener" target="_blank">www.cnil.fr</a>.</p>
+</main>
 
-<h2>Droit applicable</h2>
-<p>La présente politique de confidentialité est régie par le droit français et le Règlement (UE) 2016/679 (RGPD). Toute réclamation relative au traitement de données personnelles peut être adressée à la Commission Nationale de l'Informatique et des Libertés (CNIL), <a href="https://www.cnil.fr/" rel="noopener" target="_blank">www.cnil.fr</a>.</p>
+<footer>
+  <span>© 2026 Urg Pocket, <a href="index.html">urgpocket.app</a></span>
+</footer>
 
 </body>
 </html>
