@@ -18,11 +18,11 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.2.58** |
-| versionCode | **75** |
+| versionName | **1.2.59** |
+| versionCode | **76** |
 | Date | Avril 2026 |
-| Prochaine release minimum | versionCode **≥ 76** / versionName **"1.2.59"** |
-| Dernier publié Play Store | versionCode 28 / versionName 1.2.11 |
+| Prochaine release minimum | versionCode **≥ 77** / versionName **"1.2.60"** |
+| Dernier publié Play Store | versionCode 74 / versionName 1.2.57 |
 
 ---
 
@@ -139,6 +139,13 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.2.59 (avril 2026)
+- 🔧 **Correction adresse e-mail de contact** dans la page Paramètres → À propos → Contact :
+  - Avant : `urgpocket@gmail.com`
+  - Après : `contact@urgpocket.app` (adresse officielle, conforme aux CGU article 10)
+- ✅ Aucun autre changement de contenu — alignement avec les Conditions Générales d'Utilisation
+- ✅ versionCode 76
 
 ### v1.2.58 (avril 2026)
 - 🔧 **Correction du filtrage par profil** : la page Scores affichait 6 boutons cachés en profil "médical" (Algoplus, Doloplus-2, Braden, Malinas, APGAR, Cushman) et 3 en profil "paramédical" (NIHSS, HEART, Wells EP), ce qui rendait les sections "Douleur" et "Spécialisés" visuellement vides alors que leurs titres restaient affichés.
