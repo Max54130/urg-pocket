@@ -1,11 +1,11 @@
 /* ============================================================
-   Urg Pocket — Service Worker v1.2.60
+   Urg Pocket — Service Worker v1.3.0
    Cache-first pour l'app, network-first pour CGU/privacy/version.json
    Mise à jour automatique : le cache est versionné et les anciens
    caches sont purgés à chaque activation.
    ============================================================ */
 
-const CACHE_NAME = 'urg-pocket-v1.2.60';
+const CACHE_NAME = 'urg-pocket-v1.3.0';
 const STATIC_ASSETS = [
   '/urg-pocket/',
   '/urg-pocket/index.html',

@@ -18,11 +18,11 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.2.60** |
-| versionCode | **77** |
+| versionName | **1.3.0** |
+| versionCode | **79** |
 | Date | Avril 2026 |
-| Prochaine release minimum | versionCode **≥ 78** / versionName **"1.2.61"** |
-| Dernier publié Play Store | versionCode 74 / versionName 1.2.57 |
+| Prochaine release minimum | versionCode **≥ 80** / versionName **"1.3.1"** |
+| Dernier publié Play Store | versionCode 77 / versionName 1.2.60 |
 
 ---
 
@@ -139,6 +139,54 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.3.0 (avril 2026) — saut de version majeur
+
+Cette version regroupe les évolutions UX/navigation majeures (initialement v1.2.60) et le fix WebView (initialement v1.2.61). Le saut de version mineure (1.2.x → 1.3.0) reflète l'ampleur de la refonte de l'interface et de la navigation.
+
+**🎨 Refonte UX alignée sur le site vitrine urgpocket.app**
+- **Mode sombre** : nouvelle palette marine identique au site (`#0E1A25` background, `#132030` surface, `#5BA8E8` primary)
+- **Mode clair** : palette ajustée avec primary `#1A73C8` (couleur de marque)
+- **Ombres hiérarchisées** : 3 niveaux (`--shadow-sm`, `--shadow-md`, `--shadow-lg`) au lieu d'une ombre unique, donnent une vraie profondeur visuelle
+- **Border-radius standardisés** : 3 tokens (`--radius-sm` 10px, `--radius-md` 14px, `--radius-lg` 20px)
+- **Boutons primaires** : dégradé vertical subtil (`primary` → `primary2`), ombre bleutée portée, hover avec `translateY(-1px)` + ombre amplifiée
+- **Cartes** : passage à `border-radius` 20px, transition fluide sur hover, élévation cohérente
+- **Topbar** : ombre subtile en bas pour démarcation visuelle
+- **Bottom-nav** : ombre inversée vers le haut, démarcation propre
+- **Halos lumineux** : splash screen, score-results (vert/jaune/rouge), nav active — via `color-mix` qui suit l'accent dynamique
+- **Texture de fond** : grille subtile 40x40px
+
+**📝 Typographie renforcée**
+- Body : activation `font-feature-settings: 'tnum' 1, 'cv11' 1` (chiffres tabulaires + glyphes optimisés écran), `line-height: 1.55`, antialiasing
+- Titres h2 : 26px, font-weight 800, letter-spacing -0.02em (style site)
+- Section-title h3 : font-weight 800, letter-spacing -0.015em
+- Home-section-title (badge) : letter-spacing 0.1em (cohérent avec h4 du site)
+
+**⭐ Page d'accueil personnalisable** (suppression du système profil médecin/paramédical)
+- **Favoris** : zone fixe en haut, jusqu'à 8 outils épinglés via une étoile présente sur chaque écran d'item
+- **Récemment consultés** : 6 derniers items ouverts, automatique, masquable via Paramètres
+- **5 catégories par type** réorganisables en drag & drop (mode édition explicite via bouton ✏️ Réorganiser, à côté de la barre de recherche)
+- **Tap-long** sur un favori : confirmation de retrait
+- **Persistance** : `localStorage` (`urg-favorites`, `urg-recents`, `urg-home-order`, `urg-show-recents`)
+- **Catalogue de 50 items favorisables** : 22 scores + 11 protocoles + 3 calculs (DFG, IMC, PCA) + 10 pages-catégories + 4 équivalences
+
+**🆕 Nouvelles variables CSS**
+- `--text3` (texte tertiaire)
+- `--primary-soft` (surface teintée primary)
+- `--primary-brand` (couleur de marque fixe)
+
+**🔧 Correction des liens externes dans la WebView Android**
+- Les liens `mailto:` (page Paramètres → Contact, bandeau de mise à jour, CGU, Politique de confidentialité) provoquaient une erreur `ERR_UNKNOWN_URL_SCHEME` car la WebView essayait de les charger comme des pages web
+- **Solution côté natif Android** (MainActivity.kt) : ajout de `shouldOverrideUrlLoading` dans le `WebViewClient` pour intercepter et déléguer aux apps système :
+  - `mailto:` → ouverture de l'app Mail (Intent.ACTION_SENDTO)
+  - `tel:` → ouverture de l'app Téléphone (Intent.ACTION_DIAL)
+  - `sms:` / `smsto:` → ouverture de l'app SMS
+  - Liens HTTP(S) externes (hors urgpocket.app) → ouverture dans le navigateur système
+- Aucune modification HTML/JS — le fix est 100% côté Android natif
+
+**✅ Versionning**
+- versionCode 79
+- Saut de version mineure (1.2.x → 1.3.0) pour refléter l'ampleur des changements UX/navigation
 
 ### v1.2.60 (avril 2026)
 - 🎨 **Refonte UX alignée sur le site vitrine urgpocket.app**
