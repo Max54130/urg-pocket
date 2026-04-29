@@ -5,8 +5,69 @@
 <style>
 
 /* === THEME === */
-:root{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f7f9fb;--surface3:#edf1f5;--text:#1a2332;--text2:#5c6b7a;--line:#dce3eb;--primary:#1a73e8;--primary2:#1558b8;--secondary:#0d9488;--danger:#d32f2f;--shadow:0 2px 8px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.04);--header:60px;--bottom:72px;--sem-ok:#1A9B6C;--sem-warn:#D79A10;--sem-danger:#C0392B}
-body.dark{--bg:#0f0f12;--surface:#17181c;--surface2:#1f2028;--surface3:#2a2c33;--text:#e9e9ef;--text2:#b9bcc7;--line:#35373f;--primary:#5b9ef4;--primary2:#3d8be8;--secondary:#4db6ac;--danger:#ef5350;--shadow:0 2px 8px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.2);--sem-ok:#2EC090;--sem-warn:#F0C040;--sem-danger:#E8605A}
+:root{
+  /* Couleurs de fond / surface — mode clair (l'app a 3 modes, le site n'a que dark) */
+  --bg:#f0f4f8;
+  --surface:#ffffff;
+  --surface2:#f7f9fb;
+  --surface3:#edf1f5;
+  /* Texte */
+  --text:#1a2332;
+  --text2:#5c6b7a;
+  --text3:#8a99a8;
+  --line:#dce3eb;
+  /* Accent — alignés sur le site */
+  --primary:#1A73C8;
+  --primary2:#1558b8;
+  --primary-brand:#1A73C8;
+  --secondary:#0d9488;
+  /* Sémantique */
+  --danger:#C0392B;
+  --alert:#D79A10;
+  --success:#1A9B6C;
+  --warn:#D79A10;
+  --sem-ok:#1A9B6C;
+  --sem-warn:#D79A10;
+  --sem-danger:#C0392B;
+  /* Élévation hiérarchisée (alignée sur site) */
+  --shadow-sm:0 2px 8px rgba(20,40,80,.06);
+  --shadow-md:0 8px 24px rgba(20,40,80,.08);
+  --shadow-lg:0 20px 60px rgba(20,40,80,.12);
+  --shadow:var(--shadow-sm),var(--shadow-md);
+  /* Rayons */
+  --radius-sm:10px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  /* Layout */
+  --header:60px;
+  --bottom:72px;
+}
+body.dark{
+  /* Mode sombre — aligné EXACTEMENT sur le site vitrine */
+  --bg:#0E1A25;
+  --surface:#132030;
+  --surface2:#1A2A3C;
+  --surface3:#243447;
+  --text:#E9EFF6;
+  --text2:#9FB0C3;
+  --text3:#6B7D92;
+  --line:#2A3A4E;
+  --primary:#5BA8E8;
+  --primary2:#3D8BCD;
+  --primary-brand:#1A73C8;
+  --secondary:#4db6ac;
+  --danger:#E8605A;
+  --alert:#E89B3D;
+  --success:#2EC090;
+  --warn:#F0C040;
+  --sem-ok:#2EC090;
+  --sem-warn:#F0C040;
+  --sem-danger:#E8605A;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.3);
+  --shadow-md:0 8px 24px rgba(0,0,0,.4);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.5);
+  --shadow:var(--shadow-sm),var(--shadow-md);
+}
 
 
 .accent-dot{width:40px;height:40px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:border-color .15s,transform .1s;padding:0}
@@ -27,7 +88,10 @@ body.dark{--bg:#0f0f12;--surface:#17181c;--surface2:#1f2028;--surface3:#2a2c33;-
 /* === RESET === */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;overflow-x:hidden}
-body{font-family:'Inter',-apple-system,system-ui,sans-serif;font-feature-settings:'tnum' 1;background:var(--bg);color:var(--text)}
+body{font-family:'Inter',-apple-system,system-ui,sans-serif;font-feature-settings:'tnum' 1, 'cv11' 1;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-image:linear-gradient(color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px),linear-gradient(90deg, color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px);background-size:40px 40px;background-attachment:fixed;background-position:-1px -1px}
+body.dark{background-image:linear-gradient(color-mix(in srgb, var(--primary) 12%, transparent) 1px, transparent 1px),linear-gradient(90deg, color-mix(in srgb, var(--primary) 12%, transparent) 1px, transparent 1px);background-size:40px 40px;background-attachment:fixed;background-position:-1px -1px}
+body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:120vw;height:600px;background:radial-gradient(ellipse 600px 400px at 50% 50%, color-mix(in srgb, var(--primary) 12%, transparent) 0%, transparent 70%);pointer-events:none;z-index:0;opacity:.7}
+main,.topbar,.bottom-nav{position:relative;z-index:1}
 
 /* === LAYOUT === */
 .app{min-height:100dvh;display:flex;flex-direction:column}
@@ -35,7 +99,7 @@ main{flex:1;width:min(100%,1240px);margin:0 auto;padding:16px;padding-bottom:cal
 .screen{display:none}.screen.active{display:block}
 
 /* === TOPBAR === */
-.topbar{position:sticky;top:0;z-index:50;height:calc(var(--header) + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 14px;padding-top:env(safe-area-inset-top);background:var(--surface);border-bottom:1px solid var(--line)}
+.topbar{position:sticky;top:0;z-index:50;height:calc(var(--header) + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 14px;padding-top:env(safe-area-inset-top);background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow-sm)}
 .top-left{display:flex;align-items:center;gap:12px;min-width:0;flex:1;overflow:hidden}
 .logo{width:38px;height:38px;min-width:38px;border-radius:10px;display:grid;place-items:center;font-weight:900;font-size:16px;color:#fff;background:var(--primary)}
 .title-wrap{min-width:0;flex-shrink:0}
@@ -52,7 +116,8 @@ main{flex:1;width:min(100%,1240px);margin:0 auto;padding:16px;padding-bottom:cal
 .tab-btn{color:var(--text2);white-space:nowrap;padding:6px 10px;font-size:13px;min-height:36px}
 .tab-btn.active{color:var(--primary);background:var(--surface2);border-color:var(--primary)}
 .icon-btn{width:42px;padding:0;display:grid;place-items:center;font-size:18px}
-.go-btn,.btn.primary{width:100%;border:none;border-radius:12px;min-height:44px;padding:10px 16px;background:var(--primary);color:#fff;font-size:14px;font-weight:800;cursor:pointer;transition:transform .08s}
+.go-btn,.btn.primary{width:100%;border:none;border-radius:12px;min-height:44px;padding:12px 18px;background:linear-gradient(180deg,var(--primary) 0%,var(--primary2) 100%);color:#fff;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px color-mix(in srgb, var(--primary) 35%, transparent),0 0 0 1px rgba(255,255,255,.08) inset,0 1px 0 rgba(255,255,255,.18) inset;transition:transform .15s,box-shadow .2s}
+.go-btn:hover,.btn.primary:hover{box-shadow:0 10px 28px color-mix(in srgb, var(--primary) 50%, transparent),0 0 40px color-mix(in srgb, var(--primary) 25%, transparent),0 0 0 1px rgba(255,255,255,.12) inset,0 1px 0 rgba(255,255,255,.22) inset;transform:translateY(-1px)}
 .reset-inline{background:none;border:1.5px solid var(--danger);color:var(--danger);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:800;min-height:36px;cursor:pointer;white-space:nowrap;transition:background .15s,transform .08s}.reset-inline:hover{background:color-mix(in srgb,var(--danger) 8%,var(--surface))}.reset-inline:active{transform:scale(0.96)}
 .btn.reset{background:var(--surface2);color:var(--text2);border:1px solid var(--line);font-size:13px;min-height:40px;padding:8px 14px}
 .unit-btn{min-height:44px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;padding:10px 12px;cursor:pointer;transition:background .15s,border-color .15s,transform .08s}
@@ -63,10 +128,10 @@ main{flex:1;width:min(100%,1240px);margin:0 auto;padding:16px;padding-bottom:cal
 .btn:active,.go-btn:active,.btn.primary:active,.unit-btn:active,.home-compact:active,.nav-btn:active,.icon-btn:active{transform:scale(0.96)}
 .tab-btn:focus-visible,.icon-btn:focus-visible,.btn:focus-visible,.go-btn:focus-visible,.unit-btn:focus-visible,.nav-btn:focus-visible,.home-compact:focus-visible,.select:focus-visible,.num-input:focus-visible,.search:focus-visible,a:focus-visible{outline:3px solid color-mix(in srgb,var(--primary) 24%,transparent);outline-offset:2px}
 
-.btn-back{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:14px;font-weight:700;min-height:40px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:transform .08s}.btn-back:active{transform:scale(0.96)}
+.btn-back{background:linear-gradient(180deg,var(--primary) 0%,var(--primary2) 100%);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 14px;font-size:14px;font-weight:700;min-height:40px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px color-mix(in srgb, var(--primary) 30%, transparent),0 1px 0 rgba(255,255,255,.18) inset;transition:transform .15s,box-shadow .15s}.btn-back:hover{transform:translateY(-1px);box-shadow:0 8px 20px color-mix(in srgb, var(--primary) 45%, transparent),0 0 24px color-mix(in srgb, var(--primary) 20%, transparent),0 1px 0 rgba(255,255,255,.22) inset}.btn-back:active{transform:scale(0.96)}
 /* === PAGE HEAD === */
 .page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.page-head h2{margin:0;font-size:24px;line-height:1.15;letter-spacing:-.01em;font-weight:700}
+.page-head h2{margin:0;font-size:26px;line-height:1.1;letter-spacing:-0.02em;font-weight:800}
 .page-head p{margin:6px 0 0;color:var(--text2);font-size:14px;max-width:60ch}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap}
 
@@ -81,7 +146,8 @@ main{flex:1;width:min(100%,1240px);margin:0 auto;padding:16px;padding-bottom:cal
 .duration-toggle{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px}
 
 /* === CARDS === */
-.home-card,.content-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px;transition:background .15s,border-color .15s}
+.home-card,.content-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.04) inset;padding:16px;transition:background .15s,border-color .15s,box-shadow .2s;position:relative}
+body.dark .home-card,body.dark .content-card{box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.05) inset}
 .home-card{cursor:pointer}
 .home-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
 .home-icon{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:22px;background:var(--surface2);color:var(--primary);border:1px solid var(--line)}
@@ -91,11 +157,53 @@ main{flex:1;width:min(100%,1240px);margin:0 auto;padding:16px;padding-bottom:cal
 
 /* === HOME SECTIONS === */
 .home-sections{display:grid;gap:14px}
-.home-section{padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);transition:background .15s,border-color .15s}
-.home-section-title{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:12px}
+.home-section{padding:14px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface);box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.04) inset;transition:background .15s,border-color .15s}
+body.dark .home-section{box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.05) inset}
+.home-section-title{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:12px}
+
+/* État vide pour favoris */
+.empty-state{padding:18px 14px;text-align:center;color:var(--text2)}
+.empty-state-icon{font-size:32px;margin-bottom:8px;opacity:.6}
+.empty-state-text{font-size:14px;line-height:1.5;margin-bottom:6px;color:var(--text)}
+.empty-state-hint{font-size:12px;color:var(--text3)}
+
+/* Bouton "Réorganiser" sur la home — sur la même ligne que la recherche */
+.home-search-row{display:flex;align-items:stretch;gap:8px;margin-bottom:14px}
+.home-edit-btn{padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text2);font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;flex-shrink:0;min-width:48px;min-height:44px}
+.home-edit-btn:hover{border-color:color-mix(in srgb,var(--primary) 50%,var(--line));color:var(--text)}
+.home-edit-btn.active{background:color-mix(in srgb,var(--primary) 14%,var(--surface));border-color:var(--primary);color:var(--primary);padding:0 16px}
+.home-edit-btn .label{display:none}
+.home-edit-btn.active .label{display:inline}
+@media (min-width:520px){
+  .home-edit-btn{padding:0 16px}
+  .home-edit-btn .label{display:inline}
+}
+
+/* Mode édition activé sur la home */
+.home-sections.is-editing .home-section.is-draggable{cursor:grab;border-style:dashed;border-color:color-mix(in srgb,var(--primary) 50%,var(--line));position:relative;padding-left:42px}
+.home-sections.is-editing .home-section.is-draggable:active{cursor:grabbing}
+.home-sections.is-editing .home-section.is-draggable.dragging{opacity:.4;border-style:solid;border-color:var(--primary);box-shadow:var(--shadow-lg)}
+.home-sections.is-editing .home-section.is-draggable.drag-over{border-style:solid;border-color:var(--primary);background:color-mix(in srgb,var(--primary) 8%,var(--surface))}
+.home-sections.is-editing .home-section .home-compact{pointer-events:none;opacity:.55}
+.home-sections.is-editing .home-section.is-fixed{opacity:.6;pointer-events:none}
+.home-sections.is-editing .home-section.is-fixed::after{content:'fixé';position:absolute;top:8px;right:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);background:var(--surface3);padding:2px 8px;border-radius:999px}
+
+/* Poignée drag */
+.drag-handle{display:none;position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--text3);user-select:none;-webkit-user-select:none;pointer-events:none;line-height:1;letter-spacing:-2px}
+.home-sections.is-editing .home-section.is-draggable .drag-handle{display:block;color:var(--primary)}
+
+/* Bouton étoile pour ajouter aux favoris (intégré dans .page-head à droite) */
+.fav-toggle{background:var(--surface2);border:1px solid var(--line);border-radius:999px;width:40px;height:40px;display:inline-grid;place-items:center;cursor:pointer;font-size:18px;line-height:1;transition:transform .15s,border-color .15s,background .15s,box-shadow .2s,color .15s;color:var(--text3);flex-shrink:0;padding:0}
+.fav-toggle:hover{transform:scale(1.08);border-color:color-mix(in srgb,var(--primary) 50%,var(--line))}
+.fav-toggle.active{background:color-mix(in srgb,var(--primary) 14%,var(--surface));border-color:color-mix(in srgb,var(--primary) 60%,var(--line));color:var(--primary);box-shadow:0 0 18px color-mix(in srgb,var(--primary) 25%,transparent)}
+.fav-toggle:active{transform:scale(0.92)}
+
+/* Wrapper d'actions à droite de la page-head (si plusieurs boutons) */
+.page-head-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+
 .home-compact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.home-compact{display:flex;align-items:center;gap:10px;padding:12px;min-width:0;min-height:64px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);cursor:pointer;text-align:left;font-size:14px;font-weight:700;color:var(--text);transition:transform .1s,box-shadow .15s,background .15s}
-.home-compact:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.home-compact{display:flex;align-items:center;gap:10px;padding:12px;min-width:0;min-height:64px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface2);cursor:pointer;text-align:left;font-size:14px;font-weight:700;color:var(--text);transition:transform .15s,box-shadow .2s,background .15s,border-color .2s}
+.home-compact:hover{transform:translateY(-2px);box-shadow:var(--shadow-md),0 0 24px color-mix(in srgb, var(--primary) 15%, transparent);border-color:color-mix(in srgb, var(--primary) 40%, var(--line))}
 .hc-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:0 0 36px;background:var(--surface3);border:1px solid var(--line)}
 .hc-label{min-width:0;font-size:13px;font-weight:600;line-height:1.35;letter-spacing:.01em}
 
@@ -124,7 +232,7 @@ tr:last-child td{border-bottom:none}
 .sticky-first td:first-child,.sticky-first th:first-child{position:sticky;left:0;background:var(--surface);z-index:1}
 .sticky-first th:first-child{background:var(--surface2);z-index:2}
 .section-title{margin:18px 0 10px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.section-title h3{margin:0;font-size:18px}
+.section-title h3{margin:0;font-size:18px;font-weight:800;letter-spacing:-0.015em}
 .section-title .unit{color:var(--primary);font-weight:900}
 
 /* === SCORES === */
@@ -260,9 +368,10 @@ body.update-visible.dark{padding-top:56px}
 .tube-arrow{font-weight:900;color:var(--text2)}
 
 /* === BOTTOM NAV === */
-.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:60;height:var(--bottom);display:grid;gap:2px;padding:8px 4px max(8px, env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);overflow:hidden}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:60;height:var(--bottom);display:grid;gap:2px;padding:8px 4px max(8px, env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);overflow:hidden;box-shadow:0 -4px 16px rgba(20,40,80,.06)}
+body.dark .bottom-nav{box-shadow:0 -4px 16px rgba(0,0,0,.3)}
 .nav-btn{border:none;background:none;color:var(--text2);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10px;font-weight:700;cursor:pointer;transition:background .15s,color .15s;overflow:hidden;min-width:0}.nav-btn span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
-.nav-btn.active{color:var(--primary);background:var(--surface2);border:1px solid var(--line)}
+.nav-btn.active{color:var(--primary);background:var(--surface2);border:1px solid var(--line);box-shadow:0 0 24px color-mix(in srgb, var(--primary) 18%, transparent) inset,0 -2px 0 var(--primary) inset}
 .nav-icon{font-size:18px;line-height:1}
 .small{font-size:12px;color:var(--text2)}
 
@@ -273,14 +382,15 @@ body.update-visible.dark{padding-top:56px}
 @media (max-width:520px){.topbar .search-global{display:none}.search-home-only{display:block}.page-head h2{font-size:24px}.result{flex-direction:column;align-items:flex-start}.result-num{text-align:left}.bottom-nav{height:auto}.nav-btn{font-size:9px;gap:2px}.nav-icon{font-size:16px}.home-compact{min-height:58px;padding:10px}.content-card{padding:14px}.home-section{padding:12px}}
 
 /* === SCORES AMÉLIORÉS === */
-.score-result{margin-top:14px;padding:16px;border-radius:16px;text-align:left;font-size:14px;font-weight:500;color:var(--text);border:1px solid var(--line);background:var(--surface2);transition:background .2s,border-color .2s}
-.score-result.green{background:#dcfce7;border-color:#16a34a;color:#065f46}
-.score-result.yellow{background:#fef9c3;border-color:#eab308;color:#713f12}
-.score-result.red{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.score-result{margin-top:14px;padding:16px;border-radius:16px;text-align:left;font-size:14px;font-weight:500;color:var(--text);border:1px solid var(--line);background:var(--surface2);transition:background .2s,border-color .2s,box-shadow .3s}
+.score-result.green{background:#dcfce7;border-color:#16a34a;color:#065f46;box-shadow:0 8px 24px rgba(22,163,74,.18)}
+.score-result.yellow{background:#fef9c3;border-color:#eab308;color:#713f12;box-shadow:0 8px 24px rgba(234,179,8,.20)}
+.score-result.red{background:#fee2e2;border-color:#dc2626;color:#7f1d1d;box-shadow:0 8px 24px rgba(220,38,38,.22)}
 .score-result.low{color:var(--danger);border-color:var(--danger);background:var(--surface)}
-body.dark .score-result.green{background:#064e3b;border-color:#22c55e;color:#bbf7d0}
-body.dark .score-result.yellow{background:#78350f;border-color:#facc15;color:#fef08a}
-body.dark .score-result.red{background:#7f1d1d;border-color:#f87171;color:#fecaca}
+body.dark .score-result.green{background:#064e3b;border-color:#22c55e;color:#bbf7d0;box-shadow:0 8px 24px rgba(34,197,94,.20),0 0 30px rgba(34,197,94,.10)}
+body.dark .score-result.yellow{background:#3f2f02;border-color:#eab308;color:#fde68a;box-shadow:0 8px 24px rgba(234,179,8,.22),0 0 30px rgba(234,179,8,.10)}
+body.dark .score-result.red{background:#3f0f0f;border-color:#ef4444;color:#fecaca;box-shadow:0 8px 24px rgba(239,68,68,.25),0 0 30px rgba(239,68,68,.12)}
+.score-result-sticky{position:sticky;top:calc(var(--header) + env(safe-area-inset-top));z-index:10;padding:14px 16px;background:var(--surface);border-bottom:1px solid var(--line);border-radius:0;margin-top:14px}
 .score-item{padding:10px 0;border-bottom:1px solid var(--line)}
 .score-item:last-child{border-bottom:none}
 .score-item .label{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
@@ -320,7 +430,10 @@ body.dark .trauma-crit-item:has(input:checked){background:color-mix(in srgb,var(
 /* === SPLASH SCREEN === */
 .splash{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s ease,transform .4s ease}
 .splash.hide{opacity:0;transform:scale(1.04);pointer-events:none}
-.splash-logo{width:88px;height:88px;border-radius:28px;display:grid;place-items:center;overflow:hidden}
+.splash-logo{width:88px;height:88px;border-radius:28px;display:grid;place-items:center;overflow:visible;position:relative;isolation:isolate}
+.splash-logo::before{content:'';position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--primary) 50%, transparent) 0%, color-mix(in srgb, var(--primary) 25%, transparent) 35%, color-mix(in srgb, var(--primary) 10%, transparent) 60%, transparent 80%);filter:blur(20px);z-index:-1;pointer-events:none}
+.splash-logo img{position:relative;z-index:1}
+body.dark .splash-logo::before{inset:-40px;filter:blur(28px)}
 .splash-title{font-size:28px;font-weight:900;letter-spacing:-.02em}
 .splash-title span{color:var(--primary)}
 .splash-sub{font-size:14px;color:var(--text2);font-weight:500}
@@ -330,22 +443,7 @@ body.dark .trauma-crit-item:has(input:checked){background:color-mix(in srgb,var(
 .splash-dot:nth-child(3){animation-delay:.4s}
 @keyframes splashPulse{0%,100%{opacity:.3}50%{opacity:1}}
 /* === PROFIL === */
-.profile-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;transition:opacity .3s ease}
-.profile-overlay.hide{opacity:0;pointer-events:none;visibility:hidden}
-.profile-box{background:var(--surface);border-radius:24px;padding:28px;max-width:400px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.3);border:1px solid var(--line)}
-.profile-box h2{margin:0 0 8px;font-size:22px;font-weight:900}
-.profile-box p{margin:0 0 20px;font-size:14px;color:var(--text2);line-height:1.5}
-.profile-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.profile-card{border:2px solid var(--line);border-radius:16px;padding:18px 12px;cursor:pointer;text-align:center;transition:all .18s ease;background:var(--surface2)}
-.profile-skip{margin-top:14px;text-align:center;font-size:13px;color:var(--text2);cursor:pointer;text-decoration:underline}
-.profile-skip{margin-top:14px;text-align:center;font-size:13px;color:var(--text2);cursor:pointer;text-decoration:underline}
-.profile-card:hover,.profile-card:focus{border-color:var(--primary);background:color-mix(in srgb,var(--primary) 8%,var(--surface));outline:none}
-.profile-card-icon{font-size:32px;margin-bottom:8px}
-.profile-card-title{font-size:15px;font-weight:800;margin-bottom:4px}
-.profile-card-desc{font-size:12px;color:var(--text2);line-height:1.4}
 
-.profile-toggle-btn{flex:1;padding:10px 8px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s}
-.profile-toggle-btn.active{border-color:var(--primary);background:color-mix(in srgb,var(--primary) 10%,var(--surface));color:var(--primary)}
 /* === SCORE RING === */
 .score-result.ring-result{background:var(--surface3);border-color:var(--line);padding:14px 16px;color:var(--text);border-radius:16px}
 .score-result.ring-result.green{background:#0d1f14;border-color:#22c55e;border-radius:16px}
@@ -552,19 +650,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
   <div class="splash-dot-row"><div class="splash-dot"></div><div class="splash-dot"></div><div class="splash-dot"></div></div>
 </div>
 
-<!-- CHOIX PROFIL premier lancement -->
-<div class="profile-overlay hide" id="profileChoice" role="dialog" aria-modal="true" aria-label="Choix du profil">
-  <div class="profile-box">
-    <h2>Votre profil</h2>
-    <p>Urg Pocket adapte l'interface à votre métier. Modifiable dans les Paramètres.</p>
-    <div class="profile-cards">
-      <div class="profile-card" data-profile="medical" role="button" tabindex="0"><div class="profile-card-icon">🩺</div><div class="profile-card-title">Médecin</div><div class="profile-card-desc">Urgentiste, SMUR, interne</div></div>
-      <div class="profile-card" data-profile="paramedical" role="button" tabindex="0"><div class="profile-card-icon">💊</div><div class="profile-card-title">Paramédical</div><div class="profile-card-desc">IDE, IADE, ARM, secouriste</div></div>
-    </div>
-    <div class="profile-skip" id="profileSkip">Passer cette étape</div>
-  </div>
-</div>
-
+<!-- Popup confidentialité (CGU) -->
 <div class="privacy-popup-overlay hide" id="privacyPopup" role="dialog" aria-modal="true">
   <div class="privacy-popup-box">
     <h3>🔒 Vos données sont protégées</h3>
@@ -577,7 +663,7 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
     <button class="privacy-popup-btn" id="privacyPopupOk" disabled style="opacity:.45;cursor:not-allowed">J'ai compris</button>
   </div>
 </div>
-<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;overflow:hidden;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="var(--primary)"/><rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/><rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/><polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="avatar-wrap" id="topbarAvatar" title="Profil"><div class="avatar" id="topbarAvatarImg"><span id="topbarAvatarIcon">👤</span></div><span class="avatar-name" id="topbarAvatarName"></span></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
+<header class="topbar" role="banner"><div class="top-left"><div class="logo" style="background:none;padding:0"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" style="width:38px;height:38px" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="var(--primary)"/><rect x="14.5" y="7.5" width="9" height="23" rx="2.2" fill="white"/><rect x="7.5" y="14.5" width="23" height="9" rx="2.2" fill="white"/><polyline points="2.5,19.7 10.5,19.7 12.3,18.3 13.4,18.5 14.1,19.6 14.8,20.1 15.9,16.8 16.3,14.1 16.6,15.3 17.0,18.7 17.4,21.1 17.7,22.2 18.1,21.1 18.5,20.2 19.0,19.7 20.1,19.7 21.0,19.4 22.1,18.3 22.8,17.7 23.5,17.7 24.2,18.5 25.2,19.5 25.5,19.7 35.5,19.7" fill="none" stroke="#0C3B7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="title-wrap"><h1 class="title" id="topTitle">Urg <span style="color:var(--primary);font-weight:800">Pocket</span></h1></div><nav class="desktop-tabs" role="navigation" aria-label="Navigation bureau"><button class="tab-btn active" data-target="home">🏠 Accueil</button><button class="tab-btn" data-target="normes">🧪 Normes</button><button class="tab-btn" data-target="scores">📋 Scores</button><button class="tab-btn" data-target="tubes">🩸 Ordre tubes</button><button class="tab-btn" data-target="antidotes">☠️ Toxicologie</button><button class="tab-btn" data-target="doses">💉 Doses</button><button class="tab-btn" data-target="convertisseur">⚖️ Convertisseur</button><button class="tab-btn" data-target="constped">🩺 Constantes</button><button class="tab-btn" data-target="protocoles">🚨 Protocoles</button><button class="tab-btn" data-target="sources">📚 Sources</button></nav></div><div class="search-global" style="flex:0 1 180px;min-width:0;margin-bottom:0"><input type="text" id="globalSearch" aria-label="Recherche globale" placeholder="🔍 Rechercher..." style="min-height:38px;font-size:13px;padding:8px 12px 8px 12px"/><div class="search-results" id="searchResults"></div></div><div class="avatar-wrap" id="topbarAvatar" title="Profil"><div class="avatar" id="topbarAvatarImg"><span id="topbarAvatarIcon">👤</span></div><span class="avatar-name" id="topbarAvatarName"></span></div><div class="top-actions"><button class="icon-btn" data-target="settings" aria-label="Paramètres" style="font-size:16px">⚙️</button><button class="icon-btn" id="themeToggle" aria-label="Changer le thème">🌙</button></div></header>
 <div class="update-banner" id="updateBanner" role="status" aria-live="polite">
   <span class="update-banner-icon">🎉</span>
   <div class="update-banner-text">
@@ -595,38 +681,74 @@ if('serviceWorker' in navigator && location.hostname === 'max54130.github.io'){
 <span style="font-size:16px;flex-shrink:0">🔒</span>
 <span>Urg Pocket ne collecte <strong>aucune donnée</strong> — ni médicale, ni personnelle. Tout reste sur votre appareil.</span>
 </div>
-<div class="search-global search-home-only" style="margin-bottom:14px"><input type="text" id="globalSearchMobile" aria-label="Recherche globale" placeholder="🔍 Rechercher : Glasgow, potassium, adrénaline..." style="min-height:44px"/><div class="search-results" id="searchResultsMobile"></div></div>
-<div class="home-sections">
-<div class="home-section">
-<div class="home-section-title">Scores urgence</div>
+<div class="home-search-row">
+<div class="search-global search-home-only" style="flex:1;min-width:0;margin-bottom:0"><input type="text" id="globalSearchMobile" aria-label="Recherche globale" placeholder="🔍 Rechercher : Glasgow, potassium, adrénaline..." style="min-height:44px"/><div class="search-results" id="searchResultsMobile"></div></div>
+<button class="home-edit-btn" id="homeEditToggle" type="button" aria-pressed="false" aria-label="Réorganiser les catégories"><span class="icon">✏️</span><span class="label">Réorganiser</span></button>
+</div>
+<div class="home-sections" id="homeSections">
+
+<!-- FAVORIS (zone personnalisable, fixée en haut) -->
+<div class="home-section is-fixed" id="homeFavorites" style="display:none">
+<div class="home-section-title">⭐ Favoris</div>
+<div class="home-compact-grid" id="favoritesGrid"></div>
+</div>
+
+<!-- ÉTAT VIDE FAVORIS (pédagogique au premier lancement) -->
+<div class="home-section is-fixed" id="homeFavoritesEmpty">
+<div class="home-section-title">⭐ Favoris</div>
+<div class="empty-state">
+<div class="empty-state-icon">⭐</div>
+<div class="empty-state-text">Touche l'étoile sur n'importe quel score, protocole ou médicament pour l'ajouter ici.</div>
+<div class="empty-state-hint">Jusqu'à 8 favoris affichés en accès rapide.</div>
+</div>
+</div>
+
+<!-- RÉCENTS (auto, masquable dans paramètres, fixé en haut) -->
+<div class="home-section is-fixed" id="homeRecents" style="display:none">
+<div class="home-section-title">🕐 Récemment consultés</div>
+<div class="home-compact-grid" id="recentsGrid"></div>
+</div>
+
+<!-- CATÉGORIES PAR TYPE (réorganisables) -->
+<div class="home-section is-draggable" data-cat-id="scores"><span class="drag-handle">⋮⋮</span>
+<div class="home-section-title">🔢 Scores cliniques</div>
 <div class="home-compact-grid">
+<button class="home-compact" data-target="scores"><span class="hc-icon">📋</span><span class="hc-label">Tous les scores</span></button>
 <button class="home-compact" data-target="score-glasgow"><span class="hc-icon">🧠</span><span class="hc-label">Glasgow</span></button>
-<button class="home-compact" data-target="score-news2"><span class="hc-icon">📋</span><span class="hc-label">NEWS2</span></button>
+<button class="home-compact" data-target="score-news2"><span class="hc-icon">📊</span><span class="hc-label">NEWS2</span></button>
 <button class="home-compact" data-target="score-qsofa"><span class="hc-icon">🦠</span><span class="hc-label">qSOFA</span></button>
-<button class="home-compact" data-target="protocoles"><span class="hc-icon">🚨</span><span class="hc-label">Protocoles</span></button>
 </div></div>
-<div class="home-section">
-<div class="home-section-title">Calculs</div>
+
+<div class="home-section is-draggable" data-cat-id="protocoles"><span class="drag-handle">⋮⋮</span>
+<div class="home-section-title">🚨 Protocoles d'urgence</div>
+<div class="home-compact-grid">
+<button class="home-compact" data-target="protocoles"><span class="hc-icon">🚨</span><span class="hc-label">Tous les protocoles</span></button>
+</div></div>
+
+<div class="home-section is-draggable" data-cat-id="meds"><span class="drag-handle">⋮⋮</span>
+<div class="home-section-title">💊 Médicaments &amp; toxico</div>
+<div class="home-compact-grid">
+<button class="home-compact" data-target="medicaments"><span class="hc-icon">💊</span><span class="hc-label">Fiches médicaments</span></button>
+<button class="home-compact" data-target="antidotes"><span class="hc-icon">☠️</span><span class="hc-label">Toxicologie</span></button>
+</div></div>
+
+<div class="home-section is-draggable" data-cat-id="calculs"><span class="drag-handle">⋮⋮</span>
+<div class="home-section-title">🧮 Calculs &amp; biologie</div>
 <div class="home-compact-grid">
 <button class="home-compact" data-target="doses"><span class="hc-icon">💉</span><span class="hc-label">Calculs de dose</span></button>
-<button class="home-compact" data-target="convertisseur"><span class="hc-icon">⚖️</span><span class="hc-label">Convertisseur bio</span></button>
-<button class="home-compact" data-target="scores"><span class="hc-icon">📋</span><span class="hc-label">Scores</span></button>
-</div></div>
-<div class="home-section">
-<div class="home-section-title">Références</div>
-<div class="home-compact-grid">
+<button class="home-compact" data-target="convertisseur"><span class="hc-icon">⚖️</span><span class="hc-label">Convertisseur</span></button>
 <button class="home-compact" data-target="normes"><span class="hc-icon">🧪</span><span class="hc-label">Normes biologiques</span></button>
 <button class="home-compact" data-target="tubes"><span class="hc-icon">🩸</span><span class="hc-label">Ordre des tubes</span></button>
-<button class="home-compact" data-target="antidotes"><span class="hc-icon">☠️</span><span class="hc-label">Toxicologie</span></button>
 <button class="home-compact" data-target="constped"><span class="hc-icon">🩺</span><span class="hc-label">Constantes</span></button>
-<button class="home-compact" data-target="medicaments"><span class="hc-icon">💊</span><span class="hc-label">Fiches médicaments</span></button>
 </div></div>
-<div class="home-section">
-<div class="home-section-title">Informations</div>
+
+<div class="home-section is-draggable" data-cat-id="settings"><span class="drag-handle">⋮⋮</span>
+<div class="home-section-title">⚙️ Sources &amp; paramètres</div>
 <div class="home-compact-grid">
 <button class="home-compact" data-target="sources"><span class="hc-icon">📚</span><span class="hc-label">Sources</span></button>
 <button class="home-compact" data-target="settings"><span class="hc-icon">⚙️</span><span class="hc-label">Paramètres</span></button>
 </div></div>
+
 </div>
 </section>
 
@@ -1570,19 +1692,16 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <input type="file" id="avatarFileInput" accept="image/*"/>
 </div>
 
-<div class="section-title"><h3>Profil</h3></div>
+<div class="section-title"><h3>Page d'accueil</h3></div>
 <div class="field" style="margin-bottom:14px">
-<div class="label">Adapter l'interface à votre métier</div>
-<div style="display:flex;gap:10px;margin-top:8px">
-<button class="profile-toggle-btn" data-profile="medical" type="button">🩺 Médecin</button>
-<button class="profile-toggle-btn" data-profile="paramedical" type="button">💉 Paramédical</button>
-</div>
-<div style="margin-top:8px;font-size:12px;color:var(--text2)" id="profileActiveNote"></div>
-<div style="margin-top:6px;font-size:12px;color:var(--text2)">
-<strong>Médecin</strong> : tous les scores sauf douleur gériatrique et obstétrique.<br/>
-<strong>Paramédical</strong> : scores surveillance, douleur, obstétrique, sepsis.
-</div>
-<button id="resetProfileBtn" type="button" style="margin-top:10px;width:100%;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text2);font-size:13px;cursor:pointer;">↺ Réafficher le choix de profil</button>
+<label style="display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer">
+<span>
+<span style="font-weight:700;display:block">Afficher les récemment consultés</span>
+<span style="font-size:12px;color:var(--text2);display:block;margin-top:2px">Section automatique avec tes 6 derniers scores, protocoles ou médicaments ouverts.</span>
+</span>
+<input type="checkbox" id="toggleRecents" style="width:20px;height:20px;accent-color:var(--primary);cursor:pointer;flex-shrink:0"/>
+</label>
+<button id="clearRecentsBtn" type="button" style="margin-top:10px;width:100%;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text2);font-size:13px;cursor:pointer">↺ Effacer l'historique des récents</button>
 </div>
 
 <div class="section-title"><h3>Barre de navigation</h3></div>
@@ -1597,7 +1716,7 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.2.59</span>
+<span style="color:var(--primary);font-weight:800">1.2.60</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -2184,8 +2303,8 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.2.59';
-const APP_VERSION_CODE = 76;
+const APP_VERSION = '1.2.60';
+const APP_VERSION_CODE = 77;
 /* Normalisation accents pour recherche */
 function normSearch(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 
@@ -2276,11 +2395,12 @@ function setActive(target) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-document.querySelectorAll('[data-target]').forEach(el => {
-  el.addEventListener('click', (e) => {
-    const target = el.dataset.target;
-    if (target && screens[target]) setActive(target);
-  });
+// Délégation d'événement pour capturer aussi les éléments créés dynamiquement (favoris, récents)
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-target]');
+  if (!el) return;
+  const target = el.dataset.target;
+  if (target && screens[target]) setActive(target);
 });
 
 
@@ -4171,128 +4291,480 @@ document.addEventListener('change',function(e){
   }, 1200);
 })();
 
-/* ========== SYSTÈME DE PROFILS ========== */
+/* ========== FAVORIS & RÉCENTS (page d'accueil personnalisable) ========== */
 (function(){
-  var PROFILE_KEY = 'urg-profile';
+  var FAV_KEY = 'urg-favorites';
+  var RECENTS_KEY = 'urg-recents';
+  var SHOW_RECENTS_KEY = 'urg-show-recents';
+  var MAX_FAVORITES = 8;
+  var MAX_RECENTS = 6;
 
-  var profileConfig = {
-    medical: {
-      hideScores: [],
-      hideProto: [],
-      hideHome: [],
-      note: 'Vue médecin — Tous les scores, protocoles et calculs disponibles'
-    },
-    paramedical: {
-      hideScores: [],
-      hideProto: [],
-      hideHome: [],
-      note: 'Vue paramédical — Tous les scores, protocoles et calculs disponibles'
-    }
+  // Catalogue : map data-target → {label, icon}
+  // Whitelist des items "favorisables" / "trackables en récents"
+  var ITEMS = {
+    // Scores
+    'score-glasgow':       {label:'Glasgow',         icon:'🧠'},
+    'score-glasgow-ped':   {label:'Glasgow pédia.',  icon:'🧠'},
+    'score-news2':         {label:'NEWS2',           icon:'📊'},
+    'score-qsofa':         {label:'qSOFA',           icon:'🦠'},
+    'score-nihss':         {label:'NIHSS',           icon:'🧠'},
+    'score-heart':         {label:'HEART',           icon:'❤️'},
+    'score-wells-ep':      {label:'Wells EP',        icon:'🫁'},
+    'score-geneve':        {label:'Genève rév.',     icon:'🫁'},
+    'score-perc':          {label:'PERC',            icon:'🚫'},
+    'score-years':         {label:'YEARS',           icon:'📅'},
+    'score-spesi':         {label:'sPESI',           icon:'📊'},
+    'killip':              {label:'Killip',          icon:'💔'},
+    'score-shockindex':    {label:'Shock Index',     icon:'📉'},
+    'score-vittel':        {label:'Vittel',          icon:'🚑'},
+    'score-blatchford':    {label:'Blatchford',      icon:'🩸'},
+    'score-apgar':         {label:'APGAR',           icon:'👶'},
+    'score-malinas':       {label:'Malinas',         icon:'🤰'},
+    'score-cushman':       {label:'Cushman',         icon:'🍷'},
+    'score-braden':        {label:'Braden',          icon:'🛏️'},
+    'score-algoplus':      {label:'Algoplus',        icon:'😣'},
+    'score-doloplus':      {label:'Doloplus-2',      icon:'😣'},
+    'score-dep':           {label:'DEP / Peak Flow', icon:'💨'},
+    // Protocoles
+    'proto-acr':                  {label:'ACR adulte',           icon:'⚡'},
+    'proto-anaphylaxie':          {label:'Anaphylaxie',          icon:'💉'},
+    'proto-avc':                  {label:'AVC',                  icon:'🧠'},
+    'proto-choc-septique':        {label:'Choc septique',        icon:'🦠'},
+    'proto-choc-hemorragique':    {label:'Choc hémorragique',    icon:'🩸'},
+    'proto-choc-hypovolemique':   {label:'Choc hypovolémique',   icon:'💧'},
+    'proto-trauma':               {label:'Trauma grave',         icon:'🚑'},
+    'proto-transfusion':          {label:'Transfusion',          icon:'🩸'},
+    'proto-territoires-idm':      {label:'Territoires IDM',      icon:'❤️'},
+    'proto-voie-io':              {label:'Voie intra-osseuse',   icon:'🦴'},
+    'proto-entorse-cheville':     {label:'Entorse cheville',     icon:'🦶'},
+    // Calculs
+    'dfg':                {label:'DFG / CKD-EPI',  icon:'🫘'},
+    'imc':                {label:'IMC / Surface',  icon:'⚖️'},
+    'pca':                {label:'PCA / IVSE',     icon:'💉'},
+    // Pages-catégories
+    'scores':             {label:'Tous les scores',     icon:'📋'},
+    'protocoles':         {label:'Tous les protocoles', icon:'🚨'},
+    'medicaments':        {label:'Fiches médicaments',  icon:'💊'},
+    'antidotes':          {label:'Toxicologie',         icon:'☠️'},
+    'normes':             {label:'Normes biologiques',  icon:'🧪'},
+    'constped':           {label:'Constantes',          icon:'🩺'},
+    'tubes':              {label:'Ordre des tubes',     icon:'🩸'},
+    'convertisseur':      {label:'Convertisseur bio',   icon:'⚖️'},
+    'doses':              {label:'Calculs de dose',     icon:'💉'},
+    'sources':            {label:'Sources',             icon:'📚'},
+    'equiv-corticoides':  {label:'Équiv. corticoïdes',  icon:'💊'},
+    'equiv-hbpm':         {label:'Équiv. HBPM',         icon:'💉'},
+    'equiv-princeps':     {label:'Princeps → DCI',      icon:'📖'},
+    'equiv-voies':        {label:'Équiv. voies admin.', icon:'💉'}
   };
 
-  function applyProfile(profile){
-    if(!profile || !profileConfig[profile]) return;
-    var cfg = profileConfig[profile];
-    // Réafficher tous les boutons de l'accueil et de la page scores
-    document.querySelectorAll('#screen-home .home-compact[data-target], #screen-scores .home-compact[data-target]').forEach(function(btn){
-      btn.style.display = '';
-    });
-    // Masquer sur l'ACCUEIL uniquement (plus de filtrage dans le reste de l'app)
-    (cfg.hideHome || []).forEach(function(target){
-      var btn = document.querySelector('#screen-home .home-compact[data-target="'+target+'"]');
-      if(btn) btn.style.display = 'none';
-    });
-    // Mettre à jour les boutons toggle dans paramètres
-    document.querySelectorAll('.profile-toggle-btn').forEach(function(b){
-      b.classList.toggle('active', b.dataset.profile === profile);
-    });
-    // Afficher une note de profil actif
-    var noteEl = document.getElementById('profileActiveNote');
-    if(noteEl) noteEl.textContent = cfg.note;
-    localStorage.setItem(PROFILE_KEY, profile);
+  function readList(key){
+    try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e){ return []; }
+  }
+  function writeList(key, arr){
+    try { localStorage.setItem(key, JSON.stringify(arr)); } catch(e){}
   }
 
-  // Boutons toggle dans paramètres
-  document.querySelectorAll('.profile-toggle-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      applyProfile(btn.dataset.profile);
-    });
-  });
+  function isFavorite(id){
+    return readList(FAV_KEY).indexOf(id) !== -1;
+  }
 
-  // Overlay premier lancement
-  var saved = localStorage.getItem(PROFILE_KEY);
-  var choiceEl = document.getElementById('profileChoice');
-
-  if(!saved && choiceEl){
-    // Afficher après disparition du splash
-    setTimeout(function(){
-      choiceEl.classList.remove('hide');
-    }, 1400);
-
-    choiceEl.querySelectorAll('.profile-card').forEach(function(card){
-      function choose(){
-        var profile = card.dataset.profile;
-        applyProfile(profile);
-        choiceEl.classList.add('hide');
-        setTimeout(function(){ choiceEl.remove(); }, 350);
+  function toggleFavorite(id){
+    var favs = readList(FAV_KEY);
+    var idx = favs.indexOf(id);
+    if(idx === -1){
+      if(favs.length >= MAX_FAVORITES){
+        // Limite atteinte — feedback discret
+        var btn = document.querySelector('.fav-toggle[data-fav-id="'+id+'"]');
+        if(btn){ btn.style.transform = 'scale(0.85)'; setTimeout(function(){ btn.style.transform = ''; }, 200); }
+        alert('Maximum '+MAX_FAVORITES+' favoris. Retire un favori avant d\'en ajouter un nouveau.');
+        return false;
       }
-      card.addEventListener('click', choose);
-      card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') choose(); });
-    });
+      favs.push(id);
+    } else {
+      favs.splice(idx, 1);
+    }
+    writeList(FAV_KEY, favs);
+    refreshHomeFavorites();
+    refreshFavToggleButtons();
+    return true;
+  }
 
-    var skipBtn = document.getElementById('profileSkip');
-    if(skipBtn){
-      skipBtn.addEventListener('click', function(){
-        localStorage.setItem(PROFILE_KEY, 'none');
-        choiceEl.classList.add('hide');
-        setTimeout(function(){ choiceEl.remove(); }, 350);
+  function trackRecent(id){
+    if(!ITEMS[id]) return; // ne tracke que les items du catalogue
+    var recents = readList(RECENTS_KEY);
+    var idx = recents.indexOf(id);
+    if(idx !== -1) recents.splice(idx, 1);
+    recents.unshift(id);
+    if(recents.length > MAX_RECENTS) recents = recents.slice(0, MAX_RECENTS);
+    writeList(RECENTS_KEY, recents);
+    refreshHomeRecents();
+  }
+
+  function makeButton(id, withRemoveAction){
+    var item = ITEMS[id];
+    if(!item) return null;
+    var btn = document.createElement('button');
+    btn.className = 'home-compact';
+    btn.setAttribute('data-target', id);
+    btn.innerHTML = '<span class="hc-icon">'+item.icon+'</span><span class="hc-label">'+item.label+'</span>';
+    if(withRemoveAction){
+      // Long press pour retirer
+      var pressTimer = null;
+      var pressed = false;
+      btn.addEventListener('touchstart', function(e){
+        pressed = false;
+        pressTimer = setTimeout(function(){
+          pressed = true;
+          if(confirm('Retirer "'+item.label+'" des favoris ?')){
+            toggleFavorite(id);
+          }
+        }, 600);
+      });
+      btn.addEventListener('touchend', function(e){
+        clearTimeout(pressTimer);
+        if(pressed) e.preventDefault();
+      });
+      btn.addEventListener('touchmove', function(){ clearTimeout(pressTimer); });
+      btn.addEventListener('contextmenu', function(e){
+        e.preventDefault();
+        if(confirm('Retirer "'+item.label+'" des favoris ?')){
+          toggleFavorite(id);
+        }
       });
     }
-
-  } else {
-    if(choiceEl) choiceEl.remove();
-    if(saved && saved !== 'none') applyProfile(saved);
-    if(saved){
-      setTimeout(function(){
-        document.querySelectorAll('.profile-toggle-btn').forEach(function(b){
-          b.classList.toggle('active', b.dataset.profile === saved);
-        });
-      }, 80);
-    }
+    return btn;
   }
 
-  document.addEventListener('click', function(e){
-    if(e.target && e.target.id === 'resetProfileBtn'){
-      localStorage.removeItem(PROFILE_KEY);
-      var existing = document.getElementById('profileChoice');
-      if(!existing){
-        var overlay = document.createElement('div');
-        overlay.className = 'profile-overlay hide';
-        overlay.id = 'profileChoice';
-        overlay.setAttribute('role','dialog');
-        overlay.setAttribute('aria-modal','true');
-        overlay.innerHTML = '<div class="profile-box"><h2>Votre profil</h2><p>Urg Pocket adapte l\'interface à votre métier.</p><div class="profile-cards"><div class="profile-card" data-profile="medical" role="button" tabindex="0"><div class="profile-card-icon">🩺</div><div class="profile-card-title">Médecin</div><div class="profile-card-desc">Urgentiste, SMUR, interne</div></div><div class="profile-card" data-profile="paramedical" role="button" tabindex="0"><div class="profile-card-icon">💊</div><div class="profile-card-title">Paramédical</div><div class="profile-card-desc">IDE, IADE, ambulancier</div></div></div><div class="profile-skip" id="profileSkip">Passer cette étape</div></div>';
-        document.querySelector('.app').appendChild(overlay);
-        existing = overlay;
-        existing.querySelectorAll('.profile-card').forEach(function(card){
-          card.addEventListener('click', function(){
-            applyProfile(card.dataset.profile);
-            existing.classList.add('hide');
-            setTimeout(function(){ existing.remove(); }, 350);
-          });
-        });
-        var skip = existing.querySelector('#profileSkip');
-        if(skip) skip.addEventListener('click', function(){
-          localStorage.setItem(PROFILE_KEY, 'none');
-          existing.classList.add('hide');
-          setTimeout(function(){ existing.remove(); }, 350);
-        });
+  function refreshHomeFavorites(){
+    var grid = document.getElementById('favoritesGrid');
+    var section = document.getElementById('homeFavorites');
+    var emptySection = document.getElementById('homeFavoritesEmpty');
+    if(!grid || !section || !emptySection) return;
+    var favs = readList(FAV_KEY);
+    grid.innerHTML = '';
+    if(favs.length === 0){
+      section.style.display = 'none';
+      emptySection.style.display = '';
+      return;
+    }
+    section.style.display = '';
+    emptySection.style.display = 'none';
+    favs.forEach(function(id){
+      var btn = makeButton(id, true);
+      if(btn) grid.appendChild(btn);
+    });
+  }
+
+  function refreshHomeRecents(){
+    var grid = document.getElementById('recentsGrid');
+    var section = document.getElementById('homeRecents');
+    if(!grid || !section) return;
+    var showRecents = localStorage.getItem(SHOW_RECENTS_KEY) !== '0'; // par défaut : afficher
+    if(!showRecents){
+      section.style.display = 'none';
+      return;
+    }
+    var recents = readList(RECENTS_KEY);
+    grid.innerHTML = '';
+    if(recents.length === 0){
+      section.style.display = 'none';
+      return;
+    }
+    section.style.display = '';
+    recents.forEach(function(id){
+      var btn = makeButton(id, false);
+      if(btn) grid.appendChild(btn);
+    });
+  }
+
+  // Ajouter le bouton étoile sur les écrans d'item (intégré dans .page-head)
+  function injectFavToggles(){
+    Object.keys(ITEMS).forEach(function(id){
+      var screen = document.getElementById('screen-'+id);
+      if(!screen) return;
+      var pageHead = screen.querySelector('.page-head');
+      if(!pageHead) return;
+      // Éviter double injection
+      if(pageHead.querySelector('.fav-toggle')) return;
+
+      // Créer le bouton étoile
+      var btn = document.createElement('button');
+      btn.className = 'fav-toggle';
+      btn.setAttribute('data-fav-id', id);
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('aria-label', 'Ajouter aux favoris');
+      btn.setAttribute('title', 'Ajouter aux favoris');
+      btn.textContent = '☆';
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        toggleFavorite(id);
+      });
+
+      // Cas 1 : page-head contient déjà un wrapper d'actions à droite (ex: doses-adulte avec RAZ + retour groupés)
+      var existingWrapper = pageHead.querySelector('div[style*="display:flex"][style*="gap"]');
+      if(existingWrapper && (existingWrapper.querySelector('.btn-back') || existingWrapper.querySelector('.reset-inline'))){
+        existingWrapper.insertBefore(btn, existingWrapper.firstChild);
+        return;
       }
-      setTimeout(function(){ existing.classList.remove('hide'); }, 50);
+
+      // Cas 2 : page-head a un seul bouton (.btn-back OU .btn.reset-inline) — on les groupe avec l'étoile
+      var backBtn = pageHead.querySelector(':scope > .btn-back');
+      var resetBtn = pageHead.querySelector(':scope > .btn.reset-inline, :scope > .reset-inline');
+      var existingBtn = backBtn || resetBtn;
+      if(existingBtn){
+        var wrapper = document.createElement('div');
+        wrapper.className = 'page-head-actions';
+        existingBtn.parentNode.insertBefore(wrapper, existingBtn);
+        wrapper.appendChild(btn);
+        wrapper.appendChild(existingBtn);
+        return;
+      }
+
+      // Cas 3 : page-head sans bouton à droite (pages racines comme PCA, Normes, etc.) — on ajoute juste l'étoile à droite
+      var wrapper2 = document.createElement('div');
+      wrapper2.className = 'page-head-actions';
+      wrapper2.appendChild(btn);
+      pageHead.appendChild(wrapper2);
+    });
+    refreshFavToggleButtons();
+  }
+
+  function refreshFavToggleButtons(){
+    document.querySelectorAll('.fav-toggle').forEach(function(btn){
+      var id = btn.getAttribute('data-fav-id');
+      var fav = isFavorite(id);
+      btn.classList.toggle('active', fav);
+      btn.textContent = fav ? '★' : '☆';
+      btn.setAttribute('aria-label', fav ? 'Retirer des favoris' : 'Ajouter aux favoris');
+      btn.setAttribute('title', fav ? 'Retirer des favoris' : 'Ajouter aux favoris');
+    });
+  }
+
+  // Tracker l'ouverture d'écran via le système de routage (data-target)
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-target]');
+    if(!t) return;
+    var id = t.getAttribute('data-target');
+    if(ITEMS[id]) trackRecent(id);
+  });
+
+  // Toggle d'affichage des récents dans paramètres
+  document.addEventListener('change', function(e){
+    if(e.target && e.target.id === 'toggleRecents'){
+      localStorage.setItem(SHOW_RECENTS_KEY, e.target.checked ? '1' : '0');
+      refreshHomeRecents();
     }
   });
+
+  // Bouton effacer historique
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.id === 'clearRecentsBtn'){
+      if(confirm('Effacer tout l\'historique des récemment consultés ?')){
+        writeList(RECENTS_KEY, []);
+        refreshHomeRecents();
+      }
+    }
+  });
+
+  // Initialisation
+  function init(){
+    injectFavToggles();
+    refreshHomeFavorites();
+    refreshHomeRecents();
+    // État initial du toggle paramètres
+    var toggle = document.getElementById('toggleRecents');
+    if(toggle){
+      toggle.checked = localStorage.getItem(SHOW_RECENTS_KEY) !== '0';
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 
+/* ========== RÉORGANISATION DES CATÉGORIES HOME (drag & drop avec mode édition) ========== */
+(function(){
+  var ORDER_KEY = 'urg-home-order';
+  var sectionsContainer = document.getElementById('homeSections');
+  var editToggle = document.getElementById('homeEditToggle');
+  if(!sectionsContainer || !editToggle) return;
+
+  function getDraggables(){
+    return Array.prototype.slice.call(sectionsContainer.querySelectorAll('.home-section.is-draggable'));
+  }
+
+  // Restaurer l'ordre sauvegardé
+  function restoreOrder(){
+    var saved;
+    try { saved = JSON.parse(localStorage.getItem(ORDER_KEY) || 'null'); } catch(e){ saved = null; }
+    if(!Array.isArray(saved) || saved.length === 0) return;
+    var current = getDraggables();
+    var byId = {};
+    current.forEach(function(el){
+      var id = el.getAttribute('data-cat-id');
+      if(id) byId[id] = el;
+    });
+    // Réordonner selon saved
+    saved.forEach(function(id){
+      if(byId[id]) sectionsContainer.appendChild(byId[id]);
+    });
+    // Ajouter à la fin tout ce qui n'était pas dans saved (cas où on a ajouté de nouvelles catégories)
+    current.forEach(function(el){
+      var id = el.getAttribute('data-cat-id');
+      if(saved.indexOf(id) === -1) sectionsContainer.appendChild(el);
+    });
+  }
+
+  function saveOrder(){
+    var ids = getDraggables().map(function(el){ return el.getAttribute('data-cat-id'); });
+    try { localStorage.setItem(ORDER_KEY, JSON.stringify(ids)); } catch(e){}
+  }
+
+  // Toggle du mode édition
+  var isEditing = false;
+  function setEditMode(on){
+    isEditing = on;
+    sectionsContainer.classList.toggle('is-editing', on);
+    editToggle.classList.toggle('active', on);
+    editToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    var iconEl = editToggle.querySelector('.icon');
+    var labelEl = editToggle.querySelector('.label');
+    if(iconEl) iconEl.textContent = on ? '✓' : '✏️';
+    if(labelEl) labelEl.textContent = on ? 'Terminer' : 'Réorganiser';
+    if(on){
+      attachDragListeners();
+    } else {
+      detachDragListeners();
+    }
+  }
+  editToggle.addEventListener('click', function(){
+    setEditMode(!isEditing);
+  });
+
+  // === Drag & drop : HTML5 (desktop) ===
+  var draggedEl = null;
+
+  function onDragStart(e){
+    if(!this.classList.contains('is-draggable')) return;
+    draggedEl = this;
+    this.classList.add('dragging');
+    if(e.dataTransfer){
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', this.getAttribute('data-cat-id') || ''); } catch(err){}
+    }
+  }
+  function onDragEnd(){
+    if(draggedEl) draggedEl.classList.remove('dragging');
+    sectionsContainer.querySelectorAll('.drag-over').forEach(function(el){ el.classList.remove('drag-over'); });
+    draggedEl = null;
+    saveOrder();
+  }
+  function onDragOver(e){
+    e.preventDefault();
+    if(!draggedEl || draggedEl === this) return;
+    if(!this.classList.contains('is-draggable')) return;
+    if(e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+    // Insertion avant ou après selon la position de la souris
+    var rect = this.getBoundingClientRect();
+    var midY = rect.top + rect.height / 2;
+    var clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+    if(clientY < midY){
+      sectionsContainer.insertBefore(draggedEl, this);
+    } else {
+      sectionsContainer.insertBefore(draggedEl, this.nextSibling);
+    }
+  }
+  function onDragEnter(e){
+    if(!draggedEl || draggedEl === this) return;
+    if(this.classList.contains('is-draggable')) this.classList.add('drag-over');
+  }
+  function onDragLeave(){
+    this.classList.remove('drag-over');
+  }
+
+  // === Drag & drop : Touch (mobile) ===
+  var touchDragEl = null;
+  var touchStartY = 0;
+  var touchOffsetY = 0;
+  var touchPlaceholder = null;
+
+  function onTouchStart(e){
+    if(!isEditing || !this.classList.contains('is-draggable')) return;
+    var touch = e.touches[0];
+    touchDragEl = this;
+    touchStartY = touch.clientY;
+    var rect = this.getBoundingClientRect();
+    touchOffsetY = touch.clientY - rect.top;
+    this.classList.add('dragging');
+    // Empêcher scroll de la page pendant drag
+    e.preventDefault();
+  }
+  function onTouchMove(e){
+    if(!touchDragEl) return;
+    e.preventDefault();
+    var touch = e.touches[0];
+    // Trouver la section sous le doigt
+    var elUnder = document.elementFromPoint(touch.clientX, touch.clientY);
+    if(!elUnder) return;
+    var sectionUnder = elUnder.closest('.home-section.is-draggable');
+    if(!sectionUnder || sectionUnder === touchDragEl) return;
+    var rect = sectionUnder.getBoundingClientRect();
+    var midY = rect.top + rect.height / 2;
+    if(touch.clientY < midY){
+      sectionsContainer.insertBefore(touchDragEl, sectionUnder);
+    } else {
+      sectionsContainer.insertBefore(touchDragEl, sectionUnder.nextSibling);
+    }
+  }
+  function onTouchEnd(e){
+    if(!touchDragEl) return;
+    touchDragEl.classList.remove('dragging');
+    touchDragEl = null;
+    saveOrder();
+  }
+
+  function attachDragListeners(){
+    getDraggables().forEach(function(el){
+      el.setAttribute('draggable', 'true');
+      el.addEventListener('dragstart', onDragStart);
+      el.addEventListener('dragend', onDragEnd);
+      el.addEventListener('dragover', onDragOver);
+      el.addEventListener('dragenter', onDragEnter);
+      el.addEventListener('dragleave', onDragLeave);
+      el.addEventListener('touchstart', onTouchStart, {passive:false});
+      el.addEventListener('touchmove', onTouchMove, {passive:false});
+      el.addEventListener('touchend', onTouchEnd);
+      el.addEventListener('touchcancel', onTouchEnd);
+    });
+  }
+  function detachDragListeners(){
+    getDraggables().forEach(function(el){
+      el.removeAttribute('draggable');
+      el.removeEventListener('dragstart', onDragStart);
+      el.removeEventListener('dragend', onDragEnd);
+      el.removeEventListener('dragover', onDragOver);
+      el.removeEventListener('dragenter', onDragEnter);
+      el.removeEventListener('dragleave', onDragLeave);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
+      el.removeEventListener('touchcancel', onTouchEnd);
+    });
+  }
+
+  // Initialisation
+  function init(){
+    restoreOrder();
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 
 /* ========== DFG CKD-EPI 2021 ========== */
 (function(){

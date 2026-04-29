@@ -1,8 +1,8 @@
 {
-  "versionCode": 76,
-  "versionName": "1.2.59",
+  "versionCode": 77,
+  "versionName": "1.2.60",
   "releaseDate": "2026-04-28",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "Correction de l'adresse e-mail de contact dans la page Paramètres : urgpocket@gmail.com → contact@urgpocket.app (l'adresse officielle, conforme aux CGU)."
+  "changelog": "Refonte UX alignée sur le site urgpocket.app : nouvelle palette marine en mode sombre, ombres hiérarchisées, boutons avec dégradé subtil, micro-animations, typographie renforcée."
 }

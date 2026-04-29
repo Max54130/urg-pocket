@@ -18,10 +18,10 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.2.59** |
-| versionCode | **76** |
+| versionName | **1.2.60** |
+| versionCode | **77** |
 | Date | Avril 2026 |
-| Prochaine release minimum | versionCode **≥ 77** / versionName **"1.2.60"** |
+| Prochaine release minimum | versionCode **≥ 78** / versionName **"1.2.61"** |
 | Dernier publié Play Store | versionCode 74 / versionName 1.2.57 |
 
 ---
@@ -139,6 +139,27 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.2.60 (avril 2026)
+- 🎨 **Refonte UX alignée sur le site vitrine urgpocket.app**
+  - **Mode sombre** : nouvelle palette marine identique au site (`#0E1A25` background, `#132030` surface, `#5BA8E8` primary)
+  - **Mode clair** : palette ajustée avec primary `#1A73C8` (couleur de marque)
+  - **Ombres hiérarchisées** : 3 niveaux (`--shadow-sm`, `--shadow-md`, `--shadow-lg`) au lieu d'une ombre unique, donnent une vraie profondeur visuelle
+  - **Border-radius standardisés** : 3 tokens (`--radius-sm` 10px, `--radius-md` 14px, `--radius-lg` 20px)
+  - **Boutons primaires** : dégradé vertical subtil (`primary` → `primary2`), ombre bleutée portée, hover avec `translateY(-1px)` + ombre amplifiée
+  - **Cartes** : passage à `border-radius` 20px, transition fluide sur hover, élévation cohérente
+  - **Topbar** : ombre subtile en bas pour démarcation visuelle
+  - **Bottom-nav** : ombre inversée vers le haut, démarcation propre
+  - **Boutons compacts (accueil)** : hover avec élévation marquée + accent border
+  - **Bouton retour** : dégradé + ombre cohérente
+- 📝 **Typographie renforcée** :
+  - Body : activation `font-feature-settings: 'tnum' 1, 'cv11' 1` (chiffres tabulaires + glyphes optimisés écran), `line-height: 1.55`, antialiasing
+  - Titres h2 : 26px, font-weight 800, letter-spacing -0.02em (style site)
+  - Section-title h3 : font-weight 800, letter-spacing -0.015em
+  - Home-section-title (badge) : letter-spacing 0.1em (cohérent avec h4 du site)
+- 🆕 **Nouvelles variables CSS** : `--text3` (texte tertiaire), `--primary-soft` (surface teintée primary), `--primary-brand` (couleur de marque fixe)
+- ✅ Aucun changement de contenu — pure refonte visuelle
+- ✅ versionCode 77
 
 ### v1.2.59 (avril 2026)
 - 🔧 **Correction adresse e-mail de contact** dans la page Paramètres → À propos → Contact :
