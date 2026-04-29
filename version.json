@@ -1,12 +1,21 @@
 {
-  "versionCode": 79,
-  "versionName": "1.3.0",
+  "versionCode": 80,
+  "versionName": "1.3.1",
   "releaseDate": "2026-04-29",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "**Refonte UX** : nouvelle palette marine en mode sombre, ombres hiérarchisées, boutons avec dégradé subtil, micro-animations, typographie renforcée.\n\n**Amélioration navigation** : nouvelle page d'accueil personnalisable avec favoris (jusqu'à 8 outils épinglés), récemment consultés (auto), et catégories réorganisables par drag & drop.\n\n**Catalogue enrichi** : 50 items favorisables (scores, protocoles, calculs, équivalences, pages-catégories) accessibles via une étoile sur chaque écran.\n\n**Corrections** : les liens e-mail (contact@urgpocket.app), téléphone et liens externes s'ouvrent désormais correctement dans les apps système (Mail, Téléphone, navigateur).",
+  "changelog": "**Migration vers un domaine personnalisé** : l'application web est désormais accessible via web.urgpocket.app au lieu de l'ancienne URL GitHub.\n\nCe changement n'affecte pas l'application Android et l'ancienne URL reste fonctionnelle pendant la transition.",
 
   "releases": [
+    {
+      "versionName": "1.3.1",
+      "date": "2026-04-29",
+      "changes": [
+        "**Migration vers un domaine personnalisé** : l'application web est désormais accessible via web.urgpocket.app.",
+        "**Rétrocompatibilité** : l'ancienne URL reste fonctionnelle pendant la transition.",
+        "Aucun changement de fonctionnalité."
+      ]
+    },
     {
       "versionName": "1.3.0",
       "date": "2026-04-29",
@@ -23,14 +32,6 @@
       "changes": [
         "Correction du filtrage par profil sur la page Scores",
         "Tous les scores accessibles peu importe le profil (médical / paramédical)"
-      ]
-    },
-    {
-      "versionName": "1.2.57",
-      "date": "2026-04-15",
-      "changes": [
-        "Rollback complet des illustrations SVG (qualité insuffisante)",
-        "Retour à l'état fonctionnel stable de la v1.2.54"
       ]
     }
   ],

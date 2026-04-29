@@ -8,9 +8,9 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ## Accès rapide
 
-- **Application** : [max54130.github.io/urg-pocket](https://max54130.github.io/urg-pocket/)
-- **Politique de confidentialité** : [privacy.html](https://max54130.github.io/urg-pocket/privacy.html)
-- **CGU** : [cgu.html](https://max54130.github.io/urg-pocket/cgu.html)
+- **Application** : [web.urgpocket.app](https://web.urgpocket.app/)
+- **Politique de confidentialité** : [privacy.html](https://web.urgpocket.app/privacy.html)
+- **CGU** : [cgu.html](https://web.urgpocket.app/cgu.html)
 
 ---
 
@@ -18,10 +18,10 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.3.0** |
-| versionCode | **79** |
+| versionName | **1.3.1** |
+| versionCode | **80** |
 | Date | Avril 2026 |
-| Prochaine release minimum | versionCode **≥ 80** / versionName **"1.3.1"** |
+| Prochaine release minimum | versionCode **≥ 81** / versionName **"1.3.2"** |
 | Dernier publié Play Store | versionCode 77 / versionName 1.2.60 |
 
 ---
@@ -139,6 +139,15 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.3.1 (avril 2026)
+- 🌐 **Migration vers un domaine personnalisé** : la PWA est désormais accessible via **https://web.urgpocket.app/** au lieu de `max54130.github.io/urg-pocket/`.
+- ✅ **Tous les liens internes mis à jour** : CGU, Politique de confidentialité, version.json, lien retour des pages légales.
+- ✅ **Service Worker** : nouveau cache `urg-pocket-v1.3.1` avec chemins racine (`/` au lieu de `/urg-pocket/`).
+- ✅ **manifest.json** : `start_url` et `scope` mis à racine pour cohérence avec le custom domain.
+- ✅ **Rétrocompatibilité** : l'ancienne URL `max54130.github.io/urg-pocket/` reste supportée par GitHub Pages le temps que les utilisateurs migrent (le service worker accepte les deux hostnames).
+- ✅ **CGU site vitrine** : mention "Application web (PWA, web.urgpocket.app)" mise à jour.
+- ✅ versionCode 80
 
 ### v1.3.0 (avril 2026) — saut de version majeur
 

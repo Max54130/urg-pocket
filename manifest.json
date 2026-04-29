@@ -2,14 +2,17 @@
   "name": "Urg Pocket",
   "short_name": "Urg Pocket",
   "description": "Aide-mémoire médical SAMU / SMUR — Scores, protocoles, normes, toxicologie",
-  "start_url": "/urg-pocket/",
-  "scope": "/urg-pocket/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0E1A25",
   "theme_color": "#1A73C8",
   "lang": "fr",
-  "categories": ["medical", "health"],
+  "categories": [
+    "medical",
+    "health"
+  ],
   "icons": [
     {
       "src": "icons/icon-192.png",
@@ -38,15 +41,25 @@
       "name": "Scores",
       "short_name": "Scores",
       "description": "Scores cliniques",
-      "url": "/urg-pocket/#scores",
-      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+      "url": "/#scores",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Protocoles",
       "short_name": "Protocoles",
       "description": "Protocoles d'urgence",
-      "url": "/urg-pocket/#protocoles",
-      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+      "url": "/#protocoles",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
