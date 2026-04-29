@@ -4,5 +4,157 @@
   "releaseDate": "2026-04-29",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "**Refonte UX** : nouvelle palette marine en mode sombre, ombres hiérarchisées, boutons avec dégradé, micro-animations, typographie renforcée.\n\n**Amélioration navigation** : nouvelle page d'accueil personnalisable avec favoris (jusqu'à 8 outils épinglés), récemment consultés (auto), et catégories réorganisables par drag & drop.\n\n**Catalogue enrichi** : 50 items favorisables (scores, protocoles, calculs, équivalences, pages-catégories) accessibles via une étoile sur chaque écran.\n\n**Corrections** : les liens e-mail, téléphone et liens externes s'ouvrent désormais correctement dans les apps système (Mail, Téléphone, navigateur)."
+  "changelog": "**Refonte UX** : nouvelle palette marine en mode sombre, ombres hiérarchisées, boutons avec dégradé subtil, micro-animations, typographie renforcée.\n\n**Amélioration navigation** : nouvelle page d'accueil personnalisable avec favoris (jusqu'à 8 outils épinglés), récemment consultés (auto), et catégories réorganisables par drag & drop.\n\n**Catalogue enrichi** : 50 items favorisables (scores, protocoles, calculs, équivalences, pages-catégories) accessibles via une étoile sur chaque écran.\n\n**Corrections** : les liens e-mail (contact@urgpocket.app), téléphone et liens externes s'ouvrent désormais correctement dans les apps système (Mail, Téléphone, navigateur).",
+
+  "releases": [
+    {
+      "versionName": "1.3.0",
+      "date": "2026-04-29",
+      "changes": [
+        "**Refonte UX** : nouvelle palette marine en mode sombre, ombres hiérarchisées, boutons avec dégradé subtil, micro-animations, typographie renforcée.",
+        "**Amélioration navigation** : nouvelle page d'accueil personnalisable avec favoris (jusqu'à 8 outils épinglés), récemment consultés (auto), et catégories réorganisables par drag & drop.",
+        "**Catalogue enrichi** : 50 items favorisables (scores, protocoles, calculs, équivalences, pages-catégories) accessibles via une étoile sur chaque écran.",
+        "**Corrections** : les liens e-mail (contact@urgpocket.app), téléphone et liens externes s'ouvrent désormais correctement dans les apps système (Mail, Téléphone, navigateur)."
+      ]
+    },
+    {
+      "versionName": "1.2.58",
+      "date": "2026-04-19",
+      "changes": [
+        "Correction du filtrage par profil sur la page Scores",
+        "Tous les scores accessibles peu importe le profil (médical / paramédical)"
+      ]
+    },
+    {
+      "versionName": "1.2.57",
+      "date": "2026-04-15",
+      "changes": [
+        "Rollback complet des illustrations SVG (qualité insuffisante)",
+        "Retour à l'état fonctionnel stable de la v1.2.54"
+      ]
+    }
+  ],
+
+  "scores": [
+    {
+      "name": "Glasgow",
+      "domain": "Neuro · Conscience",
+      "tooltip": "Évalue le niveau de conscience."
+    },
+    {
+      "name": "Glasgow pédia.",
+      "domain": "Enfant < 5 ans",
+      "tooltip": "Évalue le niveau de conscience chez l'enfant."
+    },
+    {
+      "name": "NIHSS",
+      "domain": "AVC",
+      "tooltip": "Mesure la sévérité d'un AVC."
+    },
+    {
+      "name": "NEWS2",
+      "domain": "Hémodynamique",
+      "tooltip": "Détecte la détérioration clinique précoce."
+    },
+    {
+      "name": "HEART",
+      "domain": "SCA",
+      "tooltip": "Estime le risque d'événement coronarien."
+    },
+    {
+      "name": "Killip",
+      "domain": "IC aiguë",
+      "tooltip": "Classe l'insuffisance cardiaque sur IDM."
+    },
+    {
+      "name": "Shock Index",
+      "domain": "Hémodynamique",
+      "tooltip": "Signale l'instabilité hémodynamique."
+    },
+    {
+      "name": "Wells EP",
+      "domain": "Thrombose",
+      "tooltip": "Évalue la probabilité d'embolie pulmonaire."
+    },
+    {
+      "name": "Genève rév.",
+      "domain": "EP",
+      "tooltip": "Alternative objective à Wells pour l'EP."
+    },
+    {
+      "name": "PERC",
+      "domain": "EP · exclusion",
+      "tooltip": "Exclut une EP chez le patient à faible risque."
+    },
+    {
+      "name": "YEARS",
+      "domain": "EP · D-dimères",
+      "tooltip": "Algorithme d'exclusion d'EP avec D-dimères."
+    },
+    {
+      "name": "sPESI",
+      "domain": "EP · pronostic",
+      "tooltip": "Pronostic à 30 jours d'une EP confirmée."
+    },
+    {
+      "name": "Blatchford",
+      "domain": "Hémorragie digestive",
+      "tooltip": "Évalue le risque d'intervention sur hémorragie digestive haute."
+    },
+    {
+      "name": "Vittel",
+      "domain": "Trauma grave",
+      "tooltip": "Oriente vers un centre de traumatologie."
+    },
+    {
+      "name": "qSOFA",
+      "domain": "Sepsis",
+      "tooltip": "Repère rapidement un sepsis à risque."
+    },
+    {
+      "name": "APGAR",
+      "domain": "Néonatologie",
+      "tooltip": "Évalue le nouveau-né à 1, 5 et 10 minutes."
+    },
+    {
+      "name": "Malinas",
+      "domain": "Obstétrique",
+      "tooltip": "Évalue l'imminence d'un accouchement."
+    },
+    {
+      "name": "Cushman",
+      "domain": "Sevrage OH",
+      "tooltip": "Surveille le sevrage alcoolique."
+    },
+    {
+      "name": "Braden",
+      "domain": "Escarre",
+      "tooltip": "Évalue le risque d'escarre."
+    },
+    {
+      "name": "Algoplus",
+      "domain": "Douleur aiguë PA",
+      "tooltip": "Évalue la douleur aiguë chez la personne âgée non communicante."
+    },
+    {
+      "name": "Doloplus-2",
+      "domain": "Douleur chron. PA",
+      "tooltip": "Évalue la douleur chronique chez la personne âgée non communicante."
+    },
+    {
+      "name": "DEP",
+      "domain": "Respiratoire",
+      "tooltip": "Évalue la sévérité d'une crise d'asthme."
+    },
+    {
+      "name": "DFG CKD-EPI",
+      "domain": "Néphrologie",
+      "tooltip": "Estime la fonction rénale pour adapter les posologies."
+    },
+    {
+      "name": "IMC / SC",
+      "domain": "Posologie",
+      "tooltip": "Calcule l'IMC et la surface corporelle."
+    }
+  ]
 }
