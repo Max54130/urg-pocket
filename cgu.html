@@ -83,12 +83,24 @@
   li{margin-bottom:6px;line-height:1.65}
 
   .important{
+    position:relative;
+    overflow:hidden;
     border:2px solid var(--danger);
-    background:color-mix(in srgb, var(--danger) 8%, var(--surface));
+    background:
+      repeating-linear-gradient(135deg,
+        transparent 0,
+        transparent 14px,
+        color-mix(in srgb, var(--danger) 6%, transparent) 14px,
+        color-mix(in srgb, var(--danger) 6%, transparent) 28px),
+      color-mix(in srgb, var(--danger) 8%, var(--surface));
     border-radius:16px;
     padding:24px;margin:28px 0;
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--danger) 8%, transparent),
+      0 14px 30px rgba(232,96,90,.15);
   }
-  .important strong:first-child{
+  .important > *{position:relative;z-index:1}
+  .important > strong:first-child{
     color:var(--danger);font-size:17px;
     display:block;margin-bottom:10px;
   }
@@ -130,8 +142,16 @@
 
   <h2>Mentions légales</h2>
   <p><strong>Éditeur :</strong> Maxime MAGRON, développeur indépendant<br>
-  <strong>Contact :</strong> <a href="mailto:contact@urgpocket.app">contact@urgpocket.app</a><br>
-  <strong>Hébergement :</strong> GitHub Pages (GitHub, Inc., San Francisco, CA, USA)</p>
+  <strong>Contact :</strong> <a href="mailto:contact@urgpocket.app">contact@urgpocket.app</a></p>
+
+  <p><strong>Domaine :</strong> enregistré chez OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+
+  <p><strong>Hébergement :</strong></p>
+  <ul>
+    <li><strong>Site vitrine</strong> (urgpocket.app) : hébergé par l'éditeur. Pour toute demande relative à l'hébergement : <a href="mailto:contact@urgpocket.app">contact@urgpocket.app</a>.</li>
+    <li><strong>Application web</strong> (PWA, max54130.github.io/urg-pocket) : hébergée par GitHub Pages — GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.</li>
+    <li><strong>Application Android</strong> : distribuée via Google Play Store — Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.</li>
+  </ul>
 
   <h2>Article 1 : objet</h2>
   <p>Urg Pocket (ci-après « l'Application ») est une application mobile gratuite conçue comme un aide-mémoire numérique à destination exclusive des professionnels de santé. Elle compile des scores cliniques, protocoles d'urgence, posologies médicamenteuses et normes biologiques issus de sources médicales reconnues.</p>
