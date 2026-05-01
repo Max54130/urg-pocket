@@ -214,7 +214,7 @@
       "name": "Cushman",
       "domain": "Sevrage OH",
       "tooltip": "Surveille le sevrage alcoolique.",
-      "category": "Sevrage / Addiction",
+      "category": "Sevrage · Douleur · Soins",
       "kind": "Score",
       "shortDesc": "Sevrage alcoolique aigu"
     },
@@ -222,7 +222,7 @@
       "name": "Braden",
       "domain": "Escarre",
       "tooltip": "Évalue le risque d'escarre.",
-      "category": "Soins infirmiers",
+      "category": "Sevrage · Douleur · Soins",
       "kind": "Score",
       "shortDesc": "Risque d'escarre (6 items)"
     },
@@ -230,7 +230,7 @@
       "name": "Algoplus",
       "domain": "Douleur aiguë PA",
       "tooltip": "Évalue la douleur aiguë chez la personne âgée non communicante.",
-      "category": "Douleur",
+      "category": "Sevrage · Douleur · Soins",
       "kind": "Score",
       "shortDesc": "Douleur aiguë · personne âgée"
     },
@@ -238,7 +238,7 @@
       "name": "Doloplus-2",
       "domain": "Douleur chron. PA",
       "tooltip": "Évalue la douleur chronique chez la personne âgée non communicante.",
-      "category": "Douleur",
+      "category": "Sevrage · Douleur · Soins",
       "kind": "Score",
       "shortDesc": "Douleur chronique · personne âgée"
     },
@@ -246,7 +246,7 @@
       "name": "DEP",
       "domain": "Respiratoire",
       "tooltip": "Évalue la sévérité d'une crise d'asthme.",
-      "category": "Pneumologie",
+      "category": "Pneumologie · Brûlures",
       "kind": "Score",
       "shortDesc": "Débit expiratoire de pointe (théorique)"
     },
@@ -294,7 +294,7 @@
       "name": "SCB / Parkland",
       "domain": "Brûlures",
       "tooltip": "Surface Corporelle Brûlée (Wallace) + remplissage initial Parkland.",
-      "category": "Brûlures",
+      "category": "Pneumologie · Brûlures",
       "kind": "Score",
       "shortDesc": "Surface brûlée + remplissage initial"
     },
