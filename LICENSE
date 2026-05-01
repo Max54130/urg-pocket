@@ -1,0 +1,108 @@
+URG POCKET — LICENCE PROPRIÉTAIRE / SOURCE-AVAILABLE
+
+Copyright © 2026 Maxime MAGRON. Tous droits réservés.
+
+================================================================================
+
+CADRE GÉNÉRAL
+
+Le code source de l'application Urg Pocket (ci-après « le Logiciel ») est rendu
+publiquement consultable sur GitHub à des fins de transparence et d'audit par les
+professionnels de santé qui en sont les utilisateurs.
+
+Le présent dépôt n'est PAS un projet « open source » au sens juridique des
+licences OSI (MIT, Apache, GPL, etc.) : il s'agit d'un logiciel à code
+propriétaire dont la source est rendue visible (« source-available »).
+
+================================================================================
+
+DROITS ACCORDÉS
+
+Sont autorisés sans demande préalable :
+
+  1. La consultation et la lecture du code source.
+  2. L'utilisation du Logiciel via les versions officielles distribuées
+     gratuitement par l'auteur :
+       — Application web (PWA) : https://web.urgpocket.app
+       — Application Android : Google Play Store (package app.urgpocket)
+  3. La citation d'extraits courts du code dans un cadre éducatif ou
+     journalistique, avec mention claire de la source et de l'auteur.
+
+================================================================================
+
+DROITS NON ACCORDÉS
+
+Sont strictement interdits sans autorisation écrite préalable de l'auteur :
+
+  1. Toute modification du code source, du contenu textuel (fiches, protocoles,
+     scores), de l'organisation des données, du design, du logo, ou de toute
+     autre composante de l'application.
+  2. Toute redistribution, totale ou partielle, sous quelque forme que ce soit
+     (fork, miroir, publication sur un autre dépôt, distribution d'une variante).
+  3. Toute publication d'une œuvre dérivée (application similaire reprenant
+     tout ou partie du Logiciel, traductions, adaptations, portages vers
+     d'autres plateformes).
+  4. Toute exploitation commerciale, sous quelque forme que ce soit, du
+     Logiciel ou de ses éléments constitutifs.
+  5. Tout retrait, masquage ou altération des mentions légales, des sources
+     citées et des références aux marques tierces.
+
+================================================================================
+
+DEMANDES D'AUTORISATION
+
+Toute demande relative à un usage non couvert par la présente licence doit
+être adressée à : contact@urgpocket.app
+
+L'auteur examinera les demandes au cas par cas. Une non-réponse vaut refus.
+
+================================================================================
+
+CONTRIBUTIONS
+
+Le dépôt n'accepte pas, en l'état, de contributions externes (pull requests,
+patches). Les retours, suggestions et signalements de bugs peuvent être
+adressés par e-mail à contact@urgpocket.app ou via les issues GitHub.
+
+================================================================================
+
+SOURCES TIERCES
+
+Le Logiciel cite et renvoie vers des sources cliniques (recommandations SRLF,
+SFAR, SFMU, ERC, ESC, AHA, HAS, ANSM ; bases RCP / Vidal ; scores Doloplus®,
+Algoplus, PRAM, NEWS2, NIHSS, etc.) qui restent la propriété de leurs auteurs
+et organismes émetteurs respectifs. La présente licence ne couvre que le
+Logiciel développé par Maxime MAGRON, et non le contenu de ces sources tierces.
+
+Les noms de spécialités pharmaceutiques cités (CORDARONE®, NESDONAL®, etc.)
+sont des marques déposées appartenant à leurs détenteurs respectifs. Leur
+mention dans le Logiciel relève d'un usage informatif à destination des
+professionnels de santé.
+
+================================================================================
+
+ABSENCE DE GARANTIE
+
+Le Logiciel est fourni « EN L'ÉTAT », sans garantie d'aucune sorte, expresse
+ou implicite. L'auteur ne peut être tenu pour responsable d'aucun dommage,
+direct ou indirect, résultant de l'utilisation du Logiciel.
+
+Le Logiciel est un aide-mémoire destiné aux professionnels de santé. Il ne
+constitue pas un dispositif médical. Les informations qu'il contient ne
+remplacent en aucun cas le jugement clinique, les protocoles de service, la
+formation ni la consultation des sources officielles.
+
+================================================================================
+
+DROIT APPLICABLE
+
+La présente licence est régie par le droit français. Tout litige relatif à son
+interprétation ou à son exécution relève de la compétence exclusive des
+tribunaux français.
+
+================================================================================
+
+Version de la licence : 1.0
+Date d'entrée en vigueur : 1er mai 2026
+Auteur : Maxime MAGRON
+Contact : contact@urgpocket.app

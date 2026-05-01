@@ -18,10 +18,10 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.3.1** |
-| versionCode | **80** |
+| versionName | **1.3.3** |
+| versionCode | **82** |
 | Date | Avril 2026 |
-| Prochaine release minimum | versionCode **≥ 81** / versionName **"1.3.2"** |
+| Prochaine release minimum | versionCode **≥ 83** / versionName **"1.3.4"** |
 | Dernier publié Play Store | versionCode 77 / versionName 1.2.60 |
 
 ---
@@ -139,6 +139,75 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.3.3 (30 avril 2026) — améliorations UX
+
+**Convertisseur biologique simplifié**
+- Passage de **12 entrées dupliquées** (aller/retour) à **6 paramètres uniques** : Glycémie, Créatinine, Cholestérol, Triglycérides, Bilirubine, Température.
+- Ajout d'un **bouton ⇄** pour basculer le sens de conversion (g/L → mmol/L ↔ mmol/L → g/L, etc.) sans changer de paramètre.
+- Refacto interne : facteurs canoniques (créatinine ÷ 88,4, bilirubine ÷ 17,1) au lieu de coefficients inverses peu lisibles.
+
+**Calcémie corrigée — choix de l'unité du Calcium**
+- Toggle d'unité **mmol/L | mg/dL | mg/L | mEq/L** sur la valeur du Calcium en entrée.
+- Conversion automatique vers mmol/L pour le calcul interne (Ca corrigé = Ca + 0,02 × (40 − albumine en g/L)).
+- Le résultat reste exprimé en mmol/L (référence française) avec interprétation Hypo/Normale/Hyper inchangée.
+- Placeholder dynamique adapté à l'unité sélectionnée.
+
+**Fiches médicaments — séparation visuelle des sources**
+- La ligne « Source : … » en fin de fiche (Indication, Prescription, Préparation, Surveillance) est désormais isolée dans un encart `<div class="fiche-source">` avec :
+  - Espacement supplémentaire (margin-top + padding-top).
+  - Séparateur fin (border-top via `--line`).
+  - Style discret : font-size 12px, italique, couleur `--text2` (gris).
+- Détection automatique par regex en fin de contenu — aucune modification des données métier nécessaire.
+
+**Correction mineure**
+- Affichage de la version dans Paramètres : était figé à 1.3.1 alors que `APP_VERSION` était 1.3.2 → corrigé et synchronisé sur 1.3.3.
+
+**Sources et mentions ajoutées**
+- Nouveau bloc dans Paramètres : reconnaissance des marques pharmaceutiques (CORDARONE®, NESDONAL®, etc.) et des organismes émetteurs (SRLF, SFAR, SFMU, ERC, ESC, AHA, HAS, ANSM, Vidal, Doloplus®, etc.).
+- Rappel du caractère gratuit et non-commercial de l'application, et de l'absence de collecte de données utilisateur.
+- Mention du copyright Maxime MAGRON et de la nécessité d'autorisation écrite pour toute modification ou redistribution du contenu.
+- Encadré bleu inséré entre l'Avertissement médical et la section Documents légaux.
+
+**Licence du projet (LICENSE)**
+- Création d'un fichier `LICENSE` à la racine du projet pour clarifier le statut juridique du code : **source-available propriétaire**, pas open source au sens OSI.
+- Le code reste publiquement consultable sur GitHub pour la transparence, mais toute modification, redistribution ou œuvre dérivée nécessite l'autorisation écrite préalable de l'auteur.
+- Action requise : pousser le fichier LICENSE à la racine du repo GitHub (action ponctuelle, voir COMMANDES_LIVRAISON section 2-bis).
+
+---
+
+### v1.3.2 (30 avril 2026) — mise à jour majeure de sécurité
+
+**🚨 43 corrections d'erreurs réelles** dans les posologies — vérifiées sur sources concordantes (SRLF Urgences Vitales 2024-2025, RCP ANSM, AHA/ERC, NAEPP, CRASH-2/WOMAN/TIC-TOC) :
+
+- **Cardio/ACR** (5) : Cordarone, Isuprel, Digoxine, Krenosin, Striadyne
+- **Hémodynamique** (6) : Dobutamine, Eupressyl, Tildiem, Urapidil, Loxen
+- **Sédation** (1) : Ketalar
+- **Antalgie** (2) : Morphine pédia mg/kg/h, Nubain HAS 2016
+- **Antiépileptiques** (5) : Fusion Valium+Diazepam, Fusion Thiopental+Nesdonal, **🚨 Dépakine bolus EME 15-20 → 40 mg/kg en 15 min** (vérifié 4 sources), Gardenal CI Dravet+gluten, Keppra refonte EME pédia hybride
+- **Antidotes** (9 + 2 nouvelles fiches) : Anexate CI étoffées, Bridion CI <2 ans, **🚨 Kanokad débit 3 mg/kg/min → 2 mL/min RCP** (vérifié 5 sources), Octaplex CI complétées, Fusion Metiblo+Proveblue + signalement coquille SRLF, Intralipide SRLF, Protamine UAH+CI, Glucagen délai 25→10 min RCP, **🆕 NAC** (Fluimucil 300 mg/kg/21h en 3 phases), **🆕 Fomépizole** (15 mg/kg charge + 10 mg/kg/12h × 4)
+- **Bicarbonate / Glucose / Ca / Mg** (4 + 2 nouvelles fiches) : **🚨 Mg antidote Gluconate Ca + ROT signe alarme**, **🚨 Glucose 30% INTERDICTION <6 mois**, Gluconate Ca durée IVL 20 min hyperK + intox IC, **🆕 Bicarbonate de sodium unifié** (1,4% / 4,2% / 8,4%), **🆕 Glucose 10%** (forme privilégiée néonat)
+- **Pneumo** (3) : Fusion 3 doublons SALBUTAMOL, **🚨 Salbutamol IV adulte mg/kg/h → mg/h** (risque surdosage 17×, vérifié 5 sources), Atrovent pédia par poids, CI alignées SRLF
+- **Hémostase** (4) : **🚨 Exacyl pédia entretien 10 → 2 mg/kg/h** (risque convulsif évité — vérifié SRLF + TIC-TOC), bolus 10 min CRASH-2 standard, **🧹 Heparine HNF nettoyée** (9 sections de notes manuscrites supprimées + audit complet 179 fiches), Innohep particularité tinzaparine DFG ≥20 mL/min, Actilyse IDM stratifié au poids + protocole ACR avec EP suspectée
+- **Divers** (4) : Loxapac CI critiques (comitial + porphyrie + dopaminergiques), Mannitol 0,5-1 g/kg + dose max 40g, **🚨 Actrapid hyperK 20 → 10-15 UI hybride** (vérifié 10 sources : AHA/ERC/SRLF/SFNDT), acidocétose 0,05 UI/kg/h SRLF, Solumedrol AAG hybride NAEPP
+
+**🆕 5 nouveaux scores cliniques** :
+- **Red Flag** (Hamada 2018) — 5 critères binaires de coagulopathie post-traumatique, alerte si ≥2 → activer PTM
+- **PRAM** (Ducharme 2008) — Pediatric Respiratory Assessment Measure pour asthme aigu pédia 2-17 ans
+- **Calcémie corrigée** — Ca + 0,02 × (40 − albumine)
+- **SCB / Parkland** — Surface Corporelle Brûlée (Wallace) + remplissage initial Parkland
+- **Trou anionique** — TA = Na − (Cl + HCO₃), avec correction sur albumine optionnelle
+
+**🆕 3 nouveaux protocoles d'intoxication** :
+- **Intox opioïdes** — Reconnaissance (coma + dépression respiratoire + myosis), naloxone (NARCAN®) en titration, voies alternatives IM/IN/IO, surveillance 4-6h post-dernière dose
+- **Intox benzodiazépines** — Flumazénil (ANEXATE®) en titration, ⚠️ CI absolues (tricycliques pro-convulsivants, épilepsie traitée, dépendance chronique)
+- **Intox cardiotrope** — β-bloquants (Glucagon), IC (Gluconate Ca, insuline-glucose), digit (Fab), tricycliques (Bicar 8,4%), AL (Intralipide), RCP prolongée si ACR
+
+**Refonte des équivalences voies** : 4 molécules essentielles (Morphine, Nubain, Midazolam, Valium) avec optgroups par catégorie (Antalgiques / Benzodiazépines).
+
+**Total** : 43 corrections + 4 nouvelles fiches médicales + 5 nouveaux scores cliniques + 3 nouveaux protocoles intox.
+
+- ✅ versionCode 81
 
 ### v1.3.1 (avril 2026)
 - 🌐 **Migration vers un domaine personnalisé** : la PWA est désormais accessible via **https://web.urgpocket.app/** au lieu de `max54130.github.io/urg-pocket/`.

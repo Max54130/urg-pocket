@@ -1,12 +1,38 @@
 {
-  "versionCode": 80,
-  "versionName": "1.3.1",
-  "releaseDate": "2026-04-29",
+  "versionCode": 82,
+  "versionName": "1.3.3",
+  "releaseDate": "2026-04-30",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "**Migration vers un domaine personnalisé** : l'application web est désormais accessible via web.urgpocket.app au lieu de l'ancienne URL GitHub.\n\nCe changement n'affecte pas l'application Android et l'ancienne URL reste fonctionnelle pendant la transition.",
-
+  "changelog": "Améliorations UX : convertisseur biologique simplifié (6 paramètres avec bouton de bascule du sens de conversion), choix de l'unité du calcium dans le calcul de la calcémie corrigée (mmol/L, mg/dL, mg/L, mEq/L), et meilleure lisibilité des sources dans les fiches médicaments (séparation visuelle).",
   "releases": [
+    {
+      "versionName": "1.3.3",
+      "date": "2026-04-30",
+      "changes": [
+        "**Convertisseur bio simplifié** : passage de 12 entrées à 6 paramètres (Glycémie, Créatinine, Cholestérol, Triglycérides, Bilirubine, Température) avec un bouton ⇄ pour inverser le sens de conversion.",
+        "**Calcémie corrigée** : possibilité de choisir l'unité du calcium en entrée (mmol/L, mg/dL, mg/L, mEq/L) — la conversion vers mmol/L est automatique pour le calcul.",
+        "**Fiches médicaments** : la ligne « Source : … » est désormais isolée visuellement en bas de chaque fiche (séparateur + style discret en italique gris) pour une meilleure lisibilité.",
+        "**Sources et mentions** : nouveau bloc dans Paramètres rappelant le caractère gratuit et non-commercial de l'application, l'absence de collecte de données, et reconnaissant les marques pharmaceutiques et organismes émetteurs des recommandations citées. Mention du copyright et de la nécessité d'autorisation pour toute modification ou redistribution.",
+        "**Licence projet (LICENSE)** : création d'un fichier LICENSE à la racine du projet GitHub pour clarifier le statut juridique du code (source-available propriétaire). Le code reste consultable publiquement, mais toute modification ou redistribution nécessite l'accord écrit de l'auteur.",
+        "Correction d'un affichage de version dans Paramètres (1.3.1 → 1.3.3)."
+      ]
+    },
+    {
+      "versionName": "1.3.2",
+      "date": "2026-04-30",
+      "changes": [
+        "**🚨 43 corrections d'erreurs réelles** dans les posologies (cardio, hémodynamique, antiépileptiques, antidotes, hémostase, etc.) — vérifiées sur sources concordantes : SRLF Urgences Vitales 2024-2025, RCP ANSM, AHA/ERC, NAEPP, CRASH-2.",
+        "**🆕 4 nouvelles fiches médicales** : NAC (Fluimucil/Hidonac), Fomépizole, Bicarbonate de sodium (1,4% / 4,2% / 8,4%), Glucose 10%.",
+        "**🆕 5 nouveaux scores cliniques** : Red Flag (Hamada — coagulopathie post-traumatique), PRAM (Ducharme — asthme aigu pédiatrique), Calcémie corrigée, Surface corporelle brûlée (Wallace) + Parkland, Trou anionique.",
+        "**🆕 3 nouveaux protocoles d'intoxication** : Intox opioïdes (avec naloxone/NARCAN®), Intox benzodiazépines (avec flumazénil/ANEXATE® et CI cardiotropes), Intox cardiotrope (β-bloquants, IC, digit, tricycliques, AL).",
+        "**🧹 Nettoyage qualité éditoriale** : suppression de toutes les notes manuscrites/brouillon de la fiche Heparine + audit complet des 179 fiches.",
+        "**Refonte équivalences voies** : 4 molécules essentielles (Morphine, Nubain, Midazolam, Valium) avec optgroups par catégorie.",
+        "Erreur Salbutamol IV adulte : unité corrigée (mg/h au lieu de mg/kg/h — risque surdosage 17×).",
+        "Erreur Exacyl pédia entretien : 10 mg/kg/h → 2 mg/kg/h (risque convulsif évité).",
+        "Erreur Insuline hyperkaliémie : 20 UI → 10-15 UI hybride (vérifié 10 sources)."
+      ]
+    },
     {
       "versionName": "1.3.1",
       "date": "2026-04-29",
@@ -35,7 +61,6 @@
       ]
     }
   ],
-
   "scores": [
     {
       "name": "Glasgow",
@@ -156,6 +181,31 @@
       "name": "IMC / SC",
       "domain": "Posologie",
       "tooltip": "Calcule l'IMC et la surface corporelle."
+    },
+    {
+      "name": "Red Flag",
+      "domain": "Trauma · coagulopathie",
+      "tooltip": "Score Hamada 2018 — détection précoce de coagulopathie post-traumatique. Alerte si ≥2 critères."
+    },
+    {
+      "name": "PRAM",
+      "domain": "Asthme pédia",
+      "tooltip": "Pediatric Respiratory Assessment Measure — évalue la sévérité de l'asthme aigu chez l'enfant 2-17 ans."
+    },
+    {
+      "name": "Calcémie corrigée",
+      "domain": "Iono · Ca",
+      "tooltip": "Corrige la calcémie totale en fonction de l'albumine."
+    },
+    {
+      "name": "SCB / Parkland",
+      "domain": "Brûlures",
+      "tooltip": "Surface Corporelle Brûlée (Wallace) + remplissage initial Parkland."
+    },
+    {
+      "name": "Trou anionique",
+      "domain": "Acidose",
+      "tooltip": "TA = Na − (Cl + HCO₃). Diagnostic étiologique d'acidose métabolique."
     }
   ]
 }

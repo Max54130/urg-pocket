@@ -221,6 +221,7 @@ body.dark .result-num.green{color:#4ade80}body.dark .result-num.yellow{color:#fa
 .note,.alert{margin-top:12px;padding:14px;border-radius:16px;font-size:13px;line-height:1.55}
 .note{border:1px solid var(--line);background:var(--surface2)}
 .alert{border:1px solid var(--danger);background:var(--surface);color:var(--danger);font-weight:700}
+.fiche-source{margin-top:14px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--text2);font-style:italic;line-height:1.5}
 
 /* === TABLES === */
 .table-scroll{overflow:auto;border-radius:16px;border:1px solid var(--line);background:var(--surface);-webkit-overflow-scrolling:touch;transition:border-color .15s}
@@ -845,6 +846,7 @@ Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 <div class="section-title"><h3>🚑 Trauma / Thrombose</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="score-vittel"><span class="hc-icon">🚑</span><span class="hc-label">Vittel</span></button>
+<button class="home-compact" data-target="score-redflag"><span class="hc-icon">🚨</span><span class="hc-label">Red Flag</span></button>
 <button class="home-compact" data-target="score-wells-ep"><span class="hc-icon">🫁</span><span class="hc-label">Wells EP</span></button>
 <button class="home-compact" data-target="score-geneve"><span class="hc-icon">🇨🇭</span><span class="hc-label">Genève révisé</span></button>
 <button class="home-compact" data-target="score-perc"><span class="hc-icon">🚫</span><span class="hc-label">PERC</span></button>
@@ -868,6 +870,7 @@ Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact" data-target="score-apgar"><span class="hc-icon">👶</span><span class="hc-label">APGAR</span></button>
 <button class="home-compact" data-target="score-malinas"><span class="hc-icon">🤰</span><span class="hc-label">Malinas</span></button>
+<button class="home-compact" data-target="score-pram"><span class="hc-icon">🫁</span><span class="hc-label">PRAM</span></button>
 <button class="home-compact" data-target="score-cushman"><span class="hc-icon">🍷</span><span class="hc-label">Cushman</span></button>
 <button class="home-compact" data-target="score-braden"><span class="hc-icon">🛏️</span><span class="hc-label">Braden</span></button>
 </div>
@@ -877,6 +880,9 @@ Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 <button class="home-compact" data-target="imc"><span class="hc-icon">⚖️</span><span class="hc-label">IMC / Surface</span></button>
 <button class="home-compact" data-target="score-dep"><span class="hc-icon">💨</span><span class="hc-label">DEP / Peak Flow</span></button>
 <button class="home-compact" data-target="killip"><span class="hc-icon">💔</span><span class="hc-label">Killip</span></button>
+<button class="home-compact" data-target="score-cacorrigee"><span class="hc-icon">🦴</span><span class="hc-label">Calcémie corrigée</span></button>
+<button class="home-compact" data-target="score-scb"><span class="hc-icon">🔥</span><span class="hc-label">SCB / Parkland</span></button>
+<button class="home-compact" data-target="score-trouanionique"><span class="hc-icon">⚖️</span><span class="hc-label">Trou anionique</span></button>
 </div>
 </div></div></section>
 <section class="screen" id="screen-score-glasgow"><div class="content-card"><div class="page-head"><div><h2>Glasgow</h2></div><p>Évalue le niveau de conscience (yeux, verbal, moteur). Référence en neurologie et réanimation préhospitalière.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
@@ -1058,7 +1064,8 @@ Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 </div></section>
 
 <section class="screen" id="screen-convertisseur"><div class="content-card"><div class="page-head"><div><h2>Convertisseur bio</h2><p>Conversions d'unités biologiques</p></div></div>
-<select class="select" id="convSelect" aria-label="Choix de la conversion"></select>
+<select class="select" id="convSelect" aria-label="Choix du paramètre à convertir"></select>
+<div style="display:flex;justify-content:center;margin-top:12px"><button class="unit-btn" id="convSwapBtn" type="button" aria-label="Inverser le sens de conversion" style="min-width:180px;display:inline-flex;align-items:center;justify-content:center;gap:8px"><span id="convSwapLabel">g/L → mmol/L</span><span style="font-size:18px">⇄</span></button></div>
 <div class="inline-form" style="margin-top:14px">
 <div class="field"><div class="label" id="convLabelA">Valeur</div><input class="num-input" id="convInputA" aria-label="Valeur à convertir" min="0" step="0.01" type="number" placeholder="valeur"/></div>
 <div class="field"><div class="label" id="convLabelB">Résultat</div><div class="result-num" id="convOutputB" style="min-height:46px;display:flex;align-items:center">—</div></div>
@@ -1095,6 +1102,12 @@ Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 <button class="home-compact" data-target="proto-choc-septique"><span class="hc-icon">🦠</span><span class="hc-label">Choc septique</span></button>
 <button class="home-compact" data-target="proto-choc-hemorragique"><span class="hc-icon">🩸</span><span class="hc-label">Choc hémorragique</span></button>
 <button class="home-compact" data-target="proto-choc-hypovolemique"><span class="hc-icon">💧</span><span class="hc-label">Choc hypovolémique</span></button>
+</div>
+<div class="section-title"><h3>💊 Toxicologie / Intoxications</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="proto-intox-opioides"><span class="hc-icon">💉</span><span class="hc-label">Intox opioïdes</span></button>
+<button class="home-compact" data-target="proto-intox-bzd"><span class="hc-icon">💊</span><span class="hc-label">Intox benzodiazépines</span></button>
+<button class="home-compact" data-target="proto-intox-cardiotrope"><span class="hc-icon">⚡</span><span class="hc-label">Intox cardiotrope</span></button>
 </div>
 <div class="section-title"><h3>🚑 Traumatologie</h3></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
@@ -1204,6 +1217,21 @@ Noradrénaline après remplissage adéquat (2–3 bolus sans amélioration)</div
 <div class="proto-step"><div class="proto-step-num">5</div><div class="proto-step-content"><strong>Surveillance</strong><br/>
 TA · FC · Diurèse ≥ 0,5 mL/kg/h · Lactates · Ionogramme (Na, K, Cl) · Créatinine · Poids quotidien</div></div>
 </div></section>
+<section class="screen" id="screen-proto-intox-opioides"><div class="content-card"><div class="page-head"><div><h2>💉 Intox opioïdes</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : SRLF Urgences Vitales 2024-2025, RCP NARCAN®</div>
+<div id="protoContent-intox-opioides"></div>
+</div></section>
+
+<section class="screen" id="screen-proto-intox-bzd"><div class="content-card"><div class="page-head"><div><h2>💊 Intox benzodiazépines</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : SRLF Urgences Vitales 2024-2025, RCP ANEXATE®</div>
+<div id="protoContent-intox-bzd"></div>
+</div></section>
+
+<section class="screen" id="screen-proto-intox-cardiotrope"><div class="content-card"><div class="page-head"><div><h2>⚡ Intox cardiotrope</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
+<div class="alert" style="margin-top:0;margin-bottom:14px">Réf. : SRLF 2024-2025. β-bloquants, IC, digit, tricycliques, AL.</div>
+<div id="protoContent-intox-cardiotrope"></div>
+</div></section>
+
 
 <section class="screen" id="screen-proto-trauma"><div class="content-card">
 <div class="page-head"><div><h2>Trauma grave — ABCDE</h2></div><button class="btn-back" data-target="protocoles">◀ Protocoles</button></div>
@@ -1621,6 +1649,13 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <div class="score-list" id="vittelWrap"></div>
 <div class="score-result" id="vittelResult" aria-live="polite">0 critère · Non grave</div>
 </div></div></section>
+<section class="screen" id="screen-score-redflag"><div class="content-card"><div class="page-head"><div><h2>Red Flag</h2></div><p>Score Hamada 2018. Détection précoce de coagulopathie post-traumatique. Trauma fermé uniquement.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">⚠️ Trauma fermé uniquement. Alerte si ≥ 2 critères → activer protocole transfusion massive (PTM).</div>
+<div class="score-panel" id="score-redflag"><div class="section-title"><h3>Red Flag — Hamada</h3><span class="muted">Coagulopathie post-traumatique</span></div>
+<div class="score-list" id="redflagWrap"></div>
+<div class="score-result" id="redflagResult" aria-live="polite">0 / 5 · Risque faible</div>
+</div></div></section>
+
 
 <section class="screen" id="screen-score-shockindex"><div class="content-card"><div class="page-head"><div><h2>Shock Index</h2></div><p>Rapport FC/PAS. Détecte rapidement un état de choc hémodynamique.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
 <div class="note" style="margin-top:0;margin-bottom:14px">FC / PAS. &lt;0,7 normal, 0,7-1 borderline, &gt;1 choc probable, &gt;1,4 choc sévère.</div>
@@ -1637,6 +1672,13 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <div class="score-list" id="malinasWrap"></div>
 <div class="score-result" id="malinasResult" aria-live="polite">0 · Transport possible</div>
 </div></div></section>
+<section class="screen" id="screen-score-pram"><div class="content-card"><div class="page-head"><div><h2>PRAM</h2></div><p>Pediatric Respiratory Assessment Measure (Ducharme 2008). Asthme aigu pédiatrique 2-17 ans.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">⚠️ Asthme pédia 2-17 ans. 0-3 léger / 4-7 modéré / 8-12 sévère.</div>
+<div class="score-panel" id="score-pram"><div class="section-title"><h3>PRAM</h3><span class="muted">Pediatric Respiratory Assessment Measure</span></div>
+<div class="score-list" id="pramWrap"></div>
+<div class="score-result" id="pramResult" aria-live="polite">0 · Léger</div>
+</div></div></section>
+
 
 <section class="screen" id="screen-settings"><div class="content-card"><div class="page-head"><div><h2>Paramètres</h2><p>Personnaliser l'interface</p></div></div>
 
@@ -1716,7 +1758,7 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.3.1</span>
+<span style="color:var(--primary);font-weight:800">1.3.3</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -1737,6 +1779,11 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <div class="section-title"><h3>Avertissement</h3></div>
 <div class="field" style="margin-bottom:14px;border-left:3px solid var(--danger);padding-left:12px">
 <p style="margin:0;font-size:13px;color:var(--text2);line-height:1.7">Urg Pocket est un aide-mémoire destiné aux professionnels de santé. Il ne constitue pas un dispositif médical.<br/><br/>Les informations sont fournies à titre indicatif, sans garantie d'exactitude ni d'exhaustivité. Elles ne remplacent en aucun cas le jugement clinique, les protocoles de service, la formation ni la consultation des sources officielles (RCP, Vidal).<br/><br/><strong style="color:var(--text)">Les posologies doivent être vérifiées avant toute administration.</strong><br/><br/>Toute décision médicale engage la seule responsabilité du professionnel qui la prend. L'éditeur décline toute responsabilité pour tout dommage, direct ou indirect, résultant de l'utilisation de l'application.</p>
+</div>
+
+<div class="section-title"><h3>Sources et mentions</h3></div>
+<div class="field" style="margin-bottom:14px;border-left:3px solid var(--primary);padding-left:12px">
+<p style="margin:0;font-size:13px;color:var(--text2);line-height:1.7">Urg Pocket est une application <strong style="color:var(--text)">gratuite et non-commerciale</strong>, développée par Maxime MAGRON à destination des professionnels de santé. Aucune donnée utilisateur n'est collectée à des fins de revente ou de profil publicitaire.<br/><br/><strong style="color:var(--text)">Droits sur l'application</strong><br/>© 2026 Maxime MAGRON. Le contenu d'Urg Pocket (textes, fiches, organisation, design, logo) est protégé par le droit d'auteur. Toute modification, redistribution ou réutilisation du contenu nécessite l'autorisation écrite préalable de l'auteur.<br/><br/><strong style="color:var(--text)">Marques pharmaceutiques</strong><br/>Les noms commerciaux de spécialités (CORDARONE®, NESDONAL®, etc.) restent la propriété de leurs détenteurs respectifs. Leur mention dans Urg Pocket relève d'un usage informatif à destination des professionnels de santé.<br/><br/><strong style="color:var(--text)">Sources cliniques</strong><br/>Les recommandations et scores cités (SRLF, SFAR, SFMU, ERC, ESC, AHA, HAS, ANSM, RCP, Vidal, Doloplus®, Algoplus, PRAM, NEWS2, NIHSS, etc.) demeurent la propriété de leurs auteurs et organismes émetteurs. Urg Pocket renvoie systématiquement vers les documents officiels via citation et liens externes.<br/><br/>Pour toute demande : <a href="mailto:contact@urgpocket.app" style="color:var(--primary)">contact@urgpocket.app</a>.</p>
 </div>
 
 <div class="section-title"><h3>Documents légaux</h3></div>
@@ -1929,6 +1976,36 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <div class="score-list" id="killipWrap" style="margin-top:14px"></div>
 <div class="score-result" id="killipResult" aria-live="polite" style="margin-top:14px">—</div>
 </div></section>
+<section class="screen" id="screen-score-cacorrigee"><div class="content-card"><div class="page-head"><div><h2>Calcémie corrigée</h2></div><p>Correction de la calcémie en fonction de l'albumine. Ne remplace pas la mesure du calcium ionisé.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Formule : Ca corrigé = Ca + 0,02 × (40 − albumine en g/L). ⚠️ Ne remplace pas la mesure directe du Ca²⁺ ionisé.</div>
+<div class="score-panel" id="score-cacorrigee"><div class="section-title"><h3>Calcémie corrigée</h3></div>
+<div class="field" style="margin-bottom:14px"><div class="label">Unité du Calcium</div>
+<div class="duration-toggle"><button class="unit-btn ca-unit-btn" data-unit="mmol_l" type="button">mmol/L</button><button class="unit-btn ca-unit-btn" data-unit="mg_dl" type="button">mg/dL</button><button class="unit-btn ca-unit-btn" data-unit="mg_l" type="button">mg/L</button><button class="unit-btn ca-unit-btn" data-unit="meq_l" type="button">mEq/L</button></div></div>
+<div class="inline-form"><div class="field"><div class="label">Calcémie totale (<span id="caUnitLabel">mmol/L</span>)</div><input class="num-input" id="caTot" placeholder="ex: 2.20" step="0.01" type="number"/></div>
+<div class="field"><div class="label">Albuminémie (g/L)</div><input class="num-input" id="caAlb" placeholder="ex: 30" type="number"/></div>
+<div><button class="btn primary" id="caCorrigeeCalcBtn">Calculer</button></div></div>
+<div class="score-result" id="caCorrigeeResult" aria-live="polite">—</div>
+</div></div></section>
+<section class="screen" id="screen-score-scb"><div class="content-card"><div class="page-head"><div><h2>SCB / Parkland</h2></div><p>Surface Corporelle Brûlée (Wallace) + formule de Parkland pour le remplissage initial.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">⚠️ Wallace adulte (≥12 ans). Pédiatrie : utiliser Lund-Browder (proportions différentes).</div>
+<div class="score-panel" id="score-scb"><div class="section-title"><h3>SCB — Règle des 9 de Wallace</h3></div>
+<div class="score-list" id="scbWrap"></div>
+<div class="inline-form" style="margin-top:14px"><div class="field"><div class="label">Poids (kg)</div><input class="num-input" id="scbPoids" placeholder="ex: 70" type="number"/></div></div>
+<div class="score-result" id="scbResult" aria-live="polite">0% SCB · Parkland —</div>
+</div></div></section>
+<section class="screen" id="screen-score-trouanionique"><div class="content-card"><div class="page-head"><div><h2>Trou anionique</h2></div><p>Diagnostic étiologique de l'acidose métabolique. TA = Na − (Cl + HCO₃).</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">Normale 8-16 mmol/L. TA ↑ = MUDPILES (méthanol, urémie, acidocétose, etc.). TA normal = hyperchlorémie.</div>
+<div class="score-panel" id="score-trouanionique"><div class="section-title"><h3>Trou anionique</h3></div>
+<div class="inline-form"><div class="field"><div class="label">Sodium Na (mmol/L)</div><input class="num-input" id="taNa" placeholder="ex: 140" type="number"/></div>
+<div class="field"><div class="label">Chlore Cl (mmol/L)</div><input class="num-input" id="taCl" placeholder="ex: 100" type="number"/></div>
+<div class="field"><div class="label">Bicarbonates HCO₃ (mmol/L)</div><input class="num-input" id="taHCO3" placeholder="ex: 24" type="number"/></div>
+<div class="field"><div class="label">Albumine (g/L) — optionnel</div><input class="num-input" id="taAlb" placeholder="ex: 40" type="number"/></div>
+<div><button class="btn primary" id="taCalcBtn">Calculer</button></div></div>
+<div class="score-result" id="taResult" aria-live="polite">—</div>
+</div></div></section>
+
+
+
 
 <section class="screen" id="screen-doses-adulte"><div class="content-card"><div class="page-head"><div><h2>Doses adulte</h2><p>Calcul de dose selon le poids</p></div><div style="display:flex;gap:8px"><button class="btn reset-inline" id="doseResetBtn" type="button" aria-label="Réinitialiser">↺ RAZ</button><button class="btn-back" data-target="doses">◀ Calculs</button></div></div>
 <div class="inline-form" style="margin-top:14px">
@@ -2303,8 +2380,8 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.3.1';
-const APP_VERSION_CODE = 80;
+const APP_VERSION = '1.3.3';
+const APP_VERSION_CODE = 82;
 /* Normalisation accents pour recherche */
 function normSearch(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 
@@ -2343,11 +2420,19 @@ const screens = {
   'score-qsofa': document.getElementById('screen-score-qsofa'),
   'score-apgar': document.getElementById('screen-score-apgar'),
   'score-cushman': document.getElementById('screen-score-cushman'),
+  'score-redflag': document.getElementById('screen-score-redflag'),
+  'score-pram': document.getElementById('screen-score-pram'),
+  'score-cacorrigee': document.getElementById('screen-score-cacorrigee'),
+  'score-scb': document.getElementById('screen-score-scb'),
+  'score-trouanionique': document.getElementById('screen-score-trouanionique'),
   'norme-detail': document.getElementById('screen-norme-detail'),
   'toxico-antidotes': document.getElementById('screen-toxico-antidotes'),
   'toxico-doses': document.getElementById('screen-toxico-doses'),
   'proto-acr': document.getElementById('screen-proto-acr'),
   'proto-acr_ped': document.getElementById('screen-proto-acr_ped'),
+  'proto-intox-opioides': document.getElementById('screen-proto-intox-opioides'),
+  'proto-intox-bzd': document.getElementById('screen-proto-intox-bzd'),
+  'proto-intox-cardiotrope': document.getElementById('screen-proto-intox-cardiotrope'),
   'proto-anaphylaxie': document.getElementById('screen-proto-anaphylaxie'),
   'proto-avc': document.getElementById('screen-proto-avc'),
   'proto-douleur_tho': document.getElementById('screen-proto-douleur_tho'),
@@ -3175,22 +3260,19 @@ document.getElementById('doseResetBtn')?.addEventListener('click', () => {
 
 /* ========== CONVERTISSEUR BIO ========== */
 const conversions = [
-  {name:"Glycémie : g/L → mmol/L", labelA:"g/L", labelB:"mmol/L", fn: v => v * 5.551, note:"Facteur : × 5,551"},
-  {name:"Glycémie : mmol/L → g/L", labelA:"mmol/L", labelB:"g/L", fn: v => v / 5.551, note:"Facteur : ÷ 5,551"},
-  {name:"Créatinine : µmol/L → mg/dL", labelA:"µmol/L", labelB:"mg/dL", fn: v => v * 0.01131, note:"Facteur : × 0,01131"},
-  {name:"Créatinine : mg/dL → µmol/L", labelA:"mg/dL", labelB:"µmol/L", fn: v => v / 0.01131, note:"Facteur : ÷ 0,01131"},
-  {name:"Cholestérol : g/L → mmol/L", labelA:"g/L", labelB:"mmol/L", fn: v => v * 2.586, note:"Facteur : × 2,586"},
-  {name:"Cholestérol : mmol/L → g/L", labelA:"mmol/L", labelB:"g/L", fn: v => v / 2.586, note:"Facteur : ÷ 2,586"},
-  {name:"Triglycérides : g/L → mmol/L", labelA:"g/L", labelB:"mmol/L", fn: v => v * 1.129, note:"Facteur : × 1,129"},
-  {name:"Triglycérides : mmol/L → g/L", labelA:"mmol/L", labelB:"g/L", fn: v => v / 1.129, note:"Facteur : ÷ 1,129"},
-  {name:"Bilirubine : µmol/L → mg/dL", labelA:"µmol/L", labelB:"mg/dL", fn: v => v * 0.05847, note:"Facteur : × 0,05847"},
-  {name:"Bilirubine : mg/dL → µmol/L", labelA:"mg/dL", labelB:"µmol/L", fn: v => v / 0.05847, note:"Facteur : ÷ 0,05847"},
-  {name:"Température : °C → °F", labelA:"°C", labelB:"°F", fn: v => v * 9/5 + 32, note:"(°C × 9/5) + 32"},
-  {name:"Température : °F → °C", labelA:"°F", labelB:"°C", fn: v => (v - 32) * 5/9, note:"(°F - 32) × 5/9"},
+  {name:"Glycémie",      unitA:"g/L",    unitB:"mmol/L", factor:5.551,   noteAB:"Facteur : × 5,551",     noteBA:"Facteur : ÷ 5,551"},
+  {name:"Créatinine",    unitA:"mg/dL",  unitB:"µmol/L", factor:88.4,    noteAB:"Facteur : × 88,4",      noteBA:"Facteur : ÷ 88,4"},
+  {name:"Cholestérol",   unitA:"g/L",    unitB:"mmol/L", factor:2.586,   noteAB:"Facteur : × 2,586",     noteBA:"Facteur : ÷ 2,586"},
+  {name:"Triglycérides", unitA:"g/L",    unitB:"mmol/L", factor:1.129,   noteAB:"Facteur : × 1,129",     noteBA:"Facteur : ÷ 1,129"},
+  {name:"Bilirubine",    unitA:"mg/dL",  unitB:"µmol/L", factor:17.1,    noteAB:"Facteur : × 17,1",      noteBA:"Facteur : ÷ 17,1"},
+  {name:"Température",   unitA:"°C",     unitB:"°F",     fnAB: v => v*9/5+32, fnBA: v => (v-32)*5/9, noteAB:"(°C × 9/5) + 32", noteBA:"(°F − 32) × 5/9"},
 ];
 (function(){
   const sel = document.getElementById('convSelect');
   if(!sel) return;
+  const swapBtn = document.getElementById('convSwapBtn');
+  const swapLabel = document.getElementById('convSwapLabel');
+  let reversed = false; // false : A→B, true : B→A
   conversions.forEach((c,i) => {
     const opt = document.createElement('option');
     opt.value = i; opt.textContent = c.name;
@@ -3199,14 +3281,21 @@ const conversions = [
   function updateConv(){
     const c = conversions[sel.value];
     if(!c) return;
-    document.getElementById('convLabelA').textContent = c.labelA;
-    document.getElementById('convLabelB').textContent = c.labelB;
-    document.getElementById('convNote').textContent = c.note;
+    const fromUnit = reversed ? c.unitB : c.unitA;
+    const toUnit   = reversed ? c.unitA : c.unitB;
+    const fn = c.fnAB
+      ? (reversed ? c.fnBA : c.fnAB)
+      : (reversed ? (v => v / c.factor) : (v => v * c.factor));
+    document.getElementById('convLabelA').textContent = fromUnit;
+    document.getElementById('convLabelB').textContent = toUnit;
+    document.getElementById('convNote').textContent = reversed ? c.noteBA : c.noteAB;
+    if(swapLabel) swapLabel.textContent = fromUnit + ' → ' + toUnit;
     const v = parseFloat(document.getElementById('convInputA')?.value);
     const out = document.getElementById('convOutputB');
-    if(out) out.textContent = (v > 0 || v === 0) && isFinite(v) ? fmt(c.fn(v)) + ' ' + c.labelB : '—';
+    if(out) out.textContent = (v > 0 || v === 0) && isFinite(v) ? fmt(fn(v)) + ' ' + toUnit : '—';
   }
-  sel.addEventListener('change', updateConv);
+  sel.addEventListener('change', function(){ reversed = false; updateConv(); });
+  if(swapBtn) swapBtn.addEventListener('click', function(){ reversed = !reversed; updateConv(); });
   document.getElementById('convInputA')?.addEventListener('input', updateConv);
   updateConv();
 })();
@@ -3291,6 +3380,52 @@ const protocoles = {
       "PA (tension artérielle) : ne pas traiter sauf si > 220/120 mmHg (AVC ischémique) ou > 185/110 mmHg si thrombolyse (traitement fibrinolytique) envisagée. Pas d'antihypertenseur en phase aiguë sans avis médical.",
       "Scope, SpO₂ : O₂ si SpO₂ < 95 %. Voie veineuse (côté non déficitaire), NaCl 0,9 %. Pas de glucosé.",
       "NE PAS donner d'aspirine avant imagerie cérébrale (risque hémorragique). NE PAS faire baisser la PA brutalement."
+    ]
+  },
+    "intox-opioides":{
+    title:"💉 Intoxication aux opioïdes",
+    steps:[
+      "RECONNAÎTRE la triade clinique : COMA + DÉPRESSION RESPIRATOIRE (FR < 12/min, hypoventilation) + MYOSIS punctiforme. Contexte : usage de drogue (héroïne), surdosage médicamenteux (méthadone, morphine, fentanyl, oxycodone, tramadol).",
+      "ABCDE : libérer les voies aériennes (canule de Guédel si tolérée), oxygène 15 L/min au masque haute concentration. Scope, SpO2, capno, voie veineuse. Glycémie capillaire systématique.",
+      "ANTIDOTE — NALOXONE (NARCAN®) en TITRATION : Diluer 1 ampoule 0,4 mg dans 9 mL NaCl 0,9% → concentration 0,04 mg/mL. Bolus 0,04 mg IVD toutes les 2-3 min jusqu'à FR > 12/min.",
+      "OBJECTIF : réverser la dépression respiratoire SANS déclencher un sevrage brutal (risque agitation, OAP). Ne PAS chercher à réveiller complètement le patient.",
+      "Dose cumulée maximale : 10 mg. Si pas de réponse → remettre en cause le diagnostic (autres toxiques, hypoglycémie, AVC, TC associé).",
+      "RELAIS IVSE si nécessaire (renarcotisation) : 2 mg dans 500 mL NaCl 0,9%, débit adapté à la FR. Surveillance prolongée car la durée d'action de la naloxone (30-90 min) est < à celle des opioïdes à longue action (méthadone, fentanyl LP, buprénorphine).",
+      "VOIES ALTERNATIVES si pas d'abord IV : IM (0,4 mg dans deltoïde ou cuisse), IN intranasale (4 mg via dispositif spray, à répéter sur l'autre narine si besoin), IO (intra-osseuse).",
+      "PÉDIATRIE : Naloxone 0,01 mg/kg IV/IO (max 0,4 mg/dose), à répéter toutes les 2-3 min. Voie IM/IN possibles.",
+      "⚠️ BUPRÉNORPHINE (Subutex®, Suboxone®) : moins sensible à la naloxone — DOUBLER les doses. Si BZD associées (cocktail), associer ANEXATE® (flumazénil) avec prudence.",
+      "SURVEILLANCE PROLONGÉE 4-6h après la dernière dose de naloxone (risque de renarcotisation si opioïde à demi-vie longue). Hospitalisation systématique en USI si méthadone, fentanyl LP, ou patches transdermiques."
+    ]
+  },
+  "intox-bzd":{
+    title:"💊 Intoxication aux benzodiazépines",
+    steps:[
+      "RECONNAÎTRE : COMA CALME hypotonique + dépression respiratoire MODÉRÉE (sauf très fortes doses ou cocktail) + hyporéflexie. Contexte : tentative de suicide médicamenteuse, surdosage (zolpidem, zopiclone, diazepam, alprazolam, lorazepam, clonazepam, etc.).",
+      "ABCDE : libérer voies aériennes, oxygène, scope, SpO2, voie veineuse, glycémie capillaire. PRIORITÉ = ventilation efficace (BAVU si FR < 10).",
+      "⚠️ CI ABSOLUES au FLUMAZÉNIL (ANEXATE®) — ATTENTION cocktail : Coingestion avec TRICYCLIQUES (Anafranil®, Laroxyl®, Tofranil®) ou autres pro-convulsivants → ANEXATE PEUT DÉCLENCHER DES CONVULSIONS RÉSISTANTES.",
+      "AUTRES CI au flumazénil : Épilepsie traitée par BZD, dépendance chronique aux BZD (sevrage brutal), HTIC, troubles du rythme sur intoxication (cardiotrope), Trauma crânien grave.",
+      "ANTIDOTE — FLUMAZÉNIL (ANEXATE®) en titration : indication uniquement si dépression respiratoire significative ET CI éliminées. Bolus IVD 0,1-0,3 mg sur 15 secondes.",
+      "Si pas de réponse en < 1 min : 0,1 mg toutes les minutes jusqu'au réveil (ne pas dépasser 2 mg cumulés). Si pas de réponse à 2 mg → remettre en cause le diagnostic.",
+      "RELAIS IVSE si nécessaire (durée d'action 30-60 min < à celle des BZD à demi-vie longue) : 0,1-0,4 mg/h, débit selon le degré d'éveil souhaité.",
+      "PÉDIATRIE > 6 mois : 0,01 mg/kg IVL sur 15s (max 0,2 mg/injection), à répéter toutes les minutes (max 4 fois, max cumulé 0,05 mg/kg ou 1 mg).",
+      "SURVEILLANCE PROLONGÉE 6h post-dernière dose (risque de re-sédation). En cas de cocktail BZD + opioïde : associer naloxone si dépression respiratoire persistante.",
+      "⚠️ BIEN PESER L'INDICATION : si patient ventile correctement (FR ≥ 12, SpO2 > 92%), simple surveillance peut suffire. L'antagonisation systématique n'est pas recommandée."
+    ]
+  },
+  "intox-cardiotrope":{
+    title:"⚡ Intoxication aux cardiotropes",
+    steps:[
+      "RECONNAÎTRE : Bradycardie + Hypotension + signes ECG (BAV, QRS larges, TdP). Identifier la classe de toxique : β-BLOQUANTS (propranolol +++), INHIBITEURS CALCIQUES (vérapamil, diltiazem, amlodipine), DIGITALIQUES (digoxine), TRICYCLIQUES (clomipramine, amitriptyline), ANESTHÉSIQUES LOCAUX (lidocaïne, ropivacaïne — surdosage péridurale ou bloc).",
+      "ABCDE : voies aériennes, oxygène, scope ECG continu, 2 voies veineuses gros calibre, monitoring TA invasif si possible. ECG 12 dérivations systématique.",
+      "TOUTES INTOX CARDIOTROPES — Mesures générales : Décubitus dorsal jambes surélevées. Remplissage prudent NaCl 0,9% 500 mL si hypoTA (max 1-2 L, risque OAP).",
+      "GLUCAGON (β-BLOQUANTS) : Bolus 5-10 mg IVL puis IVSE 2-5 mg/h. Préférer en 1ère intention sur intox β-bloquants. Délai d'action 5-10 min.",
+      "INSULINE-GLUCOSE (β-BLOQUANTS et INHIBITEURS CALCIQUES — collapsus prédominant) : Après remplissage et glucagon. Bolus Actrapid 0,5-1 UI/kg + bolus G30% 0,5 g/kg, puis IVSE Actrapid 0,5-1 UI/kg/h + G10% 0,5 g/kg/h. Surveillance glycémie/15 min, kaliémie/h.",
+      "GLUCONATE DE CALCIUM 10% (INHIBITEURS CALCIQUES) : Bolus 1g IVL toutes 2-3 min (max 5g) puis IVSE 1g/h. Surveillance calcémie ionisée (cible < 2 mmol/L). Préférer chlorure de Ca + concentré si VVC.",
+      "FAB ANTI-DIGITALIQUES (DIGOXINE) : Indication formelle si TdR ventriculaires, BAV haut degré, K+ > 5,5, ou intox massive (>10 mg adulte, > 4 mg enfant). 1 ampoule (38 mg) neutralise 0,5 mg digoxine. Avis centre antipoison +++.",
+      "BICARBONATE 8,4% (TRICYCLIQUES, AL, classe Ia/Ic) : Indication si QRS > 120 ms ou troubles ventriculaires. 125-250 mL IVL 30 min - 1h. Renouvelable. ⚠️ VVC obligatoire idéalement.",
+      "INTRALIPIDE 20% (ANESTHÉSIQUES LOCAUX, intox graves) : Bolus 1,5 mL/kg en 2-3 min, puis IVSE 0,25 mL/kg/min jusqu'à reprise hémodynamique (max 10 mL/kg cumulés sur 30 min).",
+      "EN CAS D'ACR : RCP prolongée 60-90 min (intox tricycliques peut récupérer après ACR prolongé). ECMO/circulation extracorporelle à discuter avec centre référent.",
+      "ORIENTATION : USI/réa systématique. Appeler le centre antipoison (CAP) le plus proche pour conseils spécialisés."
     ]
   },
   "anaphylaxie":{
@@ -4228,6 +4363,197 @@ const dosesToxiques = [
   cats.forEach(function(c){w.innerHTML+='<div class="section-title" style="margin-top:12px"><h3>'+c.c+'</h3></div>';c.i.forEach(function(it){w.innerHTML+='<div class="score-item"><label><input type="checkbox" class="vit-cb"/> '+it+'</label></div>';});});
   w.addEventListener('change',function(){var n=w.querySelectorAll('.vit-cb:checked').length;var clsV=n===0?'green':'red';r.classList.remove('green','yellow','red');r.classList.add(clsV);updateColorResult(r,clsV);renderRingResult(r,{score:n,badge:n===0?'Non grave':'TRAUMA GRAVE',interp:n===0?'Aucun critère Vittel':''+n+' critère'+(n>1?'s':'')+' Vittel',conduct:n===0?'Surveillance clinique':'Orientation centre trauma — damage control'});});
 })();
+/* ========== RED FLAG (Hamada 2018) ========== */
+(function(){
+  var items=[
+    {l:"Shock Index ≥ 1 (FC/PAS ≥ 1)",detail:"FC ≥ PAS"},
+    {l:"PAS ≤ 70 mmHg",detail:"Pression artérielle systolique"},
+    {l:"Hémoglobine capillaire ≤ 13 g/dL",detail:"HemoCue ou équivalent"},
+    {l:"Bassin cliniquement instable",detail:"Examen clinique du bassin"},
+    {l:"Intubation préhospitalière",detail:"IOT en pré-hospitalier"}
+  ];
+  var w=document.getElementById('redflagWrap'),r=document.getElementById('redflagResult');
+  if(!w)return;
+  items.forEach(function(it,i){
+    w.innerHTML+='<div class="score-item"><label><input type="checkbox" class="rf-cb" data-i="'+i+'"/> '+it.l+'</label><div class="muted" style="font-size:0.85em;margin-left:24px">'+it.detail+'</div></div>';
+  });
+  w.addEventListener('change',function(){
+    var n=w.querySelectorAll('.rf-cb:checked').length;
+    var clsV=n<2?(n===0?'green':'yellow'):'red';
+    r.classList.remove('green','yellow','red');r.classList.add(clsV);
+    updateColorResult(r,clsV);
+    renderRingResult(r,{
+      score:n,
+      badge:n<2?(n===0?'Risque faible':'Vigilance'):'PTM RECOMMANDÉ',
+      interp:n+' / 5 critères Red Flag',
+      conduct:n>=2?'Activer protocole transfusion massive (PTM) — culots O— + plasma + plaquettes ratio 1:1:1, acide tranexamique 1g IVL':n===1?'Surveillance rapprochée — préparer culots disponibles':'Surveillance clinique standard'
+    });
+  });
+})();
+/* ========== PRAM (Ducharme 2008) ========== */
+(function(){
+  var items=[
+    {l:"SpO₂ en air ambiant",o:["≥ 95% (0)","92-94% (1)","< 92% (2)"]},
+    {l:"Tirage sus-sternal",o:["Absent (0)","Présent (2)"]},
+    {l:"Contraction des scalènes",o:["Absente (0)","Présente (2)"]},
+    {l:"Murmure vésiculaire",o:["Normal (0)","Diminué à la base (1)","Diminué apex et base (2)","Minimal/absent (3)"]},
+    {l:"Sibilants",o:["Absents (0)","Expiration seule (1)","Inspi+Expi (2)","Audibles sans stéthoscope ou silence auscultatoire (3)"]}
+  ];
+  var w=document.getElementById('pramWrap'),r=document.getElementById('pramResult');
+  if(!w)return;
+  items.forEach(function(it,i){
+    var oh=it.o.map(function(o,j){
+      var v=o.match(/\((\d+)\)/);v=v?v[1]:j;
+      return '<label class="score-option"><input type="radio" name="pram'+i+'" value="'+v+'"/> '+o+'</label>';
+    }).join('');
+    w.innerHTML+='<div class="score-item"><div class="label">'+it.l+'</div><div class="score-options">'+oh+'</div></div>';
+  });
+  w.addEventListener('change',function(){
+    var t=0;
+    items.forEach(function(_,i){
+      var s=w.querySelector('input[name="pram'+i+'"]:checked');
+      if(s)t+=parseInt(s.value);
+    });
+    var int,clsP,conduct;
+    if(t<=3){int='Léger';clsP='green';conduct='Salbutamol nébulisation seul, surveillance';}
+    else if(t<=7){int='Modéré';clsP='yellow';conduct='Salbutamol + Atrovent + corticoïdes systémiques (1-2 mg/kg)';}
+    else{int='Sévère';clsP='red';conduct='AAG — Salbutamol continu + Atrovent + corticoïdes IV + sulfate Mg + USIP';}
+    r.classList.remove('green','yellow','red');r.classList.add(clsP);
+    updateColorResult(r,clsP);
+    renderRingResult(r,{score:t,badge:int,interp:t+' / 12 — Score PRAM',conduct:conduct});
+  });
+})();
+/* ========== CALCÉMIE CORRIGÉE ========== */
+(function(){
+  var b=document.getElementById('caCorrigeeCalcBtn'),r=document.getElementById('caCorrigeeResult');
+  if(!b)return;
+  // Facteurs de conversion vers mmol/L (Ca masse molaire = 40,08 g/mol, valence 2)
+  // 1 mmol/L Ca = 4,008 mg/dL = 40,08 mg/L = 2 mEq/L
+  var caUnit='mmol_l';
+  var caUnitLabel=document.getElementById('caUnitLabel');
+  var unitBtns=document.querySelectorAll('.ca-unit-btn');
+  // Activer mmol/L par défaut
+  unitBtns.forEach(function(btn){if(btn.dataset.unit==='mmol_l') btn.classList.add('active');});
+  unitBtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      caUnit=btn.dataset.unit;
+      unitBtns.forEach(function(x){x.classList.remove('active');});
+      btn.classList.add('active');
+      var labels={mmol_l:'mmol/L',mg_dl:'mg/dL',mg_l:'mg/L',meq_l:'mEq/L'};
+      if(caUnitLabel) caUnitLabel.textContent=labels[caUnit]||'mmol/L';
+      // Mettre à jour le placeholder de référence
+      var inp=document.getElementById('caTot');
+      var ph={mmol_l:'ex: 2.20',mg_dl:'ex: 8.80',mg_l:'ex: 88',meq_l:'ex: 4.40'};
+      if(inp) inp.placeholder=ph[caUnit]||'';
+    });
+  });
+  function toMmolL(v,unit){
+    switch(unit){
+      case 'mg_dl': return v / 4.008;
+      case 'mg_l':  return v / 40.08;
+      case 'meq_l': return v / 2;
+      default:      return v; // mmol/L
+    }
+  }
+  b.addEventListener('click',function(){
+    var caRaw=parseFloat(document.getElementById('caTot').value);
+    var alb=parseFloat(document.getElementById('caAlb').value);
+    if(!isFinite(caRaw)||!isFinite(alb)){r.textContent='Renseigner Ca et albumine';return;}
+    var ca=toMmolL(caRaw,caUnit); // converti en mmol/L pour le calcul
+    var caCorr=(ca+0.02*(40-alb)).toFixed(2);
+    var int,clsC;
+    if(caCorr<2.20){int='Hypocalcémie';clsC='red';}
+    else if(caCorr<=2.60){int='Normale';clsC='green';}
+    else{int='Hypercalcémie';clsC='red';}
+    r.classList.remove('green','yellow','red');r.classList.add(clsC);
+    updateColorResult(r,clsC);
+    renderRingResult(r,{
+      score:caCorr,
+      badge:int,
+      interp:'Ca corrigé '+caCorr+' mmol/L (normale 2,20-2,60)',
+      conduct:'⚠️ Ne remplace pas la mesure directe du Ca²⁺ ionisé. Confirmer en cas de doute.'
+    });
+  });
+})();
+/* ========== SCB / PARKLAND (Wallace) ========== */
+(function(){
+  var zones=[
+    {l:"Tête",p:9,id:"sTete"},
+    {l:"Membre supérieur droit",p:9,id:"sMSD"},
+    {l:"Membre supérieur gauche",p:9,id:"sMSG"},
+    {l:"Tronc antérieur",p:18,id:"sTroncA"},
+    {l:"Tronc postérieur",p:18,id:"sTroncP"},
+    {l:"Membre inférieur droit",p:18,id:"sMID"},
+    {l:"Membre inférieur gauche",p:18,id:"sMIG"},
+    {l:"Périnée",p:1,id:"sPerinee"}
+  ];
+  var w=document.getElementById('scbWrap'),r=document.getElementById('scbResult');
+  if(!w)return;
+  zones.forEach(function(z){
+    w.innerHTML+='<div class="score-item"><div class="label">'+z.l+' ('+z.p+'% max)</div><div class="inline-form" style="margin:4px 0"><div class="field"><input class="num-input scb-zone" id="'+z.id+'" data-max="'+z.p+'" placeholder="0" min="0" max="'+z.p+'" type="number" step="0.5"/></div><div class="muted" style="align-self:center;margin-left:8px">% brûlé en 2e/3e degré</div></div></div>';
+  });
+  function recalc(){
+    var total=0;
+    zones.forEach(function(z){
+      var v=parseFloat(document.getElementById(z.id).value)||0;
+      if(v>z.p)v=z.p;
+      total+=v;
+    });
+    total=Math.round(total*10)/10;
+    var poids=parseFloat(document.getElementById('scbPoids').value)||0;
+    var clsS=total<10?'green':total<20?'yellow':'red';
+    var parkland=(4*poids*total).toFixed(0);
+    var park8=(parkland/2).toFixed(0);
+    var conduct;
+    if(total<10){conduct='Brûlure mineure : pansement local + antalgie';}
+    else if(total<20){conduct='Brûlure modérée : remplissage Ringer Lactate, antalgie, hospitalisation';}
+    else{conduct='Brûlure grave : centre de brûlés. Parkland '+parkland+' mL/24h Ringer Lactate, dont '+park8+' mL sur 8h';}
+    r.classList.remove('green','yellow','red');r.classList.add(clsS);
+    updateColorResult(r,clsS);
+    renderRingResult(r,{
+      score:total+'%',
+      badge:total<10?'Mineure':total<20?'Modérée':'Grave',
+      interp:total+'% SCB. Parkland : '+(poids?parkland+' mL/24h ('+park8+' mL/8h)':'—'),
+      conduct:conduct
+    });
+  }
+  w.addEventListener('input',recalc);
+  document.getElementById('scbPoids').addEventListener('input',recalc);
+})();
+/* ========== TROU ANIONIQUE ========== */
+(function(){
+  var b=document.getElementById('taCalcBtn'),r=document.getElementById('taResult');
+  if(!b)return;
+  b.addEventListener('click',function(){
+    var na=parseFloat(document.getElementById('taNa').value);
+    var cl=parseFloat(document.getElementById('taCl').value);
+    var hco3=parseFloat(document.getElementById('taHCO3').value);
+    var alb=parseFloat(document.getElementById('taAlb').value);
+    if(!isFinite(na)||!isFinite(cl)||!isFinite(hco3)){r.textContent='Renseigner Na, Cl et HCO₃';return;}
+    var ta=na-(cl+hco3);
+    var taCorr=null;
+    var msg='TA = '+ta.toFixed(1)+' mmol/L';
+    if(isFinite(alb)){taCorr=(ta+0.25*(40-alb)).toFixed(1);msg+=' (corrigé sur albumine : '+taCorr+')';}
+    var int,clsT,conduct;
+    var taFinal=isFinite(taCorr)?parseFloat(taCorr):ta;
+    if(taFinal<8){int='TA bas';clsT='yellow';conduct='Rare. Penser hypoalbuminémie, intoxication Li, paraprotéinémie.';}
+    else if(taFinal<=16){int='TA normal';clsT='green';conduct='Si acidose : hyperchlorémique → diarrhée, acidose tubulaire rénale, perfusion NaCl.';}
+    else{int='TA augmenté';clsT='red';conduct='Si acidose : MUDPILES → Méthanol, Urémie, DKA/acidocétose, Paraldéhyde, Iron/INH, Lactate, Éthylène glycol, Salicylates.';}
+    r.classList.remove('green','yellow','red');r.classList.add(clsT);
+    updateColorResult(r,clsT);
+    renderRingResult(r,{
+      score:taFinal.toFixed(1),
+      badge:int,
+      interp:msg+' — Normale 8-16 mmol/L',
+      conduct:conduct
+    });
+  });
+})();
+
+
+
+
+
 
 /* ========== SHOCK INDEX ========== */
 (function(){
@@ -5158,12 +5484,10 @@ const adulteDrugs = [
 /* ========== EQUIVALENCE DES VOIES ========== */
 (function(){
   var equivData = {
-    Morphine:{note:'Equivalences approx. Variabilite interindividuelle.',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:1},{id:'sc',label:'SC',ratio:1},{id:'po',label:'Per os',ratio:3}]},
-    Paracetamol:{note:'Biodisponibilite per os 80-90%. IV si voie orale impossible.',voies:[{id:'iv',label:'IV',ratio:1},{id:'po',label:'Per os',ratio:1.1},{id:'pr',label:'Rectal',ratio:1.5}]},
-    Ketamine:{note:'Sub-dissociatif 0,2-0,3mg/kg IV. IM ratio x2.',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:2},{id:'in',label:'IN intranasal',ratio:2}]},
-    Midazolam:{note:'IN spray nasal efficace en 5min.',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:1.5},{id:'in',label:'IN intranasal',ratio:2},{id:'pr',label:'Rectal',ratio:2.5}]},
-    Metoclopramide:{note:'IV lent risque dyskinésie. IM et PO equivalents.',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:1},{id:'po',label:'Per os',ratio:1}]},
-    Ibuprofene:{note:'Voie IV ketoprofene uniquement. CI si IR, ulcere, grossesse.',voies:[{id:'iv',label:'IV ketoprofen',ratio:1},{id:'po',label:'Per os',ratio:1}]}
+    Morphine:{group:'Antalgiques',note:'Equivalences approx. Variabilite interindividuelle. PO ratio 3 (biodispo 30%).',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:1},{id:'sc',label:'SC',ratio:1},{id:'po',label:'Per os',ratio:3}]},
+    Nubain:{group:'Antalgiques',note:'Nalbuphine. Effet plafond. IN biodispo ~50%.',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:1},{id:'sc',label:'SC',ratio:1},{id:'in',label:'IN intranasal',ratio:4}]},
+    Midazolam:{group:'Benzodiazépines',note:'IN spray nasal efficace en 5min.',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:1.5},{id:'in',label:'IN intranasal',ratio:2},{id:'pr',label:'Rectal',ratio:2.5}]},
+    Valium:{group:'Benzodiazépines',note:'Diazepam. Intrarectal pédia : 0,5 mg/kg max 10 mg (convulsions).',voies:[{id:'iv',label:'IV',ratio:1},{id:'im',label:'IM',ratio:2},{id:'pr',label:'Intrarectal pédia',ratio:2.5}]}
   };
   var sel=document.getElementById('equivMolSelect');
   var doseIn=document.getElementById('equivDoseIn');
@@ -5171,7 +5495,20 @@ const adulteDrugs = [
   var results=document.getElementById('equivResults');
   var noteEl=document.getElementById('equivNote');
   if(!sel) return;
-  Object.keys(equivData).forEach(function(mol){var o=document.createElement('option');o.value=mol;o.textContent=mol;sel.appendChild(o);});
+  // Grouper par 'group' pour optgroups
+var groups={};
+Object.keys(equivData).forEach(function(mol){
+  var g=equivData[mol].group||'Autres';
+  if(!groups[g])groups[g]=[];
+  groups[g].push(mol);
+});
+Object.keys(groups).forEach(function(g){
+  var og=document.createElement('optgroup');og.label=g;
+  groups[g].forEach(function(mol){
+    var o=document.createElement('option');o.value=mol;o.textContent=mol;og.appendChild(o);
+  });
+  sel.appendChild(og);
+});
   function populateVoies(){var mol=sel.value,data=equivData[mol];if(!data)return;voieIn.innerHTML=data.voies.map(function(v){return '<option value="'+v.id+'">'+v.label+'</option>';}).join('');if(noteEl)noteEl.textContent=data.note;calc();}
   function calc(){var mol=sel.value,data=equivData[mol];if(!data||!results)return;var dose=parseFloat(doseIn&&doseIn.value),voieId=voieIn&&voieIn.value,srcRatio=data.voies.find(function(v){return v.id===voieId;});if(!dose||dose<=0||!srcRatio){results.innerHTML='';return;}var doseIV=dose/srcRatio.ratio;results.innerHTML=data.voies.map(function(v){var eq=doseIV*v.ratio,same=v.id===voieId;return '<div class="result" style="'+(same?'opacity:.45':'')+'"><div class="result-name">'+v.label+(same?' (source)':'')+'</div><div class="result-num" style="font-size:18px;font-weight:800;color:var(--primary)">'+fmt(eq)+' mg</div></div>';}).join('');}
   sel.addEventListener('change',populateVoies);
@@ -5240,39 +5577,64 @@ Indications AMM :
 ⚠️ Le flacon 2 mg n'est PAS adapté à l'IDM, l'EP ou l'AVC (risque de sous-dosage).`,
   presc:`ADULTE
 
-IDM (infarctus du myocarde aigu) :
-• Schéma accéléré (90 min) — dose totale 100 mg :
-  - Bolus IV : 15 mg
-  - Perfusion : 50 mg sur 30 min, puis 35 mg sur 60 min
-• Patient < 65 kg : adapter (max 1,5 mg/kg)
-• Héparine IV systématique après traitement (TCA cible 50–70 s)
+▸ IDM (infarctus du myocarde aigu) — schéma accéléré 90 min :
+Dose totale max : 100 mg
+• Bolus IV : 15 mg
+• Perfusion : 0,75 mg/kg max 50 mg sur 30 min
+• Puis : 0,5 mg/kg max 35 mg sur 60 min
+Patient < 65 kg : adapter (max 1,5 mg/kg total)
+Héparine IV systématique après traitement (TCA cible 50-70 s)
+Source : SRLF 2024-2025
 
-Embolie pulmonaire massive :
-• 100 mg en perfusion IV sur 2h
-• Héparine après si TCA < 2x normale
+▸ EMBOLIE PULMONAIRE MASSIVE (instabilité HD) :
+Bolus : 10 mg IVD
+Puis : 90 mg IVL sur 2h (ou 1,5 mg/kg si < 65 kg)
+Héparine après si TCA < 2× normale
+Source : SRLF 2024-2025
 
-AVC ischémique aigu (dans les 4h30) :
-• 0,9 mg/kg IV (max 90 mg)
-  - 10% en bolus IV sur 1 min
-  - 90% restants en perfusion sur 60 min
-• Surveillance neurologique et TA stricte pendant et après
+▸ ACR AVEC EP SUSPECTÉE (ACR réfractaire) :
+0,6 mg/kg (max 50 mg) IVL sur 15 min
+Poursuivre RCP ≥ 60-90 min après administration
+Source : SRLF 2024-2025
 
-Désobstruction cathéter veineux central (flacon 2 mg uniquement) :
+▸ AVC ISCHÉMIQUE AIGU (dans les 4h30) :
+Dose totale : 0,9 mg/kg (max 90 mg)
+• 10% en bolus IV sur 1 min
+• 90% restants en perfusion sur 60 min
+Surveillance neurologique et TA stricte pendant et après
+
+▸ DÉSOBSTRUCTION CATHÉTER VEINEUX CENTRAL (flacon 2 mg uniquement) :
 • ≥ 30 kg : 2 mg instillé dans le cathéter (max 2 doses)
 • < 30 kg : volume = 110% du volume interne du cathéter
 
-PÉDIATRIE : non établi pour IDM/EP/AVC. Cathéter : schéma adapté au poids (voir ci-dessus).`,
-  prep:`IDM / EP — flacon 50 mg :
-Reconstituer avec le solvant fourni → solution 1 mg/mL.
-Peut être dilué dans NaCl 0,9% jusqu'à concentration minimale 0,2 mg/mL.
-Ex : 50 mg/50 mL (pur reconstitué, 1 mg/mL) — perfusion sur 2h pour EP.
+PÉDIATRIE : non établi pour IDM/EP/AVC.
+Cathéter : schéma adapté au poids (voir ci-dessus).`,
+  prep:`Reconstitution avec EPPI strict (solvant fourni).
 
-AVC — 0,9 mg/kg (ex : 70 kg = 63 mg) :
+Concentrations possibles selon le protocole :
+• 1 mg/mL : 100 mg dans 100 mL EPPI (RCP standard)
+• 2 mg/mL : 100 mg dans 50 mL EPPI (SRLF 2024-2025 — standardisation)
+
+Dilution NaCl 0,9% possible jusqu'à 0,2 mg/mL minimum.
+
+EXEMPLES PRATIQUES :
+
+▸ IDM / EP — flacon 50 mg ou 100 mg :
+Reconstituer 50 mg dans 50 mL EPPI = 1 mg/mL
+Bolus + perfusion selon protocole.
+Pour EP : ex 50 mg/50 mL pur sur 2h.
+
+▸ AVC — calcul au poids 0,9 mg/kg (ex : 70 kg = 63 mg) :
 • Bolus : 6,3 mg (10%) en 1 min
 • Perfusion : 56,7 mg (90%) dans NaCl 0,9% sur 60 min
 
-Cathéter (flacon 2 mg) :
-Reconstituer 2 mg dans 2,2 mL eau PPI → 1 mg/mL. Instiller directement.`,
+▸ ACR avec EP suspectée (ex : 70 kg = 42 mg, max 50 mg) :
+Reconstituer 50 mg dans 50 mL EPPI = 1 mg/mL
+Prélever 42 mL et perfuser sur 15 min
+
+▸ Cathéter (flacon 2 mg) :
+Reconstituer 2 mg dans 2,2 mL EPPI = 1 mg/mL
+Instiller directement dans le cathéter.`,
   surv:`• TA, FC, SpO₂, Glasgow toutes les 15 min pendant perfusion, puis toutes les 30 min (1h), puis toutes les 60 min (6h)
 • Monitoring ECG continu (IDM/EP)
 • Surveillance neurologique rapprochée (AVC) : score NIHSS
@@ -5315,16 +5677,28 @@ Effets :
 
 ADULTES :
 
-• Coma Acido-cétosique et Hyperosmolaire :
-IVSE : 0,1 U / kg / Heure (à adapter selon le cas et selon la glycémie) (Max 10 UI/heure)
+• Coma Acido-cétosique et Hyperosmolaire (SRLF 2024-2025) :
+IVSE : débuter à 0,05 UI/kg/h (max 0,2 UI/kg/h)
+(jusqu'à 0,1 UI/kg/h selon protocole local — plafond pratique 10 UI/h)
+À adapter selon la glycémie et l'état clinique
 
 • Intoxication aux bêtabloquants / IC (si collapsus prédominant):
 Après remplissage et glucagon
 Actrapid Bolus IV : 0,5 à 1 UI / kg puis IVSE de 0,5 à 1 UI /kg/heure
 Associée à 0,5g /kg/Heure de Glucose (G10% généralement soit environ 1l G10% sur 24h)
 
-• HyperKaliémie menaçante :
-IVSE : 20 UI , en association à une Perfusion de G10% (500ml) sur 1h (selon le cas, bolus IV possible )
+• HyperKaliémie menaçante (SRLF 2024-2025 / AHA / ERC) :
+10 UI d'insuline rapide + 500 mL G10% en IVL sur 30 min
+(jusqu'à 15 UI selon protocoles français — SRLF Souweine)
+Renouvelable selon contrôle de la kaliémie
+⚠️ Au-delà de 20 UI : effet maximum atteint, pas d'insulino-résistance
+   → risque hypoglycémie augmenté (17% à 10 UI déjà)
+
+Préparation alternative (SRLF) :
+Prélever 10 UI et compléter à 100 mL G10% (concentration 0,1 UI/mL)
+Posologie : 1 mL/kg (max 100 mL) IVL 30 min, renouvelable une fois
+
+Surveillance glycémie capillaire toutes les heures pendant 6h post-administration
 
 PÉDIATRIE :
 
@@ -5643,7 +6017,13 @@ Risques : Nausées/vomissements, agitation/confusion, Anxiété/bouffées de cha
 BAVU à proximité : risque d'effet rebond car la demi-vie d'élimination du Flumazénil est plus courte que celle des benzodiazépines (association dose d’entretien à la dose de charge afin d’éviter somnolence...)
 
 Autre notion : risque de syndrome de sevrage chez les patients traités par des BZD à dose élevées et/ou prolongée`,
-  ci:`Intoxication polymédicamenteuses (tricycliques...)
+  ci:`⚠️ CI CRITIQUES (RISQUE CONVULSIONS) :
+Intoxication polymédicamenteuse, notamment co-ingestion d'antidépresseurs tricycliques
+Épilepsie chronique
+Co-ingestion de médicaments pro-convulsivants (ex : carbamazépine)
+
+Autres CI :
+Intoxication polymédicamenteuses (tricycliques...)
 
 Epilepsie (traitée par BZD)
 Hypersensibilité au produit Flumazénil ou aux Benzodiazépines
@@ -5804,29 +6184,112 @@ en association avec les Bêta-2-mimétique d'action rapide (ex : Salbutamol (VEN
 Effets :
 
 • Agit par inhibition des récepteurs cholinergiques du muscle lisse bronchique`,
-  presc:`Aérosols sous oxygène/air (selon avis médical) entre 6-8l pour nébulisation entre 10-15min
+  presc:`Aérosols sous oxygène/air (selon avis médical) entre 6-8 L/min pour nébulisation 10-15 min
 
- ADULTES et enfant > 6 ans :
-Aérosol : 0,5mg dilué une fois avec 3ml/4ml de NaCl 0,9% pour total de 5ml
+▸ ADULTES :
+0,5 mg dilué dans 3-4 mL NaCl 0,9% pour total 5 mL
 
- ENFANTS < 6 ans :
-Aérosol : 0,25mg à diluer dans NaCl 0,9% avec 2ml/3ml pour volume final de 4ml
-Association avec un Bêta-2-mimétique dans le même aérosol
+▸ PÉDIATRIE — par POIDS (SRLF 2024-2025) :
+< 16 kg : 0,25 mg
+≥ 16 kg : 0,5 mg
+Compléter NaCl 0,9% pour 5 mL
+Souvent en association avec un Bêta-2-mimétique dans le même aérosol
 
-⚠️ Nébulisation possible toutes les 8 heures selon clinique et avis médical ⚠️`,
+⚠️ Nébulisation renouvelable toutes les 8 heures selon clinique et avis médical.`,
   prep:`0,5mg dilué une fois avec 3ml/4ml de NaCl 0,9% pour total de 5ml (adulte)
 
 0,25mg à diluer dans NaCl 0,9% avec 2ml/3ml pour volume final de 4ml (<6ans)`,
   surv:`FC, FR, SpO2, TA, Glasgow
 
 Risques : Sécheresse de la bouche et Irritation pharyngée, Toux possible, Céphalées, sensations vertigineuses`,
-  ci:`Allergie aux anticholinergiques
-Hypersensibilité à l’atropine
-Protection oculaire si Glaucome à angle fermé (risque mydriase)
-Grossesse <3mois (cf : CRAT)`,
+  ci:`Aucune CI absolue en contexte d'urgence (SRLF 2024-2025).
+
+Précautions :
+• Hypersensibilité à l'atropine ou aux anticholinergiques
+• Glaucome à angle fermé (risque mydriase — protection oculaire)
+• Grossesse < 3 mois (cf : CRAT)`,
   dil:`NaCl 0,9%`,
   voie:`Par Nébulisation`,
   },
+  {nom:'BICARBONATE DE SODIUM',dci:'Bicarbonate de sodium (1,4% / 4,2% / 8,4%)',
+  ind:`Solution alcalinisante électrolytique
+
+Trois concentrations disponibles :
+
+▸ BICARBONATE 1,4% (iso-osmolaire) :
+Concentration : 167 mmol/L | Osmolarité : 333 mOsm/L
+Indications : Acidose métabolique sévère, Hyperkaliémie menaçante
+Forme iso-osmolaire = utilisable en VVP
+
+▸ BICARBONATE 4,2% (hyperosmolaire) :
+Concentration : 500 mmol/L | Osmolarité : 1000 mOsm/L
+Indications : ACR PROLONGÉ, Acidose métabolique sévère, Hyperkaliémie menaçante
+
+▸ BICARBONATE 8,4% (TRÈS hyperosmolaire) :
+Concentration : 1000 mmol/L | Osmolarité : 2000 mOsm/L
+Indication phare : INTOXICATIONS aux médicaments stabilisateurs de membrane
+(ECG : QRS larges, troubles ventriculaires)
+⚠️ VVC IDÉALEMENT (très veinotoxique en VVP)`,
+  presc:`▸ ACIDOSE MÉTABOLIQUE SÉVÈRE (toutes concentrations) :
+
+En pratique : 125 à 250 mL IVL sur 30 min - 1h
+
+En théorie (calcul du déficit) :
+Quantité HCO3⁻ (mmol) = ∆[HCO3⁻] × 0,2 × poids (kg)
+Objectif : remonter rapidement pH > 7,20 et HCO3⁻ > 10 mmol/L
+
+▸ HYPERKALIÉMIE MENAÇANTE :
+
+1 mmol/kg (max 50 mmol), IVL 30 min - 1h
+(En association avec d'autres mesures : insuline-glucose, gluconate de Ca, salbutamol)
+
+▸ INTOXICATION AUX STABILISATEURS DE MEMBRANE (8,4% uniquement) :
+
+Indication : QRS larges (>120 ms), troubles ventriculaires
+(Tricycliques, anti-arythmiques classe Ia/Ic, propranolol, chloroquine, quinidine, cocaïne...)
+
+125 à 250 mL IVL sur 30 min - 1h
+Renouvelable 1× si besoin (sous surveillance ECG continue)
+⚠️ VVC obligatoire idéalement
+
+▸ ACR PROLONGÉ (4,2% ou 8,4%) :
+
+1 mmol/kg (max 50 mmol), IVL après les premières mesures de réanimation
+Source : SRLF Urgences Vitales 2024-2025`,
+  prep:`PUR — solutions prêtes à l'emploi.
+⚠️ Rincer la voie veineuse APRÈS administration (incompatibilités multiples).
+
+Conditionnements courants :
+1,4% : poches 250-500 mL
+4,2% : ampoules 10-20 mL
+8,4% : ampoules 10-20 mL
+
+⚠️ Incompatibilités IV : NaCl, héparine, calcium, catécholamines (adrénaline, dopamine, dobutamine), amiodarone, furosémide.`,
+  surv:`Monitoring : TA, FC, FR, SpO2, ECG.
+
+Surveillance biologique :
+• Gaz du sang artériel (avant/après administration)
+• Ionogramme sanguin (Na, K, Cl)
+• Calcémie
+
+Risques :
+• Surcharge sodée (1g HCO3⁻ ≈ 12 mmol Na)
+• Hypokaliémie (transfert intracellulaire)
+• Hypocalcémie symptomatique
+• Alcalose métabolique iatrogène si surdosage
+• Veinotoxicité (8,4% surtout) : nécrose si extravasation
+
+Surdosage : alcalose métabolique, tétanie, hypoxie tissulaire (effet Bohr inversé)`,
+  ci:`Discuter le rapport bénéfice-risque en cas de :
+• Hyperosmolarité plasmatique
+• Insuffisance cardiaque sur surcharge hydro-sodée
+• Hypokaliémie (à corriger en parallèle)
+• Alcalose métabolique préexistante
+• Hypocalcémie (à corriger en parallèle)
+
+Pas de données pédiatriques pour la forme 8,4% (SRLF).`,
+  dil:`Pur — solution prête à l'emploi`,
+  voie:`IV (1,4% : VVP possible ; 4,2% : VVP gros calibre ; 8,4% : VVC IDÉALEMENT) — IO`,},
   {nom:'AUGMENTIN®',dci:'Amoxicilline Acide Clavulanique',
   ind:`Antibiotique (Famille : Pénicillines associé à un inhibiteur de bêta-lactamase)
 
@@ -6192,7 +6655,9 @@ Risques : Hypotension sévère, bradycardie, collapsus cardiovasculaire mortel s
 Veinite, phlébite, bouffée de chaleur, sueurs, nausées/vomissements, douleurs abdominales
 Malaise, asthénie, tremblements, céphalées
 
-Conseillé : ECG + Ionogramme Sanguin (hypokaliémie) + bilan thyroïdien AVANT injection si possible`,
+Conseillé : ECG + Ionogramme Sanguin (hypokaliémie) + bilan thyroïdien AVANT injection si possible
+
+⚠️ Incompatibilités IV : NaCl, héparine, bicarbonate, furosémide. G5% strict.`,
   ci:`Bradycardie sinusale, bloc sino-auriculaire non appareillé
 BAV II et BAV III (troubles conduction non appareillé)
 Hypotension artérielle sévère
@@ -6215,9 +6680,11 @@ Hoquets irréductibles`,
 Exemple pour patient de 70kg : 1,5 à 2g soit 4 à 5 ampoules / jour (mode fractionné)
 ou perfusion continu sur 24h (Avis Médical)
 
-Bolus : 15 à 20mg/kg en IVL sur 5min (3 ampoules chez adulte de 60kg) (Max : 3g)
-Généralement 30min après le bolus :
-Relais PSE au débit de 1 à 2mg/kg/heure (adapté secondairement aux dosages sanguins : 50 à 100 mg/L)
+Bolus EME : 40 mg/kg en IVL sur 15 min (max 3 g)
+Débit : 3 à 6 mg/kg/min (recos françaises EME 2018, SRLF 2024)
+⚠️ Préférer un autre traitement de 2e ligne chez les femmes en âge de procréer (CI relative)
+Relais IVSE 30 min après le bolus : 1 à 3 mg/kg/h
+(adapté secondairement aux dosages sanguins : objectif 75 mg/L, fourchette 50-100 mg/L)
 
 Généralement pas utilisé chez l'enfant, la femme enceinte et la femme en âge de procréer
 
@@ -6238,16 +6705,20 @@ Utilisé en seconde ligne si EME résistants aux BZD ( à discuter)`,
 Autres exemple : Dose nécessaire (flacon) dans 25 ml NaCl 0,9% sur 15 min (V100)`,
   surv:`TA, FC, FR, SpO2, Glasgow, EN
 
-Risques : Tératogène (malformations), effets confusionnel régressifs à l’arrêt du traitement, thrombopénie dose-dépendante
-Hépatotoxicité (ASAT/ALAT), hyponatrémie, Tremblements, prise de poids, anémie, perte d’audition, nausées, vomissements, céphalées, convulsions, incontinence urinaire, troubles auditifs, hémorragie, nécrose tissulaire si extravasation…
+Risques : Tératogène (malformations), effets confusionnel régressifs à l'arrêt du traitement, thrombopénie dose-dépendante
+Hépatotoxicité (ASAT/ALAT), hyponatrémie, Tremblements, prise de poids, anémie, perte d'audition, nausées, vomissements, céphalées, convulsions, incontinence urinaire, troubles auditifs, hémorragie, nécrose tissulaire si extravasation…
 
 Intoxication/surdosage : troubles de la conscience, coma calme, myosis, hypotonie, hyporéflexie, bradycardie, acidose métabolique, HTIC sur œdème cérébral, collapsus
 
 Surveillance NFS / Ionogramme / BH
 (Taux toxique au-delà de 130 à 150 mg/mL)`,
-  ci:`Affections hépatiques ou ATCD d’hépatite
+  ci:`Affections hépatiques ou ATCD d'hépatite
 Hypersensibilité au produit (valproate de sodium)
-Grossesse (cf : CRAT)`,
+Grossesse — CI absolue sauf si absence d'alternative (cf : CRAT)
+⚠️ Maladies mitochondriales (notamment trouble lié à la POLG)
+⚠️ Trouble connu du cycle de l'urée, déficience systémique
+Porphyrie hépatique
+Syndrome de DRAVET (épilepsie pédiatrique — risque aggravation)`,
   dil:`NaCl 0,9%, G5%, EPPI`,
   voie:`IV (quand Per os impossible)`,
   },
@@ -6299,8 +6770,9 @@ Risques : Bradycardie, Troubles digestifs (nausées/vomissements, diarrhée) et 
 
 Surdosage : céphalées, vertiges, colorations jaune de la vision, arythmie
 
-Concentration plasmatique Digoxine : 0,5 à 2 μg/L (0,75 à 2,5 mmol/L)
-Concentration Toxique Digoxine : > 3 mmol/L
+Concentration plasmatique Digoxine (objectif) : 0,8 à 1,5 ng/mL (cible moderne, plus stricte)
+Concentration Toxique Digoxine : > 2,5 ng/mL
+(Note : 1 ng/mL = 1 μg/L. La conversion en nmol/L : 1 ng/mL ≈ 1,28 nmol/L, masse molaire ≈ 781 g/mol)
 
 Si Bradycardie, BAV (Hyperexcitabilité ventriculaire) : Atropine®
 Si Hyperexcitabilité Myocardique : Cordarone®
@@ -6470,7 +6942,7 @@ Grossesse, allaitement (cf : Vidal)`,
   dil:`PUR (Agiter le produit) ou G5%`,
   voie:`IV`,
   },
-  {nom:'DOBUTAMINE®',dci:'Dobutamine Chlorhydrate',
+  {nom:'DOBUTAMINE® (DOBUTREX)',dci:'Dobutamine Chlorhydrate',
   ind:`Amine sympathomimétique - Tonicardiaque
 Catécholamine de synthése
 
@@ -6727,7 +7199,7 @@ Risques : Thrombophlèbite au site d'injection, urticaire, angiooedème , nausé
   dil:`NaCl 0,9%, G5 %`,
   voie:`IV`,
   },
-  {nom:'EUPRESSYL®',dci:'Urapidil',
+  {nom:'EUPRESSYL® (URAPIDIL)',dci:'Urapidil',
   ind:`Anti-Hypertenseur Vasodilatateur Alphabloquant
 
 Indiqué pour :
@@ -6747,10 +7219,13 @@ Effets :
 Bolus : 15 à 25mg en IVL (20-30 secondes) A Renouveler une fois 5 min plus tard si la réduction de la PA n'est pas suffisante
 Dose d’entretien : 5 à 40mg/h IVSE possible (en moyenne 15mg/h)
 
-ENFANTS :
+ENFANTS (hors AMM — usage en réa pédiatrique) :
 
-Dose initiale : 2mg/kg/heure
+Dose initiale : 0,5 mg/kg/heure IVSE
 Dose d’entretien : 0,8 mg/kg/heure IVSE
+Dose maximale : 2-3 mg/kg/heure selon réponse tensionnelle (avis spécialiste)
+⚠️ Hors AMM chez l’enfant — RCP ANSM : sécurité non établie 0-18 ans
+Source : SRLF Urgences Vitales 2024-2025
 
 Exemple de Préparation pour Utilisation PURE :
 1 ampoule : 50mg/10ml soit 5 mg/ml (seringue de 10ml)
@@ -6795,18 +7270,33 @@ choc hémorragique (TC grave, traumatismes pénétrants, traumatismes du bassin,
 Effets :
 • Bloque les récepteurs du plasminogène, de l’activateur tissulaire du plasminogène -> inhibe la formation de plasmine réactionnelle à une fibrinolyse naturelle et donc retarde la dégradation du caillot et diminue l’hémorragie`,
   presc:`ADULTES :
-Pour la réanimation du choc hémorragique (dans les trois 1ère heures du traumatisme) : Bolus de 1g sur 10 minutes suivi de 1g IVSE sur 8h
-si non traumatisé mais choc hémorragique : même schéma (1g sur 10 min puis IVSE 1g sur 8h)
 
-Autres indications : entre 2 et 4g / jour à répartir en 2 à 3 prises
+▸ CHOC HÉMORRAGIQUE (trauma, post-partum, péri-opératoire) :
+Bolus : 1g IVL sur 10 min (CRASH-2 standard)
+Puis IVSE : 1g sur 8h
+⚠️ Fenêtre temporelle : démarrer dans la 1ère heure idéalement, jusqu'à 3h post-trauma maximum (CRASH-2 / WOMAN)
 
- PÉDIATRIE :
-Si choc hémorragique de l'enfant dans les trois 1ères heures du traumatisme :
-> 10 ans : comme l'adulte
-< 10 ans : 10mg/kg sur 10 min puis 10mg/kg/heure
+▸ HÉMORRAGIE POST-PARTUM (HPP) :
+1g IV en 10 min, à répéter 30 min après si saignement persistant
+Pas d'efficacité au-delà de 3h post-naissance
 
-Autres indications > 1 an :
-20mg/kg/jour`,
+▸ AUTRES INDICATIONS HÉMORRAGIQUES :
+2 à 4g/jour répartis en 2-3 prises
+
+PÉDIATRIE :
+
+▸ Choc hémorragique / trauma sévère :
+
+> 12 ans : comme l'adulte (1g sur 10 min puis 1g sur 8h)
+
+< 12 ans (SRLF / TIC-TOC 2024-2025) :
+Bolus : 15 mg/kg sur 10 min (max 1 g)
+Entretien : 2 mg/kg/h pendant 8h (ou jusqu'à arrêt du saignement)
+Dose maximale par jour : 20 mg/kg/j
+⚠️ Risque convulsif si dose cumulée > 80 mg/kg
+
+▸ Autres indications > 1 an :
+20 mg/kg/jour`,
   prep:`Préparations DILUÉES pour IVL en perfusion :
 0,5g dans un soluté de 100ml NaCl 0,9% sur 10 min
 1g dans un soluté de 100ml NaCl 0,9% sur 10 min
@@ -6831,7 +7321,7 @@ CIVD
 Voie intraventriculaire, Voie IM, intracérébrale
 Grossesse 1er trimestre et allaitement (cf CRAT)`,
   dil:`NaCl 0,9%, G5%, Ringer Lactate`,
-  voie:`IV`,
+  voie:`IV / IO`,
   },
   {nom:'GARDENAL®',dci:'Phénobarbital sodique',
   ind:`Antiépileptique Barbiturique Majeur
@@ -6839,7 +7329,7 @@ Anticonvulsivant, Sédatif et Hypnotique
 
 Indiqué pour :
 Etat de mal épileptique de l'adulte et de l'enfant après echec des Benzodiazépines et/ou phénytoïne
-En prévention des récidives de convulsions hyperthermiques de l’enfant
+En prévention des récidives de convulsions hyperthermiques de l'enfant
 
 Effets :
 Inducteur enzymatique - Dépresseur central et respiratoire modéré (Barbiturique)
@@ -6877,13 +7367,13 @@ Utiliser seringue de 50ml :
 
 -100kg : 1500mg (8 flacons de 200mg/4ml) Prendre 30 mL IVSE à V 90ml/h (20 min)
 
-Par voie I.M : 40 mg dans 2 ml d’EPPI`,
-  prep:`Dose nécessaire a diluer jusqu’à 60ml avec NaCl 0,9%
+Par voie I.M : 40 mg dans 2 ml d'EPPI`,
+  prep:`Dose nécessaire a diluer jusqu'à 60ml avec NaCl 0,9%
 et IVSE à V180 (soit 20min)
 
 Autre exemple de préparation déjà rencontré :
 Si Posologie en dose de charge à 15mg/kg IVSE
-Reconstituer chaque flacon de 200 mg avec 4ml d’ EPPI
+Reconstituer chaque flacon de 200 mg avec 4ml d' EPPI
 
 Utiliser seringue de 20 mL ou 50 mL : (Flacon 200mg + 4mL solvant)
 -30kg : 450mg (3 flacons) Prendre 9 mL : IVSE à V 90ml/h (6 min)
@@ -6901,20 +7391,25 @@ Utiliser seringue de 50ml : (Flacon 200mg + 4mL solvant)
 
 -100kg : 1500mg (8 flacons) Prendre 30 mL : IVSE à V 90ml/h (20 min)
 
-Par voie IM : 40 mg dans 2 ml d’EPPI`,
-  surv:`Monitoring : TA, FC, FR, SpO2 (surveillance rapprochée)
+Par voie IM : 40 mg dans 2 ml d'EPPI`,
+  surv:`Monitoring : TA, FC, FR, SpO2 (surveillance rapprochée)
 
 Surveillance neurologique (convulsions, coma), conscience, sédation...
 
-Risques  : Nausées, vomissements, convulsions, troubles de l’humeur, agitation/agressivité, vertiges, céphalées, somnolence, troubles cognitifs, réactions allergiques/cutanées (dermatite), thrombophlébite, hypothermie, syndrome hémorragiques chez le nouveau-né, crise de porphyrie, élévation des enzymes hépatiques...
+Risques  : Nausées, vomissements, convulsions, troubles de l'humeur, agitation/agressivité, vertiges, céphalées, somnolence, troubles cognitifs, réactions allergiques/cutanées (dermatite), thrombophlébite, hypothermie, syndrome hémorragiques chez le nouveau-né, crise de porphyrie, élévation des enzymes hépatiques...
 
-Surdosage  : Dans l’heure survient : nausées, vomissements, céphalées, obnubilation, confusion mentale voire coma (avec bradypnée irrégulière, hypotension, encombrement trachéobronchique)`,
+Surdosage  : Dans l'heure survient : nausées, vomissements, céphalées, obnubilation, confusion mentale voire coma (avec bradypnée irrégulière, hypotension, encombrement trachéobronchique)
+
+⚠️ Administrer la dose au complet, même en cas d'arrêt des convulsions (taux thérapeutique)`,
   ci:`Absence de matériel de Réanimation
 
 Hypersensibilité aux barbituriques
 Porphyries
 Insuffisance respiratoire sévère
-Allaitement, grossesse au 1er trimestre (cf : CRAT)`,
+Allaitement, grossesse au 1er trimestre (cf : CRAT)
+⚠️ Syndrome de DRAVET (épilepsie pédiatrique — risque aggravation EME myoclonique)
+Intolérance au gluten
+Médicament inducteur enzymatique (interactions multiples)`,
   dil:`EPPI , NaCl 0,9%`,
   voie:`IV, IM`,
   },
@@ -6931,8 +7426,10 @@ Effets :
 • Lève la possible bronchoconstriction induite par l'intoxication aux Bêtabloquants`,
   presc:`ADULTES :
 
-Hypoglycémie : 1mg IM/SC en première intention ou IV sur 2min renouvelable après 25min
-(Associer ressucrage IV/per os)
+Hypoglycémie : 1 mg IM/SC en première intention OU IV sur 2 min.
+⚠️ Si pas de réponse dans les 10 min (RCP ANSM) → privilégier glucose IV.
+Si IV impossible : possibilité de renouveler glucagon après 15-20 min.
+(Associer ressucrage IV/per os dès reprise de conscience)
 
 Intoxication Bêtabloquants : (50 à 100 μg/kg) 4 à 10 mg en IVL sur 2min
 Avec Relais IVSE si efficacité : 3 à 5 mg/h (max 10mg/h)
@@ -6970,6 +7467,89 @@ Glucagonome, phéochromocytome`,
   dil:`EPPI, G5%`,
   voie:`IM, IV, SC`,
   },
+  {nom:'FLUIMUCIL® (NAC) / HIDONAC®',dci:'N-acétylcystéine',
+  ind:`ANTIDOTE de référence dans l'intoxication au paracétamol.
+
+Indiqué pour :
+Surdosage paracétamol > 150 mg/kg en aigu
+Hépatotoxicité confirmée ou risquée (selon nomogramme Rumack-Matthew)
+Intoxication tétrachlorure de carbone
+
+Mécanisme : Précurseur du glutathion, neutralise le métabolite toxique du paracétamol (NAPQI).`,
+  presc:`SCHÉMA IV CLASSIQUE 3 PHASES (300 mg/kg sur 21h) :
+
+Phase 1 : 150 mg/kg IV en 1h (dans 200 mL G5%)
+Phase 2 : 50 mg/kg IV sur 4h (dans 500 mL G5%)
+Phase 3 : 100 mg/kg IV sur 16h (dans 1000 mL G5%)
+
+SCHÉMA ALTERNATIF SNAP 12h (récent, mieux toléré) :
+Phase 1 : 100 mg/kg IV sur 2h
+Phase 2 : 200 mg/kg IV sur 10h
+(Profil tolérance amélioré, moins de réactions anaphylactoïdes)
+
+PÉDIATRIE : Schéma 3 phases identique au poids.
+Si poids < 40 kg : adapter les volumes pour éviter surcharge hydrique.
+
+⚠️ Démarrer dès que possible, idéalement < 8h après ingestion (efficacité max).
+
+Source : RCP ANSM, recos SFTA, Pediadol`,
+  prep:`Ampoule Fluimucil® 5 g/25 mL = 200 mg/mL.
+À diluer dans G5% pour perfusion lente (cf protocole 3 phases).
+
+Hidonac® : ampoule 200 mg/mL, présentation hospitalière.`,
+  surv:`Bilan biologique :
+• ALAT/ASAT toutes les 12h pendant le traitement
+• INR (TP), créatinine, glycémie
+• Paracétamolémie initiale (à 4h post-ingestion minimum)
+
+⚠️ Surveillance pseudo-anaphylactique pendant la 1ère heure :
+Urticaire, érythème, bronchospasme, hypotension (~5-10% des cas)
+→ Ralentir/suspendre la perfusion, antihistaminiques si besoin
+Reprendre à débit réduit si réaction modérée.
+
+Voie : IV uniquement (pour antidote — voie inhalée pour autres indications).`,
+  ci:`Hypersensibilité connue à la N-acétylcystéine.
+Bronchospasme actif (CI relative — bénéfice/risque à évaluer en intox grave).
+Asthme actif sévère (précaution).`,
+  dil:`G5%`,voie:`IV perfusion lente`,},
+  {nom:'FOMEPIZOLE®',dci:'Fomépizole',
+  ind:`ANTIDOTE des intoxications aux alcools toxiques.
+
+Indiqué pour :
+Intoxication au méthanol (alcool de bois, distillats artisanaux)
+Intoxication à l'éthylène glycol (antigel)
+
+Mécanisme : Inhibiteur compétitif de l'alcool déshydrogénase (ADH).
+Empêche la métabolisation des alcools toxiques en métabolites actifs (formaldéhyde, glycolate, oxalate).`,
+  presc:`ADULTE & PÉDIATRIE (dose identique au poids) :
+
+Dose de charge : 15 mg/kg IVL sur 30 min (dans 100 mL NaCl 0,9% ou G5%).
+
+Doses suivantes : 10 mg/kg toutes les 12h × 4 doses (en IVL 30 min).
+
+Si traitement prolongé > 48h : augmenter à 15 mg/kg/12h (induction enzymatique).
+
+PENDANT ÉPURATION EXTRARÉNALE (dialyse) :
+1 mg/kg/h en IVSE continu (élimination par dialyse).
+
+Critères d'arrêt :
+• Concentration sanguine méthanol < 20 mg/dL OU éthylène glycol < 0,2 g/L
+• pH normalisé, absence de symptômes, fonction rénale stabilisée
+
+Source : RCP ANSM, SFTA, Centres Anti-Poison`,
+  prep:`Flacon 1,5 g/1,5 mL = 1 g/mL.
+À diluer dans 100 mL NaCl 0,9% ou G5% pour IVL 30 min.
+
+Conservation : entre 2-8°C. Si solide à T° ambiante, réchauffer délicatement (eau tiède, mains).`,
+  surv:`Glycémie capillaire (toxicité hypoglycémie possible).
+Ionogramme sanguin, gaz du sang (acidose métabolique = signe de toxicité résiduelle).
+Fonction hépatique (ALAT/ASAT).
+Concentrations sanguines toxiques (méthanol, éthylène glycol) — guide arrêt traitement.
+
+Effets indésirables : céphalées, nausées/vomissements, vertiges, douleur au site d'injection.`,
+  ci:`Hypersensibilité aux pyrazoles.
+Aucune CI absolue en urgence vitale (risque alcool toxique > risque effet secondaire).`,
+  dil:`NaCl 0,9% ou G5%`,voie:`IV perfusion lente / IVSE en dialyse`,},
   {nom:'GLUCONATE DE CALCIUM 10%',dci:'Gluconate de calcium',
   ind:`Ion essentiel dans la perméabilité membranaire et l'inotropisme cardiaque
 Norme Calcémie : 2,25 à 2,62 mmol
@@ -6987,11 +7567,15 @@ Impliqué dans le processus de coagulation sanguine facteur IV, la conduction ne
 
 Hypocalcémie aiguë & Tétanie : 1g à 2g IVL sur 15min
 
-Hyperkaliémie menaçante : 1g en IVL ( renouveler si besoin après 5 min)
+Hyperkaliémie menaçante : 1g (1 ampoule) IVL sur 20 min (renouveler 1 fois si besoin après 5 min) — SRLF 2024-2025
 
 Dans l’intoxication à l’acide fluorhydrique : 2 à 3 g en 30 minutes
 (gluconate de calcium en gel si cas de projection sur la peau)
 Des doses massives peuvent être utilisées dans les intoxications graves.
+
+Intoxication aux inhibiteurs calciques (préférer Chlorure de Ca + concentré ; Gluconate possible) :
+Bolus 1g IVL toutes 2-3 min (max 5g) puis IVSE 1g/h
+Surveillance étroite calcémie ionisée (cible < 2 mmol/L) — SRLF 2024-2025
 
 PÉDIATRIE
 
@@ -7007,8 +7591,11 @@ Dose dépendante de la sévérité des symptômes et du degré d'hypocalcémie
 > 12 ans : Dose adulte`,
   prep:`Préparations DILUÉES :
 • 1 flacon 10ml (10%) dans un soluté de 100 mL de G5% IVL sur 20 min
+• 5 flacons de 10mL (10%) dans un soluté de 500 ml de G5% sur 10 à 12h IVSE ou en perfusion avec régulateur de débit
 
-• 5 flacons de 10mL (10%) dans un soluté de 500 ml de G5% sur 10 à 12h IVSE ou en perfusion avec régulateur de débit`,
+Préparation pédiatrique (SRLF 2024-2025) :
+Prélever 1 mL (100 mg) et compléter à 9 mL avec NaCl 0,9% ou G5%
+Concentration finale : 10 mg/mL`,
   surv:`Monitoring (TA, FC, FR, SpO2), ECG, Ionogramme sanguin et calcémie, surveillance du débit (pas plus de 50mg/min)
 
 Risques et effets seconds : Rougeur de la peau, sensation de brulure, douleur au point d'injection et risque de nécrose tissulaire si extravasation
@@ -7020,7 +7607,7 @@ Hypercalcémie, Hypercalciurie
 Lithiase calcique
 Hypersensibilité au produit`,
   dil:`NaCl 0,9%, G5%`,
-  voie:`IV`,
+  voie:`IV — voie centrale ou périphérique de GROS CALIBRE (veinotoxicité)`,
   },
   {nom:'GLUCOSE 30%',dci:'Glucose 30%',
   ind:`Solution hypertonique de glucose
@@ -7035,8 +7622,19 @@ Hypoglycémie : Généralement 1 à 3 ampoules de G30% 10ml (3g) en IVL
 10 à 60 ml IVL quelques minutes jusqu'à reprise de l'etat de conscience puis relai par perfusion glucosé G10% ou G5% et/ou per os
 
 PÉDIATRIE :
-Si hémoglugotest blanc du bébé : 2 ou 3 mL / Kg de G10% puis perfusion continue de 0,3 à 0,5 g/kg/heure , soit de 3 à 5 mL/kg/heure de G10%
-Entre 0,25 et 0,45 g/L, perfusion continue de G10% ( de 3 à 5 mL/kg/h)`,
+
+⚠️ G30% INTERDIT chez nouveau-né et nourrisson < 6 mois :
+Risque de NÉCROSE CÉRÉBRALE par hyperosmolarité brutale.
+Utiliser exclusivement G10% en pédiatrie néonatale.
+
+Nourrisson / Nouveau-né (G10% UNIQUEMENT) :
+Bolus 2 mL/kg de G10% puis perfusion continue 0,3-0,5 g/kg/h (3-5 mL/kg/h de G10%)
+Entre 0,25 et 0,45 g/L : perfusion continue G10% (3-5 mL/kg/h)
+
+Enfant (selon SRLF 2024-2025) :
+Si G30% : bolus 10 mL/20 kg de poids
+Si G10% : bolus 30 mL/20 kg de poids
+À répéter toutes les 5 min jusqu'à normalisation glycémie`,
   prep:`Préparation PURE
 
 IVL sur 2 min
@@ -7056,157 +7654,166 @@ Hyperlactatémie`,
   dil:`EPPI, NaCl 0,9%, G5%`,
   voie:`IV`,
   },
-  {nom:'HEPARINE®',dci:'Héparine sodique',
-  ind:`Anticoagulant d’Action Immédiate
-Anti Thrombotique
-Héparine Non Fractionnée (HNF)
+  {nom:'GLUCOSE 10%',dci:'Glucose 10% (G10)',
+  ind:`Solution glucosée hypotonique (par rapport au G30%)
 
 Indiqué pour :
-Thromboses Veineuses Profondes constituées
-Embolie pulmonaire en phase aiguë, et Embolies artérielles extra cérébrales
-IDM à la phase aiguë
-Certains cas de coagulopathie
-En Prévention des accidents thromboemboliques artériels ainsi qu’en prévention de la coagulation dans les circuits de circulation extracorporelle et d’épuration extrarénale
+Hypoglycémie sévère
+Pédiatrie : forme PRIVILÉGIÉE en néonatalogie/nourrisson
+Relais après G30%
+Apports glucidiques hydroélectrolytiques`,
+  presc:`▸ NOURRISSON / NOUVEAU-NÉ (G10% UNIQUEMENT - SRLF 2024-2025) :
+
+⚠️ G30% INTERDIT chez nourrisson < 6 mois (risque nécrose cérébrale par hyperosmolarité)
+
+Hypoglycémie : Bolus 2 mL/kg de G10% IVL
+À répéter toutes les 5 min jusqu'à normalisation glycémie
+Puis perfusion continue : 0,3 à 0,5 g/kg/h (3-5 mL/kg/h de G10%)
+
+▸ ENFANT (SRLF 2024-2025) :
+
+Hypoglycémie : Bolus 30 mL / 20 kg de poids
+À répéter toutes les 5 min jusqu'à normalisation
+
+▸ ADULTE :
+
+Hypoglycémie : 50-100 mL G10% IVL en relais après G30%
+Apports d'entretien : 1500-2000 mL/24h en perfusion continue (selon contexte)`,
+  prep:`Solution prête à l'emploi.
+Conditionnements : poches 250 mL, 500 mL, 1000 mL.
+
+Préparation hypotonique → veinotoxicité moindre que G30%.`,
+  surv:`Monitoring : TA, FC, FR, SpO2, Glasgow, glycémie capillaire.
+
+Surveillance :
+• Glycémie capillaire toutes les 10-30 min lors de bolus
+• Diurèse, état d'hydratation
+• Ionogramme sanguin si perfusion prolongée
+
+Risques :
+• Hyperglycémie iatrogène
+• Hyponatrémie de dilution (perfusion prolongée importante)
+• Thrombophlébite si voie périphérique petit calibre
+• Nécrose si extravasation (moindre qu'avec G30%)`,
+  ci:`Hyperglycémie non contrôlée
+Diabète décompensé
+Coma hyperosmolaire
+Hypersensibilité au maïs`,
+  dil:`Prêt à l'emploi`,voie:`IV (VVP gros calibre préférable, VVC pour perfusion prolongée)`,},
+  {nom:'HEPARINE®',dci:'Héparine sodique',
+  ind:`Anticoagulant d'Action Immédiate
+Anti-thrombotique — Héparine Non Fractionnée (HNF)
+
+Indiqué pour :
+Thromboses Veineuses Profondes (TVP) constituées
+Embolie Pulmonaire (EP) en phase aiguë et embolies artérielles extra-cérébrales
+Infarctus du Myocarde (IDM) à la phase aiguë
+Syndrome Coronarien Aigu (SCA ST+ et non ST+)
+Coagulopathie Intra-Vasculaire Disséminée (CIVD)
+Fibrillation Atriale (FA)
+Prévention des accidents thromboemboliques artériels
+Prévention de la coagulation dans les circuits de circulation extracorporelle et d'épuration extrarénale
 
 Effets :
-
-inhibition du facteur X, d'ou diminution de la transformation de la prothrombine en thrombine
-Inhibition de la thrombine lla avec baisse de la transformation du fibrinogène en fibrine
+• Inhibition du facteur Xa → diminution transformation prothrombine en thrombine
+• Inhibition de la thrombine IIa → baisse transformation fibrinogène en fibrine
 
 ANTIDOTE : Sulfate de Protamine`,
-  presc:`Rappel : 1mg =100 UI
-10mg = 1000 UI ; 50mg = 5000 UI
-250mg : 25 000 UI
+  presc:`Rappel des équivalences :
+1 mg = 100 UI | 10 mg = 1 000 UI | 50 mg = 5 000 UI | 250 mg = 25 000 UI
 
-Coagulopathie : Généralement un bolus IVD de 50UI/kg puis dose initiale de 10 à 20 UI/kg/heure (Avis médical)
+⚠️ Adaptation des doses suivant TCA (cible 60-85 s) ou activité anti-Xa (0,4-0,7 UI/mL)
+mesurée 6h après tout changement de posologie.
 
-L’Adaptation des doses d’Heparines se fait suivant les valeurs du TCA ou de l’activité anti Xa mesurée 6h après tout changement de posologie selon un normogramme d’adaptation défini par le médecin pour un objectif d’anticoagulation curative ou préventive.
+ADULTES :
 
-Maladie thromboembolique (TVP et EP) :
-Voie IV :
-• Bolus IVD 80UI/kg (Avis médical)
-• Dose initiale de 18 UI / kg / heure et la dose sera ensuite adaptée à l'anti-Xa (Avis médical)
+▸ Maladie thromboembolique (TVP / EP) :
+• IV : Bolus 50-80 UI/kg IVD puis IVSE 18 UI/kg/h (≈ 400-500 UI/kg/jour)
+• SC : 333 UI/kg en 1ère injection puis 250 UI/kg/12h (sans surveillance anti-Xa)
+  OU 500 UI/kg/24h en 2-3 injections (avec surveillance anti-Xa)
 
-Voie sous cutanée :
-dose initiale 500 UI/kg/24 h répartie en 2 ou 3 injections selon le volume à injecter, puis la dose sera adaptée à l’anti-Xa ; 333 UI/kg la première injection puis 250 UI/kg toutes les 12 heures sans surveillance de l’anti-Xa
+▸ EP grave (choc, sPESI > 1, dilatation VD) :
+Bolus 80 UI/kg IVD puis IVSE 400-500 UI/kg/jour
+Source : SRLF Urgences Vitales 2024-2025
 
-IDM :
-• Bolus 60UI/kg (max: 4000UI) (Avis médical)
-• Relais IVSE de 12 à 15UI/kg/heure à adapter selon TCA ou l’activité anti Xa afin d'obtenir une anticoagulation curative
+▸ SCA (avec ou sans sus-décalage ST) :
+• Hors thrombolyse : Bolus 70-100 UI/kg IVD (max 4 000 UI)
+• En association à la thrombolyse : Bolus 60 UI/kg IVD (max 4 000 UI) puis IVSE 12 UI/kg/h (max 1 000 UI/h)
+• SCA ST+ avec angioplastie < 1h ou douleur > 3h : Bolus 70 UI/kg IVD (max 4 000 UI)
 
-Exemple de Préparation/Dilution
- (À adapter aux protocoles de service, et Avis médical)
-• Dilution de 4ml (20 000 UI) d’HEPARINE dans 20ml NaCl 0,9%, G5% soit 1000 UI/ml
-• Dilution de 5ml (25 000 UI) d’HEPARINE dans 50ml NaCl 0,9%, G5% soit 500 UI/ml
-• Dilution de 5ml (25 000 UI) d’HEPARINE dans 25ml NaCl 0,9%, G5% soit 1000 UI/ml
-• Dilution de 1ml (5 000 UI) d’HEPARINE dans 20ml NaCl 0,9%, G5% soit 250 UI/ml
+▸ IDM (post-thrombolyse) :
+Bolus 5 000 UI IVD puis IVSE 1 000 UI/h, à adapter selon TCA
 
-urg de garde
-EP (si choc ou SPESI > 1 avec dilation du VD) : heparine bolus 80 UI/kg puis IVSE 400 UI / kg/jour
-SCA ST + :
-douleur < 3h avec délai de réalisation de l'angioplastie > 1h : Indication thrombolyse
-après (antiagrégants ) heparine NF 60 UI/kg bolus (sans dépasser 4000 UI) et thrombolyse
-
-SCA ST +
-douleur < 3h avec délai de réalisation de l'angioplastie < 1h ou douleur > 3h : heparine 70 UI/kg IVD (pas plus de 4000UI)
-
-SCA non ST + : HNF 70 UI /kg bolus (max 4000UI)
-
-urg extra hospi :
-SCA: de 60 à70 Ul/kg avec un maximum de4 000 U.I Au PSE, de 400 à 600 Ul/kg/j.
-•EP: de 50 a 80 Ul/kg IVD, relais 18 UI/kg/h.
-
-ide rea :
-400 à 600 ui kg jour pse et dose de charge 5000 ui max (parfois
-
-guide poche :
-400 à 600 ui kg jour (si necessaire 5000 ui bolus)
-
-guide infirmier
-thomboembolique : bolus ivs 5000 UI puis ivse 300 à 500 UI/kg/jour
-ou bolus ivd 50 ui /kg puis ivse 20 UI /kg / heure
-CIVD : 5000 UI / 24h
-IDM en association thrombolyse IVSE
-
-guide medic
-curatif : 50-100 UI /kg en bolus puis 400-600 ui kg jour IVSE
-
-lagadec :
-• Anticoagulation systémique de la maladie thromboembolique :
-Bolus de 50 UI/kg IV suivi d'un relais de 20 UI/kg/heure par IVSE
-• CIVD : 5 000 UI/24 h en IVSE
-• Syndrome coronarien aigu hors thrombolyse : Bolus de 70 à
-100 UI/kg en IV
-• Syndrome coronarien aigu en association à la thrombolyse : 60
-UI/kg en IV (max 4 000 UI) puis relais de 12 Ul/kg/heure par
-IVSE (max 1 000 UI/h)
-
-IDM :
-• Bolus 5000 ui puis relai pse à 1000 UI /h IVSE à adaption en fonction de l'hémostase
-
-•
-Maladie thromboembolique (TVP et EP) :
-Voie IV :
-• Bolus IVD 80UI/kg (Avis médical)
-• Dose initiale de 500 UI / kg / jour et la dose sera ensuite adaptée à l'anti-Xa
-•
-
-samu urg
-CIVD : 5000 UI / 24h IVSE
-IDM en phase aigu: 5000 UI IVD (après actilyse) puis 1000 UI / Heure
-EP : 400 à 500 UI / Kg / Jour
-
-Urg drogue :
-Dose de charge 50 à 100 UI/kg IVD
-Entretien : 500 UI / Kg / 24H IVSE
+▸ CIVD :
+5 000 UI / 24h IVSE
+(à discuter selon contexte clinique et bilan d'hémostase)
 
 PÉDIATRIE (> 3 ans — précaution alcool benzylique < 3 ans) :
+
+Préparation standardisée (SRLF 2024-2025) :
+• Poids < 20 kg : 5 000 UI (1 mL) dans 50 mL = 100 UI/mL
+• Poids ≥ 20 kg : 25 000 UI (5 mL) dans 50 mL = 500 UI/mL
+
 Traitement curatif IV (thrombose) :
 • Bolus : 75-100 UI/kg IV sur 10 min
-• Entretien IVSE : 15-25 UI/kg/h (nourrisson), 10-20 UI/kg/h (enfant > 1 an)
-• Adapter selon TCA cible 60-85 s
+• Entretien IVSE : 20 UI/kg/h en débuter, à adapter à H+4 selon TCA (cible 60-85 s) ou anti-Xa (0,4-0,7 UI/mL)
+  - Nourrisson : 15-25 UI/kg/h
+  - Enfant > 1 an : 10-20 UI/kg/h
+
 ⚠️ CI chez prématuré, nouveau-né et < 3 ans (alcool benzylique dans certaines présentations)
-Source : RCP ANSM, Vidal 2024`,
-  prep:`À adapter aux protocoles de service, et Avis médical
+Source : RCP ANSM + SRLF 2024-2025 + Vidal 2024`,
+  prep:`Préparations DILUÉES standardisées :
 
-Préparations DILUÉES
-Par concentrations :
+• 500 UI/mL (recommandé adulte) : 25 000 UI (5 mL) + 45 mL NaCl 0,9% = 25 000 UI/50 mL
+• 1 000 UI/mL : 25 000 UI (5 mL) + 20 mL NaCl 0,9% = 25 000 UI/25 mL
+• 1 000 UI/mL : 20 000 UI (4 mL) + 16 mL NaCl 0,9% = 20 000 UI/20 mL
+• 250 UI/mL : 10 000 UI (2 mL) + 38 mL NaCl 0,9% = 10 000 UI/40 mL
 
-• 1000 UI/mL : Héparine 25 000 UI (soit 5ml) + 20 ml NaCl 0,9% ( 25 000 UI / 25 ml )
-• 1000 UI/mL : Héparine 20 000 UI (soit 4 ml) + 16 ml NaCl 0,9% ( 20 000 UI / 20 ml )
-• 1000 UI/mL : Héparine 10 000 UI (soit 2 ml) + 8 ml NaCl 0,9% ( 10 000 UI / 10 ml )
-• 500 UI/mL : Héparine 25 000 UI (soit 5ml) + 45ml NaCl 0,9% ( 25 000 UI / 50 ml )
-• 500 UI/mL : Héparine 10 000 UI (soit 2 ml) + 18 ml NaCl 0,9% ( 10 000 UI / 20 ml )
-• 250 UI/mL : Héparine 10 000 UI (soit 2 ml) + 38 ml NaCl 0,9% ( 10 000 UI / 40 ml )
-• 250 UI/mL : Héparine 5 000 UI (soit 1ml) + 19 ml NaCl 0,9% ( 5 000 UI / 20 ml )
+Préparations PÉDIATRIQUES (SRLF 2024-2025) :
+• Poids < 20 kg : 5 000 UI (1 mL) + 49 mL NaCl 0,9% = 100 UI/mL
+• Poids ≥ 20 kg : 25 000 UI (5 mL) + 45 mL NaCl 0,9% = 500 UI/mL
 
-Rappel : 1mg =100 UI
-10mg = 1000 UI ; 50mg = 5000 UI
-250mg : 25 000 UI`,
-  surv:`ECG, TA, FR, FC, SpO2, signes hémorragiques / cutanés
-Surveillance biologique (NFS, plaquettes, TCA, Anti-Xa)
+Solvants : NaCl 0,9% ou G5%
 
-Risques : Syndrome hémorragique (hématome, hématurie, hémorragie digestive, épistaxis, gingivorragies…); Manifestations allergiques (urticaire, asthme, œdème et choc)
-Manifestions locales (inflammation, nécrose cutanée au point de ponction)
-Thrombopénie après le 6ème jour
+Rappel équivalences :
+1 mg = 100 UI | 10 mg = 1 000 UI | 50 mg = 5 000 UI | 250 mg = 25 000 UI`,
+  surv:`Monitoring : ECG, TA, FC, FR, SpO2.
+Recherche signes hémorragiques (cutanés, hématome, hématurie, hémorragie digestive, épistaxis, gingivorragies).
 
-ANTIDOTE : Sulfate de Protamine
-Flacon de 100mg/10mL (1mg = 100 Unités Anti Héparine (UAH))
+Surveillance biologique :
+• NFS-Plaquettes (TIH J5-J21, dépistage entre J3-J5 puis J7-J10 puis hebdomadaire)
+• TCA (cible 60-85 s ou 1,5-2,5 × témoin)
+• Activité anti-Xa (cible 0,4-0,7 UI/mL en curatif)
+• Adaptation selon nomogramme défini par le médecin
 
-1000 UAH (1mL soit 10mg) NEUTRALISE 1000 Unités d’HEPARINE (à adapter selon Héparinémie)`,
-  ci:`Allergie à l’héparine (thrombopénie)
+Risques :
+• Syndrome hémorragique
+• Thrombopénie Induite à l'Héparine (TIH) — type II grave après J5
+• Manifestations allergiques (urticaire, asthme, œdème, choc)
+• Manifestations locales (inflammation, nécrose cutanée au point de ponction)
+• Hyperkaliémie (rare, mécanisme hypoaldostéronisme)
 
-Lésion susceptible de saigner
+🆘 ANTIDOTE : Sulfate de Protamine
+Flacon 100 mg/10 mL (1 mg = 100 Unités Anti-Héparine = 100 UAH)
+1 000 UAH (= 1 mL = 10 mg) neutralise 1 000 UI d'héparine.
+À adapter selon héparinémie. Voir fiche PROTAMINE.`,
+  ci:`Allergie à l'héparine
+Antécédent de Thrombopénie Induite à l'Héparine (TIH HNF OU HBPM — sensibilisation croisée)
 Maladies hémorragiques constitutionnelles
-Endocardite/Péricardite
+Lésion susceptible de saigner / hémorragie active non contrôlée
+Endocardite bactérienne / péricardite
 Dissection aortique
 Épanchement péricardique
 Ulcère gastroduodénal évolutif
-HTA non contrôlée
+HTA sévère non contrôlée
 AVC hémorragique
-Enfant de < 3 ans`,
+Enfant < 3 ans (alcool benzylique dans certaines présentations)
+
+CI relatives (à discuter au cas par cas) :
+HTA non contrôlée
+AVC ischémique étendu`,
   dil:`NaCl 0,9%, G5%`,
-  voie:`IV`,
+  voie:`IV (IVSE / IVD) — SC possible en relais ou prévention`,
   },
   {nom:'HYPNOMIDATE®',dci:'Etomidate',
   ind:`Anesthésique
@@ -7376,7 +7983,7 @@ Insuffisance hépatique`,
   dil:`NaCl 0,9%, G5%, EPPI`,
   voie:`IV, IM, PO, IR, IN`,
   },
-  {nom:'ISOPRÉNALINE®',dci:'Isoprénaline chlorhydrate',
+  {nom:'ISOPRÉNALINE® (ISUPREL)',dci:'Isoprénaline chlorhydrate',
   ind:`Catécholamine de synthèse à action sympathomimétique (Beta stimulante)
 
 Indiqué pour :
@@ -7451,18 +8058,32 @@ Intoxication aux digitaliques`,
 
 Indiqué pour :
 Etat de mal épileptique tonicoclonique généralisé (lorsque échec des antiépileptiques de première ligne)`,
-  presc:`30 à 60 mg/kg en IV sur 10 min
+  presc:`ADULTES :
+
+État de mal épileptique (2e ligne après échec BZD) :
+Dose de charge : 40 mg/kg IVL en 15 min (max 4 g)
+⚠️ Jusqu'à 60 mg/kg en EME réfractaire si besoin (sur prescription)
+Dose d'entretien IV : 1 à 3 g/24h
+Source : SRLF Urgences Vitales 2024, Recos françaises EME 2018
 
 Traitement de fond adulte : 500 à 1500 mg : 2 fois / jour
 
-PÉDIATRIE (dès 1 mois en association — AMM) :
+PÉDIATRIE :
+
+État de mal épileptique aigu (2e ligne après échec BZD) :
+Dose de charge : 40 mg/kg IVL en 15 min (max 2,5 g)
+Dose d'entretien : 10 à 30 mg/kg 2x/j (max 3 g/24h)
+Préparation : <10 kg compléter à 20 mL ; ≥10 kg compléter à 40 mL
+Voie : IV / IO
+
+Traitement de fond (dès 1 mois en association — AMM) :
 Crises partielles en association :
 • 1 mois à < 6 mois : 7 mg/kg 2x/j — max 21 mg/kg 2x/j
 • 6 mois à < 4 ans : 10 mg/kg 2x/j — max 25 mg/kg 2x/j
 • 4 à 16 ans (< 50 kg) : 10 mg/kg 2x/j — max 30 mg/kg 2x/j
 • Solution buvable 100 mg/mL pour < 6 ans ou < 25 kg
 ⚠️ Non indiqué en monothérapie avant 16 ans
-Source : RCP EMA/ANSM, ANSM 2020`,
+Source : RCP EMA/ANSM, ANSM 2020 + SRLF 2024`,
   prep:`Voie IV :
 500mg/5mL dilué dans un soluté de 100mL NaCl 0,9% sur 15 à 30 min
 Dose nécessaire diluée dans un 250mL NaCl 0,9% sur 15 min`,
@@ -7475,7 +8096,7 @@ Surdosage : agitation, agressivité, somnolence, troubles de la conscience, coma
   dil:`NaCl 0,9%, G5%, Ringer Lactate`,
   voie:`IV`,
   },
-  {nom:'KETAMINE®',dci:'Chlorhydrate de ketamine',
+  {nom:'KETAMINE® (KETALAR)',dci:'Chlorhydrate de kétamine',
   ind:`Anesthésique général non barbiturique
 Hypnotique
 
@@ -7647,14 +8268,17 @@ Bouffée délirante
 Effets :
 • Antipsychotique
 • Réduction des hallucinations, délires`,
-  presc:`ADULTE (> 15ans) :
+  presc:`ADULTE (> 15 ans) :
 
-Une à 5 ampoules en IM / jour
-Possibilité de faire une seul dose (exemple : 100mg IM)
+Dose : 50 à 100 mg en IM (1 à 2 ampoules par administration)
+Renouvelable jusqu'à 5 fois par 24h
+⚠️ Dose maximale : 300 mg/24h (SRLF 2024-2025)
+
+Possibilité de faire une dose unique (ex : 100 mg IM) si agitation sévère
 
 PÉDIATRIE :
-⚠️ Contre-indiqué chez l'enfant < 15 ans (RCP ANSM)
-Source : RCP ANSM`,
+⚠️ Contre-indiqué chez l'enfant < 15 ans (RCP ANSM + SRLF)
+Source : SRLF 2024-2025 + RCP ANSM`,
   prep:`Préparations PURES : (Ampoule de 50mg/2mL)
 Seringue de 2mL: 50mg en IM
 Seringue de 5mL: 100mg en IM (2 amp)
@@ -7666,10 +8290,13 @@ Surdosage : Hypotension sévère, détresse respiratoire, somnolence, coma
 
 Association possible avec LEPTICUR pour limiter les effets indésirables`,
   ci:`Hypersensibilité à la Loxapine
-Intoxication/Coma ethylique ou coma médicamenteux (barbituriques)
-Attention selon associations : agonistes dopaminergiques, sauf levodopa...
+Intoxication / Coma éthylique ou coma médicamenteux (barbituriques)
+Risque de comitialité (Loxapine = abaissement du seuil épileptogène)
+Porphyrie
+Association avec agonistes dopaminergiques (sauf Lévodopa) — CI absolue
 Enfant < 15 ans
-Grossesse allaitement (cf CRAT)`,
+Grossesse / allaitement (cf CRAT)
+Source : SRLF 2024-2025 + RCP ANSM`,
   dil:`PUR`,
   voie:`IM`,
   },
@@ -7749,7 +8376,12 @@ Risques : Allergie, hypotension, tachycardie, douleur thoracique (faire ECG), c�
 Intolérance au fructose (présence sorbitol)
 Sténose aortique sévère
 Angor instable
+Syndrome coronarien aigu (SCA)
 Dans les 8j en post IDM
+⚠️ Association DANTROLÈNE : risque hyperkaliémie + arrêt cardiaque (CI ABSOLUE — bloc opératoire, hyperthermie maligne)
+⚠️ Interactions immunosuppresseurs : Ciclosporine, Tacrolimus, Évérolimus, Sirolimus (augmentation taux)
+Coarctation aortique
+Shunt artério-veineux (sauf fistule de dialyse)
 (Grossesse : CRAT)`,
   dil:`PUR, G5%`,
   voie:`IV`,
@@ -7778,51 +8410,61 @@ Effets :
 
 ADULTES :
 
-Généralement 1,5 à 3g en 15min & 1 à 2 ampoule/h IVSE (Avis médical)
-
-Torsades de pointes, Arythmies Digitaliques :
-Bolus intraveineux de 2 g en 20-30 min,
-
-Puis PSE de 1 à 2 g/4h à 6h
-OU 1 ampoule dans perfusette G5% sur 5-10 min
-
+Torsades de pointes :
+Bolus 2-3 g IVL sur 20 min (à répéter si besoin)
+Entretien : 1 g/h IVSE en routine, max cumulé 6-8 g/24h selon réponse
 (Associer recharge potassique) (Avis médical)
+Source : Hybride app + SRLF 2024-2025
+
+Arythmies Digitaliques :
+Bolus 2 g IVL sur 20-30 min puis PSE 1-2 g/4-6h
 
 ESV : 3g IVL puis 1 à 1,5g/heure au PSE (Avis médical)
 
-Hypokaliémies aigues associées à une hypomagnésémie :
+Hypokaliémies aiguës associées à une hypomagnésémie :
 PSE de 6 à 8 g/24 heures (Avis médical)
 
-Rééquilibration hydro électrolytiques et de la nutrition parentérale :
+Rééquilibration hydro-électrolytique et nutrition parentérale :
 1,5 à 2 g/24 heures (Avis médical)
 
-Crise d’éclampsie :
-1 à 4 g IVL sur 20-30min (Avis médical)
-
-Si persistance de la crise :
-2ème essai avec 4g
-(sans dépasser la dose cumulée max de 8g pendant la 1ère heure)
-
-Ensuite, PSE 2-3g/heure (Avis médical)
+Pré-éclampsie sévère / Crise d'éclampsie (SRLF 2024) :
+4 g IVL sur 20-30 min en bolus initial
+Relais entretien : 1 g/h IVSE
+(Si persistance : 2e bolus 4g, max cumulé 8g pendant la 1ère heure)
+Surveillance horaire des signes de surdosage Mg ⚠️
 
 Asthme aigu grave :
-1 à 2 g au PSE en 20 minutes (Avis médical)
+2-3 g IVL sur 20 min (SRLF 2024-2025)
 
-ENFANTS :
+ENFANTS (SRLF 2024-2025) :
 
-Rééquilibration hydro électrolytiques et de la nutrition parentérale :
-25 à 75mg/kg/24h (Avis médical)`,
+Torsades de pointe / Asthme grave :
+Bolus 25 mg/kg IVL 30 min (max 2g/dose)
+Préparation : ampoule 1,5g/10mL = 150 mg/mL → compléter à 30 mL = 50 mg/mL
+
+Tableau dose pédia (25 mg/kg) :
+4 kg → 100 mg (2 mL) | 10 kg → 250 mg (5 mL) | 20 kg → 500 mg (10 mL)
+30 kg → 750 mg (15 mL) | 50 kg → 1250 mg (25 mL)
+
+Rééquilibration hydro-électrolytique :
+25 à 75 mg/kg/24h`,
   prep:`Préparations DILUÉES :
 Une Ampoule dans un soluté 100ml NaCl 0,9% IVL 15 à 30 min
 Deux ampoules dans un soluté 100ml NaCl 0,9% IVL 15 à 30 min
 
 ou voie IVSE (selon indication / posologie):
 4,5g/30mL (3 amp) + 15 mL NaCl 0,9% = 4,5g/45 ml soit (100mg/ml)`,
-  surv:`Monitoring : TA, FC, SpO2, FR et ECG
+  surv:`Monitoring : TA, FC, SpO2, FR, ECG.
+⚠️ Surveillance horaire des RÉFLEXES OSTÉO-TENDINEUX (ROT) :
+La disparition des ROT est un SIGNE D'ALARME précédant l'arrêt respiratoire.
+Arrêter la perfusion si ROT abolis.
 
-Risques : Hypotension artérielle si injection trop rapide, flush. Douleur au point d’injection, vasodilatation avec sensation de chaleur. Hypocalcémie ; Hypermagnésémie potentiellement létale en cas d’insuffisance rénale sévère ou d’injection trop rapide.
+Risques : Hypotension artérielle si injection trop rapide, flush. Douleur au point d'injection, vasodilatation avec sensation de chaleur. Hypocalcémie ; Hypermagnésémie potentiellement létale en cas d'insuffisance rénale sévère ou d'injection trop rapide.
 
-Surdosage : nausées, vomissements, troubles du rythme sur hypermagnésémie, dépression respiratoire, apnée`,
+Surdosage : nausées, vomissements, troubles du rythme sur hypermagnésémie, dépression respiratoire, apnée.
+
+🆘 ANTIDOTE en cas de surdosage : GLUCONATE DE CALCIUM 1g IVD
+Source : SRLF 2024-2025`,
   ci:`BAV
 
 Hypotension artérielle
@@ -7830,7 +8472,7 @@ Bradycardie
 Myasthénie
 Insuffisance rénale sévère`,
   dil:`G5%, NaCl 0,9%`,
-  voie:`IV`,
+  voie:`IV / IO`,
   },
   {nom:'METALYSE®',dci:'Ténectéplase',
   ind:`Antithrombotique - Fibrinolytique (TNK-PA)
@@ -7934,8 +8576,12 @@ Affections douloureuses :
 Généralement 0,025 à 0,1mg/kg Titration IVD
 (Bolus de 0,025mg/kg possible toutes les 5 à 10min)
 
-IVSE possible (en Soins intensifs/SSPI…) :
-0,01 à 0,02mg/heure
+IVSE possible (en Soins intensifs/SSPI/Réa) :
+< 3 mois : 0,01 mg/kg/h IVSE
+3 mois à 5 ans : 0,02 mg/kg/h IVSE
+> 5 ans : préférer PCA (Patient Controlled Analgesia)
+Augmentation par paliers de 1/3 si insuffisant. Dose max 0,4 mg/kg/h.
+Source : Pediadol / RSVA / SFAR
 
 Exemple de préparation :
 10mg dans 10ml NaCl 0,9% soit 1mg/ml
@@ -8028,10 +8674,13 @@ Par concentrations (exemple utilisation IVSE)
   surv:`Monitoring : TA, SpO2, FC et notamment la FR , Glasgow, pupilles
 
 Risques : Nausées/vomissements, douleurs, frissons, hyperventilation, sueurs, tachycardie, HTA (si fortes doses), œdème pulmonaire, agitation/anxiété, sevrage aigu brutal, syndrome de sevrage chez le sujet dépendant aux opiacés, effet rebond avec rendormissement et dépression respiratoire...`,
-  ci:`Hypersensibilité au produit
+  ci:`Aucune CI absolue en contexte d'urgence (SRLF 2024-2025).
+
+Précautions (effets potentiels lors du sevrage opioïde brutal) :
 HTA sévère
 Insuffisance cardiaque ou coronaire sévère
-Grossesse (relatives) (CRAT)`,
+Grossesse (cf : CRAT — sevrage opioïde brutal possible)
+Hypersensibilité connue au produit (rare)`,
   dil:`EPPI, NaCl 0,9%, G5%`,
   voie:`IV, IM, SC, IN`,
   },
@@ -8341,7 +8990,7 @@ Surdosage : Dépression respiratoire, myosis, hypotension artérielle, coma prof
 Antidote : NARCAN® (Naloxone)`,
   ci:`Hypersensibilité Nalbuphine
 Association aux morphimomimétiques agonistes pur (fentanyl/morphine…)
-Enfants de < 18 mois
+⚠️ AMM officielle ANSM à partir de 18 mois — usage hors AMM possible dès la période néonatale en pédiatrie d'urgence (HAS 2016, SRLF 2024-2025)
 Insuffisance respiratoire/hépatocellulaire grave
 Etats convulsifs et TC
 Intoxication alcoolique aiguë
@@ -8740,63 +9389,60 @@ Voie IV interdit chez nouveau-né`,
   dil:`Solvant puis NaCl 0,9% ou G5% ou EPPI`,
   voie:`IV, IM, IR`,
   },
-  {nom:'SALBUMOL FORT®',dci:'Sulfate de salbutamol',
+  {nom:'SALBUTAMOL (SALBUMOL FORT® / VENTOLINE®)',dci:'Sulfate de salbutamol',
   ind:`Agoniste Bêta-2-mimétique (adrénergiques)
 Bronchodilatateur, Anti-Asthmatique et Utéro-relaxant
 
 Indiqué pour :
-Menace accouchement prématuré, tocolyse
-Asthme Aigu Grave (en association avec oxygénothérapie et corticoïdes..)
+Asthme aigu grave (AAG) — 1ère intention en nébulisation
+Crise d'asthme sévère, bronchospasme
+Exacerbation BPCO
+Hyperkaliémie menaçante (adjuvant — nébulisation ou IV)
+Menace d'accouchement prématuré, tocolyse
 
 Effets :
-• Relaxation de l'utérus lors de la grossesse (réduction amplitude, fréquence et durée des contractions)
-• Augmentation du calibre des bronches (bronchodilatateur)
-• Passage dans le lait maternel`,
+• Agoniste β-adrénergique : bronchodilatation des muscles lisses bronchiques
+• Relaxation utérine (réduction amplitude/fréquence/durée des contractions)
+• Passage dans le lait maternel (pas de CI absolue)`,
   presc:`ADULTES :
 
-Etat de mal Asthmatique/BPCO :
-• SC : Généralement 0,5 mg (Avis médical)
+▸ NÉBULISATION (1ère intention) :
+5 mg en série de 3 nébulisations dans la 1ère heure (ou en CONTINU)
+⚠️ Aérosols continus > discontinus (SRLF 2024-2025)
+Diluer dosette 5 mg dans NaCl 0,9% pour total 5 mL
+Débit O2 6 L/min × 10-15 min (selon SpO2 : air si ≥ 95%, O2 si < 95%)
+À renouveler toutes les 20 min dans la 1ère heure si AAG
 
-• IVSE (Généralement si échec de la nébulisation et du sulfate de magnésium IV) :
-0,1 à 0,2 µg/kg/min (ou 0,25 à 1,5mg/kg/h) (Avis médical)
-Soit ½ à 3 ampoules généralement sur 10h (Avis médical)
+▸ IVSE (2e intention si échec nébulisation + sulfate de Mg IV) :
+Posologie : 0,25 à 1,5 mg/h (SRLF 2024-2025)
+⚠️ Unité = mg/h (NON mg/kg/h)
+Préparation standardisée : 25 mg (5 ampoules) + NaCl 0,9% qsp 50 mL = 0,5 mg/mL
 
-• Nébulisation: 5 à 10mg dans NaCl 0,9% (Avis médical)
+▸ SC (alternative pré-hospitalière) :
+0,5 mg en sous-cutané (Avis médical)
 
-Menace accouchement prématuré :
-IV :
-Entre 0,1 à 0,3 µg/kg/min (Avis médical)
-OU
-15 à 20µg/min soit 15 à 20 gouttes/min si concentration 20µg/ml) (Avis médical)
+▸ HYPERKALIÉMIE (adjuvant) :
+10-20 mg en nébulisation sur 15 min (si nébulisation préférée à IV)
 
-Préparation possible :
-Dilution de 2 ampoules soit 10mg dans 500ml G5% (soit 20 µg/ml)
-
-Le palier peut être augmenté de 5 à 10 µg/min toutes les 10min
-À adapter selon effet attendu – Avis médical
+▸ MENACE D'ACCOUCHEMENT PRÉMATURÉ (tocolyse) :
+IV : 0,1 à 0,3 µg/kg/min OU 15-20 µg/min (si concentration 20 µg/mL)
+Préparation : 2 ampoules (10 mg) dans 500 mL G5% = 20 µg/mL
+Palier ↑ de 5-10 µg/min toutes les 10 min — adapter selon réponse
 
 ENFANTS :
 
-Etat de mal Asthmatique :
-• Dose de charge possible avec 5µg/kg sur 5 min (Avis médical)
-• Entretien IVSE :
-0,1 à 0,3µg/kg/min (doublé toutes les 15min) (Avis médical)
+▸ NÉBULISATION (SRLF 2024-2025) — par poids :
+< 10 kg : 1,25 mg
+10 - 20 kg : 2,5 mg
+> 20 kg : 5 mg
+Compléter NaCl 0,9% pour 5 mL, débit O2 6 L/min × 10-15 min
+Souvent en association avec ATROVENT®
 
-Exemple de prescription/Préparation : 0,2µg/kg/min pour un patient de 80kg. 0,2µg x 80kg x 60min = 960µg/heure
-
-Dilution possible : 5mg dans 50ml G5% soit 0,1mg/ml (ou 100µg/ml) Donc 960µg/100µg : 9,6ml/heure
-
-• Nébulisation: 50 à 150 μg/kg (sans dépasser 5mg)
-
-____________
-
-Asthme Adulte :0,1 à 0,2 g/kg/min en IVSE (0,5 mg/h)
-Posologie à doubler toutes les 15 minutes en fonction de la réponse clinique (max. : 5 mcg/kg/min)
-
-Enfant : dose de charge de 5 g/kg en 5 min, suivie de 0,1 à 0,3 mg/kg/min IVSE
-
-Obstétrique
-0,15 mcg/kg/min en IVSE Puis doubler la posologie après 15 min`,
+▸ IVSE (échec nébulisation, en réa) :
+Dose de charge : 5 µg/kg sur 5 min
+Entretien IVSE : 0,1 à 0,3 µg/kg/min (doublable toutes les 15 min)
+Préparation pédia (SRLF 2024-2025) : 9 mg (9 mL) + 6 mL NaCl 0,9% = 600 µg/mL
+Alternative : 5 mg dans 50 mL G5% = 100 µg/mL`,
   prep:`Préparation DILUÉE pour IVSE :
 • Pour du 0,1mg/ml : 5mg/5ml + 45ml G5% = 5mg/50ml (100 μg/ml)
 • Pour du 0,25mg/ml : 5mg/5ml + 15ml G5% = 5mg/20ml (250 μg/ml)
@@ -8806,14 +9452,13 @@ Obstétrique
 Risques : Tachycardie, hypotension artérielle, tremblements, sueurs, agitation, céphalées, nausées, vomissements, diarrhée, crampes musculaires, hypokaliémie (faire un bilan sanguin avant injection et à la 4ème heure), hyperglycémie (faire un bilan sanguin avant injection et à la 4ème heure)
 
 Surdosage : tachycardie, tension modifiée, tremblements/sueurs, hypokaliémie -> traitement symptomatique`,
-  ci:`IDM récent
-Angor instable
-Insuffisance coronarienne sévère
-Infection intra-amniotique
-HTA dans l'eclampsie
-Hémorragie utérine abondante
-Troubles du rythme
-Cardiomyopathie obstructives`,
+  ci:`Aucune CI absolue en contexte d'urgence (SRLF 2024-2025).
+
+Précautions :
+• Affections coronariennes aiguës (relative — bénéfice/risque)
+• Tachycardie supraventriculaire non contrôlée (relative)
+• Hypokaliémie sévère (à corriger avant)
+• Hypersensibilité au produit`,
   dil:`G5%, NaCl 0,9%`,
   voie:`IV, SC`,
   },
@@ -8913,17 +9558,30 @@ Effets :
 • Antipyrétique, analgésique, antiallergique, Antioedémateux, Immunosuppresseur...`,
   presc:`ADULTES :
 
-Asthme aigu grave / Épiglottite / Laryngite : 1–2 mg/kg IVL (max 120 mg).
-Choc anaphylactique (adjuvant adrénaline) : 1–2 mg/kg IVL.
-Sclérose en plaques — poussée : 1 g/j IVL 500 mL NaCl sur 3j (protocole neurologique).
-Maladies inflammatoires / Rhumatologie : 0,5–1 mg/kg/j.
-Bolus (HTIC, greffe) : 15–30 mg/kg IVL sur 30 min.
-IM : reconstituer avec 2 mL EPPI.
+ADULTE :
 
-Équivalence : 4 mg méthylprednisolone = 5 mg prednisolone = 20 mg hydrocortisone.
+Asthme aigu grave (>12 ans/adulte — NAEPP 2007 / MSD) :
+40-80 mg/24h IV ou IM en 1-2 prises (routine)
+Jusqu'à 1-2 mg/kg si exacerbation très sévère sous avis médical
+(la voie PO de prednisone 50-60 mg/j est aussi efficace en hospitalier — MSD)
+
+Épiglottite / Laryngite : 1-2 mg/kg IVL
+Choc anaphylactique (adjuvant adrénaline) : 1-2 mg/kg IVL
+Sclérose en plaques — poussée : 1 g/j IVL 500 mL NaCl sur 3j (protocole neurologique)
+Maladies inflammatoires / Rhumatologie : 0,5-1 mg/kg/j
+Bolus (HTIC, greffe, rejet) : 15-30 mg/kg IVL sur 30 min (max 1 g/j sur 48-72h)
+IM : reconstituer avec 2 mL EPPI
+
+Équivalences :
+4 mg méthylprednisolone = 5 mg prednisolone = 20 mg hydrocortisone = 0,75 mg dexaméthasone
 ⚠️ Incompatible avec gluconate de calcium, héparine dans même seringue.
 
-ENFANTS : 1–2 mg/kg/j (max 60 mg/j). Bolus : 30 mg/kg/j (max 1 g).`,
+ENFANTS (NAEPP 2007 / Harriet Lane) :
+≤ 12 ans : 1-2 mg/kg/j IV/IM en 2 prises (max 60 mg/j)
+Alternative ≤ 5 ans : 1 mg/kg/dose toutes 6h × 24h
+Bolus indications spécifiques : 30 mg/kg/j (max 1 g)
+
+Source : NAEPP 2007 + Harriet Lane Handbook + RCP ANSM`,
   prep:`Préparation DILUÉE :
 Flacon 120mg dans 12ml NaCl 0,9% = soit 10mg/ml
 IVL sur 3 min minimum
@@ -8982,7 +9640,7 @@ Grossesse / Allaitement (cf: CRAT)`,
 
 Indiqué pour :
 Tachycardies supraventriculaires paroxystiques (jonctionnelles QRS fin - Maladie de Bouveret)
-Syndrome de Wolff-Parkinson-White
+Test diagnostique des tachycardies à QRS larges ou fins après échec des manœuvres vagales
 
 Effets :
 • Ralentissement passager de l’activité ventriculaire (conduction AV)
@@ -9346,7 +10004,7 @@ Associations Dopaminergiques, citalopram et l’escitalopram, hydroxyzine, dompe
   dil:`PUR`,
   voie:`IM`,
   },
-  {nom:'THIOPENTAL®',dci:'Thiopental',
+  {nom:'THIOPENTAL® (NESDONAL/PENTHOTAL)',dci:'Thiopental sodique',
   ind:`Anesthésique Hypnotique Barbiturique d’action rapide et puissante
 Anti-convulsivant, Dépresseur respiratoire
 Hypnotique/Sédatif sans effet analgésique
@@ -9416,7 +10074,9 @@ Entre 4 à 10 ans : 5 à 6 mg/kg IVL OU 20-30mg/kg en IR (Avis médical)
 Préparations possibles :
 
 Pour solution à 1% : 500mg dans 50ml NaCl 0,9% soit 10mg/ml`,
-  prep:`Préparations DILUÉES :
+  prep:`⚠️ Filtrer avant injection (cristaux possibles à la reconstitution)
+
+Préparations DILUÉES :
 
 • Reconstituer 500mg dans 50 ml NaCl 0,9% (soit 10mg/ml)
 • Reconstituer 500mg dans 20 ml NaCl 0,9% (soit 25mg/ml)
@@ -9429,7 +10089,9 @@ Rash cutané, choc anaphylactique nausées/vomissements, tremblements/agitation 
 
 Surdosage : hypotension artérielle (lien avec réaction allergique - risque de choc), œdème pulmonaire avec insuffisance pulmonaire ou arrêt respiratoire, hypothermie...
 
-Intubation et ventilation mécanique, dopamine ou noradrénaline selon problème médical présent (avis médical)`,
+Intubation et ventilation mécanique, dopamine ou noradrénaline selon problème médical présent (avis médical)
+
+⚠️ Dépression cardiovasculaire majeure — avoir vasopresseurs prêts.`,
   ci:`Absence de matériel de Réa
 Allergie aux barbituriques
 Porphyrie aiguë risque de choc irréversible
@@ -9442,7 +10104,7 @@ Intoxication aiguë (Alcool, sédatifs, analgésiques ou psychotropes)`,
   dil:`NaCl 0,9%, EPPI, G5%`,
   voie:`IV, Intra-Rectal`,
   },
-  {nom:'TILDIEM®',dci:'Diltiazem',
+  {nom:'TILDIEM® (DILTIAZEM)',dci:'Diltiazem',
   ind:`Anti-Arythmique, Inhibiteur Calcique
 
 Indiqué pour :
@@ -9496,10 +10158,13 @@ Risques : Hypotension artérielle et Bradycardie (si injection trop rapide), BAV
 
 Surdosage : Hypotension, Bradycardie`,
   ci:`Allergie
-Bradycardie
+Bradycardie sévère (≤ 40 bpm)
 BAV II et BAV III non appareillés
 Dysfonctionnement sinusal non appareillé
-FA
+FA/Flutter avec syndrome de pré-excitation ventriculaire (WPW) ⚠️ — RISQUE FV
+(NB : la FA SIMPLE n'est PAS une CI, c'est une indication pour ralentir la fréquence ventriculaire)
+Insuffisance cardiaque grave (FE < 40%)
+Choc cardiogénique
 Hypotension artérielle Systolique (<100mmHg)
 Insuffisance ventriculaire gauche avec stase pulmonaire
 Association Dantrolène ou Amiodarone
@@ -9672,7 +10337,7 @@ Insuffisance hépatique sévère`,
   dil:`Solvant ou NaCl 0,9%, G5%`,
   voie:`IV, IM`,
   },
-  {nom:'VALIUM®',dci:'Diazépam',
+  {nom:'VALIUM® (DIAZEPAM)',dci:'Diazépam',
   ind:`Benzodiazépine Anticonvulsivant
 Antiépileptique, Anxiolytique, Hypnotique, Sédatif
 Myorelaxant et Amnésiant
@@ -9733,6 +10398,8 @@ Crise convulsive :
 
 • IV/IM : 0,5 mg/kg/Injection (Avis Médical)`,
   prep:`Préparation PURE : 10mg/2ml soit 5mg/ml
+⚠️ Précipitation possible si dilué dans NaCl 0,9% — injecter PUR lentement ou diluer dans G5%
+⚠️ Injection IM à ÉVITER — absorption erratique et douloureuse
 
 Préparation DILUÉE :
 • 10 mg/2ml + 8ml G5% soit 10mg/10ml sur 1 min
@@ -9761,32 +10428,7 @@ Grossesse/Allaitement (Cf CRAT)`,
   dil:`G5%, NaCl 0,9%, EPPI`,
   voie:`IV, IM, IR`,
   },
-  {nom:'VENTOLINE®',dci:'Sulfate de salbutamol',
-  ind:`Bronchodilatateur Bêta-2-mimétique
-Anti-Asthmatique et Utéro-relaxant
-
-Indiqué pour :
-Asthmes aigus graves
-Exacerbations et bronchospasmes des BPCO...
-
-Effets :
-• Agoniste des récepteurs B-adrénergiques : bronchodilatation des muscles lisses bronchiques`,
-  presc:`Adulte : 5-10 mg, soir 1-2 dosettes, à aéroliser en 10-15 min avec un débit d'oxygène de 6 L/min.
-
-Enfant: 50 à 150 mcg/kg sans dépasser en général 5 mg (soit 0,1-0,3 ml/kg de la solution de 1,25 mg/2,5 ml. ou 0,05-0,15 mi/kg de la solution de 2,5 mg/2,5 mL).
-• En général en association avec de l'Atrovent.
-• Aérosol à renouveler au bout de 15 min en l'absence d'effet suffisant, puis toutes les 4 h.`,
-  prep:`Selon Posologie : insérer la dose (de la dosette) dans l'aérosol pour nébulisation pendant 15 min sous oxygène ou air (selon prescription) entre 6 à 9L/min
-Sous surveillance : renouvelement possible toutes les 20-30 min (sans dépasser 4 nébulisations/jour) selon avis médical`,
-  surv:`Monitoring (FC, PA, FR, SpO2), Glasgow
-
-Effets seconds : peu`,
-  ci:`Affections coronariennes aigues
-Intolérance / allergie au produit`,
-  dil:`NaCl 0,9%`,
-  voie:`Aérosols (nébulisation)`,
-  },
-  {nom:'ZOPHREN®',dci:'Ondansetron',
+{nom:'ZOPHREN®',dci:'Ondansetron',
   ind:`Anti-émétique
 
 Indiqué pour : Traitement des nausées et vomissements
@@ -9851,23 +10493,7 @@ Effets attendus : asystolie transitoire de 3–10 s, bouffée de chaleur, dyspn�
   ci:`BAV 2e et 3e degré (sans pacemaker), maladie du sinus, syndrome de WPW, asthme/BPCO sévère, hypotension artérielle.`,
   dil:`Pur — ne pas diluer`,voie:`IV bolus`,},
 
-  {nom:'AMIODARONE',dci:'Amiodarone',
-  ind:`Troubles du rythme ventriculaires graves : TV, FV réfractaires aux CEE (ACR).
-Troubles du rythme supra-ventriculaires : FA rapide, flutter.`,
-  presc:`ACR (FV/TV réfractaires) : 300 mg IVD pur après 3e choc, 150 mg IVD après 5e choc.
-Trouble du rythme (TV mal tolérée, FA rapide) : dose de charge 150–300 mg IVL 20 min dans G5% strict, entretien 900 mg/24h IVSE.
-⚠️ G5% strict uniquement — incompatible NaCl, bicarb, furosémide, héparine.`,
-  prep:`G5% strict uniquement.
-Charge : 300 mg (2 amp/6 mL) + 14 mL G5% → 20 mL (15 mg/mL), passer en 20 min.
-ACR : pur IVD rapide.
-⚠️ Voie veineuse centrale recommandée (risque phlébite en VVP).`,
-  surv:`ECG continu : allongement QT, bradycardie, BAV. TA, FC.
-Effets secondaires IV : hypotension, bradycardie, phlébit (voie centrale préférée).
-Incompatible : NaCl, Héparine, bicarb, furosémide.`,
-  ci:`Bradycardie sévère, BAV sans pacemaker, hyperthyroïdie, allergie iode.`,
-  dil:`G5% strict uniquement`,voie:`IV`,},
-
-  {nom:'BRIDION',dci:'Sugammadex',
+{nom:'BRIDION',dci:'Sugammadex',
   ind:`Antagonisation rapide du blocage neuromusculaire induit par rocuronium (Esmeron®) ou vécuronium.
 Indication principale : échec d'intubation / cannot intubate-cannot oxygenate (CICO).`,
   presc:`Antagonisation immédiate (CICO) : 16 mg/kg IV bolus.
@@ -9877,7 +10503,7 @@ Antagonisation modérée (T2 ≥ 2 post-tet) : 2 mg/kg IV.`,
 Injection IV bolus en 10 secondes.`,
   surv:`FC, FR, SpO2, récupération neuromusculaire. TA.
 ⚠️ Récurrence possible du bloc si dose insuffisante. Surveillance 30 min.`,
-  ci:`Hypersensibilité. Insuffisance rénale sévère (DFG < 30 mL/min) — utilisation possible si urgence vitale.`,
+  ci:`Hypersensibilité. Enfant < 2 ans (RCP ANSM, SRLF). Insuffisance rénale sévère (DFG < 30 mL/min) — utilisation possible si urgence vitale.`,
   dil:`Pur`,voie:`IV bolus`,},
 
   {nom:'BUSCOPAN',dci:'Butylscopolamine (Hyoscine)',
@@ -9964,14 +10590,24 @@ Diluer dans 10 mL NaCl 0,9% pour IVL.`,
 
   {nom:'INTRALIPIDE',dci:'Émulsion lipidique 20%',
   ind:`Intoxication aux anesthésiques locaux (lidocaïne, bupivacaïne, ropivacaïne) avec toxicité systémique (convulsions, ACR).`,
-  presc:`Bolus : 1,5 mL/kg IVD en 1 min (≈ 100 mL adulte 70 kg).
-Perfusion : 0,25 mL/kg/min IVSE pendant 30–60 min.
-Peut répéter le bolus 2× à 5 min si ACR persiste.
-Dose cumulée max : 12 mL/kg.`,
+  presc:`Bolus : 1,5 mL/kg IV en 2-3 min (≈ 100 mL adulte 70 kg, max 100 mL).
+Si persistance d'instabilité hémodynamique : 1 ou 2 bolus à 5 min d'intervalle (max 3 bolus).
+Perfusion entretien : 0,25 mL/kg/min IVSE.
+Si hémodynamique reste instable : augmenter à 0,5 mL/kg/min.
+⚠️ Continuer la perfusion au moins 10 min après retour à l'équilibre hémodynamique.
+Dose cumulée max : 10 mL/kg en 30 min (12 mL/kg en perfusion long cours).
+Source : SRLF 2024-2025`,
   prep:`Solution prête à l'emploi 20% — flacon 100 ou 500 mL.`,
   surv:`FC, TA, ECG. Réponse hémodynamique. Lipémie (surveillance).
 ⚠️ En cas d'ACR : poursuivre RCP + ACLS en parallèle.`,
-  ci:`Aucune en contexte d'urgence vitale. Précaution si troubles sévères métabolisme des lipides.`,
+  ci:`Aucune CI absolue en cas d'ACR ou urgence vitale.
+
+Précautions / CI relatives :
+Insuffisance hépatique
+Dyslipidémie sévère
+Hypersensibilité aux phospholipides d'œufs, protéines de soja ou arachides
+Trouble sévère de la coagulation
+Source : SRLF 2024-2025`,
   dil:`Prête à l'emploi`,voie:`IV`,},
 
   {nom:'IXPRIM',dci:'Tramadol + Paracétamol (37,5 mg + 325 mg)',
@@ -10030,38 +10666,46 @@ Antidote : sulfate de protamine (neutralisation partielle ~60–80%).`,
 
   {nom:'MANNITOL',dci:'Mannitol',
   ind:`Hypertension intracrânienne (HTIC), œdème cérébral, oligurie de l'insuffisance rénale aiguë.`,
-  presc:`HTIC : 0,25–1 g/kg en IVL 20–30 min (solution 20% : 1,25–5 mL/kg).
-Répétable toutes les 4–6h selon osmolarité sérique (objectif < 320 mOsm/L).`,
+  presc:`HTIC : 0,5 à 1 g/kg en IVL 20-30 min (SRLF 2024-2025)
+- Solution 20% : 2,5 à 5 mL/kg
+- Solution 10% : 5 à 10 mL/kg
+Volumes pratiques : 250 à 1 000 mL généralement
+
+⚠️ Dose maximale : 40 g (= 400 mL de mannitol 10% OU 200 mL de mannitol 20%)
+
+Répétable toutes les 4-6h selon osmolarité sérique (objectif < 320 mOsm/L)
+Source : SRLF Urgences Vitales 2024-2025`,
   prep:`Solution 10% ou 20% prête à l'emploi (ou flacon à réchauffer si cristaux).
 ⚠️ Filtrer si cristallisation visible. Ne pas mélanger avec d'autres médicaments dans la même voie. Ne pas associer au sang.`,
   surv:`Osmolarité sérique (max 320 mOsm/L), ionogramme, diurèse, PIC si monitorée.
 ⚠️ Risque de rebond HTIC si arrêt brutal.`,
   ci:`Insuffisance cardiaque décompensée, déshydratation sévère, hyperosmolarité > 320.`,
-  dil:`Prête à l'emploi — ne pas diluer`,voie:`IV perf`,},
+  dil:`Prête à l'emploi — ne pas diluer`,voie:`IV perf / IO`,},
 
-  {nom:'METIBLO',dci:'Bleu de méthylène (Chlorure de méthylthioninium)',
+  {nom:'METIBLO® (PROVEBLUE)',dci:'Bleu de méthylène (Chlorure de méthylthioninium)',
   ind:`Méthémoglobinémie symptomatique ou ≥ 30% (intoxication par nitrates, nitrites, aniline, poppers, lidocaïne...).`,
-  presc:`1–2 mg/kg IVL 15 min dans G5% strict — peut répéter 1h après si persistance.
+  presc:`ADULTES :
+1-2 mg/kg IVL 15 min dans G5% strict — peut répéter 1h après si persistance.
 Max cumulé : 7 mg/kg.
-⚠️ G5% strict — NaCl contre-indiqué.`,
-  prep:`Ampoule 1% (10 mg/mL). Diluer dans G5% pour concentration finale 1 mg/mL.`,
+⚠️ G5% strict — NaCl contre-indiqué.
+
+PÉDIATRIE (SRLF 2024-2025) :
+• <3 mois : 0,3-0,5 mg/kg IVL 5-10 min, à répéter 1h après si besoin
+• ≥3 mois : 1-2 mg/kg IVL 10-15 min, à répéter 1h après si besoin
+NE PAS DÉPASSER 7 mg/kg AU TOTAL`,
+  prep:`Adulte (ampoule 1% = 10 mg/mL) : diluer dans G5% pour concentration finale 1 mg/mL.
+
+Pédiatrie (ampoule 0,5% = 5 mg/mL — Proveblue) :
+Prélever 5 mg (1 mL) et compléter à 50 mL avec G5%.
+Concentration finale : 0,1 mg/mL.
+(NB : le livret SRLF 2024-2025 mentionne par coquille "10 mg/mL" — la valeur correcte est bien 0,1 mg/mL)`,
   surv:`SpO2 (faux positif possible au pulsioxymètre — utiliser CO-oxymètre). Méthémoglobinémie. FC, TA.
 ⚠️ Inefficace si déficit G6PD.`,
-  ci:`Déficit en G6PD, méthémoglobinémie par chlorate (inefficace).`,
+  ci:`Déficit en G6PD ET en NADPH-réductase (inefficace + hémolyse possible).
+Méthémoglobinémie par chlorate (inefficace).`,
   dil:`G5% strict`,voie:`IV lente`,},
 
-  {nom:'NESDONAL',dci:'Thiopental sodique',
-  ind:`Induction anesthésique (ISR). Traitement du status épileptique réfractaire. HTIC réfractaire (coma barbiturique).`,
-  presc:`Induction : 3–5 mg/kg IVD lente.
-Status épileptique réfractaire : 100–250 mg IVL, puis 0,5–5 mg/kg/h IVSE.`,
-  prep:`Poudre à reconstituer : 500 mg dans 20 mL eau PPI → 25 mg/mL.
-Filtrer avant injection.`,
-  surv:`TA (hypotension +++), FR, SpO2, ECG. Sédation profonde.
-⚠️ Dépression cardiovasculaire majeure — avoir vasopresseurs prêts.`,
-  ci:`Choc cardiogénique, insuffisance surrénale, porphyrie, allergie aux barbituriques.`,
-  dil:`Eau PPI`,voie:`IV`,},
-
-  {nom:'NIPRIDE',dci:'Nitroprussiate de sodium',
+{nom:'NIPRIDE',dci:'Nitroprussiate de sodium',
   ind:`Urgence hypertensive sévère, dissection aortique (associé à bêtabloquant), insuffisance cardiaque avec surcharge.`,
   presc:`0,3–0,5 µg/kg/min IVSE, augmenter par paliers de 0,5 µg/kg/min toutes les 5 min. Max 10 µg/kg/min.
 ⚠️ Durée limitée — risque d'intoxication cyanure si > 10 µg/kg/min ou > 72h.`,
@@ -10328,17 +10972,49 @@ Source : RCP ANSM, GIHP RFE mai 2024.`,
   dil:`SC uniquement`,voie:`SC`,},
 
   {nom:'INNOHEP',dci:'Tinzaparine sodique',
-  ind:`Prévention et traitement TVP/EP.`,
-  presc:`Préventif : 4 500 UI/j SC. Curatif : 175 UI/kg × 1/j SC.`,
-  prep:`Seringues pré-remplies.`,
-  surv:`Plaquettes. Signes hémorragiques.`,
-  ci:`TIH, hémorragie active.`,
+  ind:`Anticoagulant — Héparine de Bas Poids Moléculaire (HBPM)
+
+Indiqué pour :
+Prévention et traitement TVP/EP
+
+⚠️ Particularité Tinzaparine : seule HBPM utilisable jusqu'à DFG ≥ 20 mL/min
+(vs ≥30 mL/min pour Daltéparine, ≥15 mL/min pour Énoxaparine)
+→ HBPM de choix chez patient âgé / IRC modérée`,
+  presc:`Préventif : 4 500 UI/j SC (1 injection/j).
+Curatif TVP/EP : 175 UI/kg × 1/j SC.
+
+⚠️ Réduction dose si DFG 20-30 mL/min — surveillance anti-Xa.
+⚠️ CI si DFG < 20 mL/min.
+
+Antidote : Sulfate de protamine (neutralisation partielle ~60-80%).
+Source : RCP ANSM, GIHP RFE 2024.`,
+  prep:`Seringues pré-remplies SC (2 500, 3 500, 4 500, 10 000, 14 000, 18 000 UI).
+Injection sous-cutanée abdominale ou cuisse — alterner les sites.`,
+  surv:`NFS-Plaquettes (TIH J3-J5 puis J7-J10 puis hebdomadaire).
+Activité anti-Xa si IRC, obésité, grossesse, hémorragie.
+Signes hémorragiques (hématomes, hématurie, etc.).
+
+Antidote : Sulfate de protamine (neutralisation partielle ~60-80%).`,
+  ci:`Antécédent de TIH (HNF ou HBPM — sensibilisation croisée).
+Hémorragie active.
+Endocardite bactérienne.
+DFG < 20 mL/min.`,
   dil:`SC uniquement`,voie:`SC`,},
 
   {nom:'KANOKAD',dci:'PPSB (Facteurs II, VII, IX, X)',
   ind:`Antidote AVK en urgence hémorragique ou chirurgie urgente. Reversal anticoagulants.`,
-  presc:`Dose selon INR et poids (25 UI/kg si INR 2–3,9 ; 35 UI/kg si INR 4–6 ; 50 UI/kg si INR > 6).
-IVL 3 mg/kg/min (max 210 UI/min).`,
+  presc:`Dose selon INR et poids (AVK) :
+• INR 2–3,9 : 25 UI/kg
+• INR 4–6 : 35 UI/kg
+• INR > 6 : 50 UI/kg
+Dose max 2500 UI.
+
+AOD : 50 UI/kg max 2500 UI (doser l'AOD pour confirmer l'imputabilité).
+
+⚠️ Débit : IVL 2 mL/min (RCP ANSM officiel) ; max 4 mL/min en cas d'urgence immédiate (SFMU).
+
+⚠️ Administrer 10 mg de Vitamine K PO ou IVL en même temps.
+Contrôle INR à 30 min : si > 1,5 → administration complémentaire de PPSB.`,
   prep:`Flacon lyophilisé à reconstituer dans l'eau PPI fournie. IVL.`,
   surv:`INR 30 min après injection. Risque thromboembolique. TA, FC.`,
   ci:`CIVD, TIH récente (relative).`,
@@ -10365,7 +11041,10 @@ IVL 3 mg/kg/min (max 210 UI/min).`,
   presc:`Selon INR et poids : 25–50 UI/kg IVL. Max 3 000 UI dose unique.`,
   prep:`Flacon poudre à reconstituer. IVL 1–2 mL/min (max 8 mL/min).`,
   surv:`INR 30 min après injection. Thrombose (rare). TA.`,
-  ci:`CIVD, TIH récente.`,
+  ci:`Antécédent de TIH grave de type II
+Déficit en IgA avec anticorps connus contre les IgA
+Hypersensibilité à l'héparine ou ses dérivés (HBPM)
+CIVD active`,
   dil:`Eau PPI fournie`,voie:`IV lente`,},
 
   {nom:'ONDEXXYA',dci:'Andexanet alfa',
@@ -10574,42 +11253,7 @@ Source : ESC Guidelines ACS 2023.`,
   ci:`Hypersensibilité.`,
   dil:`Voie orale`,voie:`PO`,},
 
-  {nom:'DIAZEPAM',dci:'Diazépam',
-  ind:`État de mal épileptique (1re ligne si midazolam indisponible), sevrage alcoolique, contracture musculaire, anxiété sévère, sédation procédurale.`,
-  presc:`EME adulte (1re ligne si midazolam indisponible) : 10 mg IV lente (2 mg/min) ou rectal. Renouvelable 1× après 10–15 min (max 20 mg).
-Sevrage alcoolique : 10–20 mg PO/IV, adapter selon symptômes CIWA.
-Contracture musculaire : 5–10 mg IV.
-⚠️ Injection IM à ÉVITER — absorption erratique et douloureuse.
-⚠️ Précipitation possible si dilué dans NaCl 0,9% — injecter pur lentement ou diluer dans G5%.
-⚠️ Antidote : flumazénil.
-
-Source : RCP ANSM, BDPM.`,
-  prep:`Ampoule 10 mg/2 mL. Diluer dans 10 mL NaCl pour IVL.
-Intrarectal : ampoule 10 mg/2,5 mL.`,
-  surv:`Sédation, dépression respiratoire. Antidote : flumazénil.
-⚠️ Précipitation si dilué dans NaCl — injecter pur lentement ou dans G5%.`,
-  ci:`Insuffisance respiratoire sévère, myasthénie, apnées du sommeil.`,
-  dil:`G5% ou pur`,voie:`IV lente / rectal`,},
-
-  {nom:'DILTIAZEM',dci:'Diltiazem',
-  ind:`Antiarythmique classe IV — tachycardie jonctionnelle, FA/flutter rapide (ralentissement FC). Angor vasospastique.`,
-  presc:`Tachycardie : 0,25 mg/kg IVL 2 min (max 25 mg), puis 0,35 mg/kg si besoin.
-FA rapide : 0,25 mg/kg IVL 5 min, relais IVSE 5–15 mg/h.`,
-  prep:`Ampoule 25 mg/5 mL. Diluer dans 100–250 mL NaCl 0,9% ou G5%. IVL.`,
-  surv:`ECG continu (bradycardie, BAV). TA, FC. Ne pas associer aux bêtabloquants IV.`,
-  ci:`Bradycardie, BAV 2–3, IC sévère (FE < 40%), syndrome de WPW, hypotension.`,
-  dil:`NaCl 0,9%, G5%`,voie:`IV lente / IVSE`,},
-
-  {nom:'DOBUTREX',dci:'Dobutamine',
-  ind:`Inotrope positif — choc cardiogénique, insuffisance cardiaque aiguë sévère.`,
-  presc:`2,5–10 µg/kg/min IVSE, augmenter par paliers. Max 20 µg/kg/min.
-⚠️ G5% strict — pas de bolus.`,
-  prep:`Flacon 250 mg/20 mL. Diluer 250 mg dans 30 mL G5% → 50 mL à 5 mg/mL.`,
-  surv:`ECG (tachycardie, arythmies). TA, FC, débit urinaire. Ischémie myocardique.`,
-  ci:`Cardiomyopathie obstructive (CMH), rétrécissement aortique serré.`,
-  dil:`G5% strict`,voie:`IVSE`,},
-
-  {nom:'EFFERALGAN',dci:'Paracétamol',
+{nom:'EFFERALGAN',dci:'Paracétamol',
   ind:`Antalgique palier 1 et antipyrétique.`,
   presc:`Adulte : 1 g × 3–4/j PO (max 4 g/j). Enfant : 15 mg/kg × 4–6/j.`,
   prep:`Comprimés effervescents 500 mg et 1 g.`,
@@ -10631,16 +11275,7 @@ Source : RCP ANSM, ESC Guidelines ACS 2023.`,
   ci:`ATCD AVC/AIT, hémorragie active, insuffisance hépatique sévère.`,
   dil:`Voie orale`,voie:`PO`,},
 
-  {nom:'EUPHRESSYL',dci:'Urapidil',
-  ind:`Urgence hypertensive, HTA péri-opératoire, phéochromocytome.`,
-  presc:`Bolus : 12,5–25 mg IVL sur 20 s, renouvelable × 2.
-IVSE : 9–30 mg/h.`,
-  prep:`Ampoule 50 mg/10 mL. Diluer dans NaCl 0,9% ou G5%.`,
-  surv:`TA (toutes les 2–5 min au début), FC.`,
-  ci:`Hypersensibilité, sténose aortique, shunt aorto-pulmonaire.`,
-  dil:`NaCl 0,9%, G5%`,voie:`IV bolus / IVSE`,},
-
-  {nom:'FUROSEMIDE',dci:'Furosémide',
+{nom:'FUROSEMIDE',dci:'Furosémide',
   ind:`Diurétique de l'anse — OAP cardiogénique, surcharge hydrosodée, décompensation cardiaque, HTA, hypercalcémie.`,
   presc:`OAP : 40–80 mg IV lente. IVSE : 5–20 mg/h.
 ⚠️ Même médicament que Lasilix® — doublon à éviter.`,
@@ -10679,16 +11314,7 @@ Source : RCP ANSM mai 2024 — Gentamicine Panpharma.`,
   ci:`Hypersensibilité IPP.`,
   dil:`NaCl 0,9%`,voie:`IV / PO`,},
 
-  {nom:'ISUPREL',dci:'Isoprénaline',
-  ind:`Bradycardie sévère sur BAV ou dysfonction sinusale en attente d'entraînement électrosystolique. Torsades de pointe.`,
-  presc:`IVSE : débuter 0,02–0,1 µg/kg/min. Titrer sur FC cible.
-⚠️ G5% strict. Pas de bolus.`,
-  prep:`5 ampoules 0,2 mg/1 mL dans 45 mL G5% → 50 mL à 0,02 mg/mL.`,
-  surv:`ECG continu (arythmies ventriculaires). FC, TA. Ischémie myocardique.`,
-  ci:`Tachycardie sinusale, IDM récent, hyperexcitabilité ventriculaire, intoxication digitalique.`,
-  dil:`G5% strict`,voie:`IVSE`,},
-
-  {nom:'IZALGI',dci:'Tramadol + Paracétamol (37,5 + 325 mg)',
+{nom:'IZALGI',dci:'Tramadol + Paracétamol (37,5 + 325 mg)',
   ind:`Antalgique palier 2 — douleurs modérées à sévères.`,
   presc:`1–2 cp toutes les 6h. Max 8 cp/j.`,
   prep:`Comprimés PO.`,
@@ -10696,18 +11322,7 @@ Source : RCP ANSM mai 2024 — Gentamicine Panpharma.`,
   ci:`Épilepsie non contrôlée, IMAO < 14j, insuffisance respiratoire sévère.`,
   dil:`Voie orale`,voie:`PO`,},
 
-  {nom:'KETALAR',dci:'Chlorhydrate de kétamine',
-  ind:`Analgésie procédurale, induction anesthésique ISR, analgésie en co-analgésie, sédation dissociative.`,
-  presc:`Analgésie/sédation procédurale : 0,1–0,5 mg/kg IVL lente (titration 25 mg/25 mg).
-Induction ISR : 1–2 mg/kg IVD lente en 60 s (RCP : 1–4,5 mg/kg, moyenne 2 mg/kg = 5–10 min).
-IM (si voie IV impossible) : 6,5–10 mg/kg.
-Entretien anesthésie : 1–4 mg/kg/h IVSE.`,
-  prep:`Ampoule 500 mg/10 mL (50 mg/mL) ou 250 mg/5 mL. Diluer si nécessaire dans NaCl.`,
-  surv:`TA, FC (effets sympathomimétiques). Hypersialorrhée (midazolam si besoin). Hallucinations/dysphorie.`,
-  ci:`HTA non contrôlée, HTIC, psychose aiguë instable, prééclampsie sévère (relative).`,
-  dil:`NaCl 0,9%, G5%`,voie:`IV lente / IM / IVSE`,},
-
-  {nom:'KETUM',dci:'Kétoprofène',
+{nom:'KETUM',dci:'Kétoprofène',
   ind:`AINS — douleurs rhumatismales, post-opératoires, coliques, dysménorrhées.`,
   presc:`50–100 mg × 2–3/j PO ou 100 mg IV perf × 2/j.`,
   prep:`Gélules, ampoule 100 mg pour IV (diluer dans 100 mL, IVL 20 min).`,
@@ -10716,12 +11331,28 @@ Entretien anesthésie : 1–4 mg/kg/h IVSE.`,
   dil:`NaCl 0,9%`,voie:`PO / IV perf`,},
 
   {nom:'KRENOSIN',dci:'Adénosine',
-  ind:`Identique à Adénosine® — tachycardie jonctionnelle paroxystique, test diagnostique TSV.`,
-  presc:`6 mg IVD bolus, si échec 12 mg à 2 min. ⚠️ Rinçage immédiat VVP.`,
-  prep:`PUR — ampoule 6 mg/2 mL. Bolus strict sur veine proximale.`,
-  surv:`ECG continu. Asystolie transitoire attendue. Atropine 1 mg prête.`,
-  ci:`BAV 2–3, maladie du sinus, WPW, asthme, bronchospasme.`,
-  dil:`Pur`,voie:`IV bolus`,},
+  ind:`Réduction des tachycardies jonctionnelles. Test diagnostique des tachycardies à QRS larges ou fins après échec des manœuvres vagales.`,
+  presc:`ADULTES :
+1ère dose : 6 mg IVD
+2e dose si échec après 5 min : 12 mg IVD
+⚠️ Rinçage immédiat VVP, ATROPINE 1 mg prête à l'emploi à disposition.
+
+PÉDIATRIE :
+1ère dose : 0,2 mg/kg IVD (max 6 mg)
+2e dose si échec après 5 min : 0,4 mg/kg IVD (max 12 mg)
+⚠️ ATROPINE 0,5 mg prête à disposition (dose pédiatrique 0,02 mg/kg)`,
+  prep:`PUR — ampoule 6 mg/2 mL.
+Injection en bolus, rinçage rapide de la voie veineuse (veine proximale).`,
+  surv:`ECG continu. Asystolie transitoire attendue (durée brève, < 10 sec).
+Surveillance scope : TA, FC, FR, SpO2.
+Atropine prête à l'emploi.
+Risques : bronchospasme (CI asthme), bradycardie/BAV transitoire, flush, dyspnée, douleur thoracique.`,
+  ci:`Bronchospasme, asthme.
+BAV 2-3, maladie de l'oreillette.
+Hypotension artérielle.
+Pré-excitation ventriculaire (WPW) : déconseillé.
+Attention si QT allongé (risque torsades de pointes).`,
+  dil:`Pur`,voie:`IV bolus / IO`,},
 
   {nom:'LAMALINE',dci:'Opium + Paracétamol + Caféine',
   ind:`Antalgique palier 2 — douleurs modérées.`,
@@ -10899,24 +11530,29 @@ Antagoniste : néostigmine + atropine.`,
 
   {nom:'PROTAMINE',dci:'Sulfate de protamine',
   ind:`Antidote de l'héparine non fractionnée (HNF). Neutralisation partielle des HBPM.`,
-  presc:`HNF IV : 1 mg protamine neutralise 100 UI HNF (sur la dose des 2 dernières heures max).
-Max 50 mg en 10 min. IVL stricte.
-HBPM : neutralisation partielle (~60–80%) — 1 mg protamine/1 mg énoxaparine.`,
+  presc:`⚠️ UAH = Unité d'Antagonisation de l'Héparine (nomenclature officielle française).
+1000 UAH = 1 mL = 10 mg de protamine neutralisent 1000 UI d'héparine.
+
+HNF IV : 1 mg protamine neutralise 100 UI HNF (sur la dose des 2 dernières heures max).
+Max 50 mg (5000 UAH = 5 mL) en 1 administration. IVL stricte 10 min minimum.
+
+Adapter à l'héparinémie constatée, SAUF en urgence où la dose des 4 dernières heures sert de guide.
+
+HBPM : neutralisation partielle (~60-80%) — 1 mg protamine / 1 mg énoxaparine.
+
+Source : SRLF 2024-2025 + RCP ANSM`,
   prep:`Ampoule 50 mg/5 mL. Diluer dans NaCl 0,9% ou G5%. IVL 10 min minimum.`,
   surv:`TA, FC (hypotension, bradycardie si injection trop rapide). TCA, anti-Xa. Réaction allergique.
 ⚠️ Ne jamais injecter en bolus rapide.`,
-  ci:`Allergie (poisson si origine marine). Précaution chez allergiques à la protamine/insuline NPH.`,
+  ci:`Risque de réaction anaphylactique grave, surtout chez les patients :
+• Exposés préalablement à la protamine (dont diabétiques traités par insuline NPH qui contient de la protamine)
+• Allergiques au poisson (protamine issue du poisson)
+• Vasectomisés ou stériles (risque de développement d'Ac anti-protamine)
+
+Précaution chez allergiques connus à la protamine ou à l'insuline NPH.`,
   dil:`NaCl 0,9%, G5%`,voie:`IV lente (10 min minimum)`,},
 
-  {nom:'PROVEBLUE',dci:'Bleu de méthylène (Chlorure de méthylthioninium)',
-  ind:`Méthémoglobinémie symptomatique (identique à Métiblo®).`,
-  presc:`1–2 mg/kg IVL 15 min dans G5% strict. Max cumulé 7 mg/kg.`,
-  prep:`Ampoule 1% (10 mg/mL) — diluer dans G5% strict.`,
-  surv:`SpO2 (CO-oxymètre), méthémoglobinémie. Inefficace si déficit G6PD.`,
-  ci:`Déficit G6PD, méthémoglobinémie au chlorate.`,
-  dil:`G5% strict`,voie:`IV lente`,},
-
-  {nom:'PULMICORT',dci:'Budésonide',
+{nom:'PULMICORT',dci:'Budésonide',
   ind:`Corticoïde inhalé — asthme, BPCO. En urgence : croup (laryngite sous-glottique) en nébulisation.`,
   presc:`Croup : 2 mg en nébulisation dose unique (peut répéter).
 Asthme traitement de fond : 200–800 µg/j inhalé.`,
@@ -10950,22 +11586,7 @@ Asthme traitement de fond : 200–800 µg/j inhalé.`,
   ci:`Insuffisance respiratoire, myasthénie, apnées du sommeil.`,
   dil:`Voie orale`,voie:`PO`,},
 
-  {nom:'SALBUTAMOL',dci:'Sulfate de salbutamol',
-  ind:`Bronchodilatateur bêta-2 — crise d'asthme, BPCO exacerbée, bronchospasme, hyperkaliémie (IV).`,
-  presc:`Nébulisation (asthme/BPCO) : 2,5–5 mg diluée dans 5 mL NaCl 0,9%, débit O2 6 L/min × 15 min. Renouvelable toutes les 20 min si nécessaire.
-IV (asthme aigu grave) : 5–25 µg/min IVSE ou bolus 250 µg IVL sur 10 min.
-Hyperkaliémie (adjuvant) : 10–20 mg en nébulisation sur 15 min.
-⚠️ Nébulisation en continu en cas d'AAG (asthme aigu grave) possible.
-⚠️ Hypokaliémie fréquente à fortes doses — surveiller kaliémie.
-
-Source : RCP ANSM BDPM.`,
-  prep:`Nébulisation : Salbutamol fort 5 mg/2,5 mL — diluer dans 5 mL NaCl.
-IV : 5 mg dans 500 mL NaCl (10 µg/mL).`,
-  surv:`FC (tachycardie), tremblement, hypokaliémie (si prolongé). SpO2, débit expiratoire.`,
-  ci:`Tachycardie supra-ventriculaire non contrôlée (relative).`,
-  dil:`NaCl 0,9%`,voie:`Nébulisation / IV`,},
-
-  {nom:'SERESTA',dci:'Oxazépam',
+{nom:'SERESTA',dci:'Oxazépam',
   ind:`Anxiété, insomnie, sevrage alcoolique (benzodiazépine courte durée d'action — préférable sujet âgé et cirrhotique).`,
   presc:`Anxiété/sevrage : 10–30 mg PO × 3–4/j.`,
   prep:`Comprimés 10 et 50 mg.`,
@@ -11018,6 +11639,10 @@ Néphropathie diabétique : 300 mg/j.
     return {adulte:text.substring(0,lineStart).trim(), ped:text.substring(lineStart).trim()};
   }
 
+  function styleSourceLine(html){
+    return html.replace(/(?:<br\/>\s*)*(Source\s*:[^<]*)(?:<br\/>)*\s*$/i,'<div class="fiche-source">$1</div>');
+  }
+
   function renderPrescription(m){
     var parts=splitPrescription(m.presc||'');
     var hasAdulte=parts.adulte.length>10;
@@ -11028,9 +11653,11 @@ Néphropathie diabétique : 300 mg/j.
     html+='<button class="presc-pill adult'+(hasAdulte?'':' disabled')+'" onclick="showPrescBlock(this,\'adulte\')">'+'👤 Adulte'+'</button>';
     html+='<button class="presc-pill ped'+(hasPed?'':' disabled')+'" onclick="showPrescBlock(this,\'ped\')">'+'👶 Pédiatrique'+'</button>';
     html+='</div>';
-    // Blocs
-    html+='<div class="presc-block" id="prescAdulte">'+( hasAdulte?parts.adulte.replace(/\n/g,'<br/>'):( !hasPed?(m.presc||'—').replace(/\n/g,'<br/>'):'Non disponible'))+'</div>';
-    html+='<div class="presc-block hidden" id="prescPed">'+(hasPed?parts.ped.replace(/\n/g,'<br/>'):'Données pédiatriques non disponibles pour cette molécule.')+'</div>';
+    // Blocs (avec stylisation des "Source :" en fin de contenu)
+    var adulteHtml = hasAdulte ? styleSourceLine(parts.adulte.replace(/\n/g,'<br/>')) : ( !hasPed ? styleSourceLine((m.presc||'—').replace(/\n/g,'<br/>')) : 'Non disponible');
+    var pedHtml    = hasPed    ? styleSourceLine(parts.ped.replace(/\n/g,'<br/>'))    : 'Données pédiatriques non disponibles pour cette molécule.';
+    html+='<div class="presc-block" id="prescAdulte">'+adulteHtml+'</div>';
+    html+='<div class="presc-block hidden" id="prescPed">'+pedHtml+'</div>';
     return html;
   }
 
@@ -11056,6 +11683,8 @@ Néphropathie diabétique : 300 mg/j.
       surveillance:m.surv||'—'
     };
     var content=tab==='prescription'?contentMap.prescription:(contentMap[tab]||'—').replace(/\n/g,'<br/>');
+    // Isolation visuelle des lignes "Source : ..." en fin de contenu
+    content=content.replace(/(?:<br\/>\s*)*(Source\s*:[^<]*)(?:<br\/>)*\s*$/i,'<div class="fiche-source">$1</div>');
     document.getElementById('medTabContent').innerHTML=content;
     tabs.forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab);});
   }
@@ -11324,8 +11953,7 @@ const princepsData = [
   {princeps:'RAPIFEN',dci:'Alfentanil'},
   {princeps:'SUFENTA',dci:'Sufentanil'},
   // Benzodiazépines
-  {princeps:'DIAZEPAM',dci:'Diazépam'},
-  {princeps:'HYPNOVEL',dci:'Midazolam'},
+{princeps:'HYPNOVEL',dci:'Midazolam'},
   {princeps:'LEXOMIL',dci:'Bromazépam'},
   {princeps:'LYSANXIA',dci:'Prazépam'},
   {princeps:'RIVOTRIL',dci:'Clonazépam'},
@@ -11347,8 +11975,7 @@ const princepsData = [
   // Cardio-vasculaire / Antiarythmiques
   {princeps:'ADRÉNALINE AGUETTANT',dci:'Adrénaline (Épinéphrine)'},
   {princeps:'ALDACTONE',dci:'Spironolactone'},
-  {princeps:'AMIODARONE',dci:'Amiodarone'},
-  {princeps:'ANGIOX',dci:'Bivalirudine'},
+{princeps:'ANGIOX',dci:'Bivalirudine'},
   {princeps:'ARIXTRA',dci:'Fondaparinux sodique'},
   {princeps:'ATENOLOL',dci:'Aténolol'},
   {princeps:'ATROPINE',dci:'Sulfate d\'atropine'},
@@ -11358,8 +11985,7 @@ const princepsData = [
   {princeps:'CORDARONE',dci:'Amiodarone'},
   {princeps:'COUMADINE',dci:'Warfarine'},
   {princeps:'DIGOXINE',dci:'Digoxine'},
-  {princeps:'DILTIAZEM',dci:'Diltiazem'},
-  {princeps:'DOBUTREX',dci:'Dobutamine'},
+{princeps:'DOBUTREX',dci:'Dobutamine'},
   {princeps:'DOPAMINE',dci:'Dopamine chlorhydrate'},
   {princeps:'EFIENT',dci:'Prasugrel'},
   {princeps:'EPHÉDRINE',dci:'Chlorhydrate d\'éphédrine'},
@@ -11367,8 +11993,7 @@ const princepsData = [
   {princeps:'FRAGMINE',dci:'Daltéparine sodique'},
   {princeps:'FRAXIPARINE',dci:'Nadroparine calcique'},
   {princeps:'INNOHEP',dci:'Tinzaparine sodique'},
-  {princeps:'ISUPREL',dci:'Isoprénaline chlorhydrate'},
-  {princeps:'LASILIX',dci:'Furosémide'},
+{princeps:'LASILIX',dci:'Furosémide'},
   {princeps:'LOPRESSOR',dci:'Métoprolol'},
   {princeps:'LOVENOX',dci:'Énoxaparine sodique'},
   {princeps:'LOXEN',dci:'Nicardipine'},
@@ -11404,6 +12029,8 @@ const princepsData = [
   {princeps:'BRICANYL',dci:'Sulfate de terbutaline'},
   {princeps:'PULMICORT',dci:'Budésonide'},
   {princeps:'SALBUTAMOL',dci:'Sulfate de salbutamol'},
+  {princeps:'SALBUMOL',dci:'Sulfate de salbutamol'},
+  {princeps:'SALBUMOL FORT',dci:'Sulfate de salbutamol'},
   {princeps:'VENTOLINE',dci:'Sulfate de salbutamol'},
   // Système nerveux / Neurologie
   {princeps:'ANEXATE',dci:'Flumazénil'},
@@ -11425,17 +12052,28 @@ const princepsData = [
   {princeps:'CAMCOLIT',dci:'Carbonate de lithium'},
   {princeps:'EXACYL',dci:'Acide tranexamique'},
   {princeps:'GLUCAGEN',dci:'Glucagon'},
+    {princeps:'FLUIMUCIL',dci:'N-acétylcystéine'},
+    {princeps:'NAC',dci:'N-acétylcystéine'},
+    {princeps:'HIDONAC',dci:'N-acétylcystéine'},
+    {princeps:'FOMEPIZOLE',dci:'Fomépizole'},
   {princeps:'INTRALIPIDE',dci:'Émulsion lipidique 20%'},
   {princeps:'METIBLO',dci:'Bleu de méthylène'},
   {princeps:'PROVEBLUE',dci:'Bleu de méthylène'},
   {princeps:'REVERPLEG',dci:'Argipressine (Vasopressine)'},
   // Métabolisme / Divers urgences
   {princeps:'ANEXATE',dci:'Flumazénil'},
-  {princeps:'BICARBONATE DE SODIUM',dci:'Bicarbonate de sodium'},
+  {princeps:'BICARBONATE DE SODIUM',dci:'Bicarbonate de sodium (1,4% / 4,2% / 8,4%)'},
+    {princeps:'BICARBONATE 1,4%',dci:'Bicarbonate de sodium (1,4% / 4,2% / 8,4%)'},
+    {princeps:'BICARBONATE 4,2%',dci:'Bicarbonate de sodium (1,4% / 4,2% / 8,4%)'},
+    {princeps:'BICARBONATE 8,4%',dci:'Bicarbonate de sodium (1,4% / 4,2% / 8,4%)'},
+    {princeps:'BICAR',dci:'Bicarbonate de sodium (1,4% / 4,2% / 8,4%)'},
   {princeps:'CALCIUM GLUCONATE',dci:'Gluconate de calcium 10%'},
   {princeps:'CALCIUM CHLORURE',dci:'Chlorure de calcium 10%'},
   {princeps:'GLUCONATE DE CALCIUM',dci:'Gluconate de calcium'},
-  {princeps:'GLUCOSE',dci:'Glucose 10% / 30% (G10, G30)'},
+  {princeps:'GLUCOSE',dci:'Glucose 30%'},
+    {princeps:'GLUCOSE 10%',dci:'Glucose 10% (G10)'},
+    {princeps:'G10',dci:'Glucose 10% (G10)'},
+    {princeps:'G30',dci:'Glucose 30%'},
   {princeps:'INSULINE NOVORAPID',dci:'Insuline asparte'},
   {princeps:'INSULINE HUMALOG',dci:'Insuline lispro'},
   {princeps:'POTASSIUM CHLORURE',dci:'Chlorure de potassium'},
@@ -11477,8 +12115,7 @@ const princepsData = [
   {princeps:'CELOCURINE',dci:'Suxaméthonium'},
   {princeps:'CLAFORAN',dci:'Céfotaxime sodique'},
   {princeps:'FUROSEMIDE',dci:'Furosémide'},
-  {princeps:'ISUPREL',dci:'Isoprénaline'},
-  {princeps:'KRENOSIN',dci:'Adénosine'},
+{princeps:'KRENOSIN',dci:'Adénosine'},
   {princeps:'STRIADYNE',dci:'Adénosine triphosphate (ATP)'},
   {princeps:'APROVEL',dci:'Irbésartan'},
 ];
