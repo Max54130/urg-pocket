@@ -5,7 +5,7 @@
    caches sont purgés à chaque activation.
    ============================================================ */
 
-const CACHE_NAME = 'urg-pocket-v1.3.3';
+const CACHE_NAME = 'urg-pocket-v1.3.4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

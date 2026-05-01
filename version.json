@@ -1,11 +1,23 @@
 {
-  "versionCode": 82,
-  "versionName": "1.3.3",
-  "releaseDate": "2026-04-30",
+  "versionCode": 83,
+  "versionName": "1.3.4",
+  "releaseDate": "2026-05-01",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "Améliorations UX : convertisseur biologique simplifié (6 paramètres avec bouton de bascule du sens de conversion), choix de l'unité du calcium dans le calcul de la calcémie corrigée (mmol/L, mg/dL, mg/L, mEq/L), et meilleure lisibilité des sources dans les fiches médicaments (séparation visuelle).",
+  "changelog": "Refonte du score SCB / Parkland (Adulte/Pédia + règle de la paume), normes biologiques pédiatriques (4 tranches d'âge), raccourcis Trou anionique et Calcémie corrigée dans la section Normes.",
   "releases": [
+    {
+      "versionName": "1.3.4",
+      "date": "2026-05-01",
+      "changes": [
+        "**Score SCB / Parkland refondu** : ajout du toggle Adulte / Pédiatrie. Adultes (≥ 15 ans) → règle des 9 de Wallace inchangée. Pédiatrie (< 15 ans) → table de Lund-Browder avec sélection de la tranche d'âge (< 1 an / 1–4 / 5–9 / 10–14) qui ajuste automatiquement les pourcentages corporels (proportions tête/jambes différentes selon l'âge).",
+        "**Règle de la paume** ajoutée comme méthode alternative d'estimation : la paume du patient ≈ 1% de la surface corporelle totale. Recommandée pour les brûlures dispersées ou de taille modérée (ABA, ERC, SFETB).",
+        "**Seuil de gravité pédiatrique abaissé** à 10% SCB (vs 20% adulte) dans l'interprétation et le conduct.",
+        "**Affichage du libellé de méthode** dans le résultat (Wallace / Lund-Browder / paume) pour traçabilité.",
+        "**Normes biologiques pédiatriques** : ajout d'un toggle Adulte/Pédiatrie dans la section Normes. Pour chaque catégorie (Gaz du sang, NFS, Iono sanguin, Iono urinaire, Glycémie, Bilan hépatique/lipidique/musculaire), les valeurs normales sont désormais affichées par tranche d'âge : Néonat (< 28 j), Nourrisson (1 m – 2 a), Enfant (2 – 12 a), Ado (12 – 18 a). Sources : HUG Pédiatrie 2025, GFRUP, Nelson Textbook 21e, AFSSAPS, NCEP.",
+        "**Raccourcis vers les calculs biologiques** dans la section Normes : Trou anionique et Calcémie corrigée accessibles directement depuis Normes (bouton sous les normes biologiques)."
+      ]
+    },
     {
       "versionName": "1.3.3",
       "date": "2026-04-30",
@@ -65,147 +77,234 @@
     {
       "name": "Glasgow",
       "domain": "Neuro · Conscience",
-      "tooltip": "Évalue le niveau de conscience."
+      "tooltip": "Évalue le niveau de conscience.",
+      "category": "Neurologie",
+      "kind": "Score",
+      "shortDesc": "Niveau de conscience (E+V+M, /15)"
     },
     {
       "name": "Glasgow pédia.",
       "domain": "Enfant < 5 ans",
-      "tooltip": "Évalue le niveau de conscience chez l'enfant."
+      "tooltip": "Évalue le niveau de conscience chez l'enfant.",
+      "category": "Neurologie",
+      "kind": "Score",
+      "shortDesc": "Adapté à l'enfant < 5 ans"
     },
     {
       "name": "NIHSS",
       "domain": "AVC",
-      "tooltip": "Mesure la sévérité d'un AVC."
+      "tooltip": "Mesure la sévérité d'un AVC.",
+      "category": "Neurologie",
+      "kind": "Score",
+      "shortDesc": "Quantification du déficit AVC"
     },
     {
       "name": "NEWS2",
       "domain": "Hémodynamique",
-      "tooltip": "Détecte la détérioration clinique précoce."
+      "tooltip": "Détecte la détérioration clinique précoce.",
+      "category": "Sepsis / Surveillance",
+      "kind": "Score",
+      "shortDesc": "Détection précoce de la dégradation"
     },
     {
       "name": "HEART",
       "domain": "SCA",
-      "tooltip": "Estime le risque d'événement coronarien."
+      "tooltip": "Estime le risque d'événement coronarien.",
+      "category": "Cardiologie / SCA / IC",
+      "kind": "Score",
+      "shortDesc": "Stratification du risque SCA aux urgences"
     },
     {
       "name": "Killip",
       "domain": "IC aiguë",
-      "tooltip": "Classe l'insuffisance cardiaque sur IDM."
+      "tooltip": "Classe l'insuffisance cardiaque sur IDM.",
+      "category": "Cardiologie / SCA / IC",
+      "kind": "Score",
+      "shortDesc": "Insuffisance cardiaque post-SCA"
     },
     {
       "name": "Shock Index",
       "domain": "Hémodynamique",
-      "tooltip": "Signale l'instabilité hémodynamique."
+      "tooltip": "Signale l'instabilité hémodynamique.",
+      "category": "Cardiologie / SCA / IC",
+      "kind": "Score",
+      "shortDesc": "FC/PAS — dépistage du choc"
     },
     {
       "name": "Wells EP",
       "domain": "Thrombose",
-      "tooltip": "Évalue la probabilité d'embolie pulmonaire."
+      "tooltip": "Évalue la probabilité d'embolie pulmonaire.",
+      "category": "Embolie pulmonaire / TVP",
+      "kind": "Score",
+      "shortDesc": "Probabilité clinique d'EP"
     },
     {
       "name": "Genève rév.",
       "domain": "EP",
-      "tooltip": "Alternative objective à Wells pour l'EP."
+      "tooltip": "Alternative objective à Wells pour l'EP.",
+      "category": "Embolie pulmonaire / TVP",
+      "kind": "Score",
+      "shortDesc": "Probabilité d'EP (alt. à Wells)"
     },
     {
       "name": "PERC",
       "domain": "EP · exclusion",
-      "tooltip": "Exclut une EP chez le patient à faible risque."
+      "tooltip": "Exclut une EP chez le patient à faible risque.",
+      "category": "Embolie pulmonaire / TVP",
+      "kind": "Score",
+      "shortDesc": "Règle d'exclusion EP (8 critères)"
     },
     {
       "name": "YEARS",
       "domain": "EP · D-dimères",
-      "tooltip": "Algorithme d'exclusion d'EP avec D-dimères."
+      "tooltip": "Algorithme d'exclusion d'EP avec D-dimères.",
+      "category": "Embolie pulmonaire / TVP",
+      "kind": "Score",
+      "shortDesc": "Indication des D-dimères ajustés"
     },
     {
       "name": "sPESI",
       "domain": "EP · pronostic",
-      "tooltip": "Pronostic à 30 jours d'une EP confirmée."
+      "tooltip": "Pronostic à 30 jours d'une EP confirmée.",
+      "category": "Embolie pulmonaire / TVP",
+      "kind": "Score",
+      "shortDesc": "Pronostic à 30j de l'EP"
     },
     {
       "name": "Blatchford",
       "domain": "Hémorragie digestive",
-      "tooltip": "Évalue le risque d'intervention sur hémorragie digestive haute."
+      "tooltip": "Évalue le risque d'intervention sur hémorragie digestive haute.",
+      "category": "Trauma / Hémorragie",
+      "kind": "Score",
+      "shortDesc": "Hémorragie digestive haute"
     },
     {
       "name": "Vittel",
       "domain": "Trauma grave",
-      "tooltip": "Oriente vers un centre de traumatologie."
+      "tooltip": "Oriente vers un centre de traumatologie.",
+      "category": "Trauma / Hémorragie",
+      "kind": "Score",
+      "shortDesc": "Critères de triage trauma grave"
     },
     {
       "name": "qSOFA",
       "domain": "Sepsis",
-      "tooltip": "Repère rapidement un sepsis à risque."
+      "tooltip": "Repère rapidement un sepsis à risque.",
+      "category": "Sepsis / Surveillance",
+      "kind": "Score",
+      "shortDesc": "Dépistage rapide du sepsis"
     },
     {
       "name": "APGAR",
       "domain": "Néonatologie",
-      "tooltip": "Évalue le nouveau-né à 1, 5 et 10 minutes."
+      "tooltip": "Évalue le nouveau-né à 1, 5 et 10 minutes.",
+      "category": "Pédiatrie / Obstétrique",
+      "kind": "Score",
+      "shortDesc": "Adaptation néonatale (1, 5, 10 min)"
     },
     {
       "name": "Malinas",
       "domain": "Obstétrique",
-      "tooltip": "Évalue l'imminence d'un accouchement."
+      "tooltip": "Évalue l'imminence d'un accouchement.",
+      "category": "Pédiatrie / Obstétrique",
+      "kind": "Score",
+      "shortDesc": "Imminence de l'accouchement"
     },
     {
       "name": "Cushman",
       "domain": "Sevrage OH",
-      "tooltip": "Surveille le sevrage alcoolique."
+      "tooltip": "Surveille le sevrage alcoolique.",
+      "category": "Sevrage / Addiction",
+      "kind": "Score",
+      "shortDesc": "Sevrage alcoolique aigu"
     },
     {
       "name": "Braden",
       "domain": "Escarre",
-      "tooltip": "Évalue le risque d'escarre."
+      "tooltip": "Évalue le risque d'escarre.",
+      "category": "Soins infirmiers",
+      "kind": "Score",
+      "shortDesc": "Risque d'escarre (6 items)"
     },
     {
       "name": "Algoplus",
       "domain": "Douleur aiguë PA",
-      "tooltip": "Évalue la douleur aiguë chez la personne âgée non communicante."
+      "tooltip": "Évalue la douleur aiguë chez la personne âgée non communicante.",
+      "category": "Douleur",
+      "kind": "Score",
+      "shortDesc": "Douleur aiguë · personne âgée"
     },
     {
       "name": "Doloplus-2",
       "domain": "Douleur chron. PA",
-      "tooltip": "Évalue la douleur chronique chez la personne âgée non communicante."
+      "tooltip": "Évalue la douleur chronique chez la personne âgée non communicante.",
+      "category": "Douleur",
+      "kind": "Score",
+      "shortDesc": "Douleur chronique · personne âgée"
     },
     {
       "name": "DEP",
       "domain": "Respiratoire",
-      "tooltip": "Évalue la sévérité d'une crise d'asthme."
+      "tooltip": "Évalue la sévérité d'une crise d'asthme.",
+      "category": "Pneumologie",
+      "kind": "Score",
+      "shortDesc": "Débit expiratoire de pointe (théorique)"
     },
     {
       "name": "DFG CKD-EPI",
       "domain": "Néphrologie",
-      "tooltip": "Estime la fonction rénale pour adapter les posologies."
+      "tooltip": "Estime la fonction rénale pour adapter les posologies.",
+      "category": "Biologie",
+      "kind": "Calcul",
+      "shortDesc": "Fonction rénale 2021 (sans ethnie)"
     },
     {
       "name": "IMC / SC",
       "domain": "Posologie",
-      "tooltip": "Calcule l'IMC et la surface corporelle."
+      "tooltip": "Calcule l'IMC et la surface corporelle.",
+      "category": "Posologie",
+      "kind": "Calcul",
+      "shortDesc": "Indice de masse + surface corporelle"
     },
     {
       "name": "Red Flag",
       "domain": "Trauma · coagulopathie",
-      "tooltip": "Score Hamada 2018 — détection précoce de coagulopathie post-traumatique. Alerte si ≥2 critères."
+      "tooltip": "Score Hamada 2018 — détection précoce de coagulopathie post-traumatique. Alerte si ≥2 critères.",
+      "category": "Trauma / Hémorragie",
+      "kind": "Score",
+      "shortDesc": "Coagulopathie post-trauma (Hamada)"
     },
     {
       "name": "PRAM",
       "domain": "Asthme pédia",
-      "tooltip": "Pediatric Respiratory Assessment Measure — évalue la sévérité de l'asthme aigu chez l'enfant 2-17 ans."
+      "tooltip": "Pediatric Respiratory Assessment Measure — évalue la sévérité de l'asthme aigu chez l'enfant 2-17 ans.",
+      "category": "Pédiatrie / Obstétrique",
+      "kind": "Score",
+      "shortDesc": "Asthme aigu pédiatrique 2-17 ans"
     },
     {
       "name": "Calcémie corrigée",
       "domain": "Iono · Ca",
-      "tooltip": "Corrige la calcémie totale en fonction de l'albumine."
+      "tooltip": "Corrige la calcémie totale en fonction de l'albumine.",
+      "category": "Biologie",
+      "kind": "Calcul",
+      "shortDesc": "Ca + 0,02 × (40 − albumine)"
     },
     {
       "name": "SCB / Parkland",
       "domain": "Brûlures",
-      "tooltip": "Surface Corporelle Brûlée (Wallace) + remplissage initial Parkland."
+      "tooltip": "Surface Corporelle Brûlée (Wallace) + remplissage initial Parkland.",
+      "category": "Brûlures",
+      "kind": "Score",
+      "shortDesc": "Surface brûlée + remplissage initial"
     },
     {
       "name": "Trou anionique",
       "domain": "Acidose",
-      "tooltip": "TA = Na − (Cl + HCO₃). Diagnostic étiologique d'acidose métabolique."
+      "tooltip": "TA = Na − (Cl + HCO₃). Diagnostic étiologique d'acidose métabolique.",
+      "category": "Biologie",
+      "kind": "Calcul",
+      "shortDesc": "Na − (Cl + HCO₃) — étiologie acidose"
     }
   ]
 }

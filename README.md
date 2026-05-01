@@ -18,10 +18,10 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.3.3** |
-| versionCode | **82** |
-| Date | Avril 2026 |
-| Prochaine release minimum | versionCode **≥ 83** / versionName **"1.3.4"** |
+| versionName | **1.3.4** |
+| versionCode | **83** |
+| Date | Mai 2026 |
+| Prochaine release minimum | versionCode **≥ 84** / versionName **"1.3.5"** |
 | Dernier publié Play Store | versionCode 77 / versionName 1.2.60 |
 
 ---
@@ -139,6 +139,41 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.3.4 (1er mai 2026) — refonte SCB / Parkland
+
+**Score SCB / Parkland refondu** pour couvrir adulte et pédiatrie avec deux méthodes d'estimation au choix.
+
+**Toggle Adulte / Pédiatrie**
+- **Adulte (≥ 15 ans)** : règle des 9 de Wallace (méthode existante préservée).
+- **Pédiatrie (< 15 ans)** : table de **Lund-Browder** avec sélection de la tranche d'âge — `< 1 an` (tête 19%), `1–4 ans` (tête 17%), `5–9 ans` (tête 13%), `10–14 ans` (tête 11%). Les pourcentages corporels s'ajustent automatiquement au changement de tranche.
+- Référence : Lund CC, Browder NC. *Surg Gynecol Obstet* 1944;79:352-358 — adoptée par ABA, ERC, SFETB.
+
+**Toggle Méthode d'estimation**
+- **Segments anatomiques** : champs détaillés par zone (8 segments en Wallace, 19 segments en Lund-Browder) avec contrôle automatique du % max par zone.
+- **Règle de la paume** (✋) : un seul champ "Nombre de paumes du patient", basé sur la convention universelle "1 paume du patient ≈ 1% de la SCT". Recommandée par l'ABA, l'ERC et la SFETB pour les brûlures dispersées ou de taille modérée — particulièrement utile en pré-hospitalier (SAMU/SMUR).
+
+**Adaptation pédiatrique du seuil de gravité**
+- Seuil "Brûlure grave" abaissé à **10% SCB** en pédiatrie (vs 20% adulte) — cohérent avec les recommandations SFETB qui considèrent un transfert en centre de brûlés justifié dès 10% SCB chez l'enfant.
+- Le badge `Modérée` / `Grave` et le `conduct` (orientation thérapeutique) s'adaptent automatiquement au profil sélectionné.
+
+**Affichage du libellé de méthode dans le résultat**
+- Le résultat affiche désormais `(Wallace)`, `(Lund-Browder)` ou `(paume)` pour traçabilité de la méthode utilisée — utile pour la transmission au centre de brûlés ou en relève.
+
+**Normes biologiques pédiatriques**
+- Ajout d'un **toggle Adulte / Pédiatrie** dans la section Normes biologiques.
+- Pour chaque catégorie (Gaz du sang, NFS, Iono sanguin, Iono urinaire, Glycémie, Bilan hépatique/lipidique/musculaire), les valeurs sont désormais déclinées par tranche d'âge :
+  - **Néonat** (< 28 jours)
+  - **Nourrisson** (1 mois – 2 ans)
+  - **Enfant** (2 – 12 ans)
+  - **Ado** (12 – 18 ans)
+- Sources : HUG Pédiatrie 2025, GFRUP, Nelson Textbook of Pediatrics 21e éd., AFSSAPS, NCEP (bilan lipidique pédia).
+
+**Raccourcis vers les calculs biologiques dans Normes**
+- Nouvelle sous-section **"Calculs biologiques"** dans la section Normes contenant les raccourcis vers Trou anionique 🧮 et Calcémie corrigée 🦴.
+- Pas de duplication de code : les raccourcis pointent vers les écrans de score existants.
+
+---
 
 ### v1.3.3 (30 avril 2026) — améliorations UX
 

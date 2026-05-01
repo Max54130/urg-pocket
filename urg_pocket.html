@@ -815,7 +815,9 @@ Dose max 4h = débit continu 4h + bolus accordés sur 4h.<br/>
 Bolus max/4h = dose max 4h − (débit × 4) puis ÷ dose bolus.<br/>
 Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 <strong>Double contrôle systématique avant programmation.</strong></div>
-</div></section><section class="screen" id="screen-normes"><div class="content-card"><div class="page-head"><div><h2>Normes biologiques</h2><p>Repères indicatifs — valeurs adultes</p></div></div>
+</div></section><section class="screen" id="screen-normes"><div class="content-card"><div class="page-head"><div><h2>Normes biologiques</h2><p>Repères indicatifs — Adulte / Pédiatrie</p></div></div>
+<div class="field" style="margin-bottom:14px"><div class="label">Profil</div>
+<div class="duration-toggle"><button class="unit-btn norme-profil-btn active" data-profil="adulte" type="button">👤 Adulte</button><button class="unit-btn norme-profil-btn" data-profil="ped" type="button">👶 Pédiatrie</button></div></div>
 <div class="home-compact-grid" style="margin-bottom:14px">
 <button class="home-compact norme-nav-btn" data-norme="Gaz du sang"><span class="hc-icon">🫁</span><span class="hc-label">Gaz du sang</span></button>
 <button class="home-compact norme-nav-btn" data-norme="Numération Formule Sanguine (NFS)"><span class="hc-icon">🩸</span><span class="hc-label">NFS</span></button>
@@ -824,7 +826,12 @@ Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 <button class="home-compact norme-nav-btn" data-norme="Glycémie"><span class="hc-icon">🍬</span><span class="hc-label">Glycémie</span></button>
 <button class="home-compact norme-nav-btn" data-norme="Bilan hépatique, lipidique et musculaire"><span class="hc-icon">🧬</span><span class="hc-label">Bilan hépatique / lipidique</span></button>
 </div>
-<div class="note">Les valeurs données ici sont indicatives, réfère-toi aux valeurs données par les laboratoires.</div>
+<div class="section-title"><h3>Calculs biologiques</h3></div>
+<div class="home-compact-grid" style="margin-bottom:14px">
+<button class="home-compact" data-target="score-trouanionique"><span class="hc-icon">🧮</span><span class="hc-label">Trou anionique</span></button>
+<button class="home-compact" data-target="score-cacorrigee"><span class="hc-icon">🦴</span><span class="hc-label">Calcémie corrigée</span></button>
+</div>
+<div class="note">Les valeurs données ici sont indicatives, réfère-toi aux valeurs données par les laboratoires. <strong>En pédiatrie, la variabilité par âge et par méthode est très élevée</strong> — toujours corréler à la clinique et aux référentiels locaux.</div>
 </div></section>
 <section class="screen" id="screen-norme-detail"><div class="content-card"><div class="page-head"><div><h2 id="normeDetailTitle">—</h2></div><button class="btn-back" data-target="normes">◀ Normes</button></div>
 <div class="note" style="margin-top:0">Les intervalles de référence varient selon le laboratoire, la méthode analytique et la population de référence.</div>
@@ -1758,7 +1765,7 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 <div class="field" style="margin-bottom:14px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Version</span>
-<span style="color:var(--primary);font-weight:800">1.3.3</span>
+<span style="color:var(--primary);font-weight:800">1.3.4</span>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 <span style="font-weight:700">Développement</span>
@@ -1986,10 +1993,27 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <div><button class="btn primary" id="caCorrigeeCalcBtn">Calculer</button></div></div>
 <div class="score-result" id="caCorrigeeResult" aria-live="polite">—</div>
 </div></div></section>
-<section class="screen" id="screen-score-scb"><div class="content-card"><div class="page-head"><div><h2>SCB / Parkland</h2></div><p>Surface Corporelle Brûlée (Wallace) + formule de Parkland pour le remplissage initial.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
-<div class="note" style="margin-top:0;margin-bottom:14px">⚠️ Wallace adulte (≥12 ans). Pédiatrie : utiliser Lund-Browder (proportions différentes).</div>
-<div class="score-panel" id="score-scb"><div class="section-title"><h3>SCB — Règle des 9 de Wallace</h3></div>
-<div class="score-list" id="scbWrap"></div>
+<section class="screen" id="screen-score-scb"><div class="content-card"><div class="page-head"><div><h2>SCB / Parkland</h2></div><p>Surface Corporelle Brûlée + formule de Parkland pour le remplissage initial.</p><button class="btn-back" data-target="scores">◀ Scores</button></div>
+<div class="note" style="margin-top:0;margin-bottom:14px">⚠️ <strong>Wallace</strong> (règle des 9) : adulte et adolescent ≥ 15 ans. <strong>Lund-Browder</strong> : enfants &lt; 15 ans (proportions corporelles différentes — tête plus grande, jambes plus petites).</div>
+<div class="score-panel" id="score-scb">
+
+<div class="field" style="margin-bottom:14px"><div class="label">Profil</div>
+<div class="duration-toggle"><button class="unit-btn scb-profil-btn" data-profil="adulte" type="button">👤 Adulte (≥ 15 ans)</button><button class="unit-btn scb-profil-btn" data-profil="ped" type="button">👶 Pédiatrie (&lt; 15 ans)</button></div></div>
+
+<div class="field scb-ped-age" style="margin-bottom:14px;display:none"><div class="label">Tranche d'âge (Lund-Browder)</div>
+<div class="duration-toggle" style="grid-template-columns:repeat(auto-fit,minmax(80px,1fr))"><button class="unit-btn scb-age-btn" data-age="0" type="button">&lt; 1 an</button><button class="unit-btn scb-age-btn" data-age="1" type="button">1–4 ans</button><button class="unit-btn scb-age-btn" data-age="5" type="button">5–9 ans</button><button class="unit-btn scb-age-btn" data-age="10" type="button">10–14 ans</button></div></div>
+
+<div class="field" style="margin-bottom:14px"><div class="label">Méthode d'estimation</div>
+<div class="duration-toggle"><button class="unit-btn scb-methode-btn" data-methode="segments" type="button">Segments anatomiques</button><button class="unit-btn scb-methode-btn" data-methode="paume" type="button">✋ Règle de la paume</button></div></div>
+
+<div class="section-title scb-segments-title"><h3 id="scbMethodeTitle">SCB — Règle des 9 de Wallace</h3></div>
+<div class="score-list scb-segments" id="scbWrap"></div>
+
+<div class="scb-paume" style="display:none">
+<div class="note" style="margin-top:0;margin-bottom:14px;background:var(--surface2)">La paume du patient (paume + doigts en extension) ≈ <strong>1 % de la surface corporelle totale</strong>, à tout âge. Méthode recommandée pour les brûlures dispersées ou de taille modérée (ABA, ERC, SFETB).</div>
+<div class="inline-form"><div class="field"><div class="label">Nombre de paumes du patient</div><input class="num-input" id="scbPaumes" placeholder="ex: 5" min="0" max="100" type="number" step="0.5"/></div></div>
+</div>
+
 <div class="inline-form" style="margin-top:14px"><div class="field"><div class="label">Poids (kg)</div><input class="num-input" id="scbPoids" placeholder="ex: 70" type="number"/></div></div>
 <div class="score-result" id="scbResult" aria-live="polite">0% SCB · Parkland —</div>
 </div></div></section>
@@ -2218,6 +2242,28 @@ const normes = {
 {"title":"Enzymes musculaires / cardiaques","rows":[["LDH","190 - 400 UI/L"],["CPK homme","0 - 195 UI/L"],["CPK femme","0 - 170 UI/L"],["CPK MB","1 - 10 UI/L"],["Myoglobine","0 - 90 µg/L"]]}
 ]}
 };
+
+/* === NORMES BIOLOGIQUES PÉDIATRIQUES ===
+   Sources : HUG Pédiatrie 2025, GFRUP, Nelson Textbook of Pediatrics 21e éd., AFSSAPS.
+   Tranches : Néonat (< 28 j) / Nourrisson (1 m – 2 ans) / Enfant (2 – 12 ans) / Ado (12 – 18 ans)
+   Variabilité ÉLEVÉE selon labo, automate, méthode → valeurs strictement INDICATIVES. */
+const normesPed = {
+"Gaz du sang":{"type":"table3","title":"Gaz du sang — pédiatrie","columns":["Paramètre","Artériel (tous âges*)","Capillaire / Veineux"],
+"rows":[["pH","7,35 - 7,45","7,32 - 7,42"],["pCO2 mm Hg","35 - 45","38 - 50"],["Bicarbonate (mmol/L)","20 - 26 (nourrisson 18-25)","22 - 28"],["pO2 mm Hg","80 - 100","35 - 45"],["SaO2 (%)","≥ 95","65 - 80"],["Lactate (mmol/L)","< 2 (< 4 néonat J1-J2)","—"]]},
+"Numération Formule Sanguine (NFS)":{"type":"table3","title":"Numération Formule Sanguine — pédiatrie","columns":["Paramètre","Néonat (< 28 j)","Nourrisson (1 m–2 a)","Enfant (2–12 a)","Ado (12–18 a)"],
+"rows":[["Hémoglobine (g/dL)","14,0 - 22,0 (J1-J7)","10,5 - 13,5","11,5 - 15,5","12,0 - 16,0"],["Hématocrite (%)","45 - 65 (J1) → 31 - 41 (M2)","33 - 39","34 - 45","36 - 47"],["VGM (fL)","100 - 120","70 - 86","75 - 87","78 - 95"],["Leucocytes (×10⁹/L)","9,0 - 30,0","6,0 - 17,5","5,0 - 14,5","4,5 - 13,0"],["Neutrophiles (×10⁹/L)","6,0 - 26,0","1,0 - 8,5","1,5 - 8,0","1,8 - 8,0"],["Lymphocytes (×10⁹/L)","2,0 - 11,0","4,0 - 13,5","2,0 - 8,0","1,2 - 5,2"],["Plaquettes (×10⁹/L)","150 - 450","150 - 450","150 - 450","150 - 450"]]},
+"Ionogramme sanguin":{"type":"table3","title":"Ionogramme sanguin — pédiatrie","columns":["Paramètre","Néonat","Nourrisson","Enfant","Ado"],
+"rows":[["Sodium (mmol/L)","132 - 145","135 - 145","135 - 145","135 - 145"],["Potassium (mmol/L)","3,5 - 6,0","3,5 - 5,5","3,5 - 5,0","3,5 - 5,0"],["Chlore (mmol/L)","98 - 113","98 - 110","98 - 108","98 - 108"],["Bicarbonates (mmol/L)","17 - 25","20 - 26","22 - 28","22 - 28"],["Calcium total (mmol/L)","1,90 - 2,85","2,15 - 2,75","2,20 - 2,70","2,20 - 2,60"],["Phosphore (mmol/L)","1,55 - 2,65","1,25 - 2,10","1,15 - 1,80","0,85 - 1,55"],["Magnésium (mmol/L)","0,70 - 1,00","0,70 - 1,00","0,70 - 0,95","0,70 - 0,95"],["Urée (mmol/L)","1,1 - 4,3","1,8 - 6,0","2,5 - 6,5","2,8 - 7,5"],["Créatinine (µmol/L)","27 - 88 (J1)","18 - 35","27 - 62","45 - 90"],["Glycémie à jeun (mmol/L)","2,2 - 5,0 (néonat)","3,3 - 5,5","3,5 - 5,5","3,9 - 5,5"]]},
+"Ionogramme urinaire":{"type":"table2","title":"Ionogramme urinaire — pédiatrie","unit":"(valeurs sur miction ou /24h selon paramètre)",
+"rows":[["Sodium urinaire (mmol/L spot)","20 - 100 (variable, dépendant des apports)"],["Potassium urinaire (mmol/L spot)","20 - 80"],["Densité urinaire","1.005 - 1.030"],["Diurèse (mL/kg/h)","Néonat ≥ 1 · Nourrisson ≥ 1 · Enfant ≥ 0,5"],["Protéinurie","Négative ou < 100 mg/m²/24h"],["Glycosurie","Négative"],["Albumine","Négative"],["Acétone","Négative (positive en cas de jeûne ou cétose)"]]},
+"Glycémie":{"type":"table3","title":"Glycémie — pédiatrie","columns":["Tranche d'âge","g/L","mmol/L"],
+"rows":[["Néonat à jeun","0,40 - 0,90","2,2 - 5,0"],["Nourrisson à jeun","0,60 - 1,00","3,3 - 5,5"],["Enfant à jeun","0,65 - 1,00","3,5 - 5,5"],["Ado à jeun","0,70 - 1,00","3,9 - 5,5"],["Hypoglycémie néonat","< 0,40","< 2,2"],["Hypoglycémie après J1","< 0,50","< 2,8"]]},
+"Bilan hépatique, lipidique et musculaire":{"type":"triple2","sections":[
+{"title":"Bilan hépatique (varie selon âge — repères enfant)","rows":[["ALAT (UI/L)","< 40 enfant · jusqu'à 60 nourrisson"],["ASAT (UI/L)","20 - 60 nourrisson · 15 - 50 enfant"],["Gamma-GT","< 200 UI/L néonat · < 25 UI/L enfant"],["Bilirubine totale néonat","selon courbe Bhutani (bili nomogramme)"],["Bilirubine totale enfant","< 17 µmol/L (1 mg/dL)"],["Phosphatases alcalines (UI/L)","Élevées avec la croissance · pic 250-1000 puberté"]]},
+{"title":"Bilan lipidique (repères pédiatriques NCEP)","rows":[["Cholestérol total","< 1,70 g/L (acceptable jusqu'à 2,00 g/L)"],["LDL-cholestérol","< 1,10 g/L (acceptable jusqu'à 1,30 g/L)"],["HDL-cholestérol","> 0,45 g/L"],["Triglycérides 0-9 ans","< 0,75 g/L"],["Triglycérides 10-19 ans","< 0,90 g/L"]]},
+{"title":"Enzymes musculaires / cardiaques","rows":[["LDH (UI/L)","Néonat 300-1500 · Nourrisson 180-430 · Enfant 110-300"],["CPK (UI/L)","Néonat jusqu'à 600 · Enfant 50-200 · Ado 25-200"],["Troponine ultrasensible","Variabilité importante en pédiatrie · interpréter avec prudence"],["CRP","< 5 mg/L à tout âge"],["Procalcitonine néonat J0-J2","Pic physiologique transitoire (jusqu'à 20 ng/mL)"],["Procalcitonine après J3","< 0,5 ng/mL"]]}
+]}
+};
 const glasgow = {"Ouverture des yeux": [{"score": 4, "label": "Spontanée"}, {"score": 3, "label": "À la demande"}, {"score": 2, "label": "À la douleur"}, {"score": 1, "label": "Aucune"}], "Réponse verbale": [{"score": 5, "label": "Orientée"}, {"score": 4, "label": "Confuse"}, {"score": 3, "label": "Paroles inappropriées"}, {"score": 2, "label": "Sons incompréhensibles"}, {"score": 1, "label": "Aucune"}], "Réponse motrice": [{"score": 6, "label": "Obéit aux commandes"}, {"score": 5, "label": "Localise à la douleur"}, {"score": 4, "label": "Retrait à la douleur"}, {"score": 3, "label": "Flexion anormale (décortication)"}, {"score": 2, "label": "Extension anormale (décérébration)"}, {"score": 1, "label": "Aucune"}]};
 const braden = {"Perception sensorielle": [{"score": 4, "label": "Aucune atteinte"}, {"score": 3, "label": "Légèrement limitée"}, {"score": 2, "label": "Très limitée"}, {"score": 1, "label": "Complètement limitée"}], "Humidité": [{"score": 4, "label": "Rarement humide"}, {"score": 3, "label": "Occasionnellement humide"}, {"score": 2, "label": "Très humide"}, {"score": 1, "label": "Constamment humide"}], "Activité": [{"score": 4, "label": "Marche fréquemment"}, {"score": 3, "label": "Marche à l'occasion"}, {"score": 2, "label": "Confinement au fauteuil"}, {"score": 1, "label": "Alité"}], "Mobilité": [{"score": 4, "label": "Non limitée"}, {"score": 3, "label": "Légèrement limitée"}, {"score": 2, "label": "Très limitée"}, {"score": 1, "label": "Complètement immobile"}], "Nutrition": [{"score": 4, "label": "Excellente"}, {"score": 3, "label": "Adéquate"}, {"score": 2, "label": "Probablement inadéquate"}, {"score": 1, "label": "Très pauvre"}], "Frictions et cisaillements": [{"score": 3, "label": "Aucun problème apparent"}, {"score": 2, "label": "Problème potentiel"}, {"score": 1, "label": "Problème"}]};
 
@@ -2380,8 +2426,8 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.3.3';
-const APP_VERSION_CODE = 82;
+const APP_VERSION = '1.3.4';
+const APP_VERSION_CODE = 83;
 /* Normalisation accents pour recherche */
 function normSearch(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 
@@ -2554,9 +2600,14 @@ calcDebit();
 /* Normes */
 const normeSelect = document.getElementById('normeSelect');
 const normeContent = document.getElementById('normeContent');
+let normeProfil = 'adulte'; // 'adulte' ou 'ped'
 
 function isMobileNorm() {
   return window.innerWidth < 760;
+}
+function getNormeData(name) {
+  const source = normeProfil === 'ped' ? normesPed : normes;
+  return source[name];
 }
 function renderTable3(obj) {
   if (isMobileNorm()) {
@@ -2633,7 +2684,7 @@ function renderDouble2(obj) {
   }).join('<div style="height:16px"></div>');
 }
 function renderNorme() {
-  const o = normes[normeSelect.value];
+  const o = getNormeData(normeSelect.value);
   if (!o) {
     normeContent.innerHTML = '';
     return;
@@ -3986,8 +4037,20 @@ document.querySelectorAll('.norme-nav-btn').forEach(btn => {
     const sel = document.getElementById('normeSelect');
     if(sel) sel.value = name;
     renderNorme();
-    document.getElementById('normeDetailTitle').textContent = name.replace('Numération Formule Sanguine (NFS)','NFS').replace('Bilan hépatique, lipidique et musculaire','Bilan hépatique / lipidique');
+    const suffix = normeProfil === 'ped' ? ' — pédiatrie' : '';
+    document.getElementById('normeDetailTitle').textContent = name.replace('Numération Formule Sanguine (NFS)','NFS').replace('Bilan hépatique, lipidique et musculaire','Bilan hépatique / lipidique') + suffix;
     setActive('norme-detail');
+  });
+});
+
+/* Toggle profil Adulte / Pédia dans la section Normes */
+document.querySelectorAll('.norme-profil-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    normeProfil = btn.dataset.profil;
+    document.querySelectorAll('.norme-profil-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Re-render si déjà sur l'écran de détail
+    renderNorme();
   });
 });
 
@@ -4475,9 +4538,10 @@ const dosesToxiques = [
     });
   });
 })();
-/* ========== SCB / PARKLAND (Wallace) ========== */
+/* ========== SCB / PARKLAND (Wallace ≥ 15 ans / Lund-Browder < 15 ans) ========== */
 (function(){
-  var zones=[
+  // Wallace (règle des 9) — adulte et adolescent ≥ 15 ans
+  var wallace=[
     {l:"Tête",p:9,id:"sTete"},
     {l:"Membre supérieur droit",p:9,id:"sMSD"},
     {l:"Membre supérieur gauche",p:9,id:"sMSG"},
@@ -4487,38 +4551,250 @@ const dosesToxiques = [
     {l:"Membre inférieur gauche",p:18,id:"sMIG"},
     {l:"Périnée",p:1,id:"sPerinee"}
   ];
+  // Lund-Browder — pourcentages détaillés par tranche d'âge
+  // Tranches: 0=<1an, 1=1-4ans, 5=5-9ans, 10=10-14ans
+  // Source : Lund CC, Browder NC. Surg Gynecol Obstet 1944;79:352-358 (référence universelle ABA/ERC/SFETB)
+  var lundBrowder={
+    0:[ // < 1 an
+      {l:"Tête",p:19,id:"sTete"},
+      {l:"Cou",p:2,id:"sCou"},
+      {l:"Tronc antérieur",p:13,id:"sTroncA"},
+      {l:"Tronc postérieur",p:13,id:"sTroncP"},
+      {l:"Fesse droite",p:2.5,id:"sFesseD"},
+      {l:"Fesse gauche",p:2.5,id:"sFesseG"},
+      {l:"Périnée",p:1,id:"sPerinee"},
+      {l:"Bras droit",p:4,id:"sBrasD"},
+      {l:"Bras gauche",p:4,id:"sBrasG"},
+      {l:"Avant-bras droit",p:3,id:"sAvBrasD"},
+      {l:"Avant-bras gauche",p:3,id:"sAvBrasG"},
+      {l:"Main droite",p:2.5,id:"sMainD"},
+      {l:"Main gauche",p:2.5,id:"sMainG"},
+      {l:"Cuisse droite",p:5.5,id:"sCuisseD"},
+      {l:"Cuisse gauche",p:5.5,id:"sCuisseG"},
+      {l:"Jambe droite",p:5,id:"sJambeD"},
+      {l:"Jambe gauche",p:5,id:"sJambeG"},
+      {l:"Pied droit",p:3.5,id:"sPiedD"},
+      {l:"Pied gauche",p:3.5,id:"sPiedG"}
+    ],
+    1:[ // 1-4 ans
+      {l:"Tête",p:17,id:"sTete"},
+      {l:"Cou",p:2,id:"sCou"},
+      {l:"Tronc antérieur",p:13,id:"sTroncA"},
+      {l:"Tronc postérieur",p:13,id:"sTroncP"},
+      {l:"Fesse droite",p:2.5,id:"sFesseD"},
+      {l:"Fesse gauche",p:2.5,id:"sFesseG"},
+      {l:"Périnée",p:1,id:"sPerinee"},
+      {l:"Bras droit",p:4,id:"sBrasD"},
+      {l:"Bras gauche",p:4,id:"sBrasG"},
+      {l:"Avant-bras droit",p:3,id:"sAvBrasD"},
+      {l:"Avant-bras gauche",p:3,id:"sAvBrasG"},
+      {l:"Main droite",p:2.5,id:"sMainD"},
+      {l:"Main gauche",p:2.5,id:"sMainG"},
+      {l:"Cuisse droite",p:6.5,id:"sCuisseD"},
+      {l:"Cuisse gauche",p:6.5,id:"sCuisseG"},
+      {l:"Jambe droite",p:5,id:"sJambeD"},
+      {l:"Jambe gauche",p:5,id:"sJambeG"},
+      {l:"Pied droit",p:3.5,id:"sPiedD"},
+      {l:"Pied gauche",p:3.5,id:"sPiedG"}
+    ],
+    5:[ // 5-9 ans
+      {l:"Tête",p:13,id:"sTete"},
+      {l:"Cou",p:2,id:"sCou"},
+      {l:"Tronc antérieur",p:13,id:"sTroncA"},
+      {l:"Tronc postérieur",p:13,id:"sTroncP"},
+      {l:"Fesse droite",p:2.5,id:"sFesseD"},
+      {l:"Fesse gauche",p:2.5,id:"sFesseG"},
+      {l:"Périnée",p:1,id:"sPerinee"},
+      {l:"Bras droit",p:4,id:"sBrasD"},
+      {l:"Bras gauche",p:4,id:"sBrasG"},
+      {l:"Avant-bras droit",p:3,id:"sAvBrasD"},
+      {l:"Avant-bras gauche",p:3,id:"sAvBrasG"},
+      {l:"Main droite",p:2.5,id:"sMainD"},
+      {l:"Main gauche",p:2.5,id:"sMainG"},
+      {l:"Cuisse droite",p:8,id:"sCuisseD"},
+      {l:"Cuisse gauche",p:8,id:"sCuisseG"},
+      {l:"Jambe droite",p:5.5,id:"sJambeD"},
+      {l:"Jambe gauche",p:5.5,id:"sJambeG"},
+      {l:"Pied droit",p:3.5,id:"sPiedD"},
+      {l:"Pied gauche",p:3.5,id:"sPiedG"}
+    ],
+    10:[ // 10-14 ans
+      {l:"Tête",p:11,id:"sTete"},
+      {l:"Cou",p:2,id:"sCou"},
+      {l:"Tronc antérieur",p:13,id:"sTroncA"},
+      {l:"Tronc postérieur",p:13,id:"sTroncP"},
+      {l:"Fesse droite",p:2.5,id:"sFesseD"},
+      {l:"Fesse gauche",p:2.5,id:"sFesseG"},
+      {l:"Périnée",p:1,id:"sPerinee"},
+      {l:"Bras droit",p:4,id:"sBrasD"},
+      {l:"Bras gauche",p:4,id:"sBrasG"},
+      {l:"Avant-bras droit",p:3,id:"sAvBrasD"},
+      {l:"Avant-bras gauche",p:3,id:"sAvBrasG"},
+      {l:"Main droite",p:2.5,id:"sMainD"},
+      {l:"Main gauche",p:2.5,id:"sMainG"},
+      {l:"Cuisse droite",p:8.5,id:"sCuisseD"},
+      {l:"Cuisse gauche",p:8.5,id:"sCuisseG"},
+      {l:"Jambe droite",p:6,id:"sJambeD"},
+      {l:"Jambe gauche",p:6,id:"sJambeG"},
+      {l:"Pied droit",p:3.5,id:"sPiedD"},
+      {l:"Pied gauche",p:3.5,id:"sPiedG"}
+    ]
+  };
+
   var w=document.getElementById('scbWrap'),r=document.getElementById('scbResult');
   if(!w)return;
-  zones.forEach(function(z){
-    w.innerHTML+='<div class="score-item"><div class="label">'+z.l+' ('+z.p+'% max)</div><div class="inline-form" style="margin:4px 0"><div class="field"><input class="num-input scb-zone" id="'+z.id+'" data-max="'+z.p+'" placeholder="0" min="0" max="'+z.p+'" type="number" step="0.5"/></div><div class="muted" style="align-self:center;margin-left:8px">% brûlé en 2e/3e degré</div></div></div>';
-  });
+
+  var profil='adulte';     // 'adulte' ou 'ped'
+  var ageGroup=null;       // 0 / 1 / 5 / 10 (uniquement si profil='ped')
+  var methode='segments';  // 'segments' ou 'paume'
+  var titleEl=document.getElementById('scbMethodeTitle');
+
+  function getZones(){
+    if(profil==='adulte') return wallace;
+    if(ageGroup===null) return [];
+    return lundBrowder[ageGroup]||[];
+  }
+
+  function renderZones(){
+    var zones=getZones();
+    if(zones.length===0){
+      w.innerHTML='<div class="muted" style="padding:14px 0">Sélectionner une tranche d\'âge.</div>';
+      return;
+    }
+    w.innerHTML='';
+    zones.forEach(function(z){
+      w.innerHTML+='<div class="score-item"><div class="label">'+z.l+' ('+z.p+'% max)</div><div class="inline-form" style="margin:4px 0"><div class="field"><input class="num-input scb-zone" id="'+z.id+'" data-max="'+z.p+'" placeholder="0" min="0" max="'+z.p+'" type="number" step="0.5"/></div><div class="muted" style="align-self:center;margin-left:8px">% brûlé en 2e/3e degré</div></div></div>';
+    });
+  }
+
+  function updateTitle(){
+    if(methode==='paume'){
+      titleEl.textContent='SCB — Règle de la paume';
+    } else if(profil==='adulte'){
+      titleEl.textContent='SCB — Règle des 9 de Wallace';
+    } else if(ageGroup!==null){
+      var labels={0:'< 1 an',1:'1–4 ans',5:'5–9 ans',10:'10–14 ans'};
+      titleEl.textContent='SCB — Lund-Browder ('+labels[ageGroup]+')';
+    } else {
+      titleEl.textContent='SCB — Lund-Browder (sélectionner une tranche d\'âge)';
+    }
+  }
+
   function recalc(){
     var total=0;
-    zones.forEach(function(z){
-      var v=parseFloat(document.getElementById(z.id).value)||0;
-      if(v>z.p)v=z.p;
-      total+=v;
-    });
+    if(methode==='paume'){
+      total=parseFloat(document.getElementById('scbPaumes').value)||0;
+      if(total>100)total=100;
+    } else {
+      var zones=getZones();
+      zones.forEach(function(z){
+        var el=document.getElementById(z.id);
+        if(!el)return;
+        var v=parseFloat(el.value)||0;
+        if(v>z.p)v=z.p;
+        total+=v;
+      });
+    }
     total=Math.round(total*10)/10;
     var poids=parseFloat(document.getElementById('scbPoids').value)||0;
     var clsS=total<10?'green':total<20?'yellow':'red';
     var parkland=(4*poids*total).toFixed(0);
     var park8=(parkland/2).toFixed(0);
     var conduct;
+    var seuilGrave = (profil==='ped') ? 10 : 20;
     if(total<10){conduct='Brûlure mineure : pansement local + antalgie';}
-    else if(total<20){conduct='Brûlure modérée : remplissage Ringer Lactate, antalgie, hospitalisation';}
-    else{conduct='Brûlure grave : centre de brûlés. Parkland '+parkland+' mL/24h Ringer Lactate, dont '+park8+' mL sur 8h';}
+    else if(total<seuilGrave){conduct='Brûlure modérée : remplissage Ringer Lactate, antalgie, hospitalisation';}
+    else{
+      var ctx=(profil==='ped')?' (seuil pédiatrique : ≥ 10% SCB)':'';
+      conduct='Brûlure grave'+ctx+' : centre de brûlés. Parkland '+parkland+' mL/24h Ringer Lactate, dont '+park8+' mL sur 8h';
+    }
     r.classList.remove('green','yellow','red');r.classList.add(clsS);
     updateColorResult(r,clsS);
+    var badge=total<10?'Mineure':total<seuilGrave?'Modérée':'Grave';
+    var methodeLabel=(methode==='paume')?'paume':((profil==='adulte')?'Wallace':'Lund-Browder');
     renderRingResult(r,{
       score:total+'%',
-      badge:total<10?'Mineure':total<20?'Modérée':'Grave',
-      interp:total+'% SCB. Parkland : '+(poids?parkland+' mL/24h ('+park8+' mL/8h)':'—'),
+      badge:badge,
+      interp:total+'% SCB ('+methodeLabel+'). Parkland : '+(poids?parkland+' mL/24h ('+park8+' mL/8h)':'—'),
       conduct:conduct
     });
   }
+
+  function updateMethodeView(){
+    var segWrap=document.querySelector('.scb-segments');
+    var segTitle=document.querySelector('.scb-segments-title');
+    var paumeWrap=document.querySelector('.scb-paume');
+    if(methode==='paume'){
+      if(segWrap)segWrap.style.display='none';
+      if(paumeWrap)paumeWrap.style.display='';
+    } else {
+      if(segWrap)segWrap.style.display='';
+      if(paumeWrap)paumeWrap.style.display='none';
+    }
+    if(segTitle)segTitle.style.display='';
+    updateTitle();
+  }
+
+  function updateProfilView(){
+    var ageWrap=document.querySelector('.scb-ped-age');
+    if(profil==='ped'){
+      if(ageWrap)ageWrap.style.display='';
+    } else {
+      if(ageWrap)ageWrap.style.display='none';
+      ageGroup=null;
+      // Désactiver les boutons d'âge
+      document.querySelectorAll('.scb-age-btn').forEach(function(b){b.classList.remove('active');});
+    }
+    if(methode==='segments') renderZones();
+    updateTitle();
+    recalc();
+  }
+
+  // === BIND ÉVÉNEMENTS ===
+  // Toggle profil (Adulte/Pédia)
+  document.querySelectorAll('.scb-profil-btn').forEach(function(btn){
+    if(btn.dataset.profil==='adulte') btn.classList.add('active');
+    btn.addEventListener('click',function(){
+      profil=btn.dataset.profil;
+      document.querySelectorAll('.scb-profil-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      updateProfilView();
+    });
+  });
+
+  // Toggle âge pédiatrique
+  document.querySelectorAll('.scb-age-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      ageGroup=parseInt(btn.dataset.age);
+      document.querySelectorAll('.scb-age-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      if(methode==='segments') renderZones();
+      updateTitle();
+      recalc();
+    });
+  });
+
+  // Toggle méthode (Segments/Paume)
+  document.querySelectorAll('.scb-methode-btn').forEach(function(btn){
+    if(btn.dataset.methode==='segments') btn.classList.add('active');
+    btn.addEventListener('click',function(){
+      methode=btn.dataset.methode;
+      document.querySelectorAll('.scb-methode-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      updateMethodeView();
+      if(methode==='segments') renderZones();
+      recalc();
+    });
+  });
+
+  // Inputs
   w.addEventListener('input',recalc);
+  document.getElementById('scbPaumes').addEventListener('input',recalc);
   document.getElementById('scbPoids').addEventListener('input',recalc);
+
+  // Init
+  renderZones();
+  updateTitle();
 })();
 /* ========== TROU ANIONIQUE ========== */
 (function(){
