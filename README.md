@@ -18,11 +18,11 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.3.4** |
-| versionCode | **83** |
-| Date | Mai 2026 |
-| Prochaine release minimum | versionCode **≥ 84** / versionName **"1.3.5"** |
-| Dernier publié Play Store | versionCode 77 / versionName 1.2.60 |
+| versionName | **1.3.5** |
+| versionCode | **84** |
+| Date | 3 mai 2026 |
+| Prochaine release minimum | versionCode **≥ 85** / versionName **"1.3.6"** |
+| Dernier publié Play Store | versionCode 83 / versionName 1.3.4 |
 
 ---
 
@@ -139,6 +139,41 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ---
 
 ## Changelog
+
+### v1.3.5 (3 mai 2026) — refonte visuelle + recherche enrichie
+
+**Refonte visuelle (glassmorphism léger)**
+- Nouvelle interface avec effet de profondeur : conteneurs translucides, atmosphère colorée subtile en arrière-plan (radial-gradients bleu/turquoise).
+- Ajustement des contrastes en mode clair (fond `#dde6ef` au lieu de `#f0f4f8`) et en mode sombre (surface `#1C2D40` au lieu de `#132030`) pour mieux faire ressortir les tuiles du fond.
+- Nouvelle variable CSS `--line-strong` pour des bordures plus visibles (`#b8c5d4` clair / `#445872` sombre).
+- Pill des titres de sections plus contrastée (texte `--text2` au lieu de `--text3`).
+- Boutons internes (`.home-compact`) : bordure renforcée à 1.5px avec couleur `--line-strong`.
+- Sous-conteneurs harmonisés au glass : `.score-card`, `.proto-card`, `.proto-step`, `.norm-card`, `.antidote-cat`, `.braden-card` — semi-transparents avec ombres douces pour l'élévation.
+
+**Recherche médicaments enrichie**
+- La recherche dans `renderList` interroge désormais aussi le champ `m.ind` (indications) en plus de `m.nom` et `m.dci`.
+- Cherchez **« poppers », « nitrite d'amyle », « méthémoglob »** → vous trouvez le bleu de méthylène (METIBLO/PROVEBLUE).
+- Index de recherche globale enrichi pour les antidotes : keywords `digifab méthémoglobine méthémoglobinisant nitrite amyle poppers bleu méthylène` ajoutés.
+
+**Antidotes : précisions**
+- Entrée *Méthémoglobinisants* enrichie avec la liste explicite des substances : *(nitrite d'amyle, poppers, nitrites, nitrates, aniline, dapsone, lidocaïne, prilocaïne, sulfamides)*.
+- Antidote des digitaliques précisé : `Anticorps antidigitaliques` → `Fragments Fab d'anticorps antidigitaliques (ex : DigiFab®)`. Libellé d'intoxication étendu : `Digitaliques (digoxine, digitoxine)`.
+- Fiche METIBLO/PROVEBLUE : indications enrichies avec la liste complète des méthémoglobinisants.
+
+**Format des marques harmonisé**
+- 66 occurrences transformées au format `(ex : MARQUE®)` au lieu de `(MARQUE®)` dans les fiches médicaments et la table des antidotes, pour clarifier qu'il s'agit d'exemples non exclusifs.
+- Exemples : `Naloxone (NARCAN®)` → `Naloxone (ex : NARCAN®)`, `PPSB (Kaskadil®, Octaplex®)` → `PPSB (ex : Kaskadil®, Octaplex®)`, etc.
+- Cas particuliers traités : `(AVK — Coumadine®, Sintrom®, Préviscan®)` → `(AVK — ex : Coumadine®...)` ; `(DMSA, Succicaptal®)` → `(DMSA ; ex : Succicaptal®)`.
+- Volontairement non touchés : phrases comme `(Atropine® possible)` ou la liste des sources `(SRLF, SFAR, ...)`.
+
+**Lisibilité améliorée**
+- Nouveau style CSS `.paren-aside` : couleur `--text2`, weight 500 — appliqué via un helper JS `wrapParens` qui enveloppe automatiquement les contenus entre parenthèses dans la table des antidotes.
+- Hiérarchie visuelle plus claire : on voit d'abord les noms principaux, les exemples sont en arrière-plan.
+
+**Correctif**
+- Suppression d'une `TypeError` JavaScript silencieuse au démarrage (« (intermediate value)(...) is not a function ») causée par deux IIFE consécutives sans point-virgule entre elles dans les protections anti-flash de thème (ligne 621-622). Bug préexistant en v1.3.4 qui n'avait aucun impact fonctionnel mais polluait la console.
+
+---
 
 ### v1.3.4 (1er mai 2026) — refonte SCB / Parkland
 

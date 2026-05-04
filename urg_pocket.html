@@ -7,15 +7,16 @@
 /* === THEME === */
 :root{
   /* Couleurs de fond / surface — mode clair (l'app a 3 modes, le site n'a que dark) */
-  --bg:#f0f4f8;
+  --bg:#dde6ef;
   --surface:#ffffff;
-  --surface2:#f7f9fb;
-  --surface3:#edf1f5;
+  --surface2:#f5f8fb;
+  --surface3:#e8eef4;
   /* Texte */
   --text:#1a2332;
   --text2:#5c6b7a;
   --text3:#8a99a8;
   --line:#dce3eb;
+  --line-strong:#b8c5d4;
   /* Accent — alignés sur le site */
   --primary:#1A73C8;
   --primary2:#1558b8;
@@ -45,13 +46,14 @@
 body.dark{
   /* Mode sombre — aligné EXACTEMENT sur le site vitrine */
   --bg:#0E1A25;
-  --surface:#132030;
-  --surface2:#1A2A3C;
-  --surface3:#243447;
+  --surface:#1C2D40;
+  --surface2:#243749;
+  --surface3:#304357;
   --text:#E9EFF6;
   --text2:#9FB0C3;
   --text3:#6B7D92;
   --line:#2A3A4E;
+  --line-strong:#445872;
   --primary:#5BA8E8;
   --primary2:#3D8BCD;
   --primary-brand:#1A73C8;
@@ -88,7 +90,7 @@ body.dark{
 /* === RESET === */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;overflow-x:hidden}
-body{font-family:'Inter',-apple-system,system-ui,sans-serif;font-feature-settings:'tnum' 1, 'cv11' 1;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-image:linear-gradient(color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px),linear-gradient(90deg, color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px);background-size:40px 40px;background-attachment:fixed;background-position:-1px -1px}
+body{font-family:'Inter',-apple-system,system-ui,sans-serif;font-feature-settings:'tnum' 1, 'cv11' 1;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-image:radial-gradient(ellipse 800px 400px at 20% 0%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 60%),radial-gradient(ellipse 600px 500px at 80% 30%, color-mix(in srgb, #14b8a6 16%, transparent), transparent 65%),radial-gradient(ellipse 700px 400px at 30% 80%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 70%),linear-gradient(color-mix(in srgb, var(--primary) 6%, transparent) 1px, transparent 1px),linear-gradient(90deg, color-mix(in srgb, var(--primary) 6%, transparent) 1px, transparent 1px);background-size:auto,auto,auto,40px 40px,40px 40px;background-attachment:fixed;background-position:0 0,0 0,0 0,-1px -1px,-1px -1px}
 body.dark{background-image:linear-gradient(color-mix(in srgb, var(--primary) 12%, transparent) 1px, transparent 1px),linear-gradient(90deg, color-mix(in srgb, var(--primary) 12%, transparent) 1px, transparent 1px);background-size:40px 40px;background-attachment:fixed;background-position:-1px -1px}
 body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:120vw;height:600px;background:radial-gradient(ellipse 600px 400px at 50% 50%, color-mix(in srgb, var(--primary) 12%, transparent) 0%, transparent 70%);pointer-events:none;z-index:0;opacity:.7}
 main,.topbar,.bottom-nav{position:relative;z-index:1}
@@ -146,8 +148,8 @@ main{flex:1;width:min(100%,1240px);margin:0 auto;padding:16px;padding-bottom:cal
 .duration-toggle{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px}
 
 /* === CARDS === */
-.home-card,.content-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.04) inset;padding:16px;transition:background .15s,border-color .15s,box-shadow .2s;position:relative}
-body.dark .home-card,body.dark .content-card{box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.05) inset}
+.home-card,.content-card{background:color-mix(in srgb, var(--surface) 55%, transparent);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid color-mix(in srgb, var(--line-strong) 50%, transparent);border-radius:var(--radius-lg);box-shadow:0 8px 32px rgba(20,40,80,.10),0 1px 0 rgba(255,255,255,.18) inset,0 -1px 0 rgba(0,0,0,.04) inset;padding:16px;transition:background .15s,border-color .15s,box-shadow .2s,transform .15s;position:relative}
+body.dark .home-card,body.dark .content-card{background:color-mix(in srgb, var(--surface) 50%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 45%, transparent);box-shadow:0 8px 32px rgba(0,0,0,.40),0 1px 0 rgba(255,255,255,.10) inset,0 -1px 0 rgba(0,0,0,.20) inset}
 .home-card{cursor:pointer}
 .home-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
 .home-icon{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:22px;background:var(--surface2);color:var(--primary);border:1px solid var(--line)}
@@ -157,9 +159,9 @@ body.dark .home-card,body.dark .content-card{box-shadow:var(--shadow-sm),0 1px 0
 
 /* === HOME SECTIONS === */
 .home-sections{display:grid;gap:14px}
-.home-section{padding:14px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface);box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.04) inset;transition:background .15s,border-color .15s}
-body.dark .home-section{box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.05) inset}
-.home-section-title{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:12px}
+.home-section{padding:14px;border:1px solid color-mix(in srgb, var(--line-strong) 50%, transparent);border-radius:var(--radius-lg);background:color-mix(in srgb, var(--surface) 55%, transparent);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);box-shadow:0 8px 32px rgba(20,40,80,.10),0 1px 0 rgba(255,255,255,.18) inset,0 -1px 0 rgba(0,0,0,.04) inset;transition:background .15s,border-color .15s,box-shadow .2s}
+body.dark .home-section{background:color-mix(in srgb, var(--surface) 50%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 45%, transparent);box-shadow:0 8px 32px rgba(0,0,0,.40),0 1px 0 rgba(255,255,255,.10) inset,0 -1px 0 rgba(0,0,0,.20) inset}
+.home-section-title{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;border:1px solid var(--line-strong);background:var(--surface2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:12px}
 
 /* État vide pour favoris */
 .empty-state{padding:18px 14px;text-align:center;color:var(--text2)}
@@ -202,14 +204,16 @@ body.dark .home-section{box-shadow:var(--shadow-sm),0 1px 0 rgba(255,255,255,.05
 .page-head-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 
 .home-compact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.home-compact{display:flex;align-items:center;gap:10px;padding:12px;min-width:0;min-height:64px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface2);cursor:pointer;text-align:left;font-size:14px;font-weight:700;color:var(--text);transition:transform .15s,box-shadow .2s,background .15s,border-color .2s}
+.home-compact{display:flex;align-items:center;gap:10px;padding:12px;min-width:0;min-height:64px;border:1.5px solid color-mix(in srgb, var(--line-strong) 60%, transparent);border-radius:var(--radius-md);background:color-mix(in srgb, var(--surface2) 40%, transparent);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);box-shadow:0 4px 12px rgba(20,40,80,.08),0 1px 0 rgba(255,255,255,.15) inset;cursor:pointer;text-align:left;font-size:14px;font-weight:700;color:var(--text);transition:transform .15s,box-shadow .2s,background .15s,border-color .2s}
+body.dark .home-compact{background:color-mix(in srgb, var(--surface2) 35%, transparent);border:1.5px solid color-mix(in srgb, var(--line-strong) 50%, transparent);box-shadow:0 6px 20px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.10) inset}
 .home-compact:hover{transform:translateY(-2px);box-shadow:var(--shadow-md),0 0 24px color-mix(in srgb, var(--primary) 15%, transparent);border-color:color-mix(in srgb, var(--primary) 40%, var(--line))}
 .hc-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:0 0 36px;background:var(--surface3);border:1px solid var(--line)}
 .hc-label{min-width:0;font-size:13px;font-weight:600;line-height:1.35;letter-spacing:.01em}
 
 /* === RESULTS === */
 .result-list,.score-list{display:grid;gap:10px;margin-top:14px}
-.result,.score-card{background:var(--surface2);border:1px solid var(--line);border-radius:16px;transition:background .15s,border-color .15s}
+.result,.score-card{background:color-mix(in srgb, var(--surface2) 65%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 50%, transparent);border-radius:16px;box-shadow:0 2px 8px rgba(20,40,80,.06),0 1px 0 rgba(255,255,255,.08) inset;transition:background .15s,border-color .15s,box-shadow .2s}
+body.dark .result,body.dark .score-card{background:color-mix(in srgb, var(--surface2) 55%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 45%, transparent);box-shadow:0 4px 14px rgba(0,0,0,.25),0 1px 0 rgba(255,255,255,.06) inset}
 .result{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px}
 .result-name,.score-help,.muted{color:var(--text2);font-size:14px;line-height:1.45}
 .result-num{font-size:22px;font-weight:900;text-align:right}
@@ -237,13 +241,14 @@ tr:last-child td{border-bottom:none}
 .section-title .unit{color:var(--primary);font-weight:900}
 
 /* === SCORES === */
-.score-card-head{padding:14px;border-bottom:1px solid var(--line);font-weight:900;background:var(--surface3)}
+.score-card-head{padding:14px;border-bottom:1px solid color-mix(in srgb, var(--line-strong) 40%, transparent);font-weight:900;background:color-mix(in srgb, var(--surface3) 60%, transparent)}
 .score-card-body{padding:14px;display:grid;gap:10px}
 .score-result-sticky{position:sticky;top:calc(var(--header) + env(safe-area-inset-top));z-index:10;padding:14px 16px;background:var(--surface);border-bottom:1px solid var(--line);border-radius:0;margin-top:14px}
 
 /* === BRADEN === */
 .braden-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
-.braden-card{border:1px solid var(--line);border-radius:16px;background:var(--surface2);overflow:hidden}
+.braden-card{border:1px solid color-mix(in srgb, var(--line-strong) 50%, transparent);border-radius:16px;background:color-mix(in srgb, var(--surface2) 65%, transparent);box-shadow:0 2px 8px rgba(20,40,80,.06),0 1px 0 rgba(255,255,255,.08) inset;overflow:hidden}
+body.dark .braden-card{background:color-mix(in srgb, var(--surface2) 55%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 45%, transparent);box-shadow:0 4px 14px rgba(0,0,0,.25),0 1px 0 rgba(255,255,255,.06) inset}
 .braden-head{padding:14px;font-weight:900;background:var(--surface3)}
 .braden-body{padding:14px}
 
@@ -262,8 +267,9 @@ tr:last-child td{border-bottom:none}
 
 /* === NORMES MOBILE === */
 .norm-cards{display:grid;gap:12px}
-.norm-card{border:1px solid var(--line);border-radius:16px;background:var(--surface2);overflow:hidden}
-.norm-card-head{padding:12px 14px;background:var(--surface3);font-weight:900}
+.norm-card{border:1px solid color-mix(in srgb, var(--line-strong) 50%, transparent);border-radius:16px;background:color-mix(in srgb, var(--surface2) 65%, transparent);box-shadow:0 2px 8px rgba(20,40,80,.06),0 1px 0 rgba(255,255,255,.08) inset;overflow:hidden}
+body.dark .norm-card{background:color-mix(in srgb, var(--surface2) 55%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 45%, transparent);box-shadow:0 4px 14px rgba(0,0,0,.25),0 1px 0 rgba(255,255,255,.06) inset}
+.norm-card-head{padding:12px 14px;background:color-mix(in srgb, var(--surface3) 60%, transparent);font-weight:900}
 .norm-card-body{padding:12px 14px;display:grid;gap:10px}
 .norm-row{display:grid;grid-template-columns:1fr;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .norm-row:last-child{padding-bottom:0;border-bottom:none}
@@ -283,8 +289,9 @@ body.update-visible{padding-top:56px}
 body.update-visible.dark{padding-top:56px}
 
 /* === PROTOCOLES === */
-.proto-card{margin-bottom:14px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface2)}
-.proto-head{padding:14px;font-weight:900;font-size:16px;background:var(--surface3);display:flex;align-items:center;gap:10px;cursor:pointer}
+.proto-card{margin-bottom:14px;border:1px solid color-mix(in srgb, var(--line-strong) 50%, transparent);border-radius:16px;overflow:hidden;background:color-mix(in srgb, var(--surface2) 65%, transparent);box-shadow:0 2px 8px rgba(20,40,80,.06),0 1px 0 rgba(255,255,255,.08) inset}
+body.dark .proto-card{background:color-mix(in srgb, var(--surface2) 55%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 45%, transparent);box-shadow:0 4px 14px rgba(0,0,0,.25),0 1px 0 rgba(255,255,255,.06) inset}
+.proto-head{padding:14px;font-weight:900;font-size:16px;background:color-mix(in srgb, var(--surface3) 60%, transparent);display:flex;align-items:center;gap:10px;cursor:pointer}
 .proto-head::after{content:"▸";margin-left:auto;transition:transform .2s}
 .proto-card.open .proto-head::after{transform:rotate(90deg)}
 .proto-body{display:none;padding:14px}.proto-card.open .proto-body{display:block}
@@ -335,8 +342,9 @@ body.update-visible.dark{padding-top:56px}
 
 
 
-.antidote-cat{margin-bottom:10px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface2)}
-.antidote-cat-title{font-size:14px;font-weight:800;padding:12px 14px;background:var(--surface3);cursor:pointer;display:flex;align-items:center;gap:8px}
+.antidote-cat{margin-bottom:10px;border:1px solid color-mix(in srgb, var(--line-strong) 50%, transparent);border-radius:14px;overflow:hidden;background:color-mix(in srgb, var(--surface2) 65%, transparent);box-shadow:0 2px 8px rgba(20,40,80,.06),0 1px 0 rgba(255,255,255,.08) inset}
+body.dark .antidote-cat{background:color-mix(in srgb, var(--surface2) 55%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 45%, transparent);box-shadow:0 4px 14px rgba(0,0,0,.25),0 1px 0 rgba(255,255,255,.06) inset}
+.antidote-cat-title{font-size:14px;font-weight:800;padding:12px 14px;background:color-mix(in srgb, var(--surface3) 60%, transparent);cursor:pointer;display:flex;align-items:center;gap:8px}
 .antidote-cat-title::after{content:"▾";margin-left:auto;transition:transform .2s;font-size:12px;color:var(--text2)}
 .antidote-cat.collapsed .antidote-cat-title::after{transform:rotate(-90deg)}
 .antidote-cat-body{display:block}
@@ -346,6 +354,7 @@ body.update-visible.dark{padding-top:56px}
 .antidote-card:last-child{border-bottom:none}
 .antidote-intox{font-size:14px;font-weight:700;color:var(--text)}
 .antidote-remedy{font-size:13px;color:var(--primary);font-weight:600}
+.paren-aside{color:var(--text2);font-weight:500}
 
 /* === SEARCH === */
 .search-global{position:relative;margin-bottom:0}
@@ -612,11 +621,12 @@ body.colorblind .sr-symbol.red{background:#9B27AF}
 .med-main-tab{flex:1;padding:10px 8px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--text2);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
 .med-main-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
 
-.proto-step{display:flex;gap:12px;margin-bottom:10px;padding:10px;background:var(--surface2);border-radius:10px}
+.proto-step{display:flex;gap:12px;margin-bottom:10px;padding:10px;background:color-mix(in srgb, var(--surface2) 65%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 40%, transparent);border-radius:10px;box-shadow:0 2px 6px rgba(20,40,80,.05),0 1px 0 rgba(255,255,255,.06) inset}
+body.dark .proto-step{background:color-mix(in srgb, var(--surface2) 55%, transparent);border:1px solid color-mix(in srgb, var(--line-strong) 35%, transparent);box-shadow:0 3px 10px rgba(0,0,0,.22),0 1px 0 rgba(255,255,255,.05) inset}
 .proto-step-num{min-width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
 .proto-step-content{font-size:13px;line-height:1.5;color:var(--text)}
-</style><script>/* Prevent flash colorblind */(function(){if(localStorage.getItem('urg-colorblind')==='on'){document.documentElement.classList.add('colorblind');document.body&&document.body.classList.add('colorblind');}})()
-/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
+</style><script>/* Prevent flash colorblind */(function(){if(localStorage.getItem('urg-colorblind')==='on'){document.documentElement.classList.add('colorblind');document.body&&document.body.classList.add('colorblind');}})();
+/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})();</script>
 <script>
 /* Service Worker — uniquement sur GitHub Pages */
 if('serviceWorker' in navigator && (location.hostname === 'max54130.github.io' || location.hostname === 'web.urgpocket.app')){
@@ -1055,7 +1065,7 @@ Bolus max/h théorique = 60 min ÷ période réfractaire.<br/>
 <table><thead><tr><th>Molécule</th><th>Spécialité</th><th>2 inj/j SC</th><th>1 inj/j SC</th></tr></thead>
 <tbody>
 <tr><td><strong>Énoxaparine</strong></td><td>Lovenox®</td><td>100 UI/kg × 2/j</td><td>150 UI/kg × 1/j</td></tr>
-<tr><td><strong>Nadroparine</strong></td><td>Fraxiparine®</td><td>95 UI/kg × 2/j</td><td>171 UI/kg × 1/j (Fraxodi®)</td></tr>
+<tr><td><strong>Nadroparine</strong></td><td>Fraxiparine®</td><td>95 UI/kg × 2/j</td><td>171 UI/kg × 1/j (ex: Fraxodi®)</td></tr>
 <tr><td><strong>Daltéparine</strong></td><td>Fragmine®</td><td>100 UI/kg × 2/j</td><td>200 UI/kg × 1/j</td></tr>
 <tr><td><strong>Tinzaparine</strong></td><td>Innohep®</td><td>—</td><td>175 UI/kg × 1/j</td></tr>
 </tbody></table></div>
@@ -1190,7 +1200,7 @@ PAS < 90 mmHg + tachycardie > 120/min + contexte traumatique ou hémorragie acti
 Shock Index ≥ 1 (FC/PAS) · Classes ATLS I–IV</div></div>
 <div class="proto-step"><div class="proto-step-num">2</div><div class="proto-step-content"><strong>Stop the bleed</strong><br/>
 • Compression directe — garrot si membre<br/>
-• Acide tranexamique (Exacyl®) 1g IV en 10 min — dans les 3h post-traumatisme +++<br/>
+• Acide tranexamique (ex: Exacyl®) 1g IV en 10 min — dans les 3h post-traumatisme +++<br/>
 • Relais 1g IVSE sur 8h</div></div>
 <div class="proto-step"><div class="proto-step-num">3</div><div class="proto-step-content"><strong>Damage Control Resuscitation</strong><br/>
 • Objectif PAS 80–90 mmHg (hypotension permissive) jusqu'à contrôle chirurgical — sauf TCG : PAS ≥ 110 mmHg<br/>
@@ -1790,7 +1800,7 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 
 <div class="section-title"><h3>Sources et mentions</h3></div>
 <div class="field" style="margin-bottom:14px;border-left:3px solid var(--primary);padding-left:12px">
-<p style="margin:0;font-size:13px;color:var(--text2);line-height:1.7">Urg Pocket est une application <strong style="color:var(--text)">gratuite et non-commerciale</strong>, développée par Maxime MAGRON à destination des professionnels de santé. Aucune donnée utilisateur n'est collectée à des fins de revente ou de profil publicitaire.<br/><br/><strong style="color:var(--text)">Droits sur l'application</strong><br/>© 2026 Maxime MAGRON. Le contenu d'Urg Pocket (textes, fiches, organisation, design, logo) est protégé par le droit d'auteur. Toute modification, redistribution ou réutilisation du contenu nécessite l'autorisation écrite préalable de l'auteur.<br/><br/><strong style="color:var(--text)">Marques pharmaceutiques</strong><br/>Les noms commerciaux de spécialités (CORDARONE®, NESDONAL®, etc.) restent la propriété de leurs détenteurs respectifs. Leur mention dans Urg Pocket relève d'un usage informatif à destination des professionnels de santé.<br/><br/><strong style="color:var(--text)">Sources cliniques</strong><br/>Les recommandations et scores cités (SRLF, SFAR, SFMU, ERC, ESC, AHA, HAS, ANSM, RCP, Vidal, Doloplus®, Algoplus, PRAM, NEWS2, NIHSS, etc.) demeurent la propriété de leurs auteurs et organismes émetteurs. Urg Pocket renvoie systématiquement vers les documents officiels via citation et liens externes.<br/><br/>Pour toute demande : <a href="mailto:contact@urgpocket.app" style="color:var(--primary)">contact@urgpocket.app</a>.</p>
+<p style="margin:0;font-size:13px;color:var(--text2);line-height:1.7">Urg Pocket est une application <strong style="color:var(--text)">gratuite et non-commerciale</strong>, développée par Maxime MAGRON à destination des professionnels de santé. Aucune donnée utilisateur n'est collectée à des fins de revente ou de profil publicitaire.<br/><br/><strong style="color:var(--text)">Droits sur l'application</strong><br/>© 2026 Maxime MAGRON. Le contenu d'Urg Pocket (textes, fiches, organisation, design, logo) est protégé par le droit d'auteur. Toute modification, redistribution ou réutilisation du contenu nécessite l'autorisation écrite préalable de l'auteur.<br/><br/><strong style="color:var(--text)">Marques pharmaceutiques</strong><br/>Les noms commerciaux de spécialités (ex: CORDARONE®, NESDONAL®, etc.) restent la propriété de leurs détenteurs respectifs. Leur mention dans Urg Pocket relève d'un usage informatif à destination des professionnels de santé.<br/><br/><strong style="color:var(--text)">Sources cliniques</strong><br/>Les recommandations et scores cités (SRLF, SFAR, SFMU, ERC, ESC, AHA, HAS, ANSM, RCP, Vidal, Doloplus®, Algoplus, PRAM, NEWS2, NIHSS, etc.) demeurent la propriété de leurs auteurs et organismes émetteurs. Urg Pocket renvoie systématiquement vers les documents officiels via citation et liens externes.<br/><br/>Pour toute demande : <a href="mailto:contact@urgpocket.app" style="color:var(--primary)">contact@urgpocket.app</a>.</p>
 </div>
 
 <div class="section-title"><h3>Documents légaux</h3></div>
@@ -1889,7 +1899,7 @@ Angioplastie primaire (PCI) en urgence — objectif premier contact médical →
 </div>
 
 <div class="section-title"><h3>Anticoagulants et antidotes</h3></div>
-<div class="note">Antidotes : protamine (HNF/HBPM), idarucizumab/Praxbind® (Dabigatran/Pradaxa®), andexanet alfa/Ondexxya® (rivaroxaban/apixaban), PPSB + vitamine K1 (AVK — Coumadine®, Sintrom®, Préviscan®). HBPM : Lovenox®, Fraxiparine®, Fragmine®, Innohep®, Arixtra®.<br/><br/>
+<div class="note">Antidotes : protamine (HNF/HBPM), idarucizumab/Praxbind® (Dabigatran/Pradaxa®), andexanet alfa/Ondexxya® (rivaroxaban/apixaban), PPSB + vitamine K1 (AVK — ex: Coumadine®, Sintrom®, Préviscan®). HBPM : Lovenox®, Fraxiparine®, Fragmine®, Innohep®, Arixtra®.<br/><br/>
 <a href="https://base-donnees-publique.medicaments.gouv.fr/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 BDPM ANSM</a>
 <a href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 ESC Guidelines ACS 2023</a>
 <a href="https://www.gihp-france.org/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 10px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;margin-top:8px">📄 GIHP — RFE mai 2024</a>
@@ -2149,16 +2159,16 @@ Mêmes précautions : remplissage du citrate jusqu'au trait, retournements immé
 <script>
 const antidoteCategories = [
   {title:"⚡ Urgences fréquentes",items:[
-    {intoxication:"Benzodiazépines",antidote:"Flumazénil (Anexate®)"},
-    {intoxication:"Cyanures et dérivés",antidote:"Hydroxocobalamine · Oxygène · EDTA dicobaltique (Kélocyanor®)"},
+    {intoxication:"Benzodiazépines",antidote:"Flumazénil (ex: Anexate®)"},
+    {intoxication:"Cyanures et dérivés",antidote:"Hydroxocobalamine · Oxygène · EDTA dicobaltique (ex: Kélocyanor®)"},
     {intoxication:"Monoxyde de carbone",antidote:"Oxygène"},
     {intoxication:"Morphine et dérivés",antidote:"Naloxone"},
     {intoxication:"Opiacés",antidote:"Naloxone"},
-    {intoxication:"Organophosphorés",antidote:"Atropine · Pralidoxime (Contrathion®)"},
-    {intoxication:"Paracétamol",antidote:"N-acétylcystéine (Fluimucil 5 g/25 mL®)"},
+    {intoxication:"Organophosphorés",antidote:"Atropine · Pralidoxime (ex: Contrathion®)"},
+    {intoxication:"Paracétamol",antidote:"N-acétylcystéine (ex: Fluimucil 5 g/25 mL®)"},
   ]},
   {title:"🌿 Champignons · Plantes · Venins",items:[
-    {intoxication:"Amanite phalloïde",antidote:"Silibinine (Légalon Sil®)"},
+    {intoxication:"Amanite phalloïde",antidote:"Silibinine (ex: Légalon Sil®)"},
     {intoxication:"Carbamates (insecticides)",antidote:"Atropine"},
     {intoxication:"Datura",antidote:"Physostigmine"},
     {intoxication:"Envenimation par vipères",antidote:"Viperfav®"},
@@ -2168,59 +2178,59 @@ const antidoteCategories = [
   ]},
   {title:"💊 Médicaments",items:[
     {intoxication:"Anti-arythmiques",antidote:"Sels de sodium molaires"},
-    {intoxication:"Anti-vitamines K (AVK) — warfarine (Coumadine®), acénocoumarol (Sintrom®), fluindione (Préviscan®)",antidote:"PPSB (Kaskadil®, Octaplex®) · Vitamine K1 (Phytoménadione) — PPSB si hémorragie grave ou urgence chir., vitamine K1 seule si surdosage asymptomatique"},
+    {intoxication:"Anti-vitamines K (AVK) — warfarine (ex: Coumadine®), acénocoumarol (ex: Sintrom®), fluindione (ex: Préviscan®)",antidote:"PPSB (ex: Kaskadil®, Octaplex®) · Vitamine K1 (Phytoménadione) — PPSB si hémorragie grave ou urgence chir., vitamine K1 seule si surdosage asymptomatique"},
     {intoxication:"Antidépresseurs tricycliques",antidote:"Sels de sodium molaires"},
-    {intoxication:"Bêta-adrénergiques",antidote:"Propranolol (Avlocardyl®)"},
-    {intoxication:"Bêta-bloquants",antidote:"Glucagon (Glucagon Novo®, Glucagen®) · Isoprénaline (Isuprel®) · Dobutamine (Dobutrex®) · Adrénaline · Insuline-glucose"},
-    {intoxication:"Chloroquine",antidote:"Diazépam (Valium®) · Adrénaline"},
-    {intoxication:"Digitaliques",antidote:"Anticorps antidigitaliques"},
-    {intoxication:"AVK — Coumadine® (warfarine), Sintrom® (acénocoumarol), Préviscan® (fluindione)",antidote:"PPSB (Kaskadil®, Octaplex®) 25 UI/kg IV — si hémorragie grave ou urgence chirurgicale · Vitamine K1 (Phytoménadione) 5-10 mg IV lent — si surdosage asymptomatique ou INR > 4 sans saignement · INR cible : selon indication"},
-        {intoxication:"AVK — Coumadine® (warfarine), Sintrom® (acénocoumarol), Préviscan® (fluindione)",antidote:"PPSB (Kaskadil®, Octaplex®) 25 UI/kg IV — hémorragie grave ou urgence chir. · Vitamine K1 (Phytoménadione) 5-10 mg IV lent — surdosage asymptomatique ou INR > 4 sans saignement"},
+    {intoxication:"Bêta-adrénergiques",antidote:"Propranolol (ex: Avlocardyl®)"},
+    {intoxication:"Bêta-bloquants",antidote:"Glucagon (ex: Glucagon Novo®, Glucagen®) · Isoprénaline (ex: Isuprel®) · Dobutamine (ex: Dobutrex®) · Adrénaline · Insuline-glucose"},
+    {intoxication:"Chloroquine",antidote:"Diazépam (ex: Valium®) · Adrénaline"},
+    {intoxication:"Digitaliques (digoxine, digitoxine)",antidote:"Fragments Fab d'anticorps antidigitaliques (ex: DigiFab®)"},
+    {intoxication:"AVK — Coumadine® (warfarine), Sintrom® (acénocoumarol), Préviscan® (fluindione)",antidote:"PPSB (ex: Kaskadil®, Octaplex®) 25 UI/kg IV — si hémorragie grave ou urgence chirurgicale · Vitamine K1 (Phytoménadione) 5-10 mg IV lent — si surdosage asymptomatique ou INR > 4 sans saignement · INR cible : selon indication"},
+        {intoxication:"AVK — Coumadine® (warfarine), Sintrom® (acénocoumarol), Préviscan® (fluindione)",antidote:"PPSB (ex: Kaskadil®, Octaplex®) 25 UI/kg IV — hémorragie grave ou urgence chir. · Vitamine K1 (Phytoménadione) 5-10 mg IV lent — surdosage asymptomatique ou INR > 4 sans saignement"},
     {intoxication:"Héparine non fractionnée (HNF)",antidote:"Sulfate de protamine : 1 mg neutralise ~100 UI HNF — IV lent sur 10 min (max 50 mg)"},
     {intoxication:"Inhibiteurs calciques",antidote:"Insuline-glucose"},
     {intoxication:"Insuline",antidote:"Glucose · Glucagon"},
-    {intoxication:"Isoniazide, zipéprol et dérivés de l\u0027hydrazine",antidote:"Pyridoxine = vitamine B6 (Bécilan®)"},
+    {intoxication:"Isoniazide, zipéprol et dérivés de l\u0027hydrazine",antidote:"Pyridoxine = vitamine B6 (ex: Bécilan®)"},
     {intoxication:"Méthotrexate",antidote:"Folinate de calcium"},
-    {intoxication:"Neuroleptiques (dyskinésie aiguë)",antidote:"Tropatépine (Lepticur®)"},
-    {intoxication:"Neuroleptiques (syndrome malin)",antidote:"Dantrolène (Dantrium®)"},
+    {intoxication:"Neuroleptiques (dyskinésie aiguë)",antidote:"Tropatépine (ex: Lepticur®)"},
+    {intoxication:"Neuroleptiques (syndrome malin)",antidote:"Dantrolène (ex: Dantrium®)"},
     {intoxication:"Pyriméthamine (Fansidar)",antidote:"Folinate de calcium"},
-    {intoxication:"Sulfamides hypoglycémiants",antidote:"Glucose · Octréotide (Sandostatine®)"},
+    {intoxication:"Sulfamides hypoglycémiants",antidote:"Glucose · Octréotide (ex: Sandostatine®)"},
     {intoxication:"Thyroxine",antidote:"Propranolol"},
     {intoxication:"Théophylline",antidote:"Propranolol"},
     {intoxication:"Triméthoprime",antidote:"Folinate de calcium"},
     {intoxication:"Valproate de sodium / Valpromide",antidote:"L-carnitine"},
   ]},
   {title:"💉 Anticoagulants",items:[
-    {intoxication:"AVK — Coumadine® (warfarine) · Sintrom® (acénocoumarol) · Préviscan® (fluindione)",antidote:"PPSB (Kaskadil®, Octaplex®) 25 UI/kg IV — hémorragie grave ou urgence chir. · Vitamine K1 5-10 mg IV lent — surdosage asymptomatique ou INR > 4 sans saignement"},
+    {intoxication:"AVK — Coumadine® (warfarine) · Sintrom® (acénocoumarol) · Préviscan® (fluindione)",antidote:"PPSB (ex: Kaskadil®, Octaplex®) 25 UI/kg IV — hémorragie grave ou urgence chir. · Vitamine K1 5-10 mg IV lent — surdosage asymptomatique ou INR > 4 sans saignement"},
     {intoxication:"Héparine non fractionnée (HNF)",antidote:"Sulfate de protamine : 1 mg/100 UI HNF — IV lent < 5 mg/min, max 50 mg · Si > 30 min depuis arrêt HNF : réduire dose de moitié"},
     {intoxication:"HBPM (énoxaparine, daltéparine...)",antidote:"Sulfate de protamine : neutralisation partielle ~60-80% · 1 mg/100 UI anti-Xa · Répéter si nécessaire · Effet résiduel anti-Xa possible 24h"},
-    {intoxication:"Dabigatran — Pradaxa® (anticoagulant oral direct anti-IIa)",antidote:"Idarucizumab (Praxbind®) 5 g IV (2 flacons × 2,5 g) · Antidote spécifique — renverse l'effet en quelques minutes · Dialysable en dernier recours"},
-    {intoxication:"Rivaroxaban — Xarelto® (AOD anti-Xa)",antidote:"Andexanet alfa (Ondexxya®) : bolus IV 400-800 mg puis perf · Si indisponible : CCP/PPSB 50 UI/kg · Pas dialysable"},
-    {intoxication:"Apixaban — Eliquis® (AOD anti-Xa)",antidote:"Andexanet alfa (Ondexxya®) : bolus IV 400-800 mg puis perf · Si indisponible : CCP/PPSB 50 UI/kg · Pas dialysable"},
-    {intoxication:"Edoxaban — Lixiana® (AOD anti-Xa)",antidote:"Andexanet alfa (Ondexxya®) — Si indisponible : CCP/PPSB 50 UI/kg · Pas dialysable"},
+    {intoxication:"Dabigatran — Pradaxa® (anticoagulant oral direct anti-IIa)",antidote:"Idarucizumab (ex: Praxbind®) 5 g IV (2 flacons × 2,5 g) · Antidote spécifique — renverse l'effet en quelques minutes · Dialysable en dernier recours"},
+    {intoxication:"Rivaroxaban — Xarelto® (AOD anti-Xa)",antidote:"Andexanet alfa (ex: Ondexxya®) : bolus IV 400-800 mg puis perf · Si indisponible : CCP/PPSB 50 UI/kg · Pas dialysable"},
+    {intoxication:"Apixaban — Eliquis® (AOD anti-Xa)",antidote:"Andexanet alfa (ex: Ondexxya®) : bolus IV 400-800 mg puis perf · Si indisponible : CCP/PPSB 50 UI/kg · Pas dialysable"},
+    {intoxication:"Edoxaban — Lixiana® (AOD anti-Xa)",antidote:"Andexanet alfa (ex: Ondexxya®) — Si indisponible : CCP/PPSB 50 UI/kg · Pas dialysable"},
     {intoxication:"AOD — tous (mesure générale)",antidote:"Charbon activé si < 2h ingestion · Pas de dosage biologique standard · Contacter centre antipoison · Évaluer indication antidote spécifique selon gravité"},
   ]},
   {title:"⚙️ Métaux lourds",items:[
-    {intoxication:"Aluminium",antidote:"Déféroxamine (Desféral®)"},
-    {intoxication:"Arsenic",antidote:"Dimercaprol (BAL®)"},
-    {intoxication:"Cuivre",antidote:"D-pénicillamine (Trolovol®)"},
-    {intoxication:"Fer",antidote:"Déféroxamine (Desféral®)"},
-    {intoxication:"Mercure",antidote:"Dimercaprol (BAL®) · Succimer (DMSA, Succicaptal®)"},
-    {intoxication:"Or",antidote:"Dimercaprol (BAL®)"},
-    {intoxication:"Plomb",antidote:"Dimercaprol (BAL®) · EDTA (Calcitétracémate disodique) · Succimer (DMSA, Succicaptal®)"},
+    {intoxication:"Aluminium",antidote:"Déféroxamine (ex: Desféral®)"},
+    {intoxication:"Arsenic",antidote:"Dimercaprol (ex: BAL®)"},
+    {intoxication:"Cuivre",antidote:"D-pénicillamine (ex: Trolovol®)"},
+    {intoxication:"Fer",antidote:"Déféroxamine (ex: Desféral®)"},
+    {intoxication:"Mercure",antidote:"Dimercaprol (ex: BAL®) · Succimer (DMSA ; ex: Succicaptal®)"},
+    {intoxication:"Or",antidote:"Dimercaprol (ex: BAL®)"},
+    {intoxication:"Plomb",antidote:"Dimercaprol (ex: BAL®) · EDTA (Calcitétracémate disodique) · Succimer (DMSA ; ex: Succicaptal®)"},
     {intoxication:"Thallium",antidote:"Ferrihexacyanoferrate de potassium (bleu de Prusse)"},
   ]},
   {title:"🧪 Toxiques chimiques · industriels",items:[
     {intoxication:"Acide fluorhydrique, fluorures / Acide oxalique, oxalates",antidote:"Calcium"},
     {intoxication:"Baryum (sels)",antidote:"Sulfate de magnésium"},
     {intoxication:"Bromures",antidote:"Chlorure de sodium"},
-    {intoxication:"Ethylène-glycol",antidote:"Éthanol (Curethyl®) · Fomépizole (4-méthyl-pyrazole)"},
-    {intoxication:"Méthanol",antidote:"Éthanol (Curethyl®) · Folinate de calcium · Fomépizole (4-méthyl-pyrazole)"},
-    {intoxication:"Méthémoglobinisants",antidote:"Bleu de méthylène · Acide ascorbique (vitamine C)"},
+    {intoxication:"Ethylène-glycol",antidote:"Éthanol (ex: Curethyl®) · Fomépizole (4-méthyl-pyrazole)"},
+    {intoxication:"Méthanol",antidote:"Éthanol (ex: Curethyl®) · Folinate de calcium · Fomépizole (4-méthyl-pyrazole)"},
+    {intoxication:"Méthémoglobinisants (nitrite d'amyle, poppers, nitrites, nitrates, aniline, dapsone, lidocaïne, prilocaïne, sulfamides)",antidote:"Bleu de méthylène · Acide ascorbique (vitamine C)"},
     {intoxication:"Nitrate d\u0027argent",antidote:"Chlorure de sodium"},
     {intoxication:"Paraquat",antidote:"Charbon activé · Terre à Foulon ou bentonite"},
     {intoxication:"Trichloréthylène",antidote:"Propranolol"},
-    {intoxication:"Tétrachlorure de carbone",antidote:"N-acétylcystéine (Fluimucil 5 g/25 mL®)"},
+    {intoxication:"Tétrachlorure de carbone",antidote:"N-acétylcystéine (ex: Fluimucil 5 g/25 mL®)"},
   ]},
 ];
 // Flat array for search compatibility
@@ -2426,8 +2436,8 @@ const apgar = {
   ]
 };
 
-const APP_VERSION = '1.3.4';
-const APP_VERSION_CODE = 83;
+const APP_VERSION = '1.3.5';
+const APP_VERSION_CODE = 84;
 /* Normalisation accents pour recherche */
 function normSearch(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 
@@ -3164,16 +3174,19 @@ function renderAntidotes() {
   const q = normSearch(antidoteSearch?.value);
   let totalShown = 0;
 
+  // Wrappe les parenthèses dans un span discret pour aérer la lecture
+  const wrapParens = txt => txt.replace(/\(([^()]+)\)/g, '<span class="paren-aside">($1)</span>');
+
   if(q.length > 0) {
     // Search mode: flat list of matching results
     const filtered = antidotes.filter(r => normSearch(r.intoxication).includes(q) || normSearch(r.antidote).includes(q));
     totalShown = filtered.length;
-    content.innerHTML = filtered.map(r => `<div class="antidote-card"><div class="antidote-intox">${r.intoxication}</div><div class="antidote-remedy">→ ${r.antidote}</div></div>`).join('') || '<div style="padding:14px;color:var(--text2)">Aucun résultat</div>';
+    content.innerHTML = filtered.map(r => `<div class="antidote-card"><div class="antidote-intox">${wrapParens(r.intoxication)}</div><div class="antidote-remedy">→ ${wrapParens(r.antidote)}</div></div>`).join('') || '<div style="padding:14px;color:var(--text2)">Aucun résultat</div>';
   } else {
     // Category mode
     content.innerHTML = antidoteCategories.map(cat => {
       totalShown += cat.items.length;
-      return `<div class="antidote-cat collapsed"><div class="antidote-cat-title">${cat.title} <span class="small">(${cat.items.length})</span></div><div class="antidote-cat-body">${cat.items.map(r => `<div class="antidote-card"><div class="antidote-intox">${r.intoxication}</div><div class="antidote-remedy">→ ${r.antidote}</div></div>`).join('')}</div></div>`;
+      return `<div class="antidote-cat collapsed"><div class="antidote-cat-title">${cat.title} <span class="small">(${cat.items.length})</span></div><div class="antidote-cat-body">${cat.items.map(r => `<div class="antidote-card"><div class="antidote-intox">${wrapParens(r.intoxication)}</div><div class="antidote-remedy">→ ${wrapParens(r.antidote)}</div></div>`).join('')}</div></div>`;
     }).join('');
     // Collapse toggle
     content.querySelectorAll('.antidote-cat-title').forEach(title => {
@@ -3438,13 +3451,13 @@ const protocoles = {
     steps:[
       "RECONNAÎTRE la triade clinique : COMA + DÉPRESSION RESPIRATOIRE (FR < 12/min, hypoventilation) + MYOSIS punctiforme. Contexte : usage de drogue (héroïne), surdosage médicamenteux (méthadone, morphine, fentanyl, oxycodone, tramadol).",
       "ABCDE : libérer les voies aériennes (canule de Guédel si tolérée), oxygène 15 L/min au masque haute concentration. Scope, SpO2, capno, voie veineuse. Glycémie capillaire systématique.",
-      "ANTIDOTE — NALOXONE (NARCAN®) en TITRATION : Diluer 1 ampoule 0,4 mg dans 9 mL NaCl 0,9% → concentration 0,04 mg/mL. Bolus 0,04 mg IVD toutes les 2-3 min jusqu'à FR > 12/min.",
+      "ANTIDOTE — NALOXONE (ex: NARCAN®) en TITRATION : Diluer 1 ampoule 0,4 mg dans 9 mL NaCl 0,9% → concentration 0,04 mg/mL. Bolus 0,04 mg IVD toutes les 2-3 min jusqu'à FR > 12/min.",
       "OBJECTIF : réverser la dépression respiratoire SANS déclencher un sevrage brutal (risque agitation, OAP). Ne PAS chercher à réveiller complètement le patient.",
       "Dose cumulée maximale : 10 mg. Si pas de réponse → remettre en cause le diagnostic (autres toxiques, hypoglycémie, AVC, TC associé).",
       "RELAIS IVSE si nécessaire (renarcotisation) : 2 mg dans 500 mL NaCl 0,9%, débit adapté à la FR. Surveillance prolongée car la durée d'action de la naloxone (30-90 min) est < à celle des opioïdes à longue action (méthadone, fentanyl LP, buprénorphine).",
       "VOIES ALTERNATIVES si pas d'abord IV : IM (0,4 mg dans deltoïde ou cuisse), IN intranasale (4 mg via dispositif spray, à répéter sur l'autre narine si besoin), IO (intra-osseuse).",
       "PÉDIATRIE : Naloxone 0,01 mg/kg IV/IO (max 0,4 mg/dose), à répéter toutes les 2-3 min. Voie IM/IN possibles.",
-      "⚠️ BUPRÉNORPHINE (Subutex®, Suboxone®) : moins sensible à la naloxone — DOUBLER les doses. Si BZD associées (cocktail), associer ANEXATE® (flumazénil) avec prudence.",
+      "⚠️ BUPRÉNORPHINE (ex: Subutex®, Suboxone®) : moins sensible à la naloxone — DOUBLER les doses. Si BZD associées (cocktail), associer ANEXATE® (flumazénil) avec prudence.",
       "SURVEILLANCE PROLONGÉE 4-6h après la dernière dose de naloxone (risque de renarcotisation si opioïde à demi-vie longue). Hospitalisation systématique en USI si méthadone, fentanyl LP, ou patches transdermiques."
     ]
   },
@@ -3453,9 +3466,9 @@ const protocoles = {
     steps:[
       "RECONNAÎTRE : COMA CALME hypotonique + dépression respiratoire MODÉRÉE (sauf très fortes doses ou cocktail) + hyporéflexie. Contexte : tentative de suicide médicamenteuse, surdosage (zolpidem, zopiclone, diazepam, alprazolam, lorazepam, clonazepam, etc.).",
       "ABCDE : libérer voies aériennes, oxygène, scope, SpO2, voie veineuse, glycémie capillaire. PRIORITÉ = ventilation efficace (BAVU si FR < 10).",
-      "⚠️ CI ABSOLUES au FLUMAZÉNIL (ANEXATE®) — ATTENTION cocktail : Coingestion avec TRICYCLIQUES (Anafranil®, Laroxyl®, Tofranil®) ou autres pro-convulsivants → ANEXATE PEUT DÉCLENCHER DES CONVULSIONS RÉSISTANTES.",
+      "⚠️ CI ABSOLUES au FLUMAZÉNIL (ex: ANEXATE®) — ATTENTION cocktail : Coingestion avec TRICYCLIQUES (ex: Anafranil®, Laroxyl®, Tofranil®) ou autres pro-convulsivants → ANEXATE PEUT DÉCLENCHER DES CONVULSIONS RÉSISTANTES.",
       "AUTRES CI au flumazénil : Épilepsie traitée par BZD, dépendance chronique aux BZD (sevrage brutal), HTIC, troubles du rythme sur intoxication (cardiotrope), Trauma crânien grave.",
-      "ANTIDOTE — FLUMAZÉNIL (ANEXATE®) en titration : indication uniquement si dépression respiratoire significative ET CI éliminées. Bolus IVD 0,1-0,3 mg sur 15 secondes.",
+      "ANTIDOTE — FLUMAZÉNIL (ex: ANEXATE®) en titration : indication uniquement si dépression respiratoire significative ET CI éliminées. Bolus IVD 0,1-0,3 mg sur 15 secondes.",
       "Si pas de réponse en < 1 min : 0,1 mg toutes les minutes jusqu'au réveil (ne pas dépasser 2 mg cumulés). Si pas de réponse à 2 mg → remettre en cause le diagnostic.",
       "RELAIS IVSE si nécessaire (durée d'action 30-60 min < à celle des BZD à demi-vie longue) : 0,1-0,4 mg/h, débit selon le degré d'éveil souhaité.",
       "PÉDIATRIE > 6 mois : 0,01 mg/kg IVL sur 15s (max 0,2 mg/injection), à répéter toutes les minutes (max 4 fois, max cumulé 0,05 mg/kg ou 1 mg).",
@@ -3501,7 +3514,7 @@ const protocoles = {
       "Si STEMI (sus-décalage ST = occlusion coronaire aiguë) : contacter directement le cardiologue interventionnel pour coronarographie (imagerie des artères coronaires) + angioplastie (PCI = réouverture mécanique de l'artère bouchée) en urgence. Objectif : délai premier contact médical → angioplastie (ouverture de l'artère) < 90 min. Orienter vers le centre de cardiologie interventionnelle le plus proche.",
       "Aspirine 250 mg PO (ou 75-250 mg IV) sauf allergie documentée. Anticoagulation selon protocole de service (HNF = Héparine Non Fractionnée IV, ou HBPM = Héparine de Bas Poids Moléculaire SC).",
       "Morphine IV titrée si douleur intense (EVA > 6) non soulagée par les dérivés nitrés. Titration par bolus de 2-3 mg toutes les 5 min.",
-      "Dérivés nitrés sublinguaux (Natispray® 0,30 mg) si PAS > 100 mmHg et absence de prise d'IPDE5 dans les 24-48 h.",
+      "Dérivés nitrés sublinguaux (ex: Natispray® 0,30 mg) si PAS > 100 mmHg et absence de prise d'IPDE5 dans les 24-48 h.",
       "O₂ uniquement si SpO₂ < 90 %. Ne pas systématiser l'oxygénothérapie."
     ]
   }
@@ -3712,7 +3725,7 @@ function calcCockcroft(){
     {label:'Bilan hépatique / lipidique',keywords:'hépatique alat asat transaminase gamma gt bilirubine cholestérol ldl hdl triglycérides cpk myoglobine',target:'norme-detail',normeKey:'Bilan hépatique, lipidique et musculaire',tag:'Norme'},
     // Antidotes (top ones)
     {label:'Doses toxiques',keywords:'dose toxique seuil toxicité dci substance médicament surdosage',target:'toxico-doses',tag:'Toxicologie'},
-    {label:'Antidotes',keywords:'antidote intoxication paracétamol nac naloxone flumazénil atropine hydroxocobalamine digoxine',target:'toxico-antidotes',tag:'Toxicologie'},
+    {label:'Antidotes',keywords:'antidote intoxication paracétamol nac naloxone flumazénil atropine hydroxocobalamine digoxine digitalique fab digifab méthémoglobine méthémoglobinisant nitrite amyle poppers bleu méthylène',target:'toxico-antidotes',tag:'Toxicologie'},
   ];
 
   input.addEventListener('input', () => {
@@ -6227,7 +6240,7 @@ HTA non contrôlée`,
 En anaphylaxie, la voie IM est la voie de première intention ; la voie IV doit être réservée aux situations graves et aux équipes entraînées sous monitorage. La voie SC n'est pas retenue comme voie de référence dans la fiche corrigée.`,
   },
   {nom:'ANEXATE®',dci:'Flumazenil',
-  ind:`ANTIDOTE : Antagoniste des Benzodiazépines et molécule apparentées (Zolpidem®, Zopiclone®)
+  ind:`ANTIDOTE : Antagoniste des Benzodiazépines et molécule apparentées (ex: Zolpidem®, Zopiclone®)
 
 Indiqué pour :
 Surdosage et/ou Intoxications aux BZD
@@ -6455,7 +6468,7 @@ Grossesse (cf : Le Vidal)`,
 
 Indiqué pour :
 Lever un Bronchospasme : exacerbation de BPCO spastique, crise d'asthme...
-en association avec les Bêta-2-mimétique d'action rapide (ex : Salbutamol (VENTOLINE®) ; ou Terbutaline (BRICANYL®)
+en association avec les Bêta-2-mimétique d'action rapide (ex : Salbutamol (ex: VENTOLINE®) ; ou Terbutaline (ex: BRICANYL®)
 
 Effets :
 
@@ -7377,7 +7390,7 @@ Indications AMM :
 • Relaxation musculaire per-opératoire et ventilation mécanique
 • Adjuvant en soins intensifs (intubation + ventilation mécanique, usage court)
 
-⚠️ Antidote disponible : sugammadex (BRIDION®) — permet une décurarisation rapide et complète.`,
+⚠️ Antidote disponible : sugammadex (ex: BRIDION®) — permet une décurarisation rapide et complète.`,
   presc:`ADULTE
 
 Intubation — induction de routine :
@@ -7386,7 +7399,7 @@ Intubation — induction de routine :
 Intubation — induction à séquence rapide (ISR) :
 • 1,0 mg/kg IV bolus → intubation à 60 secondes
 • 1,2 mg/kg si délai très court requis
-• ⚠️ Sugammadex (BRIDION®) doit être disponible si utilisation en ISR
+• ⚠️ Sugammadex (ex: BRIDION®) doit être disponible si utilisation en ISR
 
 Entretien peropératoire :
 • Bolus : 0,1–0,2 mg/kg IV selon monitoring neuromusculaire
@@ -8248,7 +8261,7 @@ exemple : 10mg IM (soit 2ml)`,
 Risques : Hypotension artérielle (diminution de la PAM de 10%), bradycardie, somnolence, céphalées, agitation, stupeur, hallucinations, euphorie, désinhibition (effet paradoxal possible), douleur point d'injection, rash cutané, angioedeme, anaphylaxie, nausées, vomissements, convulsions
 Surdosage : Dépression cardio-respiratoire, hypotension artérielle, apnée arrêt respiratoire , coma
 
-ANTIDOTE : Flumazénil (ANEXATE®)`,
+ANTIDOTE : Flumazénil (ex: ANEXATE®)`,
   ci:`Absence de matériel de réanimation
 Allergie au BZD
 Myasthénie
@@ -9319,7 +9332,7 @@ Surdosage : Nausées/vomissements, anorexie, pâleur apparaissent dans les 24h
 Dose toxique ADULTE : à partir de 10g en une seule prise
 Dose toxique ENFANT : 150mg/kg
 
-ANTIDOTE : N-acétylcystéine (FLUIMUCUL® , HIDONAC®)`,
+ANTIDOTE : N-acétylcystéine (ex: FLUIMUCUL® , HIDONAC®)`,
   ci:`Insuffisance hépatocellulaire grave
 
 Allergie au paracétamol
@@ -9665,7 +9678,7 @@ Voie IV interdit chez nouveau-né`,
   dil:`Solvant puis NaCl 0,9% ou G5% ou EPPI`,
   voie:`IV, IM, IR`,
   },
-  {nom:'SALBUTAMOL (SALBUMOL FORT® / VENTOLINE®)',dci:'Sulfate de salbutamol',
+  {nom:'SALBUTAMOL (ex: SALBUMOL FORT® / VENTOLINE®)',dci:'Sulfate de salbutamol',
   ind:`Agoniste Bêta-2-mimétique (adrénergiques)
 Bronchodilatateur, Anti-Asthmatique et Utéro-relaxant
 
@@ -10754,7 +10767,7 @@ Déconseillé si grossesse / allaitement (cf CRAT)`,
   dil:`NaCl 0,9%, G5%, Mannitol 10%, Ringer Lactate`,
   voie:`IV`,
   },
-  ,{nom:'ADENOSINE',dci:'Adénosine (Krenosin®)',
+  ,{nom:'ADENOSINE',dci:'Adénosine (ex: Krenosin®)',
   ind:`Tachycardie jonctionnelle paroxystique (TSV) — réduction en rythme sinusal après échec des manœuvres vagales.
 Test diagnostique des tachycardies à QRS larges ou fins (après échec manœuvres vagales).`,
   presc:`Adulte : 6 mg IVD bolus rapide — si échec à 2 min : 12 mg IVD (max).
@@ -10770,7 +10783,7 @@ Effets attendus : asystolie transitoire de 3–10 s, bouffée de chaleur, dyspn�
   dil:`Pur — ne pas diluer`,voie:`IV bolus`,},
 
 {nom:'BRIDION',dci:'Sugammadex',
-  ind:`Antagonisation rapide du blocage neuromusculaire induit par rocuronium (Esmeron®) ou vécuronium.
+  ind:`Antagonisation rapide du blocage neuromusculaire induit par rocuronium (ex: Esmeron®) ou vécuronium.
 Indication principale : échec d'intubation / cannot intubate-cannot oxygenate (CICO).`,
   presc:`Antagonisation immédiate (CICO) : 16 mg/kg IV bolus.
 Antagonisation profonde (T1 < 2 post-tet) : 4 mg/kg IV.
@@ -10959,7 +10972,8 @@ Source : SRLF Urgences Vitales 2024-2025`,
   dil:`Prête à l'emploi — ne pas diluer`,voie:`IV perf / IO`,},
 
   {nom:'METIBLO® (PROVEBLUE)',dci:'Bleu de méthylène (Chlorure de méthylthioninium)',
-  ind:`Méthémoglobinémie symptomatique ou ≥ 30% (intoxication par nitrates, nitrites, aniline, poppers, lidocaïne...).`,
+  ind:`Méthémoglobinémie symptomatique ou ≥ 30%.
+Antidote des méthémoglobinisants : nitrites (nitrite d'amyle, nitrite de sodium, poppers), nitrates, aniline, dapsone, lidocaïne, prilocaïne, sulfamides, métoclopramide, primaquine.`,
   presc:`ADULTES :
 1-2 mg/kg IVL 15 min dans G5% strict — peut répéter 1h après si persistance.
 Max cumulé : 7 mg/kg.
@@ -10987,7 +11001,7 @@ Méthémoglobinémie par chlorate (inefficace).`,
 ⚠️ Durée limitée — risque d'intoxication cyanure si > 10 µg/kg/min ou > 72h.`,
   prep:`50 mg dans 250 mL G5% (200 µg/mL). Protéger de la lumière obligatoirement.`,
   surv:`TA invasive recommandée. Dosage thiocyanates si > 72h. Acidose métabolique = signe d'intoxication.
-⚠️ Antidote intox cyanure : hydroxocobalamine (Cyanokit®).`,
+⚠️ Antidote intox cyanure : hydroxocobalamine (ex: Cyanokit®).`,
   ci:`Anémie sévère, insuffisance hépatique sévère, atrophie optique de Leber. Pas de forme IV disponible — ne pas utiliser pur.`,
   dil:`G5% uniquement — protéger de la lumière`,voie:`IVSE`,},
 
@@ -11046,7 +11060,7 @@ Source : ESC Guidelines ACS 2023.`,
   dil:`Voie orale uniquement`,voie:`PO`,},
 
   {nom:'PRAXBIND',dci:'Idarucizumab',
-  ind:`Antidote spécifique du dabigatran (Pradaxa®) — en urgence hémorragique ou chirurgie urgente.`,
+  ind:`Antidote spécifique du dabigatran (ex: Pradaxa®) — en urgence hémorragique ou chirurgie urgente.`,
   presc:`5 g IV (2 flacons de 2,5 g/50 mL) — injection IV directe ou perfusion courte consécutive.
 ⚠️ Dose unique. Peut être répété une fois si coagulation non normalisée.`,
   prep:`Solution prête à l'emploi 2,5 g/50 mL — pas de dilution.
@@ -11073,7 +11087,7 @@ IM : reconstituer dans lidocaïne 1% (1 g dans 3,5 mL).`,
 Asthme : 40–60 mg/j × 5–10 jours.
 Équivalence : 5 mg prednisolone = 4 mg méthylprednisolone = 0,75 mg dexaméthasone.`,
   prep:`Comprimés effervescents 5 et 20 mg. Solution buvable 1 mg/mL.
-IV : ampoule injectable (Hydrocortancyl® 2,5% suspension).`,
+IV : ampoule injectable (ex: Hydrocortancyl® 2,5% suspension).`,
   surv:`Glycémie, TA, poids. Insomnie, agitation. Décroissance progressive si traitement prolongé.`,
   ci:`Infection non contrôlée (relative). Vaccin vivant atténué.`,
   dil:`Voie orale principalement`,voie:`PO / IV`,},
@@ -11198,7 +11212,7 @@ Enfant : 10 mg/kg × 3/j (max 30 mg/kg/j).`,
   ind:`AVK — FANV, TVP/EP, prothèse valvulaire mécanique.`,
   presc:`Dose initiale 5 mg/j PO, adapter selon INR (cible 2–3 ou 3–4,5 selon indication).`,
   prep:`Comprimés 2 et 5 mg — voie orale.`,
-  surv:`INR. Antidote urgence : vitamine K1 IV + PPSB (Kanokad® ou Octaplex®).`,
+  surv:`INR. Antidote urgence : vitamine K1 IV + PPSB (ex: Kanokad® ou Octaplex®).`,
   ci:`Grossesse, hémorragie active, HTA sévère non contrôlée.`,
   dil:`Voie orale`,voie:`PO`,},
 
@@ -11237,7 +11251,7 @@ Source : RCP ANSM COMEDIMS APHP 2014.`,
   presc:`Préventif risque modéré : 2 850 UI/j SC (0,3 mL).
 Préventif risque élevé : 38 UI/kg J1–J3, puis 57 UI/kg/j à partir J4.
 Curatif TVP/EP : 95 UI/kg × 2/j SC.
-Curatif 1 injection/j (Fraxodi®) : 171 UI/kg × 1/j.
+Curatif 1 injection/j (ex: Fraxodi®) : 171 UI/kg × 1/j.
 SCA instable : 86 UI/kg × 2/j SC.
 ⚠️ CI si DFG < 30 mL/min. Pas d'antidote spécifique complet.
 
@@ -11324,7 +11338,7 @@ CIVD active`,
   dil:`Eau PPI fournie`,voie:`IV lente`,},
 
   {nom:'ONDEXXYA',dci:'Andexanet alfa',
-  ind:`Antidote spécifique rivaroxaban (Xarelto®) et apixaban (Eliquis®) — urgence hémorragique grave.`,
+  ind:`Antidote spécifique rivaroxaban (ex: Xarelto®) et apixaban (ex: Eliquis®) — urgence hémorragique grave.`,
   presc:`Dose faible (si dernière prise > 8h ou dose quotidienne ≤ 10 mg) : 400 mg IV bolus 30 min, puis 480 mg IVSE 2h.
 Dose élevée : 800 mg IV bolus 30 min, puis 960 mg IVSE 2h.`,
   prep:`Poudre lyophilisée. Reconstituer selon RCP.`,
@@ -11425,7 +11439,7 @@ Anti-inflammatoire (rhumatologie) : 2–3 g/j en prises fractionnées.
 ⚠️ ESC 2023 : dose de charge antiplaquettaire ≤ 300 mg.
 
 Source : ESC Guidelines ACS 2023, RCP ANSM.`,
-  prep:`Comprimés, sachets effervescents, IV (Aspégic®).`,
+  prep:`Comprimés, sachets effervescents, IV (ex: Aspégic®).`,
   surv:`Risque hémorragique, saignement digestif. Bronchospasme chez asthmatiques AINS-sensibles.`,
   ci:`Ulcère actif, hémophilie, 3e trimestre grossesse, enfant < 15 ans (syndrome de Reye).`,
   dil:`Eau pour IV`,voie:`PO / IV lente`,},
@@ -11685,7 +11699,7 @@ TVP/EP : 60 mg/j après 5–10j héparine.`,
   presc:`10 mg IV lente, IM ou PO × 3/j. Max 30 mg/j.`,
   prep:`Ampoule 10 mg/2 mL. Diluer dans 10 mL NaCl pour IVL.`,
   surv:`Signes extrapyramidaux (surtout jeunes — akathisie, dyskinésie aiguë). Sédation.
-⚠️ Antidote extrapyramidal : biperiden (Akineton®).`,
+⚠️ Antidote extrapyramidal : biperiden (ex: Akineton®).`,
   ci:`Obstruction digestive, phéochromocytome, épilepsie (relative).`,
   dil:`NaCl 0,9%`,voie:`IV lente / IM / PO`,},
 
@@ -11894,7 +11908,7 @@ Néphropathie diabétique : 300 mg/j.
   if(!document.getElementById('screen-medicaments')) return;
   var searchEl=document.getElementById('medSearch'),listEl=document.getElementById('medList'),detailEl=document.getElementById('medDetail'),backBtn=document.getElementById('medBackBtn'),tabs=document.querySelectorAll('.med-tab-btn');
   var currentMol=null,currentTab='indication';
-  function renderList(filter){filter=normSearch(filter);var items=medData.filter(function(m){return !filter||normSearch(m.nom).includes(filter)||normSearch(m.dci).includes(filter);});listEl.innerHTML=items.map(function(m){var idx=medData.indexOf(m);return '<button class="med-list-item" data-idx="'+idx+'"><span class="med-nom">'+m.nom+'</span><span class="med-dci">'+m.dci+'</span></button>';}).join('');listEl.querySelectorAll('.med-list-item').forEach(function(btn){btn.addEventListener('click',function(){openMol(parseInt(btn.dataset.idx));});});}
+  function renderList(filter){filter=normSearch(filter);var items=medData.filter(function(m){return !filter||normSearch(m.nom).includes(filter)||normSearch(m.dci).includes(filter)||(m.ind&&normSearch(m.ind).includes(filter));});listEl.innerHTML=items.map(function(m){var idx=medData.indexOf(m);return '<button class="med-list-item" data-idx="'+idx+'"><span class="med-nom">'+m.nom+'</span><span class="med-dci">'+m.dci+'</span></button>';}).join('');listEl.querySelectorAll('.med-list-item').forEach(function(btn){btn.addEventListener('click',function(){openMol(parseInt(btn.dataset.idx));});});}
   function openMol(idx){currentMol=idx;var m=medData[idx];document.getElementById('medDetailNom').textContent=m.nom;document.getElementById('medDetailDci').textContent=m.dci;switchTab(currentTab);if(listEl.parentElement)listEl.parentElement.style.display='none';detailEl.style.display='block';}
   function normStr(s){
     // Supprimer les accents pour comparaison robuste (é→e, É→E, etc.)

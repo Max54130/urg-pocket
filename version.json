@@ -1,11 +1,24 @@
 {
-  "versionCode": 83,
-  "versionName": "1.3.4",
-  "releaseDate": "2026-05-01",
+  "versionCode": 84,
+  "versionName": "1.3.5",
+  "releaseDate": "2026-05-03",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "Refonte du score SCB / Parkland (Adulte/Pédia + règle de la paume), normes biologiques pédiatriques (4 tranches d'âge), raccourcis Trou anionique et Calcémie corrigée dans la section Normes.",
+  "changelog": "Refonte visuelle (interface plus moderne et lisible), recherche enrichie pour retrouver plus facilement les fiches médicaments, précisions ajoutées dans la section antidotes, corrections diverses.",
   "releases": [
+    {
+      "versionName": "1.3.5",
+      "date": "2026-05-03",
+      "changes": [
+        "**Refonte visuelle** : nouvelle interface avec effet de profondeur (glassmorphism léger) et atmosphère colorée subtile en arrière-plan. Conteneurs et boutons mieux contrastés, hiérarchie visuelle plus claire entre les sections principales et leur contenu.",
+        "**Contrastes améliorés** : ajustement des couleurs de fond et de surface en mode clair comme en mode sombre. Les tuiles ressortent davantage, les bordures et les titres de sections sont plus lisibles.",
+        "**Recherche médicaments enrichie** : la recherche dans les fiches médicaments interroge désormais aussi les indications. Cherchez « poppers », « nitrite d'amyle », « méthémoglob » → vous trouverez le bleu de méthylène (METIBLO/PROVEBLUE).",
+        "**Antidotes précisés** : entrée *Méthémoglobinisants* enrichie avec la liste des substances concernées (nitrite d'amyle, poppers, nitrites, nitrates, aniline, dapsone, lidocaïne, prilocaïne, sulfamides). Antidote des Digitaliques précisé : *Fragments Fab d'anticorps antidigitaliques (ex : DigiFab®)*.",
+        "**Format des marques harmonisé** : 66 occurrences de marques pharmaceutiques entre parenthèses normalisées au format « (ex : MARQUE®) » dans les fiches et la table des antidotes, pour clarifier qu'il s'agit d'exemples non exclusifs (ex : *Naloxone (NARCAN®)* → *Naloxone (ex : NARCAN®)*, *PPSB (Kaskadil®, Octaplex®)* → *PPSB (ex : Kaskadil®, Octaplex®)*).",
+        "**Lisibilité des parenthèses** dans la table des antidotes : les compléments entre parenthèses (DCI, exemples de marques) sont désormais rendus plus discrets pour mieux distinguer le nom principal des précisions.",
+        "**Correctif** : suppression d'une erreur JavaScript silencieuse (anti-flash de thème) qui apparaissait dans la console au démarrage de l'application."
+      ]
+    },
     {
       "versionName": "1.3.4",
       "date": "2026-05-01",
