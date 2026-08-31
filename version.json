@@ -1,11 +1,22 @@
 {
-  "versionCode": 84,
-  "versionName": "1.3.5",
-  "releaseDate": "2026-05-03",
+  "versionCode": 88,
+  "versionName": "1.3.8",
+  "releaseDate": "2026-09-01",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "Refonte visuelle (interface plus moderne et lisible), recherche enrichie pour retrouver plus facilement les fiches médicaments, précisions ajoutées dans la section antidotes, corrections diverses.",
+  "changelog": "Ajout du bouton « Copier le bilan » sur tous les scores cliniques, validation clinique automatisée, notifications de confirmation (toasts) et optimisations Android API 36.",
   "releases": [
+    {
+      "versionName": "1.3.8",
+      "date": "2026-09-01",
+      "changes": [
+        "**Bouton « Copier le bilan »** : export instantané du résultat d'un score (score chiffré, interprétation et conduite à tenir) dans le presse-papiers pour transmission radio SAMU ou collage direct dans le dossier patient (DPI).",
+        "**Validation clinique automatisée** : banc de tests étalons validant 100% des calculateurs et posologies d'urgence avec clamping des doses maximales.",
+        "**Notifications visuelles (Toasts)** : confirmation discrète lors de la copie du bilan sans gêner la navigation.",
+        "**SEO & Métadonnées** : balises canoniques, Open Graph et Twitter Cards sur l'ensemble des pages.",
+        "**Compatibilité Android 16 (API 36)** : mise à niveau du versionCode (88) et support Edge-to-Edge natif."
+      ]
+    },
     {
       "versionName": "1.3.5",
       "date": "2026-05-03",

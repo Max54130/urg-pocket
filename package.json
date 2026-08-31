@@ -1,0 +1,10 @@
+{
+  "name": "urgpocket",
+  "version": "1.3.8",
+  "description": "Aide-mémoire médical d'urgence pour SAMU, SMUR et services d'urgences",
+  "scripts": {
+    "test": "node tests/clinical_validation.test.js"
+  },
+  "author": "Maxime MAGRON",
+  "license": "UNLICENSED"
+}
