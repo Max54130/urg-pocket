@@ -1,6 +1,6 @@
 # Urg Pocket — Documentation technique exhaustive
-**Version actuelle : 1.2.35 — versionCode 52**  
-**Dernière mise à jour : mars 2026**
+**Version actuelle : 1.3.8 — versionCode 88**  
+**Dernière mise à jour : 1er septembre 2026**
 
 ---
 
@@ -29,11 +29,11 @@
 Application **single-file HTML** (`index.html`) — HTML + CSS + JS dans un seul fichier. Aucune dépendance externe requise à l'exécution (hors police Inter via Google Fonts au premier chargement).
 
 ### Cibles
-- **Android** : WebView via Android Studio (`WebViewAssetLoader`, `targetSdk 35`)
+- **Android** : WebView via Android Studio (`WebViewAssetLoader`, `targetSdk 36`)
 - **Web / PWA** : GitHub Pages (`https://max54130.github.io/urg-pocket/`)
 
 ### Taille
-- HTML total : ~200 Ko
+- HTML total : ~728 Ko
 - CSS : ~29 Ko / ~323 lignes
 - JS : ~171 Ko / ~2644 lignes
 
@@ -495,3 +495,19 @@ urg-pocket/
 Urg Pocket est un **aide-mémoire** pour professionnels de santé. Il ne constitue pas un dispositif médical. Les informations sont indicatives et ne remplacent pas le jugement clinique, les protocoles de service ni les sources officielles. Les posologies doivent être vérifiées avant toute administration.
 
 **Contact** : urgpocket@gmail.com
+
+
+---
+
+## 15. Tests & Validation Clinique Automatisée
+
+Urg Pocket intègre une suite de tests unitaires exécutable via Node.js (`npm test` ou `node tests/clinical_validation.test.js`).
+
+Elle valide 100% des algorithmes critiques :
+- **Fonction rénale** : Cockcroft-Gault (homme / femme), CKD-EPI 2021
+- **Électrolytes** : Calcémie corrigée (Payne), Trou anionique (standard et acidocétose)
+- **Hémodynamique** : Shock Index (seuil 0.7 et 1.0), HEART Score, Killip (I à IV)
+- **Thrombose & EP** : Algorithme YEARS (seuil dynamique 500/1000 ng/mL), sPESI
+- **Brûlures** : Formule de Parkland ($4 \times \text{poids} \times \text{SCB}$), répartition 8h/16h et seuil pédiatrique à 10%
+- **Neurologie & Urgences** : Glasgow adulte & pédiatrique, PRAM asthme de l'enfant, Malinas
+- **Posologies & Doses maximales** : Clamping automatique des doses toxiques en pédiatrie et chez l'adulte.

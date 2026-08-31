@@ -18,11 +18,11 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.3.5** |
-| versionCode | **84** |
-| Date | 3 mai 2026 |
-| Prochaine release minimum | versionCode **≥ 85** / versionName **"1.3.6"** |
-| Dernier publié Play Store | versionCode 83 / versionName 1.3.4 |
+| versionName | **1.3.8** |
+| versionCode | **88** |
+| Date | 1er septembre 2026 |
+| Prochaine release minimum | versionCode **≥ 89** / versionName **"1.3.9"** |
+| Dernier publié Play Store | versionCode 88 / versionName 1.3.8 |
 
 ---
 
@@ -128,17 +128,40 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 ## Architecture technique
 
-- **Single-file HTML** — CSS et JS inline, ~552 KB
-- **Hors ligne** — Service Worker PWA
-- **Android** — WebView (targetSdk 35, minSdk 24)
+- **Single-file HTML** — CSS et JS inline, ~728 KB
+- **Hors ligne** — Service Worker PWA (cache v1.3.8)
+- **Android** — WebView natif (`targetSdk 36`, `minSdk 26`, Edge-to-Edge natif, `WebViewAssetLoader`)
+- **Validation clinique** — Suite de tests automatisée (`tests/clinical_validation.test.js`, 22/22 tests réussis)
 - **Thèmes** — Clair / Sombre / Auto
-- **Accessibilité** — Mode daltonisme
-- **Sections** : 47 sections HTML équilibrées
-- **Scripts** : 3 blocs `<script>` équilibrés
+- **Accessibilité** — Mode daltonisme (Palette Wong 2011 + symboles distinctifs)
+- **Scores & Calculateurs** : 26 scores cliniques et modules de calcul
+- **Médicaments** : 228 fiches complètes avec posologies pédiatriques et adultes
+- **Scripts** : 3 blocs `<script>` optimisés sans dépendance externe
 
 ---
 
 ## Changelog
+
+### v1.3.8 (1er septembre 2026) — Bouton « Copier le bilan », validation clinique automatisée, SEO & Android API 36
+
+**📋 Export instantané des scores (« Copier le bilan »)**
+- Ajout d'un bouton **« 📋 Copier le bilan »** sur l'ensemble des anneaux de résultats de scores cliniques (Glasgow, NIHSS, NEWS2, Wells, YEARS, sPESI, Malinas, PRAM, etc.).
+- Génère un résumé textuel structuré (ex: `[NIHSS] Score : 14/42 (Modéré) — AVC modéré — Conduite : Bilan neurovasculaire urgent`) prêt à coller dans le DPI ou transmettre par radio au SAMU.
+- Notifications visuelles discrètes (toasts) avec retour tactile/haptique.
+
+**🧪 Banc de validation clinique automatisé**
+- Intégration de `tests/clinical_validation.test.js` et `package.json` (`npm test`).
+- Validation à 100% de 22 scénarios étalons (Cockcroft-Gault, CKD-EPI 2021, calcémie corrigée, trou anionique, Shock Index, Killip, HEART, YEARS, sPESI, Parkland adulte/pédiatrique, Glasgow, PRAM, Malinas, posologies avec clamping de dose maximale).
+
+**🔍 Référencement (SEO) & Données légales**
+- Balises canoniques, Open Graph complètes et Twitter Cards ajoutées sur `cgu.html` et `privacy.html`.
+- Description et mots-clés enrichis.
+
+**🤖 Android 16 (API 36) & Play Store**
+- `versionCode` incrémenté à **88** (`versionName: 1.3.8`) pour compatibilité Google Play Console.
+- Support du mode Edge-to-Edge natif avec `WindowCompat` et safe-areas CSS.
+
+---
 
 ### v1.3.5 (3 mai 2026) — refonte visuelle + recherche enrichie
 
