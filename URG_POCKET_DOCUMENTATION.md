@@ -1,5 +1,5 @@
 # Urg Pocket — Documentation technique exhaustive
-**Version actuelle : 1.3.8 — versionCode 88**  
+**Version actuelle : 1.3.8 — versionCode 89**  
 **Dernière mise à jour : 1er septembre 2026**
 
 ---

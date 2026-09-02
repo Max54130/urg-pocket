@@ -19,7 +19,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 | Paramètre | Valeur |
 |-----------|--------|
 | versionName | **1.3.8** |
-| versionCode | **88** |
+| versionCode | **89** |
 | Date | 1er septembre 2026 |
 | Prochaine release minimum | versionCode **≥ 89** / versionName **"1.3.9"** |
 | Dernier publié Play Store | versionCode 88 / versionName 1.3.8 |
