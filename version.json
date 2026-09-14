@@ -1,11 +1,20 @@
 {
-  "versionCode": 89,
-  "versionName": "1.3.8",
-  "releaseDate": "2026-09-01",
+  "versionCode": 90,
+  "versionName": "1.3.9",
+  "releaseDate": "2026-09-14",
   "minSupportedCode": 1,
   "playStoreUrl": "https://play.google.com/store/apps/details?id=com.urgpocket.app",
-  "changelog": "Ajout du bouton « Copier le bilan » sur tous les scores cliniques, validation clinique automatisée, notifications de confirmation (toasts) et optimisations Android API 36.",
+  "changelog": "Mise a jour v1.3.9 : Nouvelle charte graphique officielle urgpocket.app v2, typographie Archivo embarquee, surfaces retro-eclairees et nouvelle icone.",
   "releases": [
+    {
+      "versionName": "1.3.9",
+      "date": "2026-09-14",
+      "changes": [
+        "Refonte graphique complete (Charte v2) : alignement visuel sur le site urgpocket.app, typographie Archivo embarquee 100% hors-ligne, surfaces retro-eclairees et halos d ambiance.",
+        "Nouvelle icone officielle : mise a jour des logos haute resolution et icones d application.",
+        "Optimisation et accessibilite : support du mode reduced-motion, synchronisation de l accent dynamique."
+      ]
+    },
     {
       "versionName": "1.3.8",
       "date": "2026-09-01",

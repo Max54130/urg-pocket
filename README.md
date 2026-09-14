@@ -21,11 +21,11 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 
 | Paramètre | Valeur |
 |-----------|--------|
-| versionName | **1.3.8** |
-| versionCode | **89** |
-| Date | 1er septembre 2026 |
-| Prochaine release minimum | versionCode **≥ 89** / versionName **"1.3.9"** |
-| Dernier publié Play Store | versionCode 88 / versionName 1.3.8 |
+| versionName | **1.3.9** |
+| versionCode | **90** |
+| Date | 14 septembre 2026 |
+| Prochaine release minimum | versionCode **≥ 90** / versionName **"1.4.1"** |
+| Dernier publié Play Store | versionCode 90 / versionName 1.3.9 |
 
 ---
 
@@ -132,7 +132,7 @@ Application HTML single-file conçue pour les urgentistes, SMUR et équipes pré
 ## Architecture technique
 
 - **Single-file HTML** — CSS et JS inline, ~728 KB
-- **Hors ligne** — Service Worker PWA (cache v1.3.8)
+- **Hors ligne** — Service Worker PWA (cache v1.4.0)
 - **Android** — WebView natif (`targetSdk 36`, `minSdk 26`, Edge-to-Edge natif, `WebViewAssetLoader`)
 - **Validation clinique** — Suite de tests automatisée (`tests/clinical_validation.test.js`, 22/22 tests réussis)
 - **Thèmes** — Clair / Sombre / Auto
