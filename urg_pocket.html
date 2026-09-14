@@ -64,7 +64,7 @@
 }
 
 /* === 3. MODE SOMBRE = la charte du site, à l'identique === */
-body.dark{
+:root.dark, body.dark{
   --bg:#0A131E;
   --surface:#13202E;
   --surface2:#18293A;
@@ -701,12 +701,16 @@ body.dark .proto-step{background:color-mix(in srgb, var(--surface2) 55%, transpa
 }
 
 </style><script>/* Prevent flash colorblind */(function(){if(localStorage.getItem('urg-colorblind')==='on'){document.documentElement.classList.add('colorblind');document.body&&document.body.classList.add('colorblind');}})();
-/* Prevent flash of wrong theme */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||(s===null&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})();</script>
+/* Prevent flash of wrong theme (default dark charte v2) */(function(){var s=localStorage.getItem('urg-theme');if(s==='dark'||s===null||(s==='auto'&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})();</script>
 <script>
 /* Service Worker — uniquement sur GitHub Pages */
-if('serviceWorker' in navigator && (location.hostname === 'max54130.github.io' || location.hostname === 'web.urgpocket.app')){
+if('serviceWorker' in navigator && (location.hostname === 'max54130.github.io' || location.hostname === 'web.urgpocket.app' || location.hostname === 'urgpocket.app' || location.hostname === 'www.urgpocket.app')){
   window.addEventListener('load', function(){
-    navigator.serviceWorker.register('/urg-pocket/sw.js', {scope:'/urg-pocket/'})
+    var isSubdir = location.pathname.startsWith('/urg-pocket/');
+    var swPath = isSubdir ? '/urg-pocket/sw.js' : '/sw.js';
+    var swScope = isSubdir ? '/urg-pocket/' : '/';
+    navigator.serviceWorker.register(swPath, {scope: swScope})
+      .then(function(reg){ reg.update(); })
       .catch(function(e){ console.warn('SW non enregistré :', e); });
   });
 }
@@ -4192,7 +4196,7 @@ document.querySelectorAll('.score-result').forEach(el => {
 
   // --- Init all settings ---
   setTimeout(() => {
-    const savedTheme = localStorage.getItem(KEYS.theme) || 'auto';
+    const savedTheme = localStorage.getItem(KEYS.theme) || 'dark';
     applyTheme(savedTheme);
     applyAccent(localStorage.getItem(KEYS.accent) || 'blue');
     applyColorblind(localStorage.getItem(CB_KEY) || 'off');

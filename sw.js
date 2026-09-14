@@ -5,7 +5,7 @@
    caches sont purgés à chaque activation.
    ============================================================ */
 
-const CACHE_NAME = 'urg-pocket-v1.4.0';
+const CACHE_NAME = 'urg-pocket-v1.3.9-b3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -26,7 +26,7 @@ self.addEventListener('install', (event) => {
       });
     })
   );
-  // Ne pas skipWaiting automatiquement : on attend le message côté client
+  self.skipWaiting();
 });
 
 /* ---- Message depuis le client (pour forcer l'activation) ---- */
