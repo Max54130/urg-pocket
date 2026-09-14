@@ -1,4 +1,7 @@
-# Urg Pocket
+<div align="center">
+  <img src="icons/icon-192.png" width="100" height="100" alt="Urg Pocket" style="border-radius:22px;"/>
+  <h1>Urg Pocket</h1>
+</div>
 
 **Aide-mémoire médical pour les équipes SAMU / SMUR et urgences hospitalières**
 

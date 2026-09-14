@@ -9,7 +9,12 @@ const CACHE_NAME = 'urg-pocket-v1.3.8';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap',
+  '/urg_pocket.html',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/favicon.png',
+  '/apple-touch-icon.png'
 ];
 
 /* ---- Install : mise en cache des ressources statiques ---- */
