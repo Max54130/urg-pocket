@@ -1,6 +1,6 @@
 # Urg Pocket — Documentation technique exhaustive
-**Version actuelle : 1.4.0 — versionCode 90**  
-**Dernière mise à jour : 1er septembre 2026**
+**Version actuelle : 1.3.9 — versionCode 90**  
+**Dernière mise à jour : 14 septembre 2026**
 
 ---
 
@@ -26,7 +26,7 @@
 ## 1. Architecture générale
 
 ### Type
-Application **single-file HTML** (`index.html`) — HTML + CSS + JS dans un seul fichier. Aucune dépendance externe requise à l'exécution (hors police Inter via Google Fonts au premier chargement).
+Application **single-file HTML** (`urg_pocket.html` / `index.html`) — HTML + CSS + JS dans un seul fichier. 100% hors-ligne, zéro dépendance externe réseau (polices ArchivoUP et ArchivoUPX embarquées en base64).
 
 ### Cibles
 - **Android** : WebView via Android Studio (`WebViewAssetLoader`, `targetSdk 36`)
